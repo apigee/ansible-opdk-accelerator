@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Create ansible configuration folders
+    file:
+      path: '{{ item }}'
+      state: directory
+    with_items:
+    - ~/.ansible
+    - ~/.apigee
+
