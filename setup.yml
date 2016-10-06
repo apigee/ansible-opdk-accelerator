@@ -13,20 +13,21 @@
       path: '{{ item }}'
       state: directory
     with_items:
-    - '{{ ansible_config }}'
+    - '{{ ansible_config }}/configurations'
+    - '{{ ansible_config }}/inventory'
     - '{{ apigee_config }}'
 
   - name: Git checkout of sample configurations
     ignore_errors: yes
     git:
       repo: https://github.com/carlosfrias/apigee-opdk-ansible-configuration-samples.git
-      dest: "{{ ansible_config }}/configurations"
+      dest: "{{ ansible_config }}/configuration-samples"
 
   - name: Git checkout of sample inventories
     ignore_errors: yes
     git:
       repo: https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples.git
-      dest: "{{ ansible_config }}/inventory"
+      dest: "{{ ansible_config }}/inventory-samples"
 
   - name: Git checkout of sample playbooks
     ignore_errors: yes
