@@ -2,12 +2,34 @@
 - hosts: localhost
   connection: local
 
+  vars:
+    ansible_config: ~/.ansible
+    apigee_config: ~/.apigee
+    workspace: ~/apigee-workspace/opdk-workspace
+
   tasks:
   - name: Create ansible configuration folders
     file:
       path: '{{ item }}'
       state: directory
     with_items:
-    - ~/.ansible
-    - ~/.apigee
+    - '{{ ansible_config }}'
+    - '{{ apigee_config }}'
 
+  - name: Git checkout of sample configurations
+    ignore_errors: yes
+    git:
+      repo: https://github.com/carlosfrias/apigee-opdk-ansible-configuration-samples.git
+      dest: "{{ ansible_config }}/configurations"
+
+  - name: Git checkout of sample inventories
+    ignore_errors: yes
+    git:
+      repo: https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples.git
+      dest: "{{ ansible_config }}/inventory"
+
+  - name: Git checkout of sample playbooks
+    ignore_errors: yes
+    git:
+      repo: https://github.com/carlosfrias/apigee-opdk-playbook-samples.git
+      dest: "{{ workspace }}/apigee-opdk-playbook-samples"
