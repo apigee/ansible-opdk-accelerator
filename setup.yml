@@ -21,7 +21,7 @@
     ignore_errors: yes
     git:
       repo: https://github.com/carlosfrias/apigee-opdk-ansible-configuration-samples.git
-      dest: "{{ ansible_config }}/configuration-template-samples"
+      dest: "{{ ansible_config }}/configurations-template-samples"
 
   - name: Git checkout of sample inventories
     ignore_errors: yes
