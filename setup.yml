@@ -21,13 +21,13 @@
     ignore_errors: yes
     git:
       repo: https://github.com/carlosfrias/apigee-opdk-ansible-configuration-samples.git
-      dest: "{{ ansible_config }}/configuration-samples"
+      dest: "{{ ansible_config }}/configuration-template-samples"
 
   - name: Git checkout of sample inventories
     ignore_errors: yes
     git:
       repo: https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples.git
-      dest: "{{ ansible_config }}/inventory-samples"
+      dest: "{{ ansible_config }}/inventory-template-samples"
 
   - name: Git checkout of sample playbooks
     ignore_errors: yes
