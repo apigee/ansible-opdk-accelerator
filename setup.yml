@@ -34,3 +34,9 @@
     git:
       repo: https://github.com/carlosfrias/apigee-opdk-playbook-samples.git
       dest: "{{ workspace }}/apigee-opdk-playbook-samples"
+
+  - name: Add empty credentials.yml file to .apigee
+    copy:
+      src: credentials.yml
+      dest: '{{ apigee_config }}/credentials.yml'
+      force: no
