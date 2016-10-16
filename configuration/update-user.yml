@@ -1,0 +1,39 @@
+---
+- hosts: '{{ hosts }}'
+  become: yes
+
+  vars:
+    pubkey: '~/.ssh/id_rsa.pub'
+
+  vars_files:
+  - ~/.apigee/credentials.yml
+
+  tasks:
+  - name: Build EC2 facts cache
+    ec2_facts:
+
+  - name: Build setup facts cache
+    setup:
+
+  - name: Copy local public keys to server for user {{ user }}
+    authorized_key:
+      user: '{{ user }}'
+      state: present
+      key: "{{ lookup('file', '{{ pubkey }}') }}"
+
+  - name: Permit root login over SSH
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '(^#)(PermitRootLogin yes)'
+      line: '\2'
+      backrefs: yes
+    notify:
+    - Restart SSH service
+    when: user == 'root'
+
+  handlers:
+  - name: Restart SSH service
+    service:
+      name: sshd
+      state: restarted
