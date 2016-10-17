@@ -1,5 +1,4 @@
 ---
-
 - include: configuration/update-user.yml
   vars:
     hosts: 'control'

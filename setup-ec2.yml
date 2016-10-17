@@ -1,6 +1,5 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: control
 
   vars:
     ansible_config: ~/.ansible
@@ -8,15 +7,14 @@
   tasks:
   - name: Create a template .boto config file
     template: 
-      src: boto.j2
+      src: resources/boto.j2
       dest: ~/.boto
     when: aws_access_key_id is defined and aws_secret_access_key is defined and secure_aws_region is defined 
 
   - name: Create a template ec2.ini config file
-    template: 
-      src: ec2.ini.j2
+    copy:
+      src: resources/ec2.ini
       dest: '{{ ansible_config }}/ec2.ini'
-    when: aws_access_key_id is defined and aws_secret_access_key is defined and secure_aws_region is defined 
 
   - name: Update EC2_INI_PATH
     lineinfile: 
@@ -26,10 +24,10 @@
       line: 'export EC2_INI_PATH={{ ansible_config }}/ec2.ini'
     when: aws_access_key_id is defined and aws_secret_access_key is defined and secure_aws_region is defined 
 
-  - name: Copy ec2.py script
-    copy: 
-      src: ec2.py
-      dest: '{{ ansible_config }}/ec2.py'
+#  - name: Copy ec2.py script
+#    copy:
+#      src: resources/ec2.py
+#      dest: '{{ ansible_config }}/ec2.py'
       
   - name: Update .bashrc with AWS_ACCESS_KEY_ID
     lineinfile: 
