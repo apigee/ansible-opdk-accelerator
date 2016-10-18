@@ -1,10 +1,17 @@
 ---
-- hosts: control
+- hosts: '{{ hosts }}'
 
   vars:
     ansible_config: ~/.ansible
     
   tasks:
+  - name: Install system packages
+    yum:
+      name: '{{ item }}'
+      state: present
+    with_items:
+    - elasticache-auto-discovery
+
   - name: Create a template .boto config file
     template: 
       src: resources/boto.j2
