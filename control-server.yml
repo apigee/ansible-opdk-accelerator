@@ -8,8 +8,10 @@
 
 - hosts: control
   become: yes
+
   vars_files:
   - ~/.apigee/credentials.yml
+
   tasks:
   - name: Install system packages
     yum:
@@ -19,15 +21,18 @@
     - python-devel
     - openssl-devel
     - gcc
+    when: ansible_os_family | lower == 'redhat'
 
   - name: Install pip
     easy_install:
       name: pip
       state: latest
+    when: ansible_os_family | lower == 'redhat'
 
   - name: Install ansible
     pip:
       name: ansible
       state: latest
     register: result
+    when: ansible_os_family | lower == 'redhat'
 

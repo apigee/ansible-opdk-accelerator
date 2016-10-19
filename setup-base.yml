@@ -1,5 +1,5 @@
 ---
-- hosts: control
+- hosts: '{{ hosts }}'
   vars:
     ansible_config: ~/.ansible
     apigee_config: ~/.apigee
@@ -23,6 +23,7 @@
     with_items:
     - git
     - tree
+    when: ansible_os_family | lower == 'redhat'
 
   - name: Git checkout of sample configurations
     ignore_errors: yes
