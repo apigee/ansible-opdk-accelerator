@@ -1,12 +1,12 @@
 ---
 - include: configuration/update-user.yml
   vars:
-    hosts: 'control'
+`    hosts: '{{ hosts }}'
     user: 'root'
   tags:
   - root-user
 
-- hosts: control
+- hosts: '{{ hosts }}'
   become: yes
 
   vars_files:
