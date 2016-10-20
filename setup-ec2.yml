@@ -10,7 +10,7 @@
       name: '{{ item }}'
       state: present
     with_items:
-    - elasticache-auto-discovery
+    - elasticache-auto-discover
     when: ansible_os_family | lower == 'redhat'
 
 
