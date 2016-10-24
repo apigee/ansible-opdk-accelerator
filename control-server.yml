@@ -14,6 +14,7 @@
 
   tasks:
   - name: Install system packages
+    become: yes
     yum:
       name: '{{ item }}'
       state: present
@@ -21,15 +22,18 @@
     - python-devel
     - openssl-devel
     - gcc
+    - vim
     when: ansible_os_family | lower == 'redhat'
 
   - name: Install pip
+    become: yes
     easy_install:
       name: pip
       state: latest
     when: ansible_os_family | lower == 'redhat'
 
   - name: Install ansible
+    become: yes
     pip:
       name: ansible
       state: latest
