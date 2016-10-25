@@ -6,6 +6,8 @@
     git_repo: git@github.com:carlosfrias
     git_dest: /tmp
     repositories: 
+    - apigee-opdk-aws-create
+    - apigee-opdk-aws-terminate
     - apigee-opdk-setup-postgres-standby
     - apigee-opdk-setup-selinux-disable
     - apigee-opdk-setup-status
