@@ -30,7 +30,6 @@
     easy_install:
       name: pip
       state: latest
-    when: ansible_os_family | lower == 'redhat'
 
   - name: Install ansible
     become: yes
@@ -38,5 +37,4 @@
       name: ansible
       state: latest
     register: result
-    when: ansible_os_family | lower == 'redhat'
 
