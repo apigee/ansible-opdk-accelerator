@@ -1,21 +1,12 @@
 ---
-- hosts: '{{ hosts }}'
+- hosts: localhost
+  connection: local
   vars:
     ansible_config: ~/.ansible
     apigee_config: ~/.apigee
     workspace: ~/apigee-workspace/opdk-workspace
 
-#  vars_prompt:
-#    - name: license_path
-#      prompt: "Enter path to license file"
-#      private: no
-
   tasks:
-#  - name: Copy license file in .apigee folder
-#    copy:
-#      src: '{{ license_path }}'
-#      dest: '{{ apigee_config}}/license.txt'
-
   - name: Create ansible configuration folders
     file:
       path: '{{ item }}'
