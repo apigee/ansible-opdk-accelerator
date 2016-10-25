@@ -3,4 +3,4 @@
 
 - include: setup-base.yml
 
-- include: setup-ec2.yml
+#- include: setup-ec2.yml
