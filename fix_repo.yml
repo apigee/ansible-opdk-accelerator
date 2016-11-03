@@ -6,14 +6,19 @@
     git_repo: git@github.com:carlosfrias
     git_dest: /tmp
     repositories: 
-    - apigee-opdk-aws-create
-    - apigee-opdk-aws-terminate
+    - apigee-opdk-setup-default-settings
+    - apigee-opdk-setup-apigee-user
+    - apigee-opdk-setup-bootstrap
+    - apigee-opdk-setup-os-common
+    - apigee-opdk-setup-os-limits
+    - apigee-opdk-setup-os-minimum
+    - apigee-opdk-setup-os-postgres
+    - apigee-opdk-setup-postgres-config
+    - apigee-opdk-setup-postgres-master
     - apigee-opdk-setup-postgres-standby
-    - apigee-opdk-setup-selinux-disable
-    - apigee-opdk-setup-status
-    - apigee-opdk-setup-validate
-    - apigee-opdk-setup-validate-cleanup
-    - apigee-opdk-time-sync
+    - apigee-opdk-setup-silent-installation-config
+    - apigee-opdk-shutdown-iptables
+
   tasks:
   - name: Checkout repositories
     git:
