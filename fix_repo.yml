@@ -6,18 +6,28 @@
     git_repo: git@github.com:carlosfrias
     git_dest: /tmp
     repositories: 
-    - apigee-opdk-setup-default-settings
-    - apigee-opdk-setup-apigee-user
-    - apigee-opdk-setup-bootstrap
-    - apigee-opdk-setup-os-common
-    - apigee-opdk-setup-os-limits
-    - apigee-opdk-setup-os-minimum
-    - apigee-opdk-setup-os-postgres
-    - apigee-opdk-setup-postgres-config
-    - apigee-opdk-setup-postgres-master
-    - apigee-opdk-setup-postgres-standby
-    - apigee-opdk-setup-silent-installation-config
-    - apigee-opdk-shutdown-iptables
+#    - apigee-opdk-setup-default-settings
+#    - apigee-opdk-setup-apigee-user
+#    - apigee-opdk-setup-bootstrap
+#    - apigee-opdk-setup-os-common
+#    - apigee-opdk-setup-os-limits
+#    - apigee-opdk-setup-os-minimum
+#    - apigee-opdk-setup-os-postgres
+#    - apigee-opdk-setup-postgres-config
+#    - apigee-opdk-setup-postgres-master
+#    - apigee-opdk-setup-postgres-standby
+#    - apigee-opdk-setup-silent-installation-config
+#    - apigee-opdk-shutdown-iptables
+#    - apigee-opdk-set-reachable
+#    - apigee-opdk-setup-component
+#    - apigee-opdk-setup-component-installer
+#    - apigee-opdk-setup-openjdk
+#    - apigee-opdk-setup-org
+#    - apigee-opdk-setup-org-config
+    - apigee-opdk-setup-selinux-disable
+    - apigee-opdk-setup-validate
+    - apigee-opdk-setup-validate-cleanup
+    - apigee-opdk-time-sync
 
   tasks:
   - name: Checkout repositories
