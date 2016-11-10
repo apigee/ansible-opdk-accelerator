@@ -42,7 +42,7 @@ Usage: Minimum Setup
 
 Set up your environment for working with Apigee OPDK roles with: 
 
-    ansible-playbook setup.yml
+    ansible-playbook setup-base.yml
 
 Overview: EC2 Managed Setup
 ===========================

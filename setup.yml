@@ -1,5 +1,5 @@
 ---
-- include: control-server.yml
+#- include: control-server.yml
 
 - include: setup-base.yml
 
