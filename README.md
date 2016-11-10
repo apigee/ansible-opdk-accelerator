@@ -22,7 +22,8 @@ This playbook will perform the following activities:
 
 1. Git clone of Ansible configuration file templates
 
-1. Git clone of inventory file templates
+1. Git clone of inventory file templates. [How to setup your inventory 
+file](inventory)
 
 1. Create credentials.yml template file
 
@@ -72,3 +73,4 @@ Variable Name  | Description |
 secure_aws_region | Please provide your ec2_region. |
 aws_access_key_id | Please provide your AWS Access Key ID. |
 aws_secret_access_key | Please provide your AWS Secret Access Key. |
+
