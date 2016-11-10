@@ -22,7 +22,7 @@ This playbook will perform the following activities:
 
 1. Git clone of Ansible configuration file templates
 
-1. Git clone of inventory file templates. [Updating your inventory file]
+1. Git clone of inventory file templates. [Updating your Inventory File]
 (inventory.md)
 
 1. Create credentials.yml template file

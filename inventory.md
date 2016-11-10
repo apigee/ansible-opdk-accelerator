@@ -1,4 +1,4 @@
-Updating your inventory file
+Updating your Inventory File
 ============================
 
 We use a standard Ansible inventory file with some semantic conventions 
