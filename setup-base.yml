@@ -18,7 +18,6 @@
     - '{{ apigee_config }}'
 
   - name: Yum packages
-    become: yes
     yum:
       name: '{{ item }}'
       state: present
