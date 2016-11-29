@@ -46,7 +46,7 @@
   - name: Git checkout of sample playbooks
     ignore_errors: yes
     git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-samples.git
+      repo: https://github.com/carlosfrias/{{ item }}.git
       dest: "{{ workspace }}/{{ item }}"
     with_items: "{{ repos }}"
 
