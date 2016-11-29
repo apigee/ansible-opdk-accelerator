@@ -4,7 +4,7 @@
   vars:
     ansible_config: ~/.ansible
     apigee_config: ~/.apigee
-    workspaces: ~/apigee-workspace/opdk-workspace
+    workspace: ~/apigee-workspace/opdk-workspace
     repos: 
     - apigee-opdk-playbook-installation-single-region
     - apigee-opdk-playbook-samples
