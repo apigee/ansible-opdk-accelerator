@@ -4,8 +4,10 @@
   vars:
     ansible_config: ~/.ansible
     apigee_config: ~/.apigee
-    workspaces: 
-    - ~/apigee-workspace/opdk-workspace
+    workspaces: ~/apigee-workspace/opdk-workspace
+    repos: 
+    - apigee-opdk-playbook-installation-single-region
+    - apigee-opdk-playbook-samples
 
   tasks:
   - name: Create ansible configuration folders
@@ -43,8 +45,8 @@
     ignore_errors: yes
     git:
       repo: https://github.com/carlosfrias/apigee-opdk-playbook-samples.git
-      dest: "{{ item }}/apigee-opdk-playbook-samples"
-    with_items: "{{ workspaces }}"
+      dest: "{{ workspace }}/{{ item }}"
+    with_items: "{{ repos }}"
 
   - name: Add empty credentials.yml file to .apigee
     copy:
