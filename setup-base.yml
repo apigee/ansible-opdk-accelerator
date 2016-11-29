@@ -5,7 +5,7 @@
     ansible_config: ~/.ansible
     apigee_config: ~/.apigee
     workspace: 
-    -  ~/apigee-workspace/opdk-workspace
+    - ~/apigee-workspace/opdk-workspace
 
   tasks:
   - name: Create ansible configuration folders
