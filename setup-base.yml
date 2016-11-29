@@ -4,7 +4,7 @@
   vars:
     ansible_config: ~/.ansible
     apigee_config: ~/.apigee
-    workspace: 
+    workspaces: 
     - ~/apigee-workspace/opdk-workspace
 
   tasks:
