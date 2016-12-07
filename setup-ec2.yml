@@ -1,9 +1,6 @@
 ---
 - hosts: '{{ hosts }}'
 
-  vars:
-    ansible_config: ~/.ansible
-    
   tasks:
   - name: Install system packages
     become: yes
