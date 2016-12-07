@@ -4,11 +4,14 @@
   vars:
     ansible_config: ~/.ansible
     apigee_config: ~/.apigee
-    workspace: ~/apigee-workspace/opdk-workspace
+    playbook_workspace: ~/apigee-workspace/apigee-opdk-playbook-workspace
+    role_workspace: ~/apigee-workspace/apigee-opdk-role-workspace
     repos: 
-    - apigee-opdk-playbook-installation-single-region
-    - apigee-opdk-playbook-maintenance-aws-management
-    - apigee-opdk-playbook-samples
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-single-region }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-aws-management }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-expand-region }
+    - { workspace: '{{ playbook_workspace }}', repo: local-workspace-maintenance }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-samples }
 
   tasks:
   - name: Create ansible configuration folders
@@ -20,6 +23,8 @@
     - '{{ ansible_config }}/inventory'
     - '{{ ansible_config }}/tmp/logs'
     - '{{ apigee_config }}'
+    - '{{ playbook_workspace }}'
+    - '{{ role_workspace }}'
 
   - name: Yum packages
     yum:
@@ -45,8 +50,8 @@
   - name: Git checkout of sample playbooks
     ignore_errors: yes
     git:
-      repo: https://github.com/carlosfrias/{{ item }}.git
-      dest: "{{ workspace }}/{{ item }}"
+      repo: https://github.com/carlosfrias/{{ item.repo }}.git
+      dest: "{{ item.workspace }}/{{ item.repo }}"
     with_items: "{{ repos }}"
 
   - name: Add empty credentials.yml file to .apigee
