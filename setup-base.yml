@@ -6,6 +6,7 @@
     apigee_config: ~/.apigee
     playbook_workspace: ~/apigee-workspace/apigee-opdk-playbook-workspace
     role_workspace: ~/apigee-workspace/apigee-opdk-role-workspace
+    host_repo: git@github.com:carlosfrias
     repos: 
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-single-region }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-aws-management }
@@ -38,19 +39,19 @@
   - name: Git checkout of sample configurations
     ignore_errors: yes
     git:
-      repo: https://github.com/carlosfrias/apigee-opdk-ansible-configuration-samples.git
+      repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
 
   - name: Git checkout of sample inventories
     ignore_errors: yes
     git:
-      repo: https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples.git
+      repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
 
   - name: Git checkout of sample playbooks
     ignore_errors: yes
     git:
-      repo: https://github.com/carlosfrias/{{ item.repo }}.git
+      repo: '{{ host_repo }}/{{ item.repo }}.git'
       dest: "{{ item.workspace }}/{{ item.repo }}"
     with_items: "{{ repos }}"
 
