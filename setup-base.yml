@@ -106,6 +106,7 @@
     - '{{ role_workspace }}'
 
   - name: Yum packages
+    become: yes
     yum:
       name: '{{ item }}'
       state: present
@@ -115,6 +116,7 @@
     when: ansible_pkg_mgr | lower == 'yum'
 
   - name: Debian packages
+    become: yes
     apt:
       name: '{{ item }}'
       state: present
@@ -128,18 +130,21 @@
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
+      accept_hostkey: yes
 
   - name: Git checkout of sample inventories
     ignore_errors: yes
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
+      accept_hostkey: yes
 
   - name: Git checkout of sample playbooks
     ignore_errors: yes
     git:
       repo: '{{ host_repo }}/{{ item.repo }}.git'
       dest: "{{ item.workspace }}/{{ item.repo }}"
+      accept_hostkey: yes
     with_items: "{{ repos }}"
 
   - name: Add empty credentials.yml file to .apigee
