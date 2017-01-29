@@ -27,6 +27,11 @@ This playbook will perform the following activities:
 
 1. Create credentials.yml template file
 
+Inventory Semantics
+===================
+
+[A full description of inventory semantics](inventory.md). 
+
 Scaffold required folders
 =========================
 
