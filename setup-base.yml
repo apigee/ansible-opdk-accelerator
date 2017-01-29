@@ -94,6 +94,7 @@
 
   tasks:
   - name: Create ansible configuration folders
+    become: false
     file:
       path: '{{ item }}'
       state: directory
@@ -124,18 +125,21 @@
     when: ansible_pkg_mgr | lower == 'apt'
 
   - name: Git checkout of sample configurations
+    become: false
     ignore_errors: yes
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
 
   - name: Git checkout of sample inventories
+    become: false
     ignore_errors: yes
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
 
   - name: Git checkout of sample playbooks
+    become: false
     ignore_errors: yes
     git:
       repo: '{{ host_repo }}/{{ item.repo }}.git'
@@ -143,6 +147,7 @@
     with_items: "{{ repos }}"
 
   - name: Add empty credentials.yml file to .apigee
+    become: false
     copy:
       src: resources/credentials.yml
       dest: '{{ apigee_config }}/credentials.yml'
