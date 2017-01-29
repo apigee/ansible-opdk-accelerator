@@ -12,6 +12,7 @@
     when: ansible_os_family | lower == 'redhat'
 
   - name: Update .bashrc with aws_access_key
+    become: no
     lineinfile:
       backup: yes
       dest: ~/.bashrc
@@ -20,6 +21,7 @@
     when: aws_access_key is defined and update_env is defined and update_env
 
   - name: Update .bashrc with aws_secret_key
+    become: no
     lineinfile:
       backup: yes
       dest: ~/.bashrc
@@ -28,6 +30,7 @@
     when: aws_secret_key is defined and update_env is defined and update_env
 
   - name: Update .bashrc with aws_region
+    become: no
     lineinfile:
       backup: yes
       dest: ~/.bashrc
