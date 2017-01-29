@@ -128,7 +128,6 @@
 
   - name: Git checkout of sample configurations
     become: false
-    ignore_errors: yes
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
@@ -136,7 +135,6 @@
 
   - name: Git checkout of sample inventories
     become: false
-    ignore_errors: yes
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
@@ -144,7 +142,6 @@
 
   - name: Git checkout of sample playbooks
     become: false
-    ignore_errors: yes
     git:
       repo: '{{ host_repo }}/{{ item.repo }}.git'
       dest: "{{ item.workspace }}/{{ item.repo }}"
