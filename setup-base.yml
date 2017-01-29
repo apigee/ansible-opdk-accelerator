@@ -91,29 +91,32 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-update-component }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-client }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-server }
-
-  tasks:
-  - name: Create ansible configuration folders
-    become: false
-    file:
-      path: '{{ item }}'
-      state: directory
-    with_items:
+    os_packages:
+    - git
+    - tree
+    pip_packages:
+    - boto
+    configuration_folders:
     - '{{ ansible_config }}/configurations'
     - '{{ ansible_config }}/inventory'
     - '{{ ansible_config }}/tmp/logs'
     - '{{ apigee_config }}'
     - '{{ playbook_workspace }}'
     - '{{ role_workspace }}'
+  tasks:
+  - name: Create ansible configuration folders
+    become: false
+    file:
+      path: '{{ item }}'
+      state: directory
+    with_items: '{{ configuration_folders }}'
 
   - name: Yum packages
     become: yes
     yum:
       name: '{{ item }}'
       state: present
-    with_items:
-    - git
-    - tree
+    with_items: '{{ os_packages }}'
     when: ansible_pkg_mgr | lower == 'yum'
 
   - name: Debian packages
@@ -121,10 +124,15 @@
     apt:
       name: '{{ item }}'
       state: present
-    with_items:
-    - git
-    - tree
+    with_items: '{{ os_packages }}'
     when: ansible_pkg_mgr | lower == 'apt'
+
+  - name: Pip packages
+    become: yes
+    pip:
+      name: '{{ item }}'
+      state: present
+    with_items: '{{ pip_packages }}'
 
   - name: Git checkout of sample configurations
     become: false
