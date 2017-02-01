@@ -2,6 +2,22 @@
 - hosts: '{{ hosts }}'
 
   tasks:
+
+  - name: Validate that aws_secret_key is provided
+    fail:
+      msg: Please indicate the aws_secret_key
+    when: aws_secret_key is not defined
+
+  - name: Validate that aws_access_key is provided
+    fail:
+      msg: Please indicate the aws_access_key
+    when: aws_access_key is not defined
+
+  - name: Validate that aws_region is provided
+    fail:
+      msg: Please indicate the aws_region
+    when: aws_region is not defined
+
   - name: Install system packages
     become: yes
     yum:
@@ -18,7 +34,7 @@
       dest: ~/.bashrc
       state: present
       line: 'export AWS_SECRET_ACCESS_KEY={{ aws_secret_key }}'
-    when: aws_access_key is defined and update_env is defined and update_env
+    when: aws_access_key is defined
 
   - name: Update .bashrc with aws_secret_key
     become: no
@@ -27,7 +43,7 @@
       dest: ~/.bashrc
       state: present
       line: 'export AWS_ACCESS_KEY_ID={{ aws_access_key }}'
-    when: aws_secret_key is defined and update_env is defined and update_env
+    when: aws_secret_key is defined
 
   - name: Update .bashrc with aws_region
     become: no
@@ -36,5 +52,5 @@
       dest: ~/.bashrc
       state: present
       line: 'export AWS_REGION={{ aws_region }}'
-    when: aws_secret_key is defined and update_env is defined and update_env
+    when: aws_secret_key is defined
 
