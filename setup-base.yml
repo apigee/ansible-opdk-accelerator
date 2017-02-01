@@ -28,6 +28,7 @@
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-vagrant }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-validate-port-availability }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-samples }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
     - { workspace: '{{ role_workspace }}', repo: apigee-fetch-files }
     - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-cassandra }
     - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-ldap }
@@ -91,6 +92,7 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-update-component }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-client }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-server }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
     os_packages:
     - git
     - tree
