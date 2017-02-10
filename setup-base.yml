@@ -49,6 +49,7 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-client-update }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-rebuild }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-repair }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-enable-swap }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-restore }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-server-self }
@@ -86,6 +87,8 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-validate }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-validate-cleanup }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-shutdown-iptables }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-iptables-flush }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-iptables-port-block }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-start-components }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-stop-components }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-time-sync }
