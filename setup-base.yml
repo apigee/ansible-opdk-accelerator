@@ -45,6 +45,7 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-aws-terminate }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-create-org-and-user }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-silent-installation-config }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-cassandra-cron-flush }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-backup }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-client-update }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-rebuild }
