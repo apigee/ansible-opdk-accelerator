@@ -8,33 +8,71 @@
 
 - hosts: '{{ hosts }}'
   become: yes
-
   vars_files:
   - ~/.apigee/credentials.yml
-
   tasks:
   - name: Install system packages
-    become: yes
     yum:
       name: '{{ item }}'
       state: present
     with_items:
     - python-devel
     - openssl-devel
+    - libffi-devel
     - gcc
     - vim
+    - git
+    - elasticache-auto-discovery
     when: ansible_os_family | lower == 'redhat'
 
   - name: Install pip
-    become: yes
     easy_install:
       name: pip
       state: latest
 
   - name: Install ansible
-    become: yes
     pip:
-      name: ansible
+      name: '{{ item }}'
       state: latest
     register: result
+    with_items:
+    - pyOpenSSL
+    - ndg-httpsclient
+    - pyasn1
+    - ansible
 
+  - name: Install ansible playbook setup
+    become: no
+    git:
+      repo: https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible.git
+      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
+
+  - name: Configure ansible playbook setup
+    become: no
+    shell: 'ansible-playbook setup.yml'
+    args:
+      chdir: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
+
+  - name: Configure ansible playbook setup - ec2
+    become: no
+    shell: 'ansible-playbook setup-ec2.yml'
+    args:
+      chdir: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
+
+  - name: Setup installation single region
+    become: no
+    git:
+      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git
+      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
+
+  - name: Setup installation two region
+    become: no
+    git:
+      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-two-regions.git
+      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
+
+  - name: Setup installation three region
+    become: no
+    git:
+      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-third-region.git
+      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
