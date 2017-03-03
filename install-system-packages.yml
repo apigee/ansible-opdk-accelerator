@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    os_packages:
+    - git
+    - tree
+    pip_packages:
+    - boto
+  tasks:
+  - name: Yum packages
+    yum:
+      name: '{{ item }}'
+      state: present
+    with_items: '{{ os_packages }}'
+    when: ansible_pkg_mgr | lower == 'yum'
+
+  - name: Debian packages
+    apt:
+      name: '{{ item }}'
+      state: present
+    with_items: '{{ os_packages }}'
+    when: ansible_pkg_mgr | lower == 'apt'
+
+  - name: Pip packages
+    pip:
+      name: '{{ item }}'
+      state: present
+    with_items: '{{ pip_packages }}'

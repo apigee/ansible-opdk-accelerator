@@ -6,12 +6,21 @@ The Apigee OPDK roles follow conventions in the naming of files and where those 
 located. This project sets up those locations and performs the git clone to setup your 
 environment with the templates that should be customized for your use. 
 
+Usage: Minimum Setup
+====================
+
+Set up your a work space at ~/apigee-workspace/for working with Apigee OPDK roles with: 
+
+    ansible-playbook setup-base.yml 
+    
 Requirements
 ============
 
 * Ansible 2.1 or greater
 * Linux control server version 6 or greater
 * Access to github.com
+* Git
+* Pip
 
 Overview: Minimum Setup
 =======================
@@ -26,6 +35,23 @@ This playbook will perform the following activities:
 (inventory.md)
 
 1. Create credentials.yml template file
+
+System Packages
+===============
+
+Required system packages can be installed with
+
+    ansible-playbook install-system-packages.yml -K
+
+Default Workspace Folders
+=========================
+
+The default workspace folders can be modified by updating workspace-folders.yml.
+
+Default Github Repository List
+==============================
+
+The github repositories that you include can be modified by updating workspace-github-repos.yml
 
 Inventory Semantics
 ===================
@@ -52,15 +78,6 @@ Starter templates for playbooks. Use these playbooks as accelerators for your ow
 
 ## ~/apigee-workspace/apigee-odk-role-workspace
 Workspace containing the roles used by the playbooks.
-
-Usage: Minimum Setup
-====================
-
-Set up your a work space at ~/apigee-workspace/for working with Apigee OPDK roles with: 
-
-    ansible-playbook setup-base.yml -K 
-    
-
 
 Overview: EC2 Managed Setup
 ===========================

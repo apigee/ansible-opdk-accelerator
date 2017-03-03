@@ -1,161 +1,30 @@
 ---
 - hosts: localhost
   connection: local
-  vars:
-    ansible_config: ~/.ansible
-    apigee_config: ~/.apigee
-    playbook_workspace: ~/apigee-workspace/apigee-opdk-playbook-workspace
-    role_workspace: ~/apigee-workspace/apigee-opdk-role-workspace
-    host_repo: git@github.com:carlosfrias
-    repos: 
-    - { workspace: '{{ playbook_dir }}/..', repo: local-workspace-maintenance }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-aio }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-baas }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-microgateway }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-mirror }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-monetization }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-single-region }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-third-region }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-two-regions }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-aws-management }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-backup }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra-validation }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-expand-region }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-opdk-upgrade }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-postgres-add-remove }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-qpid-add-remove }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-update-message-processor-properties }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-vagrant }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-validate-port-availability }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-samples }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
-    - { workspace: '{{ role_workspace }}', repo: apigee-fetch-files }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-cassandra }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-ldap }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-mp }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-ms }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-postgres }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-qpid }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-router }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-ui }
-    - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-zookeeper }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-aws-create }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-aws-security-group }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-aws-setup }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-aws-terminate }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-create-org-and-user }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-silent-installation-config }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-cassandra-cron-flush }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-backup }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-client-update }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-rebuild }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-repair }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-enable-swap }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-restore }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-server-self }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-set-reachable }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-analytics-group-add }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-apigee-user }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-bootstrap }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-bootstrap-archive-installer }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-bootstrap-create-archive }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-bootstrap-download-archive }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-bootstrap-rollback }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-bootstrap-upload-archive }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-component }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-component-installer }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-default-settings }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-message-processor-bind-environment }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-openjdk }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-org }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-org-config }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-os-common }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-os-limits }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-os-minimum }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-os-postgres }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgres-config }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgres-master }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgres-standby }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgresql-add }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgresql-remove }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-provisioning }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-qpid-add }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-qpid-remove }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-selinux-disable }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-silent-installation-config }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-status }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-validate }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-validate-cleanup }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-shutdown-iptables }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-iptables-flush }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-iptables-port-block }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-start-components }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-stop-components }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-time-sync }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-update-component }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-client }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-server }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
-    os_packages:
-    - git
-    - tree
-    pip_packages:
-    - boto
-    configuration_folders:
-    - '{{ ansible_config }}/configurations'
-    - '{{ ansible_config }}/inventory'
-    - '{{ ansible_config }}/tmp/logs'
-    - '{{ apigee_config }}'
-    - '{{ playbook_workspace }}'
-    - '{{ role_workspace }}'
+  vars_files:
+  - workspace-github-repos.yml
+  - workspace-folders.yml
+
   tasks:
   - name: Create ansible configuration folders
-    become: false
     file:
       path: '{{ item }}'
       state: directory
     with_items: '{{ configuration_folders }}'
 
-  - name: Yum packages
-    become: yes
-    yum:
-      name: '{{ item }}'
-      state: present
-    with_items: '{{ os_packages }}'
-    when: ansible_pkg_mgr | lower == 'yum'
-
-  - name: Debian packages
-    become: yes
-    apt:
-      name: '{{ item }}'
-      state: present
-    with_items: '{{ os_packages }}'
-    when: ansible_pkg_mgr | lower == 'apt'
-
-  - name: Pip packages
-    become: yes
-    pip:
-      name: '{{ item }}'
-      state: present
-    with_items: '{{ pip_packages }}'
-
   - name: Git checkout of sample configurations
-    become: false
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
       accept_hostkey: yes
 
   - name: Git checkout of sample inventories
-    become: false
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
       accept_hostkey: yes
 
   - name: Git checkout of sample playbooks
-    become: false
     git:
       repo: '{{ host_repo }}/{{ item.repo }}.git'
       dest: "{{ item.workspace }}/{{ item.repo }}"
@@ -163,7 +32,6 @@
     with_items: "{{ repos }}"
 
   - name: Add empty credentials.yml file to .apigee
-    become: false
     copy:
       src: resources/credentials.yml
       dest: '{{ apigee_config }}/credentials.yml'
