@@ -9,7 +9,7 @@ environment with the templates that should be customized for your use.
 Usage: Minimum Setup
 ====================
 
-Set up your a work space at ~/apigee-workspace/for working with Apigee OPDK roles with: 
+Set up your a workspace at ~/apigee-workspace/ if you already have git and pip installed: 
 
     ansible-playbook setup-base.yml 
     
