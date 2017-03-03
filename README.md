@@ -37,18 +37,30 @@ Scaffold required folders
 
 This playbook will create the following folders for you: 
 
-* ~/.ansible/configurations
+## ~/.ansible/configurations
+Sample configuration templates for single and multi-dc planets
 
-* ~/.ansible/inventory
+## ~/.ansible/inventory
+Sample configuration inventory template files that model the required
+ group semantics used.
 
-* ~/.apigee
+## ~/.apigee
+Folder to contain credentials, downloaded logs, configs and maintain the edge license.txt file.
+
+## ~/apigee-workspace/apigee-opdk-playbook-workspace
+Starter templates for playbooks. Use these playbooks as accelerators for your own.
+
+## ~/apigee-workspace/apigee-odk-role-workspace
+Workspace containing the roles used by the playbooks.
 
 Usage: Minimum Setup
 ====================
 
-Set up your environment for working with Apigee OPDK roles with: 
+Set up your a work space at ~/apigee-workspace/for working with Apigee OPDK roles with: 
 
-    ansible-playbook setup-base.yml
+    ansible-playbook setup-base.yml -K 
+    
+
 
 Overview: EC2 Managed Setup
 ===========================
