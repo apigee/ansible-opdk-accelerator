@@ -1,5 +1,9 @@
 ---
-- hosts: '{{ hosts }}'
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars_files:
+  - ~/.apigee/credentials.yml
 
   tasks:
 
@@ -20,6 +24,7 @@
 
   - name: Install system packages
     become: yes
+    ignore_errors: yes
     yum:
       name: '{{ item }}'
       state: present
