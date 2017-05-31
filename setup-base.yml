@@ -51,6 +51,7 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-rebuild }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-repair }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-quorum }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-enable-swap }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-restore }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-server-self }
@@ -141,6 +142,7 @@
     with_items: '{{ pip_packages }}'
 
   - name: Git checkout of sample configurations
+    ignore_errors: yes
     become: false
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
@@ -149,6 +151,7 @@
 
   - name: Git checkout of sample inventories
     become: false
+    ignore_errors: yes
     git:
       repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
@@ -156,6 +159,7 @@
 
   - name: Git checkout of sample playbooks
     become: false
+    ignore_errors: yes
     git:
       repo: '{{ host_repo }}/{{ item.repo }}.git'
       dest: "{{ item.workspace }}/{{ item.repo }}"
