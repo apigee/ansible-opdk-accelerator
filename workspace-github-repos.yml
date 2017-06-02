@@ -51,7 +51,7 @@ repos:
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-repair }
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-change-replication-factor }
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-consistencylevel-modifier }
-  - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-consistencylevel-management-server }
+#  - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-consistencylevel-management-server }
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-shutdown-preparation }
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-deadnode-recovery-complete }
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-deadnode-recovery-config }
