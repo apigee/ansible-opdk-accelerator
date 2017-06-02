@@ -32,8 +32,8 @@
     become: false
     ignore_errors: yes
     git:
-      repo: '{{ host_repo }}/{{ item.repo }}.git'
-      dest: "{{ item.workspace }}/{{ item.repo }}"
+      repo: '{{ host_repo }}/{{ item.repo_name }}.git'
+      dest: "{{ item.workspace }}/{{ item.repo_name }}"
       accept_hostkey: yes
     with_items: "{{ repos }}"
 
