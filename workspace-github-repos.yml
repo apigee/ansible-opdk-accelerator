@@ -1,6 +1,6 @@
 ---
 repos:
-  - { workspace: '{{ playbook_dir }}/..', repo_name: local-workspace-maintenance }
+  - { workspace: '{{ apigee_workspace }}', repo_name: local-workspace-maintenance }
   - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio }
   - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-baas }
   - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-portal }
