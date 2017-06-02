@@ -6,12 +6,21 @@ The Apigee OPDK roles follow conventions in the naming of files and where those 
 located. This project sets up those locations and performs the git clone to setup your 
 environment with the templates that should be customized for your use. 
 
+Usage: Minimum Setup
+====================
+
+Set up your a workspace at ~/apigee-workspace/ if you already have git and pip installed: 
+
+    ansible-playbook setup-base.yml 
+    
 Requirements
 ============
 
 * Ansible 2.1 or greater
 * Linux control server version 6 or greater
 * Access to github.com
+* Git
+* Pip
 
 Overview: Minimum Setup
 =======================
@@ -27,6 +36,23 @@ This playbook will perform the following activities:
 
 1. Create credentials.yml template file
 
+System Packages
+===============
+
+Required system packages can be installed with
+
+    ansible-playbook install-system-packages.yml -K
+
+Default Workspace Folders
+=========================
+
+The default workspace folders can be modified by updating workspace-folders.yml.
+
+Default Github Repository List
+==============================
+
+The github repositories that you include can be modified by updating workspace-github-repos.yml
+
 Inventory Semantics
 ===================
 
@@ -37,18 +63,21 @@ Scaffold required folders
 
 This playbook will create the following folders for you: 
 
-* ~/.ansible/configurations
+## ~/.ansible/configurations
+Sample configuration templates for single and multi-dc planets
 
-* ~/.ansible/inventory
+## ~/.ansible/inventory
+Sample configuration inventory template files that model the required
+ group semantics used.
 
-* ~/.apigee
+## ~/.apigee
+Folder to contain credentials, downloaded logs, configs and maintain the edge license.txt file.
 
-Usage: Minimum Setup
-====================
+## ~/apigee-workspace/apigee-opdk-playbook-workspace
+Starter templates for playbooks. Use these playbooks as accelerators for your own.
 
-Set up your environment for working with Apigee OPDK roles with: 
-
-    ansible-playbook setup-base.yml
+## ~/apigee-workspace/apigee-odk-role-workspace
+Workspace containing the roles used by the playbooks.
 
 Overview: EC2 Managed Setup
 ===========================
