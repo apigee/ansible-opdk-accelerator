@@ -11,6 +11,7 @@
     - { workspace: '{{ playbook_dir }}/..', repo: local-workspace-maintenance }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-aio }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-baas }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-portal }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-microgateway }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-mirror }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-monetization }
@@ -19,16 +20,21 @@
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-two-regions }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-aws-management }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-backup }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra-validation }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra-recover-deadnode }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-expand-region }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-opdk-upgrade }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-opdk-upgrade-mirror }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-postgres-add-remove }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-postgres-update-standby }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-qpid-add-remove }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-update-message-processor-properties }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-vagrant }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-validate-port-availability }
     - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-samples }
-    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
+    - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-cs-edge-upgrade }
     - { workspace: '{{ role_workspace }}', repo: apigee-fetch-files }
     - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-cassandra }
     - { workspace: '{{ role_workspace }}', repo: apigee-internal-port-connectivity-validator-ldap }
@@ -47,13 +53,24 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-silent-installation-config }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-baas-cassandra-cron-flush }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-backup }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cache-update }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-client-update }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-rebuild }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-repair }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-consistency-level-modifier }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-consistency-level-management-server }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-quorum }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-shutdown-preparation }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-deadnode-recover-complete }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-deadnode-recover-config }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cwc-update }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-haproxy-rmp }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-enable-swap }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-portal-os-config }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-portal-silent-installation-config }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-restore }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-server-restart }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-server-self }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-set-reachable }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-analytics-group-add }
@@ -69,6 +86,7 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-default-settings }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-message-processor-bind-environment }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-openjdk }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-java-home }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-org }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-org-config }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-os-common }
@@ -77,6 +95,7 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-os-postgres }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgres-config }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgres-master }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgres-db-upgrade }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgres-standby }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgresql-add }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-postgresql-remove }
@@ -89,6 +108,7 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-validate }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-setup-validate-cleanup }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-shutdown-iptables }
+    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-ssh-user}
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-iptables-flush }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-iptables-port-block }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-start-components }
@@ -97,7 +117,6 @@
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-update-component }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-client }
     - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-server }
-    - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
     os_packages:
     - git
     - tree
