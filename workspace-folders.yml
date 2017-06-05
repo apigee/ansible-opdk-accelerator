@@ -4,7 +4,8 @@ apigee_config: ~/.apigee
 apigee_workspace: ~/apigee-workspace
 playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
 role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
-host_repo: git@github.com:carlosfrias
+#host_repo: git@github.com:carlosfrias
+host_repo: https://github.com/carlosfrias/
 configuration_folders:
 - '{{ ansible_config }}/configurations'
 - '{{ ansible_config }}/inventory'
