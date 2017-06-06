@@ -108,3 +108,4 @@ repos:
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-update-component }
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-validate-external-port-connectivity-client }
   - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-validate-external-port-connectivity-server }
+  - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-target-links }
