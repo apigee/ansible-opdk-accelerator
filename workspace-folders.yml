@@ -1,8 +1,9 @@
 ---
-ansible_config: ~/.ansible
-apigee_config: ~/.apigee
-playbook_workspace: ~/apigee-workspace/apigee-opdk-playbook-workspace
-role_workspace: ~/apigee-workspace/apigee-opdk-role-workspace
+apigee_workspace: /tmp/apigee-workspace
+ansible_config: "{{ apigee_workspace }}/ansible"
+apigee_config: "{{ apigee_workspace }}/apigee"
+playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
+role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
 host_repo: git@github.com:carlosfrias
 configuration_folders:
 - '{{ ansible_config }}/configurations'
