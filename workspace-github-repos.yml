@@ -90,3 +90,5 @@ repos:
 - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-client }
 - { workspace: '{{ role_workspace }}', repo: apigee-opdk-validate-external-port-connectivity-server }
 - { workspace: '{{ role_workspace }}', repo: apigee-opdk-cassandra-change-replication-factor }
+- { workspace: '{{ role_workspace }}', repo: apigee-opdk-temporary-remove-targets }
+- { workspace: '{{ role_workspace }}', repo: apigee-opdk-temporary-restore-targets }
