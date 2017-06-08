@@ -1,5 +1,4 @@
 ---
-host_repo: git@github.com:carlosfrias
 repos:
 - { workspace: '{{ playbook_dir }}/..', repo: local-workspace-maintenance }
 - { workspace: '{{ playbook_workspace }}', repo: apigee-opdk-playbook-installation-aio }
