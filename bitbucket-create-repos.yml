@@ -2,6 +2,9 @@
 - name: Create repositories in BitBucket
   hosts: localhost
   connection: local
+  vars_files:
+  - workspace-github-repos.yml
+  - workspace-folders.yml
   vars:
     bitbucket_api_url: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW/repos"
   tasks:
