@@ -1,0 +1,27 @@
+---
+- name: Create repositories in BitBucket
+  hosts: localhost
+  connection: local
+  vars:
+    bitbucket_api_url: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW/repos"
+  tasks:
+  - name: Create repositories if necessary
+    uri:
+      url: "{{ bitbucket_api_url }}"
+      method: POST
+      user: "{{ vz_windows_user }}"
+      password: "{{ vz_windows_password }}"
+      force_basic_auth: yes
+      status_code: 201,409
+      body_format: json
+      body:
+        name: "{{ item.repo_name }}"
+        scmId: git
+        forkable: True
+    with_items: "{{ repo_names }}"
+
+  - name: Add Onestash as remote repo
+    shell: "git remote add vz ssh://git@onestash.verizon.com:7999/celvw/{{ item.repo_name }}.git"
+    args:
+      chdir: "{{ item.workspace }}"
+    with_items: "{{ repo_names }}"

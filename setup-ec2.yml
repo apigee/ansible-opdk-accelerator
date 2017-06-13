@@ -4,9 +4,7 @@
   gather_facts: no
   vars_files:
   - ~/.apigee/credentials.yml
-
   tasks:
-
   - name: Validate that aws_secret_key is provided
     fail:
       msg: Please indicate the aws_secret_key
