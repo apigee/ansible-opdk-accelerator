@@ -1,0 +1,16 @@
+---
+- name: Add repo permission for user {{ repo_user }}
+  uri:
+    url:
+      url: "{{ bitbucket_api_url }}/{{ item.repo_name }}/permissions/users?{{ repo_user }}&REPO_ADMIN"
+      method: POST
+      user: "{{ vz_windows_user }}"
+      password: "{{ vz_windows_password }}"
+      force_basic_auth: yes
+      status_code: 201,409
+      body_format: json
+      body:
+        name: "{{ item.repo_name }}"
+        scmId: git
+        forkable: True
+  with_items: "{{ repo_names }}"

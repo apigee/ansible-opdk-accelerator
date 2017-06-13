@@ -7,6 +7,8 @@
   - workspace-folders.yml
   vars:
     bitbucket_api_url: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW/repos"
+    repo_users:
+    - friasca
   tasks:
   - name: Create repositories if necessary
     uri:
@@ -25,6 +27,18 @@
 
   - name: Add Onestash as remote repo
     shell: "git remote add vz ssh://git@onestash.verizon.com:7999/celvw/{{ item.repo_name }}.git"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items: "{{ repo_names }}"
+
+  - name: Add permissions to repos
+    include: add_user_permission.yml
+    with_items: "{{ repo_users }}"
+    loop_control:
+      loop_var: repo_user
+
+  - name: Commit updated repos to onestash
+    shell: "git checkout master && git push -u vz master"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
     with_items: "{{ repo_names }}"
