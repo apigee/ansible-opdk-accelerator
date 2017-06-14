@@ -26,10 +26,14 @@
     with_items: "{{ repo_names }}"
 
   - name: Add permissions to repos
-    include: bitbucket-add-user-permission.yml
+    uri:
+      url: "{{ bitbucket_project_api_endpoint }}/permissions/users?name={{ item }}&permission=PROJECT_ADMIN"
+      method: PUT
+      user: "{{ vz_windows_user }}"
+      password: "{{ vz_windows_password }}"
+      force_basic_auth: yes
+      status_code: 204,409
     with_items: "{{ repo_users }}"
-    loop_control:
-      loop_var: repo_user
 
   - name: Add Onestash as remote repo
     ignore_errors: true
