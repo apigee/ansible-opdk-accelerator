@@ -32,7 +32,7 @@
     with_items: "{{ repo_names }}"
 
   - name: Add permissions to repos
-    include: add_user_permission.yml
+    include: bitbucket-add-user-permission.yml
     with_items: "{{ repo_users }}"
     loop_control:
       loop_var: repo_user
