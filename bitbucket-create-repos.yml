@@ -25,17 +25,18 @@
         forkable: True
     with_items: "{{ repo_names }}"
 
-  - name: Add Onestash as remote repo
-    shell: "git remote add vz ssh://git@onestash.verizon.com:7999/celvw/{{ item.repo_name }}.git"
-    args:
-      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
-    with_items: "{{ repo_names }}"
-
   - name: Add permissions to repos
     include: bitbucket-add-user-permission.yml
     with_items: "{{ repo_users }}"
     loop_control:
       loop_var: repo_user
+
+  - name: Add Onestash as remote repo
+    ignore_errors: true
+    shell: "git remote add vz ssh://git@onestash.verizon.com:7999/celvw/{{ item.repo_name }}.git"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items: "{{ repo_names }}"
 
   - name: Commit updated repos to onestash
     shell: "git checkout master && git push -u vz master"
