@@ -1,11 +1,11 @@
 ---
-- name: Create repositories in BitBucket
+- name: Create and update repositories in BitBucket
   hosts: localhost
   connection: local
   vars_files:
   - workspace-github-repos.yml
   - workspace-folders.yml
-  - bitbucket-users.yml
+  - bitbucket-repo-user-list.yml
   vars:
     bitbucket_project_api_endpoint: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW"
     bitbucket_repo_api_endpoint: "{{ bitbucket_project_api_endpoint }}/repos"
