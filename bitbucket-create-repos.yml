@@ -5,10 +5,9 @@
   vars_files:
   - workspace-github-repos.yml
   - workspace-folders.yml
+  - bitbucket-users.yml
   vars:
     bitbucket_api_url: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW/repos"
-    repo_users:
-    - friasca
   tasks:
   - name: Create repositories if necessary
     uri:
