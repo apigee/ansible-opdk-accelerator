@@ -6,4 +6,5 @@
     user: "{{ vz_windows_user }}"
     password: "{{ vz_windows_password }}"
     force_basic_auth: yes
+    status_code: 204
   with_items: "{{ repo_names }}"

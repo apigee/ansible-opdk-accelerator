@@ -17,7 +17,7 @@
       user: "{{ vz_windows_user }}"
       password: "{{ vz_windows_password }}"
       force_basic_auth: yes
-      status_code: 201,409
+      c: 201,409
       body_format: json
       body:
         name: "{{ item.repo_name }}"
