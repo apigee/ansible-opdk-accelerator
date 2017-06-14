@@ -5,14 +5,14 @@
   vars_files:
   - workspace-github-repos.yml
   - workspace-folders.yml
+  - bitbucket-users.yml
   vars:
-    bitbucket_api_url: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW/repos"
-    repo_users:
-    - friasca
+    bitbucket_project_api_endpoint: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW"
+    bitbucket_repo_api_endpoint: "{{ bitbucket_project_api_endpoint }}/repos"
   tasks:
   - name: Create repositories if necessary
     uri:
-      url: "{{ bitbucket_api_url }}"
+      url: "{{ bitbucket_repo_api_endpoint }}"
       method: POST
       user: "{{ vz_windows_user }}"
       password: "{{ vz_windows_password }}"

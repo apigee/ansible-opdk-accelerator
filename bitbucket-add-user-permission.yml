@@ -1,7 +1,7 @@
 ---
 - name: Add repo permission for user {{ repo_user }}
   uri:
-    url: "{{ bitbucket_api_url }}/{{ item.repo_name }}/permissions/users?name={{ repo_user }}&permission=REPO_ADMIN"
+    url: "{{ bitbucket_project_api_endpoint }}/permissions/users?name={{ repo_user }}&permission=REPO_ADMIN"
     method: PUT
     user: "{{ vz_windows_user }}"
     password: "{{ vz_windows_password }}"
