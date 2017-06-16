@@ -92,3 +92,5 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cassandra-change-replication-factor }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-temporary-remove-targets }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-temporary-restore-targets }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-modules }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cache-update }
