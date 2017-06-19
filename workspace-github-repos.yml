@@ -94,3 +94,5 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-temporary-restore-targets }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-modules }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cache-update }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-ansible-configuration-samples }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-ansible-inventory-samples }
