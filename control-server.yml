@@ -1,78 +1,38 @@
 ---
-- include: configuration/update-user.yml
-  vars:
-    hosts: '{{ hosts }}'
-    user: 'root'
-  tags:
-  - root-user
-
 - hosts: '{{ hosts }}'
   become: yes
+  become_flags: "beroot"
   vars_files:
-  - ~/.apigee/credentials.yml
+  - custom-properties.yml
   tasks:
   - name: Install system packages
-    yum:
-      name: '{{ item }}'
+    yum :
+      name: "{{ item }}"
       state: present
     with_items:
-    - python-devel
-    - openssl-devel
-    - libffi-devel
     - gcc
-    - vim
-    - git
-    - elasticache-auto-discovery
-    when: ansible_os_family | lower == 'redhat'
 
-  - name: Install pip
-    easy_install:
-      name: pip
-      state: latest
+  - name: Create pip config folder
+    file:
+      path: "{{ pip_conf_dir }}"
+      state: directory
 
-  - name: Install ansible
+  - name: Configure pip
+    template:
+      src: resources/pip.conf.j2
+      dest: "{{ pip_conf_dir }}/pip.conf"
+    when: pip_conf_dir is defined and pip_index_url is defined
+
+  - name: Install pip packages
     pip:
       name: '{{ item }}'
       state: latest
     register: result
     with_items:
-    - pyOpenSSL
-    - ndg-httpsclient
-    - pyasn1
+    - pip
     - ansible
-
-  - name: Install ansible playbook setup
-    become: no
-    git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible.git
-      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Configure ansible playbook setup
-    become: no
-    shell: 'ansible-playbook setup.yml'
-    args:
-      chdir: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Configure ansible playbook setup - ec2
-    become: no
-    shell: 'ansible-playbook setup-ec2.yml'
-    args:
-      chdir: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Setup installation single region
-    become: no
-    git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git
-      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Setup installation two region
-    become: no
-    git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-two-regions.git
-      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Setup installation three region
-    become: no
-    git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-third-region.git
-      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
+#    - markupsafe
+#    - boto
+#    environment:
+#      http_proxy: "{{ http_proxy }}"
+#      https_proxy: "{{ https_proxy }}"
