@@ -96,5 +96,5 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cache-update }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-ansible-configuration-samples }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-ansible-inventory-samples }
-- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-java-homes }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-java-home }
 
