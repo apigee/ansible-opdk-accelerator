@@ -58,21 +58,3 @@
     shell: 'ansible-playbook setup-ec2.yml'
     args:
       chdir: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Setup installation single region
-    become: no
-    git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git
-      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Setup installation two region
-    become: no
-    git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-two-regions.git
-      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
-
-  - name: Setup installation three region
-    become: no
-    git:
-      repo: https://github.com/carlosfrias/apigee-opdk-playbook-installation-third-region.git
-      dest: ~/apigee-workspace/apigee-opdk-playbook-setup-ansible
