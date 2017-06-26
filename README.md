@@ -6,6 +6,13 @@ The Apigee OPDK roles follow conventions in the naming of files and where those 
 located. This project sets up those locations and performs the git clone to setup your 
 environment with the templates that should be customized for your use. 
 
+Installing Ansible
+==================
+We use provide a requirements file for pip to install Ansible and its dependencies. This requires the
+installation of pip on your system. Once pip is installed then the provided requirements file will
+install
+
+
 Usage: Minimum Setup
 ====================
 
