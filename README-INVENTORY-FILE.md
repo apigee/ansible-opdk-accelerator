@@ -96,3 +96,28 @@ Cassandra/Zookeeper nodes then we can configure a node as a zookeeper observer a
 
     [dc-1-ds]
     dc-1-n[1:3]
+
+# Cassandra Rackaware Configuration
+Cassandra nodes can be configured to be rackaware. This leverages the Cassandra built in functionality
+for managing itself when the Cassandra ring is distributed across several availability zones. We would
+set the variable rack for each member of the Cassandra ring with the designated location we want for
+that node in the following way:
+
+    rack=1,1
+
+Please note that this follows the Cassandra rack aware configuration syntax:
+
+    rack=<Availability Zone>,<Position on Rack>
+
+## Example Cassandra Rackaware Configuration
+This is a sample of a configuration of Cassandra as a node that is rackaware. Assuming that the first three nodes listed are
+Cassandra/Zookeeper nodes then we can configure a node as rackaware as follows:
+
+    [planet]
+    dc-1-n1 rack=1,1
+    dc-1-n2 rack=2,1
+    dc-1-n3 rack=3,1
+
+    [dc-1-ds]
+    dc-1-n[1:3]
+
