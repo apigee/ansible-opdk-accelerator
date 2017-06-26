@@ -16,8 +16,8 @@ install Ansible and the necessary dependencies on your system.
 Please see the provided [Cygwin readme](CYGWIN.md) for instructions on installing Ansible on Windows.
 
 # Pip Usage
-
-    pip install -r ansible-pip-requirements.txt
+* Upgrade your pip installation: `pip install -U pip`
+* Install ansible and dependencies using the requirements file: `pip install -r ansible-pip-requirements.txt`
 
 Usage: Minimum Setup
 ====================
