@@ -1,0 +1,20 @@
+---
+opdk_version: 4.17.01
+# pip_index_url: https://pip.artifactory-server.com/artifactory/api/pypi/Pypi-remote/simple
+# pip_conf_dir: ~/.pip
+
+# Used with restarting servers
+# start_check_delay: 0
+# server_restart_timeout: 1
+
+# Used for creating softlinks from apigee system folders to customer hard targets
+# target_links:
+#- { src: '/apps/opt/apigee', dest: '/opt/apigee' }
+
+# Used for proxy settings when required
+# http_proxy: http://proxy.com:80
+# https_proxy: https://proxy.com:80
+
+# Used to temporarily move and restore system files in order to enable installation of components.
+# temporary_move:
+# - { original_folder: "/etc/yum.repos.d", file_name: "redhat.repo", temporary_holding_folder: "/tmp/yum.repos.d" }
