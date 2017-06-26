@@ -35,12 +35,8 @@ are listed as follows:
 This playbook will perform the following activities:
 
 1. Scaffold required folders
-
 1. Git clone of Ansible configuration file templates
-
-1. Git clone of inventory file templates. [Updating your Inventory File]
-(inventory.md)
-
+1. Git clone of inventory file templates.
 1. Create credentials.yml template file
 
 # System Packages
