@@ -35,7 +35,7 @@ listed in the template inventory file below.
 A region represents a subset of a planet. The semantics used for
 installation roles are congruent with a region. Regions have been
 referenced as data centers. The internal configurations of OPDK and BaaS 
-support many regions such as dc-1, dc-2, ... dc-n. Following this
+support many regions such as dc-1, dc-2 ... dc-n. Following this
 historical precedent we also define the regions with their corresponding 
 installation role to provide a semantic model as follows:
  
