@@ -12,12 +12,12 @@ We use provide a [pip requirements file](ansible-pip-requirements.txt) for pip t
 installation of pip on your system. Once pip is installed then the provided requirements file will
 install Ansible and the necessary dependencies on your system.
 
-## Pip Usage
+# Installing Ansible on Windows
+Please see the provided [Cygwin readme](CYGWIN.md) for instructions on installing Ansible on Windows.
+
+# Pip Usage
 
     pip install -r ansible-pip-requirements.txt
-
-# Installing Ansible on Windows
-Please see the provided [cygwin readme](CYGWIN.md) for instructions on installing Ansible on Windows.
 
 Usage: Minimum Setup
 ====================
