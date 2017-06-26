@@ -8,9 +8,13 @@ environment with the templates that should be customized for your use.
 
 Installing Ansible
 ==================
-We use provide a requirements file for pip to install Ansible and its dependencies. This requires the
+We use provide a [pip requirements file](ansible-pip-requirements.txt) for pip to install Ansible and its dependencies. This requires the
 installation of pip on your system. Once pip is installed then the provided requirements file will
-install
+install Ansible and the necessary dependencies on your system.
+
+## Pip Usage
+
+    pip install -r ansible-pip-requirements.txt
 
 
 Usage: Minimum Setup
