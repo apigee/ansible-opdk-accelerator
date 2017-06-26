@@ -16,6 +16,8 @@ install Ansible and the necessary dependencies on your system.
 
     pip install -r ansible-pip-requirements.txt
 
+# Installing Ansible on Windows
+Please see the provided [cygwin readme](CYGWIN.md) for instructions on installing Ansible on Windows.
 
 Usage: Minimum Setup
 ====================
