@@ -60,6 +60,8 @@ Sample configuration inventory template files that model the required
 
 ## ~/.apigee
 Folder to contain credentials, downloaded logs, configs and maintain the edge license.txt file.
+The [setup-apigee-license.yml](setup-apigee-license.yml) playbook will take a specified license file and
+install it in the correct location for your this workspace.
 
 ## ~/apigee-workspace/apigee-opdk-playbook-workspace
 Starter templates for playbooks. Use these playbooks as accelerators for your own.
