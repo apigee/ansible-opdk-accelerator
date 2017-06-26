@@ -22,11 +22,14 @@ Set up your a workspace at ~/apigee-workspace/ if you already have git and pip i
     ansible-playbook setup-base.yml 
     
 # Requirements
-* Ansible 2.1 or greater
-* Linux control server version 6 or greater
-* Access to github.com
-* Git
+Requirements are declared in the [pip requirements file](ansible-pip-requirements.txt). The requirements
+are listed as follows:
+* Ansible 2.3.x
+* Access to [CELVW Project on Stash](https://onestash.verizon.com/projects/CELVW)
 * Pip
+* Boto, if using Ansible to manage EC2
+* Markupsafe
+* Paramiko
 
 # Overview: Minimum Setup
 This playbook will perform the following activities:
