@@ -77,10 +77,22 @@ installation role to provide a semantic model as follows:
     [dc-1-ui]
     # Listing of the UI node in dc-1
     
-## Zookeeper Observer Nodes
+# Zookeeper Observer Nodes
 Zookeeper nodes can be designated as an observer node. Ansible inventory 
 files allow variables to be assigned to servers. These roles will update 
 the silent installation configuration file correctly for any zookeeper 
 node that is assigned the variable zk_observer.
   
      zk_observer=true
+
+## Example Zookeeper Observer Node Configuration
+This is a sample of a configuration of a Zookeeper node as an observer. Assuming that the first three nodes listed are
+Cassandra/Zookeeper nodes then we can configure a node as a zookeeper observer as follows:
+
+    [planet]
+    dc-1-n1
+    dc-1-n2
+    dc-1-n3 zk_observer=true
+
+    [dc-1-ds]
+    dc-1-n[1:3]
