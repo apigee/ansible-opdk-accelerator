@@ -3,7 +3,6 @@
   connection: local
   vars_files:
   - workspace-folders.yml
-
   vars_prompt:
     - name: license_path
       prompt: "Enter path to license file"

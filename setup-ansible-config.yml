@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+  - workspace-folders.yml
+  vars_prompt:
+    - name: vz_id
+      prompt: "Enter your Verizon ID"
+      private: no
+  tasks:
+  - name: Create ansible.cfg file from template
+    template:
+      src: resources/ansible.cfg.j2
+      dest: "{{ apigee_workspace }}/apigee-opdk-playbook-setup-ansible/ansible.cfg"
+      backup: yes
+      force: yes
+

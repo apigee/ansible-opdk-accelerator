@@ -49,7 +49,7 @@ The github repositories that you include can be modified by updating workspace-g
 A description of the how the [Inventory File](README-INVENTORY-FILE.md) should be setup.
 
 # Scaffold required folders
-This playbook will create the following folders for you:
+This playbook will create the correct folders for you. Folder location can be modified by updating the `workspace-folders.yml`.
 
 ## ~/.ansible/configurations
 Sample configuration templates for single and multi-dc planets
@@ -68,3 +68,9 @@ Starter templates for playbooks. Use these playbooks as accelerators for your ow
 
 ## ~/apigee-workspace/apigee-odk-role-workspace
 Workspace containing the roles used by the playbooks.
+
+# Configure Ansible
+Ansible can be configured to make use of the above folders by providing an Ansible configuration file.
+The Ansible configuration file can be generated in using the `setup-ansible-config.yml` playbook.
+
+    ansible-playbook setup-ansible-config.yml

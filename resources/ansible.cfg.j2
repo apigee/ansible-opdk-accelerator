@@ -1,15 +1,15 @@
 [defaults]
-hostfile = ~/.ansible/inventory/vz-edge-1701-aio
-fact_caching_connection = ~/.ansible/tmp/cache/vz-edge-1701-aio
-log_path = ~/.ansible/tmp/logs/vz-edge-1701-aio.log
+hostfile = {{ ansible_config }}/inventory/vz-edge-1701-aio
+fact_caching_connection = {{ ansible_config }}/tmp/cache/vz-edge-1701-aio
+log_path = {{ ansible_config }}/tmp/logs/vz-edge-1701-aio.log
 
-remote_user = friasca
+remote_user = {{ vz_id }}
 private_key_file = ~/.ssh/id_rsa
 become_method = pbrun
 
-roles_path = ~/.ansible/roles
-local_tmp = ~/.ansible/tmp
-library = ~/.ansible/library/
+roles_path = {{ ansible_config }}/roles
+local_tmp = {{ ansible_config }}/tmp
+library = {{ ansible_config }}/library/
 
 host_key_checking = false
 forks = 10
