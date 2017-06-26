@@ -49,7 +49,7 @@ The github repositories that you include can be modified by updating workspace-g
 A description of the how the [Inventory File](README-INVENTORY-FILE.md) should be setup.
 
 # Scaffold required folders
-This playbook will create the correct folders for you. Folder location can be modified by updating the `workspace-folders.yml`.
+This playbook will create the correct folders for you. Folder location can be modified by updating the [workspace-folders.yml](workspace-folders.yml).
 
 ## ~/.ansible/configurations
 Sample configuration templates for single and multi-dc planets
