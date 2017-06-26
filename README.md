@@ -46,7 +46,7 @@ The default workspace folders can be modified by updating workspace-folders.yml.
 The github repositories that you include can be modified by updating workspace-github-repos.yml
 
 # Inventory File Semantics
-A description of the how the [inventory file](inventory.md) should be setup.
+A description of the how the [Inventory File](README-INVENTORY-FILE.md) should be setup.
 
 # Scaffold required folders
 This playbook will create the following folders for you:

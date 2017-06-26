@@ -15,9 +15,9 @@ conventions for inventory group names.
 
 ## Inventory File Conventions
 These roles depend on use of conventions in the inventory file. 
-Specifically inventory file conventions are ansible groups names that 
+Specifically inventory file conventions are ansible group names that
 are defined around Apigee semantics. These ansible groups are 
-semantically linked to the documentation. The ansible groups used as 
+semantically linked to the Apigee documentation. The ansible groups used as
 conventions correspond to the installation roles and server 
 categorizations called out in the Apigee Private Cloud Installation and 
 Configuration Guide. It has been useful to use planet and region 
