@@ -19,6 +19,7 @@ Download and install [Cygwin](http://cygwin.com/install.html), with at least the
 * openssh
 * openssl
 * openssl-devel
+* wget
 
 # Working Behind a Proxy
 If you are working behind a proxy (as is the case in many corporate networks), edit the .bash_profile used by Cygwin either using vim (open Cygwin and enter vim .bash_profile), or with whatever editor you'd like, and add in lines like the following:

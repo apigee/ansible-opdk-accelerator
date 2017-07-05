@@ -12,7 +12,24 @@ We use provide a [pip requirements file](ansible-pip-requirements.txt) for pip t
 installation of pip on your system. Once pip is installed then the provided requirements file will
 install Ansible and the necessary dependencies on your system.
 
+# Pip Configuration
+It may be necessary to configure pip to work with a repository that is internally managed. This can be accomplished by
+updating the pip.conf file with the url of your managed repository. To accomplish this please follow these steps:
+
+    mkdir ~/.pip
+    touch ~/.pip/pip.conf
+    vi ~/.pip/pip.conf
+
+    [global]
+    index-url = {{ pip_index_url }}
+
+## Managed Pip Url
+Please note that the url can be found in the your ~/apigee-workspace/apigee/custom-properties.yml. Please replace as follows:
+
+    {{ pip_index_url }} >> "https://oneartifactory.verizon.com/artifactory/api/pypi/Pypi-remote/simple"
+
 # Pip Usage
+
 * Upgrade your pip installation: `pip install -U pip`
 * Install ansible and dependencies using the requirements file: `pip install -r ansible-pip-requirements.txt`
 
