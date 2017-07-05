@@ -20,6 +20,10 @@ Download and install [Cygwin](http://cygwin.com/install.html), with at least the
 * openssl
 * openssl-devel
 * wget
+* gcc-core
+* gcc-g++
+* python2-devel
+* ptyhon2-cython
 
 # Working Behind a Proxy
 If you are working behind a proxy (as is the case in many corporate networks), edit the .bash_profile used by Cygwin either using vim (open Cygwin and enter vim .bash_profile), or with whatever editor you'd like, and add in lines like the following:
@@ -44,6 +48,12 @@ Untar both downloads:
     tar -xvf PyYAML-3.10.tar.gz && tar -xvf Jinja2-2.6.tar.gz
 
 Change directory into each of the expanded folders and run `python setup.py install` to install each package.
+
+# Configuring Pip on Cygwin
+Pip does not work by default on Cygwin. Please follow these steps to ensure pip is configured correctly:
+
+    python -m ensure pip
+
 
 # Reference
 [Running Ansible within Windows](https://www.jeffgeerling.com/blog/running-ansible-within-windows)
