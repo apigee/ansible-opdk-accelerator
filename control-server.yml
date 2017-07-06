@@ -1,7 +1,6 @@
 ---
 - hosts: '{{ hosts }}'
   become: yes
-  become_flags: "beroot"
   vars_files:
   - custom-properties.yml
   tasks:
