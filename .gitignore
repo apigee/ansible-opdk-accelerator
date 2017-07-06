@@ -110,3 +110,5 @@ out
 .idea
 *iml
 *retry
+*.db
+*~

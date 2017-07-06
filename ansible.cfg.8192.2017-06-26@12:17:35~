@@ -1,0 +1,5 @@
+[defaults]
+retry_files_enabled = False
+# executable = /bin/bash
+ansible_shell_type=sh
+module_name = shell
