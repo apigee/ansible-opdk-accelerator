@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   vars_files:
-  - workspace-github-repos.yml
+  - bitbucket-workspace-github-repos.yml
   - bitbucket-workspace-folders.yml
 
   tasks:
