@@ -42,6 +42,9 @@
   - name: Pull from Onestash if the repo is already there
     ignore_errors: yes
     shell: "git pull vz master"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items: "{{ repo_names }}"
 
   - name: Commit updated repos to onestash
     shell: "git checkout master && git push -u vz master"
