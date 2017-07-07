@@ -3,7 +3,7 @@
   connection: local
   vars_files:
   - workspace-github-repos.yml
-  - workspace-folders.yml
+  - bitbucket-workspace-folders.yml
 
   tasks:
   - name: Create ansible configuration folders

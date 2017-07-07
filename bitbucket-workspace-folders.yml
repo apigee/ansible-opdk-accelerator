@@ -6,6 +6,8 @@ playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
 role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
 #host_repo: https://github.com/carlosfrias
 host_repo: ssh://git@onestash.verizon.com:7999/celvw
+bitbucket_project_api_endpoint: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW"
+bitbucket_repo_api_endpoint: "{{ bitbucket_project_api_endpoint }}/repos"
 configuration_folders:
 - '{{ ansible_config }}/configurations'
 - '{{ ansible_config }}/inventory'

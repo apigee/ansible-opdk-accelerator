@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   vars_files:
-  - workspace-folders.yml
+  - bitbucket-workspace-folders.yml
   vars_prompt:
     - name: vz_id
       prompt: "Enter your Verizon ID"
