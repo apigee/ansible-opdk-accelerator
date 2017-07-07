@@ -5,7 +5,7 @@ located. This project sets up those locations and performs the git clone to setu
 environment with the templates that should be customized for your use. 
 
 # Installing Ansible on Windows
-Please see the provided [Cygwin readme](CYGWIN.md) for instructions on installing Ansible on Windows.
+Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.
 
 # Installing Ansible
 We use provide a [pip requirements file](ansible-pip-requirements.txt) for pip to install Ansible and its dependencies. This requires the
