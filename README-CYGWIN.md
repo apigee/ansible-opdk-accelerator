@@ -69,7 +69,7 @@ Download and install separately PyYAML and Jinja2 separately, as they're not ava
 ### Restart Cygwin and verify that `ansible --version` displays the ansible version.
 
 # Configuring Pip on Cygwin
-Pip does not work by default on Cygwin. Please follow these steps to ensure pip is configured correctly:
+Pip does not work by default on Cygwin. Please follow these steps to enable pip:
 
     python -m ensure pip
 
