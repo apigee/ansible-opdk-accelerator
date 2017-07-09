@@ -9,10 +9,10 @@
   tasks:
   - name: Create repositories if necessary
     uri:
-      url: "{{ bitbucket_repo_api_endpoint }}"
+      url: "{{ repository_secure_endpoint_https }}"
       method: POST
-      user: "{{ vz_windows_user }}"
-      password: "{{ vz_windows_password }}"
+      user: "{{ username }}"
+      password: "{{ password }}"
       force_basic_auth: yes
       status_code: 201,409
       body_format: json
@@ -24,30 +24,30 @@
 
   - name: Add permissions to repos
     uri:
-      url: "{{ bitbucket_project_api_endpoint }}/permissions/users?name={{ item }}&permission=PROJECT_ADMIN"
+      url: "{{ repository_secure_endpoint_https }}/permissions/users?name={{ item }}&permission=PROJECT_ADMIN"
       method: PUT
-      user: "{{ vz_windows_user }}"
-      password: "{{ vz_windows_password }}"
+      user: "{{ username }}"
+      password: "{{ password }}"
       force_basic_auth: yes
       status_code: 204,409
     with_items: "{{ repo_users }}"
 
   - name: Add Onestash as remote repo
     ignore_errors: true
-    shell: "git remote add vz ssh://git@onestash.verizon.com:7999/celvw/{{ item.repo_name }}.git"
+    shell: "git remote add target {{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
     with_items: "{{ repo_names }}"
 
   - name: Pull from Onestash if the repo is already there
     ignore_errors: yes
-    shell: "git pull vz master"
+    shell: "git pull target master"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
     with_items: "{{ repo_names }}"
 
   - name: Commit updated repos to onestash
-    shell: "git checkout master && git push -u vz master"
+    shell: "git checkout master && git push -u target master"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
     with_items: "{{ repo_names }}"

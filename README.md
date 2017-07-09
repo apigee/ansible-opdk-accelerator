@@ -26,7 +26,7 @@ updating the pip.conf file with the url of your managed repository. To accomplis
 ## Managed Pip Url
 Please note that the url can be found in the your ~/apigee-workspace/apigee/custom-properties.yml. Please replace as follows:
 
-    {{ pip_index_url }} >> "https://oneartifactory.verizon.com/artifactory/api/pypi/Pypi-remote/simple"
+    {{ pip_index_url }} >> "https://private.repository.com/api/pypi/Pypi-remote/simple"
 
 # Pip Usage
 
@@ -42,7 +42,7 @@ Set up your a workspace at ~/apigee-workspace/ if you already have git and pip i
 Requirements are declared in the [pip requirements file](ansible-pip-requirements.txt). The requirements
 are listed as follows:
 * Ansible 2.3.x
-* Access to [CELVW Project on Stash](https://onestash.verizon.com/projects/CELVW)
+* Access to [CELVW Project on Stash](https://private.repository.com/projects/CELVW)
 * Pip
 * Boto, if using Ansible to manage EC2
 * Markupsafe

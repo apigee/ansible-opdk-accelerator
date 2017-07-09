@@ -2,14 +2,14 @@
 - name: Create repositories in BitBucket
   hosts: localhost
   connection: local
-  vars:
-    onestash_url: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW/repos"
+  vars_files:
+  - bitbucket-workspace-folders.yml
   tasks:
   - name: Remove repo
     uri:
-      url: "{{ onestash_url }}/delete_test_repo"
+      url: "{{ repository_api_endpoint }}/repos/delete_test_repo"
       method: DELETE
-      user: "{{ vz_windows_user }}"
-      password: "{{ vz_windows_password }}"
+      user: "{{ username }}"
+      password: "{{ password }}"
       status_code: 202,204
       force_basic_auth: yes

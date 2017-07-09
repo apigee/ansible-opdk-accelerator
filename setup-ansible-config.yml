@@ -4,8 +4,8 @@
   vars_files:
   - bitbucket-workspace-folders.yml
   vars_prompt:
-    - name: vz_id
-      prompt: "Enter your Verizon ID"
+    - name: username
+      prompt: "Enter your username ID"
       private: no
   tasks:
   - name: Create ansible.cfg file from template

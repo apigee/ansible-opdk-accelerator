@@ -3,7 +3,7 @@ hostfile = {{ ansible_config }}/inventory/vz-edge-1701-aio
 fact_caching_connection = {{ ansible_config }}/tmp/cache/vz-edge-1701-aio
 log_path = {{ ansible_config }}/tmp/logs/vz-edge-1701-aio.log
 
-remote_user = {{ vz_id }}
+remote_user = {{ username }}
 private_key_file = ~/.ssh/id_rsa
 become_method = pbrun
 
