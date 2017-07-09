@@ -42,7 +42,6 @@ Set up your a workspace at ~/apigee-workspace/ if you already have git and pip i
 Requirements are declared in the [pip requirements file](ansible-pip-requirements.txt). The requirements
 are listed as follows:
 * Ansible 2.3.x
-* Access to [CELVW Project on Stash](https://private.repository.com/projects/CELVW) 
 * Pip
 * Boto, if using Ansible to manage EC2
 * Markupsafe
