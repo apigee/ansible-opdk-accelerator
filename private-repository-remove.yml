@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars_files:
-  - bitbucket-workspace-folders.yml
+  - repository-custom-properties.yml
   tasks:
   - name: Remove repo
     uri:

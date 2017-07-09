@@ -3,9 +3,9 @@
   hosts: localhost
   connection: local
   vars_files:
-  - bitbucket-workspace-github-repos.yml
-  - bitbucket-workspace-folders.yml
-  - bitbucket-repo-user-list.yml
+  - repository-mapping-name-folder.yml
+  - repository-custom-properties.yml
+  - private-repository-user-list.yml
   tasks:
   - name: Create repositories if necessary
     uri:

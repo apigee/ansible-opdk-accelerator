@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   vars_files:
-  - bitbucket-workspace-folders.yml
+  - repository-custom-properties.yml
   vars_prompt:
     - name: username
       prompt: "Enter your username ID"

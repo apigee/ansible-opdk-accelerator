@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   vars_files:
-  - bitbucket-workspace-folders.yml
+  - repository-custom-properties.yml
   vars_prompt:
     - name: license_path
       prompt: "Enter path to license file"
