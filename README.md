@@ -26,7 +26,7 @@ updating the pip.conf file with the url of your managed repository. To accomplis
 ## Managed Pip Url
 Please note that the url can be found in the your ~/apigee-workspace/apigee/custom-properties.yml. Please replace as follows:
 
-    {{ pip_index_url }} >> "https://oneartifactory.verizon.com/artifactory/api/pypi/Pypi-remote/simple"
+    {{ pip_index_url }} >> "https://private.repository.com/api/pypi/Pypi-remote/simple"
 
 # Pip Usage
 
