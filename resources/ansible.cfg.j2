@@ -3,9 +3,8 @@ hostfile = {{ ansible_config }}/inventory/
 fact_caching_connection = {{ ansible_config }}/tmp/cache/
 log_path = {{ ansible_config }}/tmp/logs/
 
-remote_user = {{ username }}
+# remote_user = {{ username }}
 private_key_file = ~/.ssh/id_rsa
-become_method = pbrun
 
 roles_path = {{ ansible_config }}/roles
 local_tmp = {{ ansible_config }}/tmp
