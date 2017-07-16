@@ -5,7 +5,7 @@
   - repository-custom-properties.yml
   vars_prompt:
     - name: username
-      prompt: "Enter your username ID"
+      prompt: "Enter your the username for ansible"
       private: no
   tasks:
   - name: Create ansible.cfg file from template

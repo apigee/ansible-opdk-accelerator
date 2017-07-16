@@ -1,4 +1,6 @@
 ---
+- include: setup-ansible-config.yml
+
 #- include: control-server.yml
 
 - include: setup-base.yml
