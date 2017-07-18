@@ -4,7 +4,7 @@ apigee_config: ~/.apigee
 apigee_workspace: ~/apigee-workspace
 playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
 role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
-repository_secure_endpoint_https: https://github.com/carlosfrias
+repository_secure_endpoint_https: "https://onestash.verizon.com/rest/api/1.0/projects/CELVW"
 repository_secure_endpoint_ssh: git@github.com/carlosfrias
 configuration_folders:
 - '{{ ansible_config }}/configurations'
