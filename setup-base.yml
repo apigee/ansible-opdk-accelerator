@@ -16,7 +16,7 @@
     become: false
     ignore_errors: yes
     git:
-      repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
+      repo: '{{ repository_secure_endpoint_https }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
       accept_hostkey: yes
 
@@ -24,7 +24,7 @@
     become: false
     ignore_errors: yes
     git:
-      repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
+      repo: '{{ repository_secure_endpoint_https }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
       accept_hostkey: yes
 
@@ -32,7 +32,7 @@
     become: false
     ignore_errors: yes
     git:
-      repo: '{{ host_repo }}/{{ item.repo_name }}.git'
+      repo: '{{ repository_secure_endpoint_https }}/{{ item.repo_name }}.git'
       dest: "{{ item.workspace }}/{{ item.repo_name }}"
       accept_hostkey: yes
     with_items: "{{ repo_names }}"
