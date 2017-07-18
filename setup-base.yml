@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   vars_files:
-  - bitbucket-workspace-github-repos.yml
+  - repository-mapping-name-folder.yml
   - repository-custom-properties.yml
 
   tasks:
