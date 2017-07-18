@@ -102,4 +102,5 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-server-restart }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cwc-update }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-postgres-db-upgrade }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cyberark-host-registration }
 
