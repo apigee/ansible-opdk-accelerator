@@ -112,3 +112,4 @@ out
 *retry
 *.db
 *~
+ansible.cfg
