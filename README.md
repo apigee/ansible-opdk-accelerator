@@ -2,7 +2,18 @@
 The purpose of this project is to help configure Ansible for the use of [Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
 The Apigee OPDK roles follow conventions in the naming of files and where those files are 
 located. This project sets up those locations and performs the git clone to setup your 
-environment with the templates that should be customized for your use. 
+environment with the templates that should be customized for your use.
+
+# Quick Installation
+Assuming ansible is already installed then you can setup with the following steps:
+
+* `mkdir ~/apigee-workspace`
+* `cd ~/apigee-workspace`
+* `git clone https://onestash.verizon.com/projects/CELVW/repos/apigee-opdk-playbook-setup-ansible/browse`
+* `cd apigee-opdk-playbook-setup-ansible`
+* `ansible-playbook setup.yml`
+* Update the credentials.yml file as indicated below.
+* Add the license.txt file to `~/.apigee/license.txt`
 
 # Installing Ansible on Windows
 Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.
