@@ -2,7 +2,7 @@
 Credentials are stored at `~/.apigee/credentials.yml`. A template file is created that includes
 commented out attributes as placeholders for values that could be needed.
 
-# Credentials Location
+## Credentials Location
 The `credentials.yml` file has been placed in your user home which is typically referenced by
 `~/.apigee`. This location has been selected because of the security it affords the user. Please
 note that the scripts expect to find the `credentials.yml` file in the folder `~/.apigee`.
