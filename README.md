@@ -85,6 +85,9 @@ Starter templates for playbooks. Use these playbooks as accelerators for your ow
 ## ~/apigee-workspace/apigee-odk-role-workspace
 Workspace containing the roles used by the playbooks.
 
+# Configure Credentials
+Configuring of installation credentials is described in the [credentials readme](README-credentials.md).
+
 # Configure Ansible
 Ansible can be configured to make use of the above folders by providing an Ansible configuration file.
 The Ansible configuration file can be generated in using the `setup-ansible-config.yml` playbook.
