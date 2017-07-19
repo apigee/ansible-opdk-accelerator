@@ -4,7 +4,7 @@ fact_caching_connection = {{ ansible_config }}/tmp/cache/
 log_path = {{ ansible_config }}/tmp/logs/ansible-default.log
 
 # remote_user = {{ username }}
-private_key_file = ~/.ssh/id_rsa
+# private_key_file = ~/.ssh/id_rsa
 
 roles_path = {{ ansible_config }}/roles
 local_tmp = {{ ansible_config }}/tmp
@@ -27,6 +27,10 @@ timeout = 60
 
 [ssh_connection]
 pipelining = True
-ssh_args = -o ControlMaster=auto -o ControlPersist=7200s -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -q
+# Sample ssh_args with extended arguments
+# ssh_args = -o ControlMaster=auto -o ControlPersist=7200s -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -q
+
+# Plain vanilla ssh configuration
+ssh_args = -o ControlMaster=auto -o ControlPersist=7200s -q
 control_path=%(directory)s/ansible-ssh-%%h-%%p-%%r
 
