@@ -11,9 +11,12 @@ Assuming ansible is already installed then you can setup with the following step
 * `cd ~/apigee-workspace`
 * `git clone https://onestash.verizon.com/projects/CELVW/repos/apigee-opdk-playbook-setup-ansible/browse`
 * `cd apigee-opdk-playbook-setup-ansible`
+* Make sure your public ssh key has been added to stash.
 * `ansible-playbook setup.yml`
 * Update the credentials.yml file as indicated below.
 * Add the license.txt file to `~/.apigee/license.txt`
+* Configure ansible to work with the correct configuration using: `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg`
+* `cd ~/apigee-workspace/apigee-opdk-playbook-installation-single-region`
 
 # Installing Ansible on Windows
 Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.
