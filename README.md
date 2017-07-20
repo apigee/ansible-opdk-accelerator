@@ -15,12 +15,23 @@ Assuming ansible is already installed then you can setup with the following step
 * `ansible-playbook setup.yml`
 * Update the credentials.yml file as indicated below.
 * Add the license.txt file to `~/.apigee/license.txt`
-* Configure ansible to work with the correct configuration using: `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg`
-* `cd ~/apigee-workspace/apigee-opdk-playbook-installation-single-region`
-* `ansible-galaxy install -r install-edge-aio-requirements.yml`
-* The first invocation should be: `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6 -k -vvv`
-* Subsequent invocations can save time by skipping tags that were invoked previously, you can skip re-creating the cache like this `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache -k -vvv`
-    OR skip re-installing os pre-requisites or apigee pre-requisites like this `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache,os-pre-req,apigee-pre-req -k -vvv`
+* Configure ansible to work with the correct configuration using:
+
+    `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg
+    cd ~/apigee-workspace/apigee-opdk-playbook-installation-single-region
+    ansible-galaxy install -r install-edge-aio-requirements.yml`
+
+* The first invocation should be:
+
+    `ansible-playbook install-edge-aio.yml -e @~/.apigee/credentials.yml -e @~/.apigee/custom-properties.yml --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6 -k -vvv`
+
+* Subsequent invocations can save time by skipping tags that were invoked previously, you can skip re-creating the cache like this:
+
+    `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache -k -vvv`
+
+    OR skip re-installing os pre-requisites or apigee pre-requisites like this
+
+    `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache,os-pre-req,apigee-pre-req -k -vvv`
 
 # Installing Ansible on Windows
 Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.
