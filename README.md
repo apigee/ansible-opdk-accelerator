@@ -7,19 +7,19 @@ environment with the templates that should be customized for your use.
 # Quick Installation
 Assuming ansible is already installed then you can setup with the following steps:
 
-* `mkdir ~/apigee-workspace`
-* `cd ~/apigee-workspace`
-* Make sure your public ssh key has been added to stash.
-* `git clone https://onestash.verizon.com/projects/CELVW/repos/apigee-opdk-playbook-setup-ansible/browse`
-* `cd apigee-opdk-playbook-setup-ansible`
-* `ansible-playbook setup.yml`
-* Update the credentials.yml file as indicated below.
-* Add the license.txt file to `~/.apigee/license.txt`
-* Configure ansible to work with the correct configuration using: `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg`
-* `cd ~/apigee-workspace/apigee-opdk-playbook-installation-single-region`
-* `ansible-galaxy install -r install-edge-aio-requirements.yml`
-* The first invocation should be: `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6 -k -vvv`
-* Subsequent invocations can save time by skipping tags that were invoked previously, you can skip re-creating the cache like this `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache -k -vvv`
+1. `mkdir ~/apigee-workspace`
+1. `cd ~/apigee-workspace`
+1. Make sure your public ssh key has been added to stash.
+1. `git clone https://onestash.verizon.com/projects/CELVW/repos/apigee-opdk-playbook-setup-ansible/browse`
+1. `cd apigee-opdk-playbook-setup-ansible`
+1. `ansible-playbook setup.yml`
+1. Update the credentials.yml file as indicated below.
+1. Add the license.txt file to `~/.apigee/license.txt`
+1. Configure ansible to work with the correct configuration using: `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg`
+1. `cd ~/apigee-workspace/apigee-opdk-playbook-installation-single-region`
+1. `ansible-galaxy install -r install-edge-aio-requirements.yml`
+1. The first invocation should be: `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6 -k -vvv`
+1. Subsequent invocations can save time by skipping tags that were invoked previously, you can skip re-creating the cache like this `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache -k -vvv`
     OR skip re-installing os pre-requisites or apigee pre-requisites like this `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache,os-pre-req,apigee-pre-req -k -vvv`
 
 # Installing Ansible on Windows
