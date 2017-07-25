@@ -11,8 +11,10 @@
       path: '{{ item }}'
       state: directory
     with_items: '{{ configuration_folders }}'
+    tags: ['config']
 
   - name: Git checkout of sample configurations
+    tags: ['config']
     become: false
     ignore_errors: yes
     git:
@@ -21,6 +23,7 @@
       accept_hostkey: yes
 
   - name: Git checkout of sample inventories
+    tags: ['inventory']
     become: false
     ignore_errors: yes
     git:
@@ -29,6 +32,7 @@
       accept_hostkey: yes
 
   - name: Git checkout of sample playbooks
+    tags: ['playbooks']
     become: false
     ignore_errors: yes
     git:
