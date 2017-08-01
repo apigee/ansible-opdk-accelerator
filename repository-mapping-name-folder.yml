@@ -105,4 +105,5 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cyberark-host-registration }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-repository-enabled }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-repository-proxy-config }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-lvm-increase-volume-size }
 
