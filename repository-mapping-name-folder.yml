@@ -50,6 +50,7 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-set-reachable }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-analytics-group-add }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user-ownership }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-archive-installer }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-create-archive }
