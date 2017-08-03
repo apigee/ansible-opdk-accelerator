@@ -106,4 +106,5 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-repository-enabled }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-repository-proxy-config }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-lvm-increase-volume-size }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-lvm-create-physical-volume }
 
