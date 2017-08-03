@@ -1,0 +1,238 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Apigee-MS-SG",
+  "Resources" : {
+    "ApigeeMSSG": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "SG for Apigee MS",
+        "VpcId": "vpc-2afbd64c",
+        "SecurityGroupIngress" : [
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "10.0.0.0/8",
+            "FromPort": "1099",
+            "ToPort": "1099"
+			},                  
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "153.114.0.0/16",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "148.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "106.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "160.0.0.0/3",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "71.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "114.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "112.0.0.0/7",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "101.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "144.0.0.0/6",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "192.0.0.0/4",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "208.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "159.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "149.0.0.0/32",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },  
+			{
+            "IpProtocol": "tcp",
+            "CidrIp": "104.0.0.0/7",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "128.0.0.0/4",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "10.0.0.0/8",
+            "FromPort": "9000",
+            "ToPort": "9000"
+            },
+			{
+            "IpProtocol": "tcp",
+            "CidrIp": "153.114.0.0/16",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "148.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "106.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "160.0.0.0/3",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "71.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "114.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "112.0.0.0/7",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "101.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "144.0.0.0/6",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "192.0.0.0/4",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "208.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "159.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "149.0.0.0/32",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },  
+			{
+            "IpProtocol": "tcp",
+            "CidrIp": "104.0.0.0/7",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "128.0.0.0/4",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            },
+            {
+            "IpProtocol": "tcp",
+            "CidrIp": "10.0.0.0/8",
+            "FromPort": "8080",
+            "ToPort": "8080"
+            }
+        ],
+                "Tags":[
+               {
+                  "Key":"Owner",
+                  "Value": "putta.harshitha@one.verizon.com"
+               },
+               {
+                  "Key":"Vsad",
+                  "Value": "D0MV"
+               },
+               {
+                  "Key":"Name",
+                  "Value": "Apigee-MS-SG"
+               },
+               {
+                  "Key":"eid",
+                  "Value": "6926812447"
+               }
+            ]
+      }
+    }
+  },
+   "Outputs":{
+      "GroupId":{
+         "Description":"GroupId of the newly created Security Group",
+         "Value":{ "Ref":"ApigeeMSSG"},
+		 "Export" : {"Name" : "SGID"}
+      }
+ }
+ }
