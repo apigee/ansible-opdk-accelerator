@@ -11,5 +11,6 @@ configuration_folders:
 - '{{ ansible_config }}/inventory'
 - '{{ ansible_config }}/tmp/logs'
 - '{{ apigee_config }}'
+- '{{ apigee_config }}/logs_configs'
 - '{{ playbook_workspace }}'
 - '{{ role_workspace }}'
