@@ -16,7 +16,7 @@ Assuming ansible is already installed then you can setup with the following step
 1. Update the credentials.yml file as indicated below.
 1. Add the license.txt file to `~/.apigee/license.txt`
 1. Configure ansible to work with the correct configuration using: `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg`
-1. `cd ~/apigee-workspace/apigee-opdk-playbook-installation-single-region`
+1. `cd ~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
 1. `ansible-galaxy install -r install-edge-aio-requirements.yml`
 1. The first invocation should be: `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6 -k -vvv`
 1. Subsequent invocations can save time by skipping tags that were invoked previously, you can skip re-creating the cache like this `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache -k -vvv`
