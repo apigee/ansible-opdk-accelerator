@@ -1,7 +1,9 @@
 ---
-repo_names:
+config_repos:
 - { workspace: '{{ playbook_dir }}/..', repo_name: local-workspace-maintenance }
 - { workspace: '{{ playbook_dir }}/..', repo_name: apigee-opdk-playbook-setup-ansible }
+
+playbook_repos:
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio } moved into apigee-opdk-playbook-installation-single-region
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-baas }
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-microgateway }
@@ -23,6 +25,8 @@ repo_names:
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-samples }
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-fetch-files }
+
+role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-internal-port-connectivity-validator-cassandra }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-internal-port-connectivity-validator-ldap }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-internal-port-connectivity-validator-mp }
@@ -50,6 +54,7 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-set-reachable }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-analytics-group-add }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user-ownership }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-archive-installer }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-create-archive }

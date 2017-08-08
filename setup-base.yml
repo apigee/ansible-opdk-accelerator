@@ -31,7 +31,17 @@
       dest: "{{ ansible_config }}/inventory"
       accept_hostkey: yes
 
-  - name: Git checkout of sample playbooks
+  - name: Git checkout of playbooks
+    tags: ['config']
+    become: false
+    ignore_errors: yes
+    git:
+      repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+      dest: "{{ item.workspace }}/{{ item.repo_name }}"
+      accept_hostkey: yes
+    with_items: "{{ config_repos }}"
+
+  - name: Git checkout of playbooks
     tags: ['playbooks']
     become: false
     ignore_errors: yes
@@ -39,7 +49,17 @@
       repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
       dest: "{{ item.workspace }}/{{ item.repo_name }}"
       accept_hostkey: yes
-    with_items: "{{ repo_names }}"
+    with_items: "{{ playbook_repos }}"
+
+  - name: Git checkout of playbooks
+    tags: ['roles']
+    become: false
+    ignore_errors: yes
+    git:
+      repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+      dest: "{{ item.workspace }}/{{ item.repo_name }}"
+      accept_hostkey: yes
+    with_items: "{{ role_repos }}"
 
   - name: Add empty credentials.yml file to .apigee
     copy:
