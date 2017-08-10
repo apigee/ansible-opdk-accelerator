@@ -113,4 +113,5 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-lvm-increase-volume-size }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-lvm-create-physical-volume }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-packages }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-mirror-nginx }
 
