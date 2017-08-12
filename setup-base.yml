@@ -6,7 +6,7 @@
   - repository-custom-properties.yml
 
   tasks:
-  - name: Create ansible configuration folders
+  - name: Ensure ansible configuration folders exist
     file:
       path: '{{ item }}'
       state: directory
@@ -20,6 +20,15 @@
     git:
       repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
+      accept_hostkey: yes
+
+  - name: Git checkout of custom properties
+    tags: ['config']
+    become: false
+    ignore_errors: yes
+    git:
+      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-custom-properties.git'
+      dest: "{{ ansible_config }}/apigee-opdk-custom-properties"
       accept_hostkey: yes
 
   - name: Git checkout of sample inventories
@@ -64,5 +73,5 @@
   - name: Add empty credentials.yml file to .apigee
     copy:
       src: resources/credentials.yml
-      dest: '{{ apigee_config }}/credentials.yml'
+      dest: '{{ apigee_security }}/credentials.yml'
       force: no

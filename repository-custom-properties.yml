@@ -1,6 +1,7 @@
 ---
 ansible_config: ~/.ansible
-apigee_config: ~/.apigee
+apigee_config: ~/.apigee-config
+apigee_security: ~/.apigee
 apigee_workspace: ~/apigee-workspace
 playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
 role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
@@ -11,6 +12,6 @@ configuration_folders:
 - '{{ ansible_config }}/inventory'
 - '{{ ansible_config }}/tmp/logs'
 - '{{ apigee_config }}'
-- '{{ apigee_config }}/logs_configs'
+- '{{ apigee_security }}/logs_configs'
 - '{{ playbook_workspace }}'
 - '{{ role_workspace }}'
