@@ -1,7 +1,7 @@
 ---
 ansible_config: ~/.ansible
-apigee_config: ~/.apigee-config
-apigee_security: ~/.apigee
+apigee_config: ~/.apigee
+apigee_security: ~/.apigee-secure
 apigee_workspace: ~/apigee-workspace
 playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
 role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
