@@ -28,7 +28,7 @@
     ignore_errors: yes
     git:
       repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-custom-properties.git'
-      dest: "{{ ansible_config }}/apigee-opdk-custom-properties"
+      dest: "{{ apigee_config }}/apigee-opdk-custom-properties"
       accept_hostkey: yes
 
   - name: Git checkout of sample inventories
