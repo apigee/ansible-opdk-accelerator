@@ -1,8 +1,8 @@
 ---
 config_repos:
-- { workspace: '{{ playbook_dir }}/..', repo_name: local-workspace-maintenance }
 - { workspace: '{{ playbook_dir }}/..', repo_name: apigee-opdk-playbook-setup-ansible }
 - { workspace: '{{ apigee_config }}', repo_name: apigee-opdk-custom-properties }
+#- { workspace: '{{ playbook_dir }}/..', repo_name: local-workspace-maintenance }
 
 playbook_repos:
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio } moved into apigee-opdk-playbook-installation-single-region

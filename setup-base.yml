@@ -40,7 +40,7 @@
       dest: "{{ ansible_config }}/inventory"
       accept_hostkey: yes
 
-  - name: Git checkout of playbooks
+  - name: Git checkout of configuration repositories
     tags: ['config']
     become: false
     ignore_errors: yes
@@ -50,7 +50,7 @@
       accept_hostkey: yes
     with_items: "{{ config_repos }}"
 
-  - name: Git checkout of playbooks
+  - name: Git checkout of playbook repositories
     tags: ['playbooks']
     become: false
     ignore_errors: yes
@@ -60,7 +60,7 @@
       accept_hostkey: yes
     with_items: "{{ playbook_repos }}"
 
-  - name: Git checkout of playbooks
+  - name: Git checkout of role repositories
     tags: ['roles']
     become: false
     ignore_errors: yes
