@@ -26,7 +26,7 @@ playbook_repos:
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-samples }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
 
-role_repos:
+#role_repos:
 #- { workspace: '{{ role_workspace }}', repo_name: apigee-fetch-files }
 #- { workspace: '{{ role_workspace }}', repo_name: apigee-internal-port-connectivity-validator-cassandra }
 #- { workspace: '{{ role_workspace }}', repo_name: apigee-internal-port-connectivity-validator-ldap }

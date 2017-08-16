@@ -69,6 +69,7 @@
       dest: "{{ item.workspace }}/{{ item.repo_name }}"
       accept_hostkey: yes
     with_items: "{{ role_repos }}"
+    when: role_repos is defined
 
   - name: Add empty credentials.yml file to .apigee
     copy:
