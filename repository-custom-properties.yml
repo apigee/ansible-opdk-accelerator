@@ -1,12 +1,12 @@
 ---
-ansible_config: ~/.ansible
-apigee_config: ~/.apigee
-apigee_security: ~/.apigee-secure
-apigee_workspace: ~/apigee-workspace
+ansible_config: "~/.ansible"
+apigee_config: "~/.apigee"
+apigee_security: "~/.apigee-secure"
+apigee_workspace: "~/apigee-workspace"
 playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
 role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
-repository_secure_endpoint_https: "https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible.git"
-repository_secure_endpoint_ssh: "git@github.com:carlosfrias/apigee-opdk-playbook-setup-ansible.git"
+repository_secure_endpoint_https: "https://github.com/carlosfrias"
+repository_secure_endpoint_ssh: "git@github.com:carlosfrias"
 configuration_folders:
 - '{{ ansible_config }}/configurations'
 - '{{ ansible_config }}/inventory'

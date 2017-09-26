@@ -1,5 +1,6 @@
 # Apigee OPDK Ansible Setup Playbook
-The purpose of this project is to help configure Ansible for the use of [Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
+The purpose of this project is to help configure Ansible for the use of
+[Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
 The Apigee OPDK roles follow conventions in the naming of files and where those files are 
 located. This project sets up those locations and performs the git clone to setup your 
 environment with the templates that should be customized for your use.
