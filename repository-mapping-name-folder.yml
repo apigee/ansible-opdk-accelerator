@@ -2,9 +2,9 @@
 config_repos:
 - { workspace: '{{ apigee_workspace }}/..', repo_name: apigee-opdk-playbook-setup-ansible }
 #- { workspace: '{{ apigee_config }}', repo_name: apigee-opdk-custom-properties }
-- { workspace: '{{ apigee_workspace }}/..', repo_name: local-workspace-maintenance }
-- { workspace: '{{ ansible_config }}/configuration-templates', repo_name: apigee-opdk-ansible-configuration-samples }
-- { workspace: '{{ ansible_config }}/inventory-templates', repo_name: apigee-opdk-ansible-inventory-samples }
+- { workspace: '{{ apigee_workspace }}', repo_name: local-workspace-maintenance }
+- { workspace: '{{ ansible_config }}', repo_name: apigee-opdk-ansible-configuration-samples }
+- { workspace: '{{ ansible_config }}', repo_name: apigee-opdk-ansible-inventory-samples }
 
 playbook_repos:
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio } # moved into apigee-opdk-playbook-installation-single-region
