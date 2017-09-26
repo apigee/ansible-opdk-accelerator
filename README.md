@@ -15,7 +15,8 @@ Assuming ansible is already installed then you can setup with the following step
 1. `ansible-playbook setup.yml`
 1. Update the credentials.yml file as indicated below.
 1. Add the license.txt file to `~/.apigee-secure/license.txt`
-1. Configure ansible to work with the correct configuration using: `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg`
+1. Configure ansible to work with the correct configuration using:
+    `export ANSIBLE_CONFIG=~/.ansible/configurations/edge-1701-dc1.cfg`
 1. `cd ~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
 1. `ansible-galaxy install -r install-edge-requirements.yml`
 1. The first invocation should be: `ansible-playbook install-edge.yml --become --become-method=pbrun --tags=cache,ds,ms,rmp,qs,org`
