@@ -22,14 +22,14 @@
       dest: "{{ ansible_config }}/configurations"
       accept_hostkey: yes
 
-  - name: Git checkout of custom properties
-    tags: ['config']
-    become: false
-    ignore_errors: yes
-    git:
-      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-custom-properties.git'
-      dest: "{{ apigee_config }}/apigee-opdk-custom-properties"
-      accept_hostkey: yes
+#  - name: Git checkout of custom properties
+#    tags: ['config']
+#    become: false
+#    ignore_errors: yes
+#    git:
+#      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-custom-properties.git'
+#      dest: "{{ apigee_config }}/apigee-opdk-custom-properties"
+#      accept_hostkey: yes
 
   - name: Git checkout of sample inventories
     tags: ['inventory']
