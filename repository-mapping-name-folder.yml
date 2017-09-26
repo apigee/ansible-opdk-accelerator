@@ -1,8 +1,11 @@
 ---
-repo_names:
-- { workspace: '{{ playbook_dir }}/..', repo_name: local-workspace-maintenance }
+config_repos:
 - { workspace: '{{ playbook_dir }}/..', repo_name: apigee-opdk-playbook-setup-ansible }
-- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio }
+- { workspace: '{{ apigee_config }}', repo_name: apigee-opdk-custom-properties }
+- { workspace: '{{ playbook_dir }}/..', repo_name: local-workspace-maintenance }
+
+playbook_repos:
+- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio } # moved into apigee-opdk-playbook-installation-single-region
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-baas }
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-microgateway }
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-mirror }
@@ -22,6 +25,8 @@ repo_names:
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-validate-port-availability }
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-samples }
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
+
+role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-fetch-files }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-internal-port-connectivity-validator-cassandra }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-internal-port-connectivity-validator-ldap }
@@ -50,6 +55,7 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-set-reachable }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-analytics-group-add }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user-ownership }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-archive-installer }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-create-archive }
@@ -96,3 +102,19 @@ repo_names:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cache-update }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-ansible-configuration-samples }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-ansible-inventory-samples }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-java-home }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-target-links }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-ssh-user }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-server-restart }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-cwc-update }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-postgres-db-upgrade }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-repository-enabled }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-repository-proxy-config }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-lvm-increase-volume-size }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-lvm-create-physical-volume }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-packages }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-mirror-nginx }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-component-install }
+- { workspace: '{{ role_workspace }}', repo_name: vz-application-netgroup-access }
+- { workspace: '{{ role_workspace }}', repo_name: vz-cyberark-register-ec2 }
+- { workspace: '{{ role_workspace }}', repo_name: vz-firstboot-operations-verification }

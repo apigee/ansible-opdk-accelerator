@@ -1,9 +1,8 @@
 ---
 - hosts: localhost
   connection: local
-  vars:
-    apigee_config: ~/.apigee
-
+  vars_files:
+  - repository-custom-properties.yml
   vars_prompt:
     - name: license_path
       prompt: "Enter path to license file"

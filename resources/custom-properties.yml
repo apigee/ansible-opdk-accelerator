@@ -1,7 +1,7 @@
 ---
 opdk_version: 4.17.01
-# pip_index_url: https://pip.artifactory-server.com/artifactory/api/pypi/Pypi-remote/simple
-# pip_conf_dir: ~/.pip
+# pip_index_url: "https://private.repository.com/api/pypi/Pypi-remote/simple"
+# pip_conf_dir: "~/.pip"
 
 # Used with restarting servers
 # start_check_delay: 0

@@ -1,0 +1,15 @@
+---
+- name: Create repositories in BitBucket
+  hosts: localhost
+  connection: local
+  vars_files:
+  - repository-custom-properties.yml
+  tasks:
+  - name: Remove repo
+    uri:
+      url: "{{ repository_api_endpoint }}/repos/delete_test_repo"
+      method: DELETE
+      user: "{{ username }}"
+      password: "{{ password }}"
+      status_code: 202,204
+      force_basic_auth: yes

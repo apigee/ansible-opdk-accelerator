@@ -15,9 +15,9 @@ conventions for inventory group names.
 
 ## Inventory File Conventions
 These roles depend on use of conventions in the inventory file. 
-Specifically inventory file conventions are ansible groups names that 
+Specifically inventory file conventions are ansible group names that
 are defined around Apigee semantics. These ansible groups are 
-semantically linked to the documentation. The ansible groups used as 
+semantically linked to the Apigee documentation. The ansible groups used as
 conventions correspond to the installation roles and server 
 categorizations called out in the Apigee Private Cloud Installation and 
 Configuration Guide. It has been useful to use planet and region 
@@ -32,10 +32,10 @@ a specific purpose. The installation roles provide the semantic model we
 followed. The inventory file group names for planet level semantics are 
 listed in the template inventory file below. 
 
-A region represents subset of a planet. The semantics used for 
-installation roles are congruent with a region. Region have been 
+A region represents a subset of a planet. The semantics used for
+installation roles are congruent with a region. Regions have been
 referenced as data centers. The internal configurations of OPDK and BaaS 
-support many regions as dc-1, dc-2 and so forth. Following this 
+support many regions such as dc-1, dc-2 ... dc-n. Following this
 historical precedent we also define the regions with their corresponding 
 installation role to provide a semantic model as follows:
  
@@ -77,10 +77,47 @@ installation role to provide a semantic model as follows:
     [dc-1-ui]
     # Listing of the UI node in dc-1
     
-## Zookeeper Observer Nodes
+# Zookeeper Observer Nodes
 Zookeeper nodes can be designated as an observer node. Ansible inventory 
 files allow variables to be assigned to servers. These roles will update 
 the silent installation configuration file correctly for any zookeeper 
 node that is assigned the variable zk_observer.
   
      zk_observer=true
+
+## Example Zookeeper Observer Node Configuration
+This is a sample of a configuration of a Zookeeper node as an observer. Assuming that the first three nodes listed are
+Cassandra/Zookeeper nodes then we can configure a node as a zookeeper observer as follows:
+
+    [planet]
+    dc-1-n1
+    dc-1-n2
+    dc-1-n3 zk_observer=true
+
+    [dc-1-ds]
+    dc-1-n[1:3]
+
+# Cassandra Rackaware Configuration
+Cassandra nodes can be configured to be rackaware. This leverages the Cassandra built in functionality
+for managing itself when the Cassandra ring is distributed across several availability zones. We would
+set the variable rack for each member of the Cassandra ring with the designated location we want for
+that node in the following way:
+
+    rack=1,1
+
+Please note that this follows the Cassandra rack aware configuration syntax:
+
+    rack=<Availability Zone>,<Position on Rack>
+
+## Example Cassandra Rackaware Configuration
+This is a sample of a configuration of Cassandra as a node that is rackaware. Assuming that the first three nodes listed are
+Cassandra/Zookeeper nodes then we can configure a node as rackaware as follows:
+
+    [planet]
+    dc-1-n1 rack=1,1
+    dc-1-n2 rack=2,1
+    dc-1-n3 rack=3,1
+
+    [dc-1-ds]
+    dc-1-n[1:3]
+

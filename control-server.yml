@@ -1,7 +1,6 @@
 ---
 - hosts: '{{ hosts }}'
   become: yes
-  become_flags: "beroot"
   vars_files:
   - custom-properties.yml
   tasks:
@@ -31,8 +30,3 @@
     with_items:
     - pip
     - ansible
-#    - markupsafe
-#    - boto
-#    environment:
-#      http_proxy: "{{ http_proxy }}"
-#      https_proxy: "{{ https_proxy }}"

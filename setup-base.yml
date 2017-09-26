@@ -2,43 +2,77 @@
 - hosts: localhost
   connection: local
   vars_files:
-  - workspace-github-repos.yml
-  - workspace-folders.yml
+  - repository-mapping-name-folder.yml
+  - repository-custom-properties.yml
 
   tasks:
-  - name: Create ansible configuration folders
+  - name: Ensure ansible configuration folders exist
     file:
       path: '{{ item }}'
       state: directory
     with_items: '{{ configuration_folders }}'
+    tags: ['config']
 
   - name: Git checkout of sample configurations
+    tags: ['config']
     become: false
     ignore_errors: yes
     git:
-      repo: '{{ host_repo }}/apigee-opdk-ansible-configuration-samples.git'
+      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
       accept_hostkey: yes
 
-  - name: Git checkout of sample inventories
+  - name: Git checkout of custom properties
+    tags: ['config']
     become: false
     ignore_errors: yes
     git:
-      repo: '{{ host_repo }}/apigee-opdk-ansible-inventory-samples.git'
+      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-custom-properties.git'
+      dest: "{{ apigee_config }}/apigee-opdk-custom-properties"
+      accept_hostkey: yes
+
+  - name: Git checkout of sample inventories
+    tags: ['inventory']
+    become: false
+    ignore_errors: yes
+    git:
+      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-inventory-samples.git'
       dest: "{{ ansible_config }}/inventory"
       accept_hostkey: yes
 
-  - name: Git checkout of sample playbooks
+  - name: Git checkout of configuration repositories
+    tags: ['config']
     become: false
     ignore_errors: yes
     git:
-      repo: '{{ host_repo }}/{{ item.repo_name }}.git'
+      repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
       dest: "{{ item.workspace }}/{{ item.repo_name }}"
       accept_hostkey: yes
-    with_items: "{{ repo_names }}"
+    with_items: "{{ config_repos }}"
+
+  - name: Git checkout of playbook repositories
+    tags: ['playbooks']
+    become: false
+    ignore_errors: yes
+    git:
+      repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+      dest: "{{ item.workspace }}/{{ item.repo_name }}"
+      accept_hostkey: yes
+    with_items: "{{ playbook_repos }}"
+
+  - name: Git checkout of role repositories
+    tags: ['roles']
+    become: false
+    ignore_errors: yes
+    git:
+      repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+      dest: "{{ item.workspace }}/{{ item.repo_name }}"
+      accept_hostkey: yes
+    with_items: "{{ role_repos }}"
+    when: role_repos is defined
 
   - name: Add empty credentials.yml file to .apigee
     copy:
       src: resources/credentials.yml
-      dest: '{{ apigee_config }}/credentials.yml'
+      dest: '{{ apigee_security }}/credentials.yml'
       force: no

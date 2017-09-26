@@ -1,0 +1,20 @@
+---
+- name: Backup custom-properties, credentials and license files
+  hosts: "{{ target_hosts }}"
+  vars_files:
+  - repository-custom-properties.yml
+  tasks:
+  - name: Create backup folder
+    file:
+      path: backups
+      state: directory
+
+  - name: Backup files
+    fetch:
+      src: "{{ item.dir }}/{{ item.name }}"
+      dest: "backups/{{ item.name }}"
+      flat: yes
+    with_items:
+    - { dir: "{{ apigee_config }}", name: license.txt }
+    - { dir: "{{ apigee_config }}/apigee-opdk-custom-properties", name: custom-properties.yml }
+    - { dir: "{{ apigee_security }}", name: credentials.yml }

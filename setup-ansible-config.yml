@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+  - repository-custom-properties.yml
+  vars_prompt:
+    - name: username
+      prompt: "Enter your the username for ansible"
+      private: no
+  tasks:
+  - name: Create ansible.cfg file from template
+    template:
+      src: resources/ansible.cfg.j2
+      dest: "{{ apigee_workspace }}/apigee-opdk-playbook-setup-ansible/ansible.cfg"
+      backup: yes
+      force: yes
+

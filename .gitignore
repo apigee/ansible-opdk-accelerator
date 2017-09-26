@@ -110,3 +110,8 @@ out
 .idea
 *iml
 *retry
+*.db
+*~
+ansible.cfg
+backups
+
