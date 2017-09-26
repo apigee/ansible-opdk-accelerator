@@ -10,7 +10,7 @@ Assuming ansible is already installed then you can setup with the following step
 1. `mkdir ~/apigee-workspace`
 1. `cd ~/apigee-workspace`
 1. Make sure your public ssh key has been added to stash.
-1. `git clone https://onestash.verizon.com/projects/CELVW/repos/apigee-opdk-playbook-setup-ansible/browse`
+1. `git clone git@github.com:carlosfrias/apigee-opdk-playbook-setup-ansible.git`
 1. `cd apigee-opdk-playbook-setup-ansible`
 1. `ansible-playbook setup.yml`
 1. Update the credentials.yml file as indicated below.

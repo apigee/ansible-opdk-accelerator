@@ -16,7 +16,7 @@ attributes ahead of time in the  `~/.apigee-secure/credentials.yml` file.
 
 | Required Attribute | Value | Description |
 |---|---|---|
-| apigee_repo_user | APIGEE_REPOSITORY_USERNAME | The verizon user to login to the software.apigee.com |
+| apigee_repo_user | APIGEE_REPOSITORY_USERNAME | The customer login to the software.apigee.com |
 | apigee_repo_password |  APIGEE_REPOSITORY_PASSWORD | The login password to software.apigee.com |
 | opdk_user_name | apigee | The Apigee administrator username and operating system username |
 | opdk_group_name | apigee | The operating system group name |
