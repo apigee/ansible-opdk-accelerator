@@ -17,7 +17,7 @@ playbook_repos:
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-two-regions }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-aws-management }
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-backup }
-#- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-validation }
+- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-validation }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-expand-region }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-opdk-upgrade }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-postgres-add-remove }
