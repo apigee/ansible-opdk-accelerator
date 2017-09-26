@@ -13,33 +13,6 @@
     with_items: '{{ configuration_folders }}'
     tags: ['config']
 
-  - name: Git checkout of sample configurations
-    tags: ['config']
-    become: false
-    ignore_errors: yes
-    git:
-      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-configuration-samples.git'
-      dest: "{{ ansible_config }}/configurations"
-      accept_hostkey: yes
-
-#  - name: Git checkout of custom properties
-#    tags: ['config']
-#    become: false
-#    ignore_errors: yes
-#    git:
-#      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-custom-properties.git'
-#      dest: "{{ apigee_config }}/apigee-opdk-custom-properties"
-#      accept_hostkey: yes
-
-  - name: Git checkout of sample inventories
-    tags: ['inventory']
-    become: false
-    ignore_errors: yes
-    git:
-      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-inventory-samples.git'
-      dest: "{{ ansible_config }}/inventory"
-      accept_hostkey: yes
-
   - name: Git checkout of configuration repositories
     tags: ['config']
     become: false
