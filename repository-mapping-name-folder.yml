@@ -67,6 +67,8 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-component }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-component-installer }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-default-settings }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-epel }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-license }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-message-processor-bind-environment }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-openjdk }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-org }
