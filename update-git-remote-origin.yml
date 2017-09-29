@@ -10,7 +10,8 @@
 
   tasks:
 
-  - name: Remove existing origin repo
+  - name: Remove existing origin repo for playbooks
+    tags: ['remove']
     shell: "git remote remove origin"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
@@ -19,7 +20,26 @@
     - "{{ role_repos }}"
 
   - name: Add updated origin repo
+    tags: ['add']
     shell: "git remote add origin {{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items:
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
+  - name: Associate to upstream master branch
+    tags: ['associate']
+    shell: "git branch --set-upstream-to=origin/master master"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items:
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
+  - name: Pull from updated origin repo
+    tags: ['pull']
+    shell: "git pull"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
     with_items:

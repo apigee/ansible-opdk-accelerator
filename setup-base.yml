@@ -26,7 +26,6 @@
   - name: Git checkout of playbook repositories
     tags: ['playbooks']
     become: false
-    ignore_errors: yes
     git:
       repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
       dest: "{{ item.workspace }}/{{ item.repo_name }}"
@@ -36,11 +35,12 @@
   - name: Git checkout of role repositories
     tags: ['roles']
     become: false
-    ignore_errors: yes
     git:
       repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
       dest: "{{ item.workspace }}/{{ item.repo_name }}"
       accept_hostkey: yes
+      update: yes
+      version: master
     with_items: "{{ role_repos }}"
     when: role_repos is defined
 
