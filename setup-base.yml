@@ -12,13 +12,23 @@
       state: directory
     with_items: '{{ configuration_folders }}'
 
-  - name: Git checkout of sample configurations
+  - name: Git ssh checkout of sample configurations
     become: false
     ignore_errors: yes
     git:
       repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-configuration-samples.git'
       dest: "{{ ansible_config }}/configurations"
       accept_hostkey: yes
+    when: checkout_type | trim == 'ssh' | default('ssh')
+
+  - name: Git checkout of sample configurations
+    become: false
+    ignore_errors: yes
+    git:
+      repo: '{{ repository_secure_endpoint_https }}/apigee-opdk-ansible-configuration-samples.git'
+      dest: "{{ ansible_config }}/configurations"
+      accept_hostkey: yes
+    when: checkout_type | trim == 'https'
 
   - name: Git checkout of sample inventories
     become: false
