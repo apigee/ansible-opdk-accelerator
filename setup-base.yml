@@ -44,7 +44,7 @@
         version: master
       with_items: "{{ role_repos }}"
       when: role_repos is defined
-    when: checkout_type | trim == 'ssh' | default('ssh')
+    when: checkout_type | default('ssh') | trim == 'ssh'
 
   - block:
     - name: Git checkout of configuration repositories
@@ -77,7 +77,7 @@
         version: master
       with_items: "{{ role_repos }}"
       when: role_repos is defined
-    when: checkout_type | trim == 'https'
+    when: checkout_type is defined and checkout_type | trim == 'https'
 
   - name: Add empty credentials.yml file to .apigee
     copy:
