@@ -12,40 +12,59 @@
       state: directory
     with_items: '{{ configuration_folders }}'
 
-  - name: Git ssh checkout of sample configurations
-    become: false
-    ignore_errors: yes
-    git:
-      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-configuration-samples.git'
-      dest: "{{ ansible_config }}/configurations"
-      accept_hostkey: yes
+  - block:
+    - name: Git ssh checkout of sample configurations
+      become: false
+      ignore_errors: yes
+      git:
+        repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-configuration-samples.git'
+        dest: "{{ ansible_config }}/configurations"
+        accept_hostkey: yes
+
+    - name: Git checkout of sample inventories
+      become: false
+      ignore_errors: yes
+      git:
+        repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-inventory-samples.git'
+        dest: "{{ ansible_config }}/inventory"
+        accept_hostkey: yes
+
+    - name: Git checkout of sample playbooks
+      become: false
+      ignore_errors: yes
+      git:
+        repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+        dest: "{{ item.workspace }}/{{ item.repo_name }}"
+        accept_hostkey: yes
+      with_items: "{{ repo_names }}"
     when: checkout_type | trim == 'ssh' | default('ssh')
 
-  - name: Git checkout of sample configurations
-    become: false
-    ignore_errors: yes
-    git:
-      repo: '{{ repository_secure_endpoint_https }}/apigee-opdk-ansible-configuration-samples.git'
-      dest: "{{ ansible_config }}/configurations"
-      accept_hostkey: yes
+  - block:
+    - name: Git checkout of sample configurations
+      become: false
+      ignore_errors: yes
+      git:
+        repo: '{{ repository_secure_endpoint_https }}/apigee-opdk-ansible-configuration-samples.git'
+        dest: "{{ ansible_config }}/configurations"
+        accept_hostkey: yes
+
+    - name: Git checkout of sample inventories
+      become: false
+      ignore_errors: yes
+      git:
+        repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-inventory-samples.git'
+        dest: "{{ ansible_config }}/inventory"
+        accept_hostkey: yes
+
+    - name: Git checkout of sample playbooks
+      become: false
+      ignore_errors: yes
+      git:
+        repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+        dest: "{{ item.workspace }}/{{ item.repo_name }}"
+        accept_hostkey: yes
+      with_items: "{{ repo_names }}"
     when: checkout_type | trim == 'https'
-
-  - name: Git checkout of sample inventories
-    become: false
-    ignore_errors: yes
-    git:
-      repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-inventory-samples.git'
-      dest: "{{ ansible_config }}/inventory"
-      accept_hostkey: yes
-
-  - name: Git checkout of sample playbooks
-    become: false
-    ignore_errors: yes
-    git:
-      repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
-      dest: "{{ item.workspace }}/{{ item.repo_name }}"
-      accept_hostkey: yes
-    with_items: "{{ repo_names }}"
 
   - name: Add empty credentials.yml file to .apigee
     copy:
