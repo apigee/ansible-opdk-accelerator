@@ -1,5 +1,6 @@
 # Apigee OPDK Ansible Setup Playbook
-The purpose of this project is to help configure Ansible for the use of [Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
+The purpose of this project is to help configure Ansible for the use of
+[Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
 The Apigee OPDK roles follow conventions in the naming of files and where those files are 
 located. This project sets up those locations and performs the git clone to setup your 
 environment with the templates that should be customized for your use.
@@ -7,31 +8,19 @@ environment with the templates that should be customized for your use.
 # Quick Installation
 Assuming ansible is already installed then you can setup with the following steps:
 
-* `mkdir ~/apigee-workspace`
-* `cd ~/apigee-workspace`
-* `git clone https://onestash.verizon.com/projects/CELVW/repos/apigee-opdk-playbook-setup-ansible/browse`
-* `cd apigee-opdk-playbook-setup-ansible`
-* Make sure your public ssh key has been added to stash.
-* `ansible-playbook setup.yml`
-* Update the credentials.yml file as indicated below.
-* Add the license.txt file to `~/.apigee/license.txt`
-* Configure ansible to work with the correct configuration using:
-
-    `export ANSIBLE_CONFIG=~/.ansible/configurations/vz-edge-1701-aio.cfg
-    cd ~/apigee-workspace/apigee-opdk-playbook-installation-single-region
-    ansible-galaxy install -r install-edge-aio-requirements.yml`
-
-* The first invocation should be:
-
-    `ansible-playbook install-edge-aio.yml -e @~/.apigee/credentials.yml -e @~/.apigee/custom-properties.yml --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6 -k -vvv`
-
-* Subsequent invocations can save time by skipping tags that were invoked previously, you can skip re-creating the cache like this:
-
-    `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache -k -vvv`
-
-    OR skip re-installing os pre-requisites or apigee pre-requisites like this
-
-    `ansible-playbook install-edge-aio.yml  -e @~/.apigee/credentials.yml  -e @~/.apigee/custom-properties.yml  --become --become-method=pbrun --skip-tags=root,selinux,apigee-user,iptables,ipv6,cache,os-pre-req,apigee-pre-req -k -vvv`
+1. `mkdir ~/apigee-workspace`
+1. `cd ~/apigee-workspace`
+1. Make sure your public ssh key has been added to stash.
+1. `git clone git@github.com:carlosfrias/apigee-opdk-playbook-setup-ansible.git`
+1. `cd apigee-opdk-playbook-setup-ansible`
+1. `ansible-playbook setup.yml`
+1. Update the credentials.yml file as indicated below.
+1. Add the license.txt file to `~/.apigee-secure/license.txt`
+1. Configure ansible to work with the correct configuration using:
+    `export ANSIBLE_CONFIG=~/.ansible/configurations/edge-1701-dc1.cfg`
+1. `cd ~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
+1. `ansible-galaxy install -r install-edge-requirements.yml`
+1. The first invocation should be: `ansible-playbook install-edge.yml --become --become-method=pbrun --tags=cache,ds,ms,rmp,qs,org`
 
 # Installing Ansible on Windows
 Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.

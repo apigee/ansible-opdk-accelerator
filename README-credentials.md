@@ -1,5 +1,5 @@
 # Configuring Credentials
-Credentials are stored at `~/.apigee/credentials.yml`. A template file is created that includes
+Credentials are stored at `~/.apigee-secure/credentials.yml`. A template file is created that includes
 commented out attributes as placeholders for values that could be needed.
 
 ## Credentials Location
@@ -12,11 +12,11 @@ The following table depicts those credentials that are required to complete an
 Apigee installation. If these are not provided, then the apigee installation
 scripts will prompt you for them. Given that this is an automated framework
 that will orchestrate your Apigee installation it is necessary to provide these
-attributes ahead of time in the  `~/.apigee/credentials.yml` file.
+attributes ahead of time in the  `~/.apigee-secure/credentials.yml` file.
 
 | Required Attribute | Value | Description |
 |---|---|---|
-| apigee_repo_user | APIGEE_REPOSITORY_USERNAME | The verizon user to login to the software.apigee.com |
+| apigee_repo_user | APIGEE_REPOSITORY_USERNAME | The customer login to the software.apigee.com |
 | apigee_repo_password |  APIGEE_REPOSITORY_PASSWORD | The login password to software.apigee.com |
 | opdk_user_name | apigee | The Apigee administrator username and operating system username |
 | opdk_group_name | apigee | The operating system group name |

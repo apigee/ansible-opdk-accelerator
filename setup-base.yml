@@ -6,68 +6,81 @@
   - repository-custom-properties.yml
 
   tasks:
-  - name: Create ansible configuration folders
+  - name: Ensure ansible configuration folders exist
     file:
       path: '{{ item }}'
       state: directory
     with_items: '{{ configuration_folders }}'
+    tags: ['config']
 
   - block:
-    - name: Git ssh checkout of sample configurations
-      become: false
-      ignore_errors: yes
-      git:
-        repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-configuration-samples.git'
-        dest: "{{ ansible_config }}/configurations"
-        accept_hostkey: yes
-
-    - name: Git checkout of sample inventories
-      become: false
-      ignore_errors: yes
-      git:
-        repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-inventory-samples.git'
-        dest: "{{ ansible_config }}/inventory"
-        accept_hostkey: yes
-
-    - name: Git checkout of sample playbooks
+    - name: Git checkout of configuration repositories
+      tags: ['config']
       become: false
       ignore_errors: yes
       git:
         repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
         dest: "{{ item.workspace }}/{{ item.repo_name }}"
         accept_hostkey: yes
-      with_items: "{{ repo_names }}"
+      with_items: "{{ config_repos }}"
+
+    - name: Git checkout of playbook repositories
+      tags: ['playbooks']
+      become: false
+      git:
+        repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+        dest: "{{ item.workspace }}/{{ item.repo_name }}"
+        accept_hostkey: yes
+      with_items: "{{ playbook_repos }}"
+
+    - name: Git checkout of role repositories
+      tags: ['roles']
+      become: false
+      git:
+        repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+        dest: "{{ item.workspace }}/{{ item.repo_name }}"
+        accept_hostkey: yes
+        update: yes
+        version: master
+      with_items: "{{ role_repos }}"
+      when: role_repos is defined
     when: checkout_type | trim == 'ssh' | default('ssh')
 
   - block:
-    - name: Git checkout of sample configurations
+    - name: Git checkout of configuration repositories
+      tags: ['config']
       become: false
       ignore_errors: yes
       git:
-        repo: '{{ repository_secure_endpoint_https }}/apigee-opdk-ansible-configuration-samples.git'
-        dest: "{{ ansible_config }}/configurations"
-        accept_hostkey: yes
-
-    - name: Git checkout of sample inventories
-      become: false
-      ignore_errors: yes
-      git:
-        repo: '{{ repository_secure_endpoint_ssh }}/apigee-opdk-ansible-inventory-samples.git'
-        dest: "{{ ansible_config }}/inventory"
-        accept_hostkey: yes
-
-    - name: Git checkout of sample playbooks
-      become: false
-      ignore_errors: yes
-      git:
-        repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+        repo: '{{ repository_secure_endpoint_https }}/{{ item.repo_name }}.git'
         dest: "{{ item.workspace }}/{{ item.repo_name }}"
         accept_hostkey: yes
-      with_items: "{{ repo_names }}"
+      with_items: "{{ config_repos }}"
+
+    - name: Git checkout of playbook repositories
+      tags: ['playbooks']
+      become: false
+      git:
+        repo: '{{ repository_secure_endpoint_https }}/{{ item.repo_name }}.git'
+        dest: "{{ item.workspace }}/{{ item.repo_name }}"
+        accept_hostkey: yes
+      with_items: "{{ playbook_repos }}"
+
+    - name: Git checkout of role repositories
+      tags: ['roles']
+      become: false
+      git:
+        repo: '{{ repository_secure_endpoint_https }}/{{ item.repo_name }}.git'
+        dest: "{{ item.workspace }}/{{ item.repo_name }}"
+        accept_hostkey: yes
+        update: yes
+        version: master
+      with_items: "{{ role_repos }}"
+      when: role_repos is defined
     when: checkout_type | trim == 'https'
 
   - name: Add empty credentials.yml file to .apigee
     copy:
       src: resources/credentials.yml
-      dest: '{{ apigee_config }}/credentials.yml'
+      dest: '{{ apigee_security }}/credentials.yml'
       force: no
