@@ -76,6 +76,7 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-common }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-limits }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-minimum }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-openldap }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-postgres }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-postgres-config }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-postgres-master }

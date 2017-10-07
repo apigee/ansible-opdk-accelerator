@@ -50,6 +50,7 @@
       tags: ['config']
       become: false
       ignore_errors: yes
+      git:
         repo: '{{ repository_secure_endpoint_https }}/{{ item.repo_name }}.git'
         dest: "{{ item.workspace }}/{{ item.repo_name }}"
         accept_hostkey: yes
