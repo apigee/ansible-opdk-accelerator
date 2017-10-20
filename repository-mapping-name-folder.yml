@@ -8,6 +8,7 @@ config_repos:
 
 playbook_repos:
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-single-region }
+- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-gce-management }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-backup }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-validation }
 ##- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio } # moved into apigee-opdk-playbook-installation-single-region
@@ -120,4 +121,11 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-yum-packages }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-mirror-nginx }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-component-install }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-component-setup }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-devportal-config }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-devportal-drupal-updates }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-devportal-postgres-config }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-monitoring-grafana-config }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-monitoring-telegraf-config }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-debug-mode }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-debug-mode }
