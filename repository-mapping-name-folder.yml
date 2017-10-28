@@ -55,6 +55,7 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-enable-swap }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-restore }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-server-self }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-server-registration-state }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-set-reachable }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-analytics-group-add }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user }
@@ -69,6 +70,7 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-component-installer }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-default-settings }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-epel }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-pip }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-license }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-message-processor-bind-environment }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-openjdk }
