@@ -14,7 +14,7 @@
     tags: ['config']
 
   - name: Configure git attributes
-     git_config:
+    git_config:
       name: "{{ item.name }}"
       scope: "{{ item.scope }}"
       value: "{{ item.value }}"
