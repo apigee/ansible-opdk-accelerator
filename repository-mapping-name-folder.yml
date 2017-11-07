@@ -8,7 +8,7 @@ config_repos:
 
 playbook_repos:
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-single-region }
-- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-gce-management }
+#- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-gce-management }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-backup }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-validation }
 ##- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio } # moved into apigee-opdk-playbook-installation-single-region
