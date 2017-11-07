@@ -13,7 +13,7 @@
     with_items: '{{ configuration_folders }}'
     tags: ['config']
 
-  -  name: Configure git attributes
+  - name: Configure git attributes
      git_config:
       name: "{{ item.name }}"
       scope: "{{ item.scope }}"
