@@ -13,6 +13,16 @@
     with_items: '{{ configuration_folders }}'
     tags: ['config']
 
+  -  name: Configure git attributes
+     git_config:
+      name: "{{ item.name }}"
+      scope: "{{ item.scope }}"
+      value: "{{ item.value }}"
+    with_items:
+    - { name: 'http.sslVerify', scope: 'global', value: 'false' }
+    - { name: 'core.gitProxy', scope: 'global', value: '{{ proxy_url }}' }
+    when: extra_check is defined and extra_check | trim == "yes"
+
   - block:
     - name: Git checkout of configuration repositories
       tags: ['config']
@@ -46,15 +56,6 @@
     when: checkout_type | default('ssh') | trim == 'ssh'
 
   - block:
-    -  name: Configure git attributes
-       git_config:
-        name: "{{ item.name }}"
-        scope: "{{ item.scope }}"
-        value: "{{ item.value }}"
-      with_items:
-      - { name: 'http.sslVerify', scope: 'global', value: 'false' }
-      - { name: 'core.gitProxy', scope: 'global', value: '{{ proxy_url }}' }
-      when: extra_check is defined and extra_check | trim == "yes"
 
     - name: Git checkout of configuration repositories
       tags: ['config']
