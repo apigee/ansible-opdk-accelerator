@@ -12,7 +12,6 @@ configuration_folders:
 - '{{ ansible_config }}/inventory'
 - '{{ ansible_config }}/tmp/'
 - '{{ apigee_config }}/logs_configs'
-- '{{ apigee_config }}/apigee-opdk-custom-properties'
 - '{{ apigee_security }}'
 - '{{ playbook_workspace }}'
 - '{{ role_workspace }}'

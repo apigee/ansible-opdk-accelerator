@@ -89,8 +89,14 @@
       when: role_repos is defined
     when: checkout_type is defined and checkout_type | trim == 'https'
 
-  - name: Add empty credentials.yml file to .apigee
+  - name: Add empty credentials.yml file to .apigee-secure
     copy:
       src: resources/credentials.yml
       dest: '{{ apigee_security }}/credentials.yml'
+      force: no
+
+  - name: Add empty custom-properties.yml file to .apigee
+    copy:
+      src: resources/custom-properties.yml
+      dest: '{{ apigee_config }}/custom-properties.yml'
       force: no
