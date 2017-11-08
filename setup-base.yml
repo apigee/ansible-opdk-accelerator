@@ -21,7 +21,7 @@
     with_items:
     - { name: 'http.sslVerify', scope: 'global', value: 'false' }
     - { name: 'core.gitProxy', scope: 'global', value: '{{ proxy_url }}' }
-    when: extra_check is defined and extra_check | trim == "yes"
+    when: extra_check is defined and extra_check | trim == "yes" and proxy_url is defined and proxy_url | trim | length > 0
 
   - block:
     - name: Git checkout of configuration repositories
