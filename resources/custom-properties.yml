@@ -27,4 +27,13 @@ opdk_version: 4.17.01
 # TODO: Add a sample yum repository configuration
 # Configure a yum repositories
 #apigee_yum_repositories:
-#- { repo_id: 'customer-provided', description: 'Configure customer managed repository', baseurl: 'http://{some customer url and port}'}
+#- {
+#    repo_id: 'customer-provided',
+#    name: 'Description of repository',
+#    baseurl: 'http://{some customer url and port}',
+#    gpgkey: '',
+#    gpgcheck: '0',
+#    priority: '',
+#    exclude: '',
+#    repo_filename: ''
+#  }
