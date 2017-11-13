@@ -1,7 +1,6 @@
 ---
 config_repos:
 - { workspace: '{{ apigee_workspace }}', repo_name: apigee-opdk-playbook-setup-ansible }
-#- { workspace: '{{ apigee_config }}', repo_name: apigee-opdk-custom-properties }
 - { workspace: '{{ apigee_workspace }}', repo_name: local-workspace-maintenance }
 - { workspace: '{{ ansible_config }}', repo_name: apigee-opdk-ansible-configuration-samples }
 - { workspace: '{{ ansible_config }}', repo_name: apigee-opdk-ansible-inventory-samples }
@@ -61,6 +60,7 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-apigee-user-ownership }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-cache }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-archive-installer }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-create-archive }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-bootstrap-download-archive }
@@ -74,6 +74,7 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-license }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-message-processor-bind-environment }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-openjdk }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-openjdk-cache }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-org }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-org-config }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-common }
@@ -130,4 +131,8 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-monitoring-grafana-config }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-monitoring-telegraf-config }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-debug-mode }
-- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-debug-mode }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-axgroup-add }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-axgroup-remove }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-scopes-add }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-scopes-remove }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-scopes-state }
