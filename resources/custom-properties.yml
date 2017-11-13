@@ -69,3 +69,17 @@ os_packages:
 - telnet
 - vim
 - tree
+
+pip_packages:
+- httplib2
+- pexpect
+- passlib
+- urllib3
+- requests
+- six
+- pyOpenSSL
+
+qpid_client: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-client-1.35.0-3.el7.x86_64.rpm
+qpid_server: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-server-1.35.0-3.el7.x86_64.rpm
+
+epel_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
