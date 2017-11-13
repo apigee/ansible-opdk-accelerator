@@ -37,3 +37,33 @@ opdk_version: 4.17.01
 #    exclude: '',
 #    repo_filename: ''
 #  }
+
+# These are required yum packages
+yum_packages:
+- bind-utils
+- chkconfig
+- curl
+- tar
+- wget
+- yum-utils
+- unzip
+- rsync
+- which
+- libselinux-python
+- nss
+- openssh-clients
+- openssh-server
+- grep
+- rpm
+- rng-tools
+- sed
+
+# These are optional yum packages that are useful for troubleshooting
+os_packages:
+- lsof
+- nc
+- dos2unix
+- tcpdump
+- telnet
+- vim
+- tree
