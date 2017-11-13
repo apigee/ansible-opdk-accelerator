@@ -1,9 +1,10 @@
 ---
 opdk_version: 4.17.01
+target_logs_folder: "~/.apigee/planet_resources/"
+
 # apigee_repo_uri: 10.142.0.4:3939
 # apigee_repo_protocol: http
 # apigee_repo_url: "{{ apigee_repo_protocol }}://{{ apigee_repo_uri }}"
-# target_logs_folder: "~/.apigee/logs_configs/"
 
 # pip_index_url: "https://private.repository.com/api/pypi/Pypi-remote/simple"
 # pip_conf_dir: "~/.pip"
