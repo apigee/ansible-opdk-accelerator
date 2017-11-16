@@ -28,16 +28,17 @@ assign_mgmt_ip: True
 
 # TODO: Add a sample yum repository configuration
 # Configure a yum repositories
-#apigee_yum_repositories:
+#yum_repositories:
 #- {
 #    repo_id: 'customer-provided',
 #    name: 'Description of repository',
 #    baseurl: 'http://{some customer url and port}',
-#    gpgkey: '',
+#    gpgkey: 'file:///etc/pki/rpm-gpg/{some key file]',
 #    gpgcheck: '0',
 #    priority: '',
 #    exclude: '',
-#    repo_filename: ''
+#    repo_filename: "customer-provided",
+#    sslverify: false
 #  }
 
 # These are required yum packages
@@ -83,3 +84,29 @@ qpid_client: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-client-1.35.0-
 qpid_server: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-server-1.35.0-3.el7.x86_64.rpm
 
 epel_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+
+openldap:
+- openldap
+- openldap-clients
+- openldap-servers
+
+openldap_downgrade_version:
+- openldap-2.4.40
+- openldap-clients-2.4.40
+- openldap-servers-2.4.40
+
+openldap_named_repo_host: http://mirror.centos.org/centos/6/os/x86_64/Packages
+openldap_named_legacy_version: 2.4.40
+openldap_named_packages:
+- "{{ openldap_named_repo_hosts}}/openldap-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+- "{{ openldap_named_repo_hosts}}/openldap-clients-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+- "{{ openldap_named_repo_hosts}}/openldap-servers-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+
+opdk_group_create: False
+
+# Use this to remove linked files that don't delete through on rollback
+#remove_on_rollback:
+#- {path to files or directories that should be removed on rollback }
+
+# Load balancer if available
+# load_balancer: 'fqdn or ip address for load balancer'
