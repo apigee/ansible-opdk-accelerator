@@ -6,7 +6,7 @@ located. This project sets up those locations and performs the git clone to setu
 environment with the templates that should be customized for your use.
 
 # Quick Installation
-Please note that this installation framework uses Ansible. Please install Ansible prior to cloning
+Please note that this installation framework uses Ansible. Please install Ansible 4.x prior to cloning
 this project. Once Ansible is ready for use you can follow these steps: 
 1. Clone this project into a workspace. We recommend ~/apigee-workspace.
 1. Change into the cloned directory.  
@@ -16,16 +16,34 @@ projects, roles and configurations you wish to work with.
 where you want resources and configuration files located. Defaults are provided. 
 1. Execute `ansible-playbook setup.yml` to create a local development environment. 
 
-
 # What does the Quick Installation do? 
-The quick installation will 
-1. Update the credentials.yml file as indicated below.
-1. Add the license.txt file to `~/.apigee-secure/license.txt`
-1. Configure ansible to work with the correct configuration using:
-    `export ANSIBLE_CONFIG=~/.ansible/configurations/edge-1701-dc1.cfg`
-1. `cd ~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
-1. `ansible-galaxy install -r install-edge-requirements.yml`
-1. The first invocation should be: `ansible-playbook install-edge.yml --become --become-method=pbrun --tags=cache,ds,ms,rmp,qs,org`
+The quick installation will create several folders where configurations and playbooks will be located.
+The folders and initial files are listed as follows:
+
+`~/.ansible/configurations/{configuration file name.cfg}`: This contains ansible configuration files.
+`~/.ansible/inventory/{environment inventory}/`: This contains several templates to guide how you should 
+configure the inventory.
+`~/.apigee/`: This folder contains files used to install Apigee components.
+`~/.apigee/license.txt`: This is the license file you received from Apigee. 
+`~/.apigee/custom-properties.yml`: The installation framework is parameterized. Variables can be
+either uncommented and used or added to this file. 
+`~/.apigee-secure`: This folder contains file that contain sensitive attributes that should be secured.
+`~/.apigee-secure`: This file contains the credentials to be used during the installation of Apigee components.
+
+# Required Steps
+1. It is necessary to update your credentials.yml and to copy your license file into `~/.apigee-secure/license.txt`. 
+1. Update the ansible.cfg file with your `remote_user`
+1. Confirm the ssh key you are using.
+1. Confirm that the ansible.cfg is pointing to the correct inventory folder.
+1. Update the appropriate files in the inventory folder for either Edge, DevPortal, Baas or Monitoring as needed Observe
+groupings and add your ip addresses at the lowest level which would be the dc-1-xx, dc-2-xx, etc.
+1. Confirm connectivity using the the `ping` module. 
+1. Change to the folder which is likely to be `~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
+and update the Ansible roles. Files that end in `-requirements.yml` are Ansible Galaxy requirements files. Update the roles
+following this sample: `ansible-galaxy install -r install-edge-requirements.yml`
+The playbook that the `-requirements.yml` file supports is the playbook with the same name as the first part of the requirements file. 
+This means that `install-edge-requirements.yml` updates the roles for the playbook `install-edge.yml`
+1. The first invocation should be: `ansible-playbook install-edge.yml --b --tags={cache,ds,ms,rmp,qs,org} {Any optional parameters}`
 
 # Installing Ansible on Windows
 Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.
