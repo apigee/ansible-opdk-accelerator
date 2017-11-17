@@ -101,12 +101,6 @@ This playbook will perform the following activities:
 1. Git clone of inventory file templates.
 1. Create credentials.yml template file
 
-# Default Workspace Folders
-The default workspace folders can be modified by updating workspace-folders.yml.
-
-# Default Github Repository List
-The github repositories that you include can be modified by updating workspace-github-repos.yml
-
 # Inventory File Semantics
 A description of the how the [Inventory File](README-INVENTORY-FILE.md) should be setup.
 
