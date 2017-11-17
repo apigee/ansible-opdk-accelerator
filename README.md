@@ -6,14 +6,19 @@ located. This project sets up those locations and performs the git clone to setu
 environment with the templates that should be customized for your use.
 
 # Quick Installation
-Assuming ansible is already installed then you can setup with the following steps:
+Please note that this installation framework uses Ansible. Please install Ansible prior to cloning
+this project. Once Ansible is ready for use you can follow these steps: 
+1. Clone this project into a workspace. We recommend ~/apigee-workspace.
+1. Change into the cloned directory.  
+1. Review [repository-mapping-name-folder.yml](repository-mapping-name-folder.yml) to select the
+projects, roles and configurations you wish to work with.
+1. Update [repository-custom-properties.yml](repository-custom-properties.yml) with the locations 
+where you want resources and configuration files located. Defaults are provided. 
+1. Execute `ansible-playbook setup.yml` to create a local development environment. 
 
-1. `mkdir ~/apigee-workspace`
-1. `cd ~/apigee-workspace`
-1. Make sure your public ssh key has been added to stash.
-1. `git clone git@github.com:carlosfrias/apigee-opdk-playbook-setup-ansible.git`
-1. `cd apigee-opdk-playbook-setup-ansible`
-1. `ansible-playbook setup.yml`
+
+# What does the Quick Installation do? 
+The quick installation will 
 1. Update the credentials.yml file as indicated below.
 1. Add the license.txt file to `~/.apigee-secure/license.txt`
 1. Configure ansible to work with the correct configuration using:
