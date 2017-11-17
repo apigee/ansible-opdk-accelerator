@@ -1,9 +1,12 @@
 # Apigee OPDK Ansible Setup Playbook
 The purpose of this project is to help configure Ansible for the use of
 [Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
-The Apigee OPDK roles follow conventions in the naming of files and where those files are 
-located. This project sets up those locations and performs the git clone to setup your 
-environment with the templates that should be customized for your use.
+Conventions have been used regarding the placement of files and the names of inventory groups. The placement of files
+is described below as are the names of inventory groups. The playbooks rely on these conventions. These conventions 
+have reduced the installation of the Edge platform to updating attributes in property files and the judicious use of tags
+around the points of installation failure. The playbooks make use of tags so that functionality can be targeted as needed. 
+Finally, take note that templates are provided to guide how you should update your inventory and to generate the required
+response files from the updated inventory. 
 
 # Quick Installation
 Please note that this installation framework uses Ansible. Please install Ansible 4.x prior to cloning
@@ -20,15 +23,15 @@ where you want resources and configuration files located. Defaults are provided.
 The quick installation will create several folders where configurations and playbooks will be located.
 The folders and initial files are listed as follows:
 
-`~/.ansible/configurations/{configuration file name.cfg}`: This contains ansible configuration files.
-`~/.ansible/inventory/{environment inventory}/`: This contains several templates to guide how you should 
+* `~/.ansible/configurations/{configuration file name.cfg}`: This contains ansible configuration files.
+* `~/.ansible/inventory/{environment inventory}/`: This contains several templates to guide how you should 
 configure the inventory.
-`~/.apigee/`: This folder contains files used to install Apigee components.
-`~/.apigee/license.txt`: This is the license file you received from Apigee. 
-`~/.apigee/custom-properties.yml`: The installation framework is parameterized. Variables can be
+* `~/.apigee/`: This folder contains files used to install Apigee components.
+* `~/.apigee/license.txt`: This is the license file you received from Apigee. 
+* `~/.apigee/custom-properties.yml`: The installation framework is parameterized. Variables can be
 either uncommented and used or added to this file. 
-`~/.apigee-secure`: This folder contains file that contain sensitive attributes that should be secured.
-`~/.apigee-secure`: This file contains the credentials to be used during the installation of Apigee components.
+* `~/.apigee-secure`: This folder contains file that contain sensitive attributes that should be secured.
+* `~/.apigee-secure`: This file contains the credentials to be used during the installation of Apigee components.
 
 # Required Steps
 1. It is necessary to update your credentials.yml and to copy your license file into `~/.apigee-secure/license.txt`. 
