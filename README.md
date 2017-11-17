@@ -42,7 +42,7 @@ either uncommented and used or added to this file.
 groupings and add your ip addresses at the lowest level which would be the dc-1-xx, dc-2-xx, etc.
 1. Confirm connectivity using the the `ping` module. 
 1. Change to the folder which is likely to be `~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
-and update the Ansible roles. Files that end in `-requirements.yml` are Ansible Galaxy requirements files. Update the roles
+and download the Ansible roles using Ansible Galaxy. Take note that files that end in `-requirements.yml` are Ansible Galaxy requirement files. Update the roles
 following this sample: `ansible-galaxy install -r install-edge-requirements.yml`
 The playbook that the `-requirements.yml` file supports is the playbook with the same name as the first part of the requirements file. 
 This means that `install-edge-requirements.yml` updates the roles for the playbook `install-edge.yml`
