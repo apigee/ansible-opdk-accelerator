@@ -38,11 +38,13 @@ either uncommented and used or added to this file.
 1. Update the ansible.cfg file with your `remote_user`
 1. Confirm the ssh key you are using.
 1. Confirm that the ansible.cfg is pointing to the correct inventory folder.
+1. Export the `ANSIBLE_CONFIG` environmental variable pointing to the `ansible.cfg` you are using. Please do this
+like this: `export ANSIBLE_CONFIG=~/.ansible/configurations/{configuration file name.cfg}`
 1. Update the appropriate files in the inventory folder for either Edge, DevPortal, Baas or Monitoring as needed Observe
 groupings and add your ip addresses at the lowest level which would be the dc-1-xx, dc-2-xx, etc.
 1. Confirm connectivity using the the `ping` module. 
 1. Change to the folder which is likely to be `~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
-and download the Ansible roles using Ansible Galaxy. Take note that files that end in `-requirements.yml` are Ansible Galaxy requirement files. Update the roles
+and download the Ansible roles using Ansible Galaxy to the location you indicated in the `ansible.cfg` file you are using. Take note that files that end in `-requirements.yml` are Ansible Galaxy requirement files. Update the roles
 following this sample: `ansible-galaxy install -r install-edge-requirements.yml`
 The playbook that the `-requirements.yml` file supports is the playbook with the same name as the first part of the requirements file. 
 This means that `install-edge-requirements.yml` updates the roles for the playbook `install-edge.yml`
