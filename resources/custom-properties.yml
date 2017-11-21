@@ -122,5 +122,6 @@ use_opdk_ldap_remote_host: n
 # Specify OpenLDAP without replication, 1, or with replication, 2.
 opdk_ldap_type: 1
 
+# Organization name
 # org_name:
 
