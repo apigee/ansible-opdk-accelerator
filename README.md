@@ -17,7 +17,8 @@ this project. Once Ansible is ready for use you can follow these steps:
 projects, roles and configurations you wish to work with.
 1. Update [repository-custom-properties.yml](repository-custom-properties.yml) with the locations 
 where you want resources and configuration files located. Defaults are provided. 
-1. Execute `ansible-playbook setup.yml` to create a local development environment. 
+1. Execute `ansible-playbook setup.yml` to create a local development environment.
+1. You will likely start with [Apigee OPDK Playbook Installations](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region) 
 
 # What does the Quick Installation do? 
 The quick installation will create several folders where configurations and playbooks will be located.
@@ -122,7 +123,7 @@ install it in the correct location for your this workspace.
 ## ~/apigee-workspace/apigee-opdk-playbook-workspace
 Starter templates for playbooks. Use these playbooks as accelerators for your own.
 
-## ~/apigee-workspace/apigee-odk-role-workspace
+## ~/apigee-workspace/apigee-opdk-role-workspace
 Workspace containing the roles used by the playbooks.
 
 # Configure Credentials
