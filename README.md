@@ -49,7 +49,7 @@ and download the Ansible roles using Ansible Galaxy to the location you indicate
 following this sample: `ansible-galaxy install -r install-edge-requirements.yml`
 The playbook that the `-requirements.yml` file supports is the playbook with the same name as the first part of the requirements file. 
 This means that `install-edge-requirements.yml` updates the roles for the playbook `install-edge.yml`
-1. The first invocation should be: `ansible-playbook install-edge.yml --b --tags={cache,ds,ms,rmp,qs,org} {Any optional parameters}`
+1. The first invocation should be: `ansible-playbook install-edge.yml -b --tags={cache,ds,ms,rmp,qs,org} {Any optional parameters}`
 
 # Installing Ansible on Windows
 Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.
