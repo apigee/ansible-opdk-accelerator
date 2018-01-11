@@ -12,7 +12,6 @@
       path: '{{ item }}'
       state: directory
     with_items: '{{ configuration_folders }}'
-    tags: ['config']
 
   - name: Configure git attributes
     tags: ['config','playbooks','roles']
