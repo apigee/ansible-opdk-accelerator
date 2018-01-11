@@ -18,7 +18,7 @@ projects, roles and configurations you wish to work with.
 1. Update [repository-custom-properties.yml](repository-custom-properties.yml) with the locations 
 where you want resources and configuration files located. Defaults are provided. 
 1. Execute `ansible-playbook setup.yml` to create a local development environment.
-1. After completing [Required Steps](Required Steps) you will likely start with [Apigee OPDK Playbook Installations](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region) 
+1. After completing [Required Steps](required-steps) you will likely start with [Apigee OPDK Playbook Installations](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region) 
 
 # What does the Quick Installation do? 
 The quick installation will create several folders where configurations and playbooks will be located.
