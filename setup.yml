@@ -3,6 +3,6 @@
 
 #- include: control-server.yml
 
-- include: setup-base.yml
+- import_playbook: setup-base.yml
 
 #- include: setup-ec2.yml

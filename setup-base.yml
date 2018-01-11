@@ -2,8 +2,8 @@
 - hosts: localhost
   connection: local
   vars_files:
-  - repository-mapping-name-folder.yml
   - repository-custom-properties.yml
+  - repository-mapping-name-folder.yml
 
   tasks:
   - name: Ensure ansible configuration folders exist

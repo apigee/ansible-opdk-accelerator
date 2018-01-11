@@ -11,8 +11,6 @@ repository_secure_endpoint_https: "https://github.com/carlosfrias"
 repository_secure_endpoint_ssh: "git@github.com:carlosfrias"
 
 configuration_folders:
-- '{{ ansible_config }}/configurations'
-- '{{ ansible_config }}/inventory'
 - '{{ ansible_config }}/logs/'
 - '{{ ansible_config }}/cache/'
 - '{{ apigee_config }}/planet_resources'
