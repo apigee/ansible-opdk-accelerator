@@ -102,7 +102,7 @@ openldap_named_packages:
 - "{{ openldap_named_repo_hosts}}/openldap-clients-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
 - "{{ openldap_named_repo_hosts}}/openldap-servers-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
 
-opdk_group_create: False
+opdk_group_create: True
 
 # Use this to remove linked files that don't delete through on rollback
 #remove_on_rollback:
