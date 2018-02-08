@@ -125,3 +125,5 @@ opdk_ldap_type: 1
 # Organization name
 # org_name:
 
+clear_etc_hosts:
+- { regexp: '(^::1.*localhost6.*)$', replace: "# \1" }
