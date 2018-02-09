@@ -61,6 +61,9 @@ yum_packages:
 - rng-tools
 - sed
 
+yum_exclude_packages:
+- 'qpid-proton-c'
+
 # These are optional yum packages that are useful for troubleshooting
 os_packages:
 - lsof
