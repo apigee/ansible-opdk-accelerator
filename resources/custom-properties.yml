@@ -1,7 +1,9 @@
 ---
-opdk_version: 4.17.01
+opdk_version: 4.17.09
 target_logs_folder: "~/.apigee/planet_resources/"
 assign_mgmt_ip: True
+
+upgrade_from_opdk_version: 4.17.01
 
 # apigee_repo_uri: 10.142.0.4:3939
 # apigee_repo_protocol: http
