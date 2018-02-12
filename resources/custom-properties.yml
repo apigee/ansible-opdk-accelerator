@@ -62,9 +62,11 @@ yum_packages:
 - rpm
 - rng-tools
 - sed
+- yum-plugin-priorities
 
-yum_exclude_packages:
-- 'qpid-proton-c'
+# These are packages that can be excluded from yum installation:
+#yum_exclude_packages:
+#- 'qpid-proton-c'
 
 # These are optional yum packages that are useful for troubleshooting
 os_packages:
