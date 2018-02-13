@@ -124,7 +124,7 @@ use_opdk_ldap_remote_host: n
 
 # If connecting to remote OpenLDAP server, specify the IP/DNS name and port.
 # opdk_ldap_host:       # IP or DNS name of OpenLDAP node.
-# opdk_ldap_port:10389  # Default is 10389.
+# opdk_ldap_port: 10389  # Default is 10389.
 
 # Specify OpenLDAP without replication, 1, or with replication, 2.
 opdk_ldap_type: 1
