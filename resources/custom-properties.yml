@@ -3,6 +3,7 @@ opdk_version: 4.17.09
 target_logs_folder: "~/.apigee/planet_resources/"
 assign_mgmt_ip: True
 
+# Variable to indicate the previous OPDK version to upgrade from
 upgrade_from_opdk_version: 4.17.01
 
 # apigee_repo_uri: 10.142.0.4:3939
@@ -29,7 +30,7 @@ upgrade_from_opdk_version: 4.17.01
 # - { original_folder: "/etc/yum.repos.d", file_name: "redhat.repo", temporary_holding_folder: "/tmp/yum.repos.d" }
 
 # TODO: Add a sample yum repository configuration
-# Configure a yum repositories
+# Configure yum repositories
 #yum_repositories:
 #- {
 #    repo_id: 'customer-provided',
@@ -82,6 +83,7 @@ os_packages:
 - vim
 - tree
 
+# Pip Packages for Ansible Scripts
 pip_packages:
 - httplib2
 - pexpect
@@ -91,21 +93,26 @@ pip_packages:
 - six
 - pyOpenSSL
 
+# Qpid Download location if needed
 qpid_client: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-client-1.35.0-3.el7.x86_64.rpm
 qpid_server: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-server-1.35.0-3.el7.x86_64.rpm
 
+# EPEL Download location if needed
 epel_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
 
+# OpenLdap Yum Packages to Install
 openldap:
 - openldap
 - openldap-clients
 - openldap-servers
 
+# OpenLdap Yum packages for a Downgrade if needed
 openldap_downgrade_version:
 - openldap-2.4.40
 - openldap-clients-2.4.40
 - openldap-servers-2.4.40
 
+# OpenLdap RMP Download Locations if needed
 openldap_named_repo_host: http://mirror.centos.org/centos/6/os/x86_64/Packages
 openldap_named_legacy_version: 2.4.40
 openldap_named_packages:
@@ -136,5 +143,19 @@ opdk_ldap_type: 1
 # Organization name
 # org_name:
 
+# OS Config for all Nodes
 clear_etc_hosts:
 - { regexp: '(^::1.*localhost6.*)$', replace: '# \1' }
+
+# OS Config for all Nodes
+sysctl_minimum:
+- { name: 'vm.swappiness', value: "{{ vm_swappiness }}" }
+- { name: 'net.ipv6.conf.all.disable_ipv6', value: '1' }
+- { name: 'net.ipv6.conf.default.disable_ipv6', value: '1' }
+- { name: 'net.ipv4.tcp_fin_timeout', value: "{{ apigee_net_ipv4_tcp_fin_timeout }}" }
+- { name: 'vm.max_map_count', value: '{{ apigee_max_map_count }}' }
+
+# OS Config for Postgres
+apigee_kernel_sem: '500 32000 32 1024'
+sysctl_pg:
+- { name: 'kernel.sem', value: "{{ apigee_kernel_sem }}" }
