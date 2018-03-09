@@ -165,3 +165,9 @@ sysctl_ipv6:
 apigee_kernel_sem: '500 32000 32 1024'
 sysctl_pg:
 - { name: 'kernel.sem', value: "{{ apigee_kernel_sem }}" }
+
+# Extra Yum Packages that should be transferred manually for an offline installation
+archive_extra_packages:
+- yum-utils
+- yum-plugin-priorities
+- libdb4-4.8*
