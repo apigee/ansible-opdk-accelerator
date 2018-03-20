@@ -134,3 +134,9 @@ Ansible can be configured to make use of the above folders by providing an Ansib
 The Ansible configuration file can be generated in using the `setup-ansible-config.yml` playbook.
 
     ansible-playbook setup-ansible-config.yml
+<!-- BEGIN Google Required Disclaimer -->
+
+# Required Disclaimer
+
+This is not an officially supported Google product.
+<!-- END Google Required Disclaimer -->
