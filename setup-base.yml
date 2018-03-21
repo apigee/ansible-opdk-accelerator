@@ -13,6 +13,12 @@
       state: directory
     with_items: '{{ configuration_folders }}'
 
+  - name: Update Library
+    synchronize:
+      src: library
+      dest: "{{ ansible_config }}/library"
+    delegate_to: localhost
+
   - name: Configure git attributes
     tags: ['config','playbooks','roles']
     git_config:
