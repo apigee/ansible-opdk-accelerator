@@ -136,7 +136,7 @@ The Ansible configuration file can be generated in using the `setup-ansible-conf
     ansible-playbook setup-ansible-config.yml
 <!-- BEGIN Google Required Disclaimer -->
 
-# Required Disclaimer
+# Not Google Product Clause
 
 This is not an officially supported Google product.
 <!-- END Google Required Disclaimer -->
