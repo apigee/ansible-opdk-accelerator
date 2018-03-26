@@ -171,3 +171,10 @@ archive_extra_packages:
 - yum-utils
 - yum-plugin-priorities
 - libdb4-4.8*
+
+# apigee_limits is used to set the limits.conf for the node where OPDK components are installed.
+apigee_limits:
+- { domain: '*', limit_type: '-', limit_item: 'memlock', value: 'unlimited' }
+- { domain: '*', limit_type: '-', limit_item: 'nofile', value: '100000' }
+- { domain: '*', limit_type: '-', limit_item: 'nproc', value: '32768' }
+- { domain: '*', limit_type: '-', limit_item: 'as', value: 'unlimited' }
