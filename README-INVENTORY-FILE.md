@@ -11,7 +11,7 @@ Ansible model by applying a semantic convention that is based on the
 Apigee Private Cloud domain model for referencing server nodes as 
 collections of planets and regions. This means that Apigee semantics are used as group names 
 to ascribe roles to normal Ansible inventory files. Please refer to the (Ansible documentation)[http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html]
-for more inforamation on how this works.  
+for more information on how this works.  
 
 ## Inventory File Conventions
 These roles depend on use of conventions in the inventory file. 
