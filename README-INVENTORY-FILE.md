@@ -15,11 +15,11 @@ for more information on how this works.
 
 ## Inventory File Conventions
 These roles depend on use of conventions in the inventory file. 
-Specifically inventory file conventions are ansible group names that
-are defined around Apigee semantics. These ansible groups are 
-semantically linked to the Apigee documentation. The ansible groups used as
+Specifically inventory file conventions are [Ansible group](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-and-groups) names that
+are defined around Apigee semantics. These Ansible groups are 
+semantically linked to the Apigee documentation. The Ansible groups used as
 conventions correspond to the installation roles and server 
-categorizations called out in the Apigee Private Cloud Installation and 
+categorizations called out in the [Apigee Private Cloud Installation](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node) and 
 Configuration Guide. It has been useful to use planet and region 
 designations combined with the documented installation role names to 
 create categorization semantics that should be fairly intuitive once you 
