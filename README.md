@@ -1,4 +1,4 @@
-# Apigee OPDK Ansible Setup Playbook
+# Apigee OPDK Ansible Configuration Accelerator
 The purpose of this project is to help configure Ansible for the use of
 [Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
 Conventions have been used regarding the placement of files and the names of inventory groups. The placement of files
@@ -18,7 +18,9 @@ projects, roles and configurations you wish to work with.
 1. Update [repository-custom-properties.yml](repository-custom-properties.yml) with the locations 
 where you want resources and configuration files located. Defaults are provided. 
 1. Execute `ansible-playbook setup.yml` to create a local development environment.
-1. After taking note of what the [Quick Installation](#what-does-the-quick-installation-do) did and completing [Required Steps](#required-steps) you will likely start with [Apigee OPDK Playbook Installations](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region) 
+1. After taking note of what the [Quick Installation](#what-does-the-quick-installation-do) did and completing 
+[Required Steps](#required-steps) you will likely start with 
+[Apigee OPDK Playbook Installations](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region) 
 
 # What does the Quick Installation do? 
 The quick installation will create several folders where configurations and playbooks will be located.
