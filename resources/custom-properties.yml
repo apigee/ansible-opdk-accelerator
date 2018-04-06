@@ -179,3 +179,19 @@ apigee_limits:
 - { domain: '*', limit_type: '-', limit_item: 'nofile', value: '100000' }
 - { domain: '*', limit_type: '-', limit_item: 'nproc', value: '32768' }
 - { domain: '*', limit_type: '-', limit_item: 'as', value: 'unlimited' }
+
+## remove_components are used to remove system packages during a qpid upgrade
+#remove_qpid_upgrade_components:
+#- qpid-cpp-server
+#- qpid-cpp-server-linearstore
+#- qpid-tools
+#- qpid-qmf
+#- python-qpid
+#- qpid-cpp-client
+#- qpid-proton-c
+
+## install_components are used to update the system packages during a qpid upgrade
+#install_qpid_upgrade_components:
+#- yum-plugin-priorities
+#- apigee-qpidd
+
