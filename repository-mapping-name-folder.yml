@@ -137,3 +137,4 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-scopes-remove }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-scopes-state }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-update-component-qpidd }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-sysctl }
