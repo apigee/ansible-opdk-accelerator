@@ -1,0 +1,56 @@
+---
+- name: Create and update repositories in BitBucket
+  hosts: localhost
+  connection: local
+  vars_files:
+  - repository-mapping-name-folder.yml
+  - repository-custom-properties.yml
+  - private-repository-user-list.yml
+  tasks:
+  - name: Create Bitbucket repositories if necessary
+    uri:
+      url: "{{ repository_secure_endpoint_https }}"
+      method: POST
+      user: "{{ username }}"
+      password: "{{ password }}"
+      force_basic_auth: yes
+      status_code: 201,409
+      body_format: json
+      body:
+        name: "{{ item.repo_name }}"
+        scmId: git
+        forkable: True
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
+  - name: Add permissions to Bitbucket repositories
+    uri:
+      url: "{{ repository_secure_endpoint_https }}/permissions/users?name={{ item }}&permission=PROJECT_ADMIN"
+      method: PUT
+      user: "{{ username }}"
+      password: "{{ password }}"
+      force_basic_auth: yes
+      status_code: 204,409
+    with_items: "{{ repo_users }}"
+
+  - name: Add second git host as remote repo
+    ignore_errors: true
+    shell: "git remote add target {{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items: "{{ repo_names }}"
+
+  - name: Pull from second git host if the repo is already there
+    ignore_errors: yes
+    shell: "git pull target master"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items: "{{ repo_names }}"
+
+  - name: Commit updated repos to second git host
+    shell: "git checkout master && git push -u target master"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items: "{{ repo_names }}"
