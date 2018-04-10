@@ -7,7 +7,7 @@
   - repository-custom-properties.yml
   - private-repository-user-list.yml
   tasks:
-  - name: Create Bitbucket repositories if necessary
+  - name: Create Gitlab repositories if necessary
     uri:
       url: "{{ repository_secure_endpoint_https }}"
       method: POST
