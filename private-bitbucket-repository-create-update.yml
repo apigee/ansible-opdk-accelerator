@@ -20,7 +20,10 @@
         name: "{{ item.repo_name }}"
         scmId: git
         forkable: True
-    with_items: "{{ repo_names }}"
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
 
   - name: Add permissions to Bitbucket repositories
     uri:
