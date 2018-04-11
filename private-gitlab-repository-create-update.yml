@@ -20,9 +20,10 @@
       body:
         namespace_id: 369
     with_items:
-    - "{{ config_repos }}"
-    - "{{ playbook_repos }}"
-    - "{{ role_repos }}"
+    - Delete-ME
+#    - "{{ config_repos }}"
+#    - "{{ playbook_repos }}"
+#    - "{{ role_repos }}"
 
   - name: Show repos structure
     tags: ['create']
