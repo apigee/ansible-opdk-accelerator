@@ -45,7 +45,10 @@
     shell: "git remote add gitlab {{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
-    with_items: "{{ repo_names }}"
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
 
   - name: Pull from second git host if the repo is already there
     tags: ['remote-refresh']
@@ -53,11 +56,19 @@
     shell: "git pull gitlab master"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
-    with_items: "{{ repo_names }}"
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
 
   - name: Commit updated repos to second git host
     tags: ['commit']
     shell: "git checkout master && git push -u gitlab master"
     args:
       chdir: "{{ item.workspace }}/{{ item.repo_name }}"
-    with_items: "{{ repo_names }}"
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
