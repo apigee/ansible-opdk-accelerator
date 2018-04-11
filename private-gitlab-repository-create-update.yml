@@ -42,7 +42,7 @@
   - name: Share repos with group
     tags: ['create']
     uri:
-      url: "{{ repository_secure_endpoint_https }}/projects/{{ repos.json.id }}/share"
+      url: "{{ repository_secure_endpoint_https }}/projects/{{ repos.results[0].json.id }}/share"
       method: POST
       headers:
         PRIVATE-TOKEN: "{{ private_token }}"
