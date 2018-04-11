@@ -49,7 +49,7 @@
       url: "{{ repository_secure_endpoint_https }}/projects/{{ repos.results[0].json.id }}/share"
       method: POST
       headers:
-        PRIVATE-TOKEN: "{{ private_token }}"
+        PRIVATE-TOKEN: "{{ token }}"
       status_code: 201,409
 
   - name: Add permissions to Bitbucket repositories
