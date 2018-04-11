@@ -11,7 +11,7 @@
     tags: ['create']
     register: repos
     uri:
-      url: "{{ repository_secure_endpoint_https }}/{{ repository_ecure_endpoint_https }}/Daniel.Mangino.1233964715/projects/{{ item }}"
+      url: "{{ repository_secure_endpoint_https }}/{{ repository_secure_endpoint_https }}/Daniel.Mangino.1233964715/projects/{{ item }}"
       method: DELETE
       headers:
         PRIVATE-TOKEN: "{{ token }}"
