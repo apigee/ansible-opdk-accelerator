@@ -7,18 +7,6 @@
   - repository-custom-properties.yml
   - private-repository-user-list.yml
   tasks:
-#  - name: Remove Gitlab repositories if necessary
-#    tags: ['create']
-#    register: repos
-#    uri:
-#      url: "{{ repository_secure_endpoint_https }}/projects/Daniel.Mangino.1233964715/{{ item }}"
-#      method: DELETE
-#      headers:
-#        PRIVATE-TOKEN: "{{ token }}"
-#      status_code: 201,404
-#    with_items:
-#    - "Delete-ME"
-
   - name: Create Gitlab repositories if necessary
     tags: ['create']
     register: repos
@@ -28,11 +16,13 @@
       headers:
         PRIVATE-TOKEN: "{{ token }}"
       status_code: 201
+      body_format: json
+      body:
+        namespace_id: 369
     with_items:
-    - "Delete-ME"
-#    - "{{ config_repos }}"
-#    - "{{ playbook_repos }}"
-#    - "{{ role_repos }}"
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
 
   - name: Show repos structure
     tags: ['create']
