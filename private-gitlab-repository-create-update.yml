@@ -15,12 +15,12 @@
       method: POST
       headers:
         PRIVATE-TOKEN: "{{ token }}"
-      status_code: 201,409
+      status_code: 201,400
     with_items:
     - "Delete-ME"
-    - "{{ config_repos }}"
-    - "{{ playbook_repos }}"
-    - "{{ role_repos }}"
+#    - "{{ config_repos }}"
+#    - "{{ playbook_repos }}"
+#    - "{{ role_repos }}"
 
   - name: Share repos with group
     tags: ['create']
