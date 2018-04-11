@@ -23,7 +23,7 @@
     tags: ['create']
     register: repos
     uri:
-      url: "{{ repository_secure_endpoint_https }}?name={{ item }}"
+      url: "{{ repository_secure_endpoint_https }}/projects?name={{ item }}"
       method: POST
       headers:
         PRIVATE-TOKEN: "{{ token }}"
