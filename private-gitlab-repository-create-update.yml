@@ -8,22 +8,27 @@
   - private-repository-user-list.yml
   tasks:
   - name: Create Gitlab repositories if necessary
+    tags: ['create']
+    register: repos
     uri:
-      url: "{{ repository_secure_endpoint_https }}"
+      url: "{{ repository_secure_endpoint_https }}?name={{ item }}"
       method: POST
-      user: "{{ username }}"
-      password: "{{ password }}"
-      force_basic_auth: yes
+      headers:
+        PRIVATE-TOKEN: "{{ private_token }}"
       status_code: 201,409
-      body_format: json
-      body:
-        name: "{{ item.repo_name }}"
-        scmId: git
-        forkable: True
     with_items:
     - "{{ config_repos }}"
     - "{{ playbook_repos }}"
     - "{{ role_repos }}"
+
+  - name: Share repos with group
+    tags: ['create']
+    uri:
+      url: "{{ repository_secure_endpoint_https }}/projects/{{ repos.json.id }}/share"
+      method: POST
+      headers:
+        PRIVATE-TOKEN: "{{ private_token }}"
+      status_code: 201,409
 
   - name: Add permissions to Bitbucket repositories
     uri:
