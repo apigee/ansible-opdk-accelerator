@@ -15,7 +15,7 @@
       method: POST
       headers:
         PRIVATE-TOKEN: "{{ token }}"
-      status_code: 201
+      status_code: 201,400
       body_format: json
       body:
         namespace_id: 369
@@ -29,10 +29,10 @@
     tags: ['create']
     debug:
       var: repos
-
-  - name: Pause to show debug output
-    tags: ['create']
-    pause:
+#
+#  - name: Pause to show debug output
+#    tags: ['create']
+#    pause:
 
   - name: Add permissions to Bitbucket repositories
     uri:
