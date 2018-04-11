@@ -14,10 +14,10 @@
       url: "{{ repository_secure_endpoint_https }}?name={{ item }}"
       method: POST
       headers:
-        PRIVATE-TOKEN: "{{ private_token }}"
+        PRIVATE-TOKEN: "{{ token }}"
       status_code: 201,409
     with_items:
-    - "Delete-Me"
+    - "Delete-ME"
     - "{{ config_repos }}"
     - "{{ playbook_repos }}"
     - "{{ role_repos }}"
