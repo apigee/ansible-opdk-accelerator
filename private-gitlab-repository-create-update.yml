@@ -15,7 +15,7 @@
       method: POST
       headers:
         PRIVATE-TOKEN: "{{ token }}"
-      status_code: 201,400
+      status_code: 201
     with_items:
     - "Delete-ME"
 #    - "{{ config_repos }}"
