@@ -22,6 +22,11 @@
 #    - "{{ playbook_repos }}"
 #    - "{{ role_repos }}"
 
+  - name: Show repos structure
+    tags: ['create']
+    debug:
+      var: repos
+
   - name: Share repos with group
     tags: ['create']
     uri:
