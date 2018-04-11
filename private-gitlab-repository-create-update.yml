@@ -11,7 +11,7 @@
     tags: ['create']
     register: repos
     uri:
-      url: "{{ repository_secure_endpoint_https }}/{{ item }}"
+      url: "{{ repository_secure_endpoint_https }}/projects/{{ item }}"
       method: DELETE
       headers:
         PRIVATE-TOKEN: "{{ token }}"
@@ -38,6 +38,10 @@
     tags: ['create']
     debug:
       var: repos
+
+  - name: Pause to show debug output
+    pause:
+
 
   - name: Share repos with group
     tags: ['create']
