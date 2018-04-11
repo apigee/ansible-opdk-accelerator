@@ -15,7 +15,7 @@
       method: DELETE
       headers:
         PRIVATE-TOKEN: "{{ token }}"
-      status_code: 201
+      status_code: 201,404
     with_items:
     - "Delete-ME"
 
