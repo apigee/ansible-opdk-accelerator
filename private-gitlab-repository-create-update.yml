@@ -14,7 +14,7 @@
     tags: ['create']
     register: repos
     uri:
-      url: "{{ repository_secure_endpoint_https }}/projects?name={{ item }}"
+      url: "{{ repository_secure_endpoint_https }}/projects?name={{ item.repo_name }}"
       method: POST
       headers:
         PRIVATE-TOKEN: "{{ token }}"
