@@ -51,6 +51,11 @@
       headers:
         PRIVATE-TOKEN: "{{ token }}"
       status_code: 201,409
+      body_format: json
+      body:
+        group_id: api-management
+        group_access: 30
+        expires_at: 2018-04-30
 
   - name: Add permissions to Bitbucket repositories
     uri:
