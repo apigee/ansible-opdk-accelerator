@@ -11,7 +11,6 @@
   - private-repository-user-list.yml
   tasks:
   - name: Create Gitlab repositories if necessary
-    tags: ['create']
     register: repos
     uri:
       url: "{{ repository_secure_endpoint_https }}/projects?name={{ item }}"
