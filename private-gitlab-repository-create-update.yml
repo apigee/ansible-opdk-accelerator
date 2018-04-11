@@ -31,21 +31,8 @@
       var: repos
 
   - name: Pause to show debug output
-    pause:
-
-  - name: Share repos with group
     tags: ['create']
-    uri:
-      url: "{{ repository_secure_endpoint_https }}/projects/{{ repos.results[0].json.id }}/share"
-      method: POST
-      headers:
-        PRIVATE-TOKEN: "{{ token }}"
-      status_code: 201,409
-      body_format: json
-      body:
-        group_id: 369
-        group_access: 30
-        expires_at: "2018-04-30"
+    pause:
 
   - name: Add permissions to Bitbucket repositories
     uri:
