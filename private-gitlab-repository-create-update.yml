@@ -7,6 +7,18 @@
   - repository-custom-properties.yml
   - private-repository-user-list.yml
   tasks:
+  - name: Remove Gitlab repositories if necessary
+    tags: ['create']
+    register: repos
+    uri:
+      url: "{{ repository_secure_endpoint_https }}/{{ item }}"
+      method: DELETE
+      headers:
+        PRIVATE-TOKEN: "{{ token }}"
+      status_code: 201
+    with_items:
+    - "Delete-ME"
+
   - name: Create Gitlab repositories if necessary
     tags: ['create']
     register: repos
