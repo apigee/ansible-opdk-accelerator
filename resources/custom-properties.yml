@@ -218,7 +218,7 @@ saml_cert_subject: "/C=US/O=google/OU=apigee/CN=apigee.com"
 sso_saml_idp_metadata_url: "{{ saml_folder }}/target_idp_metadata_url.xml"
 
 # Edge UI SAML Integration
-edgeui_response_file_name: edge-ui-sample-response.conf
+edgeui_response_file_name: edge-ui-saml-response.conf
 edgeui_response_file_path: "{{ opdk_installer_path }}/{{ edgeui_response_file_name }}"
 edgeui_public_uris: http://{{ local_mgmt_ip }}:9000
 edgeui_sso_enabled: y
