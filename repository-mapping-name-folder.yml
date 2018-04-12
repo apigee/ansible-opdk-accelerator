@@ -138,5 +138,6 @@ role_repos:
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-scopes-state }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-update-component-qpidd }
 - { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-os-sysctl }
-- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-edge-sso }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-edge-sso-config }
+- { workspace: '{{ role_workspace }}', repo_name: apigee-opdk-setup-edge-saml-config }
 
