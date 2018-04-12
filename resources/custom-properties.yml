@@ -195,3 +195,33 @@ apigee_limits:
 #- yum-plugin-priorities
 #- apigee-qpidd
 
+# Edge SSO Configuration
+edge_sso_installation_config_filename: edge-sso-installer-config.conf
+edge_sso_installation_config_file: "{{ opdk_installer_path }}/{{ edge_sso_installation_config_filename }}"
+jwt_key_folder: "{{ apigee_home }}/customer/application/apigee-sso/jwt-keys"
+jwt_private_key: private_key.pem
+sso_jwt_signinig_key_filepath: "{{ jwt_key_folder }}/{{ jwt_private_key }}"
+jwt_public_key: public_key.pem
+sso_jwt_verification_key_filepath: "{{ jwt_key_folder }}/{{ jwt_public_key }}"
+jwt_key_size: 2048
+saml_folder: "{{ apigee_home }}/customer/application/apigee-sso/saml"
+sso_saml_service_provider_key_filename: server.key
+sso_saml_service_provider_key: "{{ saml_folder }}/{{ sso_saml_service_provider_key_filename}}"
+saml_private_encryption_type: aes256
+saml_private_key_size: 1024
+saml_cert_signing_request: server.csr
+sso_saml_service_provider_certificate_filename: server.crt
+sso_saml_service_provider_certificate: "{{ saml_folder }}/{{ sso_saml_service_provider_certificate_filename }}"
+saml_cert_encryption_type: sha256
+saml_cert_expiry_days: 365
+saml_cert_subject: "/C=US/O=google/OU=apigee/CN=apigee.com"
+sso_saml_idp_metadata_url: "{{ saml_folder }}/target_idp_metadata_url.xml"
+
+# Edge UI SAML Integration
+edgeui_response_file_name: edge-ui-sample-response.conf
+edgeui_response_file_path: "{{ opdk_installer_path }}/{{ edgeui_response_file_name }}"
+edgeui_public_uris: http://{{ local_mgmt_ip }}:9000
+edgeui_sso_enabled: y
+sso_public_url_port: 9099
+sso_public_url_scheme: http
+edgeui_sso_client_overwrite: y
