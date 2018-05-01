@@ -216,6 +216,9 @@ saml_cert_encryption_type: sha256
 saml_cert_expiry_days: 365
 saml_cert_subject: "/C=US/O=google/OU=apigee/CN=apigee.com"
 sso_saml_idp_metadata_url: "{{ saml_folder }}/target_idp_metadata_url.xml"
+sso_profile: "saml"
+sso_tomcat_port: 9099
+sso_tomcat_profile: DEFAULT
 
 # Edge UI SAML Integration
 edgeui_response_file_name: edge-ui-saml-response.conf
@@ -225,3 +228,7 @@ edgeui_sso_enabled: y
 sso_public_url_port: 9099
 sso_public_url_scheme: http
 edgeui_sso_client_overwrite: y
+sso_saml_ipd_name: okta
+sso_saml_ipd_login_text: "Please log in to your IDP"
+sso_saml_idpmetaurl_skipsslvalidation: n
+
