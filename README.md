@@ -1,6 +1,9 @@
 # Apigee OPDK Ansible Configuration Accelerator
 The purpose of this project is to help configure Ansible for the use of
 [Apigee OPDK roles](https://github.com/carlosfrias/apigee-opdk-playbook-samples).
+
+These roles and playbooks contain a fairly complete set of functionality to assist in the management of Apigee planet instances using Ansible. The functionality for the installation, expansion, upgrade and maintenance of an Apigee Planet is provided so as to apply Apigee system recommendations to systems that are not aligned with Apigee system recommendations. Further information regarding the features list of these playbooks can be found in FEATURES-README.md. For the installation of Apigee planet instances for systems that are aligned with Apigee recommendations you may benefit from using our simplified installer at [https://github.com/apigee/ansible].
+
 Conventions have been used regarding the placement of files and the names of inventory groups. The placement of files
 is described below as are the names of inventory groups. The playbooks rely on these conventions. These conventions 
 have reduced the installation of the Edge platform to updating attributes in property files and the judicious use of tags
