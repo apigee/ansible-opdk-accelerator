@@ -1,13 +1,13 @@
 ---
 config_repos:
 - { workspace: '{{ apigee_workspace }}', repo_name: apigee-opdk-playbook-setup-ansible }
-- { workspace: '{{ apigee_workspace }}', repo_name: local-workspace-maintenance }
+#- { workspace: '{{ apigee_workspace }}', repo_name: local-workspace-maintenance }
 - { workspace: '{{ ansible_config }}', repo_name: apigee-opdk-ansible-configuration-samples }
 - { workspace: '{{ ansible_config }}', repo_name: apigee-opdk-ansible-inventory-samples }
 
 playbook_repos:
 - { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-single-region }
-- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-gce-management }
+#- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-gce-management }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-backup }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-validation }
 ##- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-aio } # moved into apigee-opdk-playbook-installation-single-region
@@ -17,14 +17,14 @@ playbook_repos:
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-monetization }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-third-region }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-installation-two-regions }
-- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-aws-management }
+#- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-aws-management }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-expand-region }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-opdk-upgrade }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-postgres-add-remove }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-qpid-add-remove }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-update-message-processor-properties }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-vagrant }
-- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-validate-port-availability }
+#- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-validate-port-availability }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-samples }
 #- { workspace: '{{ playbook_workspace }}', repo_name: apigee-opdk-playbook-maintenance-cassandra-replication-factor }
 
