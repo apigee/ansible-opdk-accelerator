@@ -200,9 +200,9 @@ edge_sso_installation_config_file_name: edge-sso-installer-config.conf
 edge_sso_installation_config_file: "{{ opdk_installer_path }}/{{ edge_sso_installation_config_file_name }}"
 jwt_key_folder: "{{ apigee_home }}/customer/application/apigee-sso/jwt-keys"
 jwt_private_key: private_key.pem
-sso_jwt_signinig_key_filepath: "{{ jwt_key_folder }}/{{ jwt_private_key }}"
+sso_jwt_signinig_key_file_path: "{{ jwt_key_folder }}/{{ jwt_private_key }}"
 jwt_public_key: public_key.pem
-sso_jwt_verification_key_filepath: "{{ jwt_key_folder }}/{{ jwt_public_key }}"
+sso_jwt_verification_key_file_path: "{{ jwt_key_folder }}/{{ jwt_public_key }}"
 jwt_key_size: 2048
 saml_folder: "{{ apigee_home }}/customer/application/apigee-sso/saml"
 sso_saml_service_provider_key_file_name: server.key
