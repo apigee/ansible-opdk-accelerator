@@ -7,7 +7,7 @@ management of Apigee planet instances using Ansible. The functionality for the i
 expansion, upgrade and maintenance of an Apigee Planet is provided so as to apply Apigee 
 system recommendations to systems that are not aligned with Apigee system recommendations. 
 Further information regarding the features list of these playbooks can be found in [README-FEATURES.md](README-FEATURES.md). 
-For the installation of Apigee planet instances for systems that are aligned with Apigee 
+For the installation of Apigee planet instances on systems that are aligned with Apigee 
 recommendations you may benefit from using our [simplified installer](https://github.com/apigee/ansible).
 
 Conventions have been used regarding the placement of files and the names of inventory groups. The placement of files
