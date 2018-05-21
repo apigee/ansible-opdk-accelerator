@@ -6,9 +6,10 @@ These roles and playbooks contain a fairly complete set of functionality to assi
 management of Apigee planet instances using Ansible. The functionality for the installation, 
 expansion, upgrade and maintenance of an Apigee Planet is provided so as to apply Apigee 
 system recommendations to systems that are not aligned with Apigee system recommendations. 
-Further information regarding the features list of these playbooks can be found in [README-FEATURES.md](README-FEATURES.md). 
-For the installation of Apigee planet instances on systems that are aligned with Apigee 
-recommendations you may benefit from using our [simplified installer](https://github.com/apigee/ansible).
+Further information regarding the features list of these playbooks can be found in 
+[README-FEATURES.md](README-FEATURES.md). For the installation of Apigee planet instances on 
+systems that do not require any updates to be updated with Apigee recommendations you may benefit 
+from using our [simplified installer](https://github.com/apigee/ansible).
 
 Conventions have been used regarding the placement of files and the names of inventory groups. The placement of files
 is described below as are the names of inventory groups. The playbooks rely on these conventions. These conventions 
