@@ -186,19 +186,19 @@ apigee_limits:
 - { domain: '*', limit_type: '-', limit_item: 'as', value: 'unlimited' }
 
 ## remove_components are used to remove system packages during a qpid upgrade
-#remove_qpid_upgrade_components:
-#- qpid-cpp-server
-#- qpid-cpp-server-linearstore
-#- qpid-tools
-#- qpid-qmf
-#- python-qpid
-#- qpid-cpp-client
-#- qpid-proton-c
+remove_qpid_upgrade_components:
+- qpid-cpp-server
+- qpid-cpp-server-linearstore
+- qpid-tools
+- qpid-qmf
+- python-qpid
+- qpid-cpp-client
+- qpid-proton-c
 
 ## install_components are used to update the system packages during a qpid upgrade
-#install_qpid_upgrade_components:
-#- yum-plugin-priorities
-#- apigee-qpidd
+install_qpid_upgrade_components:
+- yum-plugin-priorities
+- apigee-qpidd
 
 # Edge SSO and SAML Configuration
 edge_sso_installation_config_file_name: edge-sso-installer-config.conf
