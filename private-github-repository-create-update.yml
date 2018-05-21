@@ -1,0 +1,74 @@
+---
+- name: Create and update repositories in Gitlab
+  hosts: localhost
+  connection: local
+  vars:
+    github_endpoint_https: "https://github.com/carlosfrias"
+
+  vars_files:
+  - repository-mapping-name-folder.yml
+  - repository-custom-properties.yml
+  - private-repository-user-list.yml
+  tasks:
+  - name: Create Gitlab repositories if necessary
+    tags: ['create']
+    register: repos
+    uri:
+      url: "{{ repository_secure_endpoint_https }}/users/repos/{{ item.repo_name }}"
+      method: POST
+      headers:
+        PRIVATE-TOKEN: "{{ token }}"
+      status_code: 201,400
+      body_format: json
+      body:
+        namespace_id: 369
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
+  - name: Git checkout of configuration repositories
+    tags: ['checkout']
+    become: false
+    git:
+      repo: '{{ github_endpoint_https }}/{{ item.repo_name }}.git'
+      dest: "{{ item.workspace }}/{{ item.repo_name }}"
+      accept_hostkey: yes
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
+  - name: Add second git host as remote repo
+    tags: ['add-remote']
+    ignore_errors: true
+    shell: "git remote add gitlab {{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
+  - name: Pull from second git host if the repo is already there
+    tags: ['remote-refresh']
+    ignore_errors: yes
+    shell: "git pull gitlab master"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
+
+  - name: Commit updated repos to second git host
+    tags: ['commit']
+    shell: "git checkout master && git push -u gitlab master"
+    args:
+      chdir: "{{ item.workspace }}/{{ item.repo_name }}"
+    with_items:
+    - "{{ config_repos }}"
+    - "{{ playbook_repos }}"
+    - "{{ role_repos }}"
+
