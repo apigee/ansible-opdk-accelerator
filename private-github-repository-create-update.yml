@@ -10,24 +10,24 @@
   - repository-custom-properties.yml
   - private-repository-user-list.yml
   tasks:
-  - name: Create Gitlab repositories if necessary
+  - name: Create Github.com repositories if necessary
     tags: ['create']
     register: repos
     uri:
-      url: "{{ repository_secure_endpoint_https }}/users/repos/{{ item.repo_name }}"
+      url: "{{ repository_secure_endpoint_https }}/users/repos"
       method: POST
       headers:
         PRIVATE-TOKEN: "{{ token }}"
       status_code: 201,400
       body_format: json
       body:
-        namespace_id: 369
+        name: "{{ item.repo_name }}"
     with_items:
     - "{{ config_repos }}"
     - "{{ playbook_repos }}"
     - "{{ role_repos }}"
 
-  - name: Git checkout of configuration repositories
+  - name: Github.com checkout of configuration repositories
     tags: ['checkout']
     become: false
     git:
