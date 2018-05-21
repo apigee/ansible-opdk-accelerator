@@ -74,8 +74,13 @@ yum_packages:
 - libdb4-4.8*
 
 # These are packages that can be excluded from yum installation:
-#yum_exclude_packages:
-#- 'qpid-proton-c'
+yum_exclude_packages:
+- 'qpid-proton-c'
+- 'qpid-cpp-server'
+- 'qpid-tools'
+- 'qpid-qmf'
+- 'qpid-cpp-client'
+- 'python-qpid'
 
 # These are optional yum packages that are useful for troubleshooting
 os_packages:
