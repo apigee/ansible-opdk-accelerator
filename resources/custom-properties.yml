@@ -234,4 +234,32 @@ sso_saml_idpmetaurl_skipsslvalidation: n
 sso_profile: "saml"
 sso_tomcat_port: 9099
 sso_tomcat_profile: DEFAULT
-
+pattern:
+- { dir: '/etc/', pattern: 'hosts*' }
+- { dir: '/etc/', pattern: 'environment' }
+- { dir: '/etc/', pattern: 'profile' }
+- { dir: '/etc/', pattern: 'bashrc' }
+- { dir: '/etc/', pattern: 'resolv.conf' }
+- { dir: '/etc/', pattern: 'sysctl.conf' }
+- { dir: '/etc/', pattern: 'sudoers' }
+- { dir: '/etc/security/', pattern: 'limits.conf' }
+- { dir: '/etc/security/limits.d/', pattern: '*conf' }
+- { dir: '/var/log/', pattern: 'messages' }
+- { dir: '/tmp', pattern: 'setup*.log' }
+- { dir: '{{ opdk_installer_path }}/', pattern: '*' }
+- { dir: '{{ apigee_home }}/', pattern: '*.out' }
+- { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
+- { dir: '{{ apigee_home }}/customer/', pattern: '*' }
+- { dir: '{{ apigee_home }}/etc/', pattern: 'default*.sh' }
+- { dir: '{{ apigee_home }}/customer', pattern: '*' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*conf' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*cfg' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yml' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yaml' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*properties' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*conf' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*cfg' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yml' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yaml' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*properties' }
+- { dir: '{{ apigee_home }}/apigee-postgresql/', pattern: '*conf' }
