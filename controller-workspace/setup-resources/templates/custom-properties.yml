@@ -1,0 +1,265 @@
+---
+opdk_version: 4.18.01
+target_logs_folder: "~/.apigee/planet_resources/"
+assign_mgmt_ip: True
+
+# Variable to indicate the previous OPDK version to upgrade from
+# upgrade_from_opdk_version: 4.17.01
+
+# apigee_repo_uri: 10.142.0.4:3939
+# apigee_repo_protocol: http
+# apigeereleasever: 4.18.01
+ apigee_repo_url: "http://software.apigee.com"
+ opdk_license_source_file_name: ~/.apigee-secure/license.txt
+ opdk_license_target_file_path: /tmp/edge/license.conf
+
+# pip_index_url: "https://private.repository.com/api/pypi/Pypi-remote/simple"
+# pip_conf_dir: "~/.pip"
+
+# Used with restarting servers
+# start_check_delay: 0
+# server_restart_timeout: 1
+
+# Used for creating softlinks from apigee system folders to customer hard targets
+# target_links:
+#- { src: '/apps/opt/apigee', dest: '/opt/apigee' }
+
+# Used for proxy settings when required
+# http_proxy: http://proxy.com:80
+# https_proxy: https://proxy.com:80
+
+# Used to temporarily move and restore system files in order to enable installation of components.
+# temporary_move:
+# - { original_folder: "/etc/yum.repos.d", file_name: "redhat.repo", temporary_holding_folder: "/tmp/yum.repos.d" }
+
+# TODO: Add a sample yum repository configuration
+# Configure yum repositories
+#yum_repositories:
+#- {
+#    repo_id: 'customer-provided',
+#    name: 'Description of repository',
+#    baseurl: 'http://{some customer url and port}',
+#    gpgkey: 'file:///etc/pki/rpm-gpg/{some key file]',
+#    gpgcheck: '0',
+#    priority: '',
+#    exclude: '',
+#    repo_filename: "customer-provided",
+#    sslverify: false
+#  }
+
+# These are required yum packages
+yum_packages:
+- bind-utils
+- chkconfig
+- curl
+- tar
+- wget
+- yum-utils
+- unzip
+- rsync
+- which
+- libselinux-python
+- nss
+- openssh-clients
+- openssh-server
+- grep
+- rpm
+- rng-tools
+- sed
+- yum-plugin-priorities
+- boost-filesystem
+- boost-program-options
+- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-devel-0.14.0-2.el7.x86_64.rpm
+- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-0.14.0-2.el7.x86_64.rpm
+- libdb4-4.8*
+
+# These are packages that can be excluded from yum installation:
+yum_exclude_packages:
+- 'qpid-proton-c'
+- 'qpid-cpp-server'
+- 'qpid-tools'
+- 'qpid-qmf'
+- 'qpid-cpp-client'
+- 'python-qpid'
+
+# These are optional yum packages that are useful for troubleshooting
+os_packages:
+- lsof
+- nc
+- dos2unix
+- tcpdump
+- telnet
+- vim
+- tree
+
+# Pip Packages for Ansible Scripts
+pip_packages:
+- httplib2
+- pexpect
+- passlib
+- urllib3
+- requests
+- six
+- pyOpenSSL
+
+# Qpid Download location if needed
+qpid_client: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-client-1.35.0-3.el7.x86_64.rpm
+qpid_server: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-server-1.35.0-3.el7.x86_64.rpm
+
+# EPEL Download location if needed
+epel_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+
+# OpenLdap Yum Packages to Install
+openldap:
+- openldap
+- openldap-clients
+- openldap-servers
+
+# OpenLdap Yum packages for a Downgrade if needed
+openldap_downgrade_version:
+- openldap-2.4.40
+- openldap-clients-2.4.40
+- openldap-servers-2.4.40
+
+# OpenLdap RMP Download Locations if needed
+openldap_named_repo_host: http://mirror.centos.org/centos/6/os/x86_64/Packages
+openldap_named_legacy_version: 2.4.40
+openldap_named_packages:
+- "{{ openldap_named_repo_hosts}}/openldap-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+- "{{ openldap_named_repo_hosts}}/openldap-clients-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+- "{{ openldap_named_repo_hosts}}/openldap-servers-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+
+opdk_group_create: True
+
+# Use this to remove linked files that don't delete through on rollback
+#remove_on_rollback:
+#- {path to files or directories that should be removed on rollback }
+
+# Load balancer if available
+# load_balancer: 'fqdn or ip address for load balancer'
+
+# Set to y if you are connecting to a remote LDAP server.
+# If n, Edge installs OpenLDAP when it installs the Management Server.
+use_opdk_ldap_remote_host: n
+
+# If connecting to remote OpenLDAP server, specify the IP/DNS name and port.
+# opdk_ldap_host:       # IP or DNS name of OpenLDAP node.
+# opdk_ldap_port: 10389  # Default is 10389.
+
+# Specify OpenLDAP without replication, 1, or with replication, 2.
+opdk_ldap_type: 1
+
+# Organization name
+# org_name:
+
+# OS Config for all Nodes
+clear_etc_hosts:
+- { regexp: '(^::1.*localhost6.*)$', replace: '# \1' }
+
+# OS Config for all Nodes
+sysctl_minimum:
+- { name: 'vm.swappiness', value: "{{ vm_swappiness }}" }
+- { name: 'net.ipv4.tcp_fin_timeout', value: "{{ apigee_net_ipv4_tcp_fin_timeout }}" }
+- { name: 'vm.max_map_count', value: '{{ apigee_max_map_count }}' }
+
+# OS Config for IPV6
+sysctl_ipv6:
+- { name: 'net.ipv6.conf.all.disable_ipv6', value: '1' }
+- { name: 'net.ipv6.conf.default.disable_ipv6', value: '1' }
+
+# OS Config for Postgres
+apigee_kernel_sem: '500 32000 32 1024'
+sysctl_pg:
+- { name: 'kernel.sem', value: "{{ apigee_kernel_sem }}" }
+
+# Extra Yum Packages that should be transferred manually for an offline installation
+archive_extra_packages:
+- yum-utils
+- yum-plugin-priorities
+- libdb4-4.8*
+
+# apigee_limits is used to set the limits.conf for the node where OPDK components are installed.
+apigee_limits:
+- { domain: '*', limit_type: '-', limit_item: 'memlock', value: 'unlimited' }
+- { domain: '*', limit_type: '-', limit_item: 'nofile', value: '100000' }
+- { domain: '*', limit_type: '-', limit_item: 'nproc', value: '32768' }
+- { domain: '*', limit_type: '-', limit_item: 'as', value: 'unlimited' }
+
+## remove_components are used to remove system packages during a qpid upgrade
+remove_qpid_upgrade_components:
+- qpid-cpp-server
+- qpid-cpp-server-linearstore
+- qpid-tools
+- qpid-qmf
+- python-qpid
+- qpid-cpp-client
+- qpid-proton-c
+
+## install_components are used to update the system packages during a qpid upgrade
+install_qpid_upgrade_components:
+- yum-plugin-priorities
+- apigee-qpidd
+
+# Edge SSO and SAML Configuration
+edge_sso_installation_config_file_name: edge-sso-installer-config.conf
+edge_sso_installation_config_file: "{{ opdk_installer_path }}/{{ edge_sso_installation_config_file_name }}"
+jwt_key_folder: "{{ apigee_home }}/customer/application/apigee-sso/jwt-keys"
+jwt_private_key: private_key.pem
+sso_jwt_signinig_key_file_path: "{{ jwt_key_folder }}/{{ jwt_private_key }}"
+jwt_public_key: public_key.pem
+sso_jwt_verification_key_file_path: "{{ jwt_key_folder }}/{{ jwt_public_key }}"
+jwt_key_size: 2048
+saml_folder: "{{ apigee_home }}/customer/application/apigee-sso/saml"
+sso_saml_service_provider_key_file_name: server.key
+sso_saml_service_provider_key: "{{ saml_folder }}/{{ sso_saml_service_provider_key_file_name}}"
+saml_private_encryption_type: aes256
+saml_private_key_size: 1024
+saml_cert_signing_request: server.csr
+sso_saml_service_provider_certificate_file_name: server.crt
+sso_saml_service_provider_certificate: "{{ saml_folder }}/{{ sso_saml_service_provider_certificate_file_name }}"
+saml_cert_encryption_type: sha256
+saml_cert_expiry_days: 365
+saml_cert_subject: "/C=US/O=google/OU=apigee/CN=apigee.com"
+sso_saml_idp_metadata_url: "{{ saml_folder }}/target_idp_metadata_url.xml"
+edgeui_response_file_name: edge-ui-saml-response.conf
+edgeui_response_file_path: "{{ opdk_installer_path }}/{{ edgeui_response_file_name }}"
+edgeui_public_uris: http://{{ local_mgmt_ip }}:9000
+edgeui_sso_enabled: y
+sso_public_url_port: 9099
+sso_public_url_scheme: http
+edgeui_sso_client_overwrite: y
+sso_saml_ipd_name: okta
+sso_saml_ipd_login_text: "Please log in to your IDP"
+sso_saml_idpmetaurl_skipsslvalidation: n
+sso_profile: "saml"
+sso_tomcat_port: 9099
+sso_tomcat_profile: DEFAULT
+pattern:
+- { dir: '/etc/', pattern: 'hosts*' }
+- { dir: '/etc/', pattern: 'environment' }
+- { dir: '/etc/', pattern: 'profile' }
+- { dir: '/etc/', pattern: 'bashrc' }
+- { dir: '/etc/', pattern: 'resolv.conf' }
+- { dir: '/etc/', pattern: 'sysctl.conf' }
+- { dir: '/etc/', pattern: 'sudoers' }
+- { dir: '/etc/security/', pattern: 'limits.conf' }
+- { dir: '/etc/security/limits.d/', pattern: '*conf' }
+- { dir: '/var/log/', pattern: 'messages' }
+- { dir: '/tmp', pattern: 'setup*.log' }
+- { dir: '{{ opdk_installer_path }}/', pattern: '*' }
+- { dir: '{{ apigee_home }}/', pattern: '*.out' }
+- { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
+- { dir: '{{ apigee_home }}/customer/', pattern: '*' }
+- { dir: '{{ apigee_home }}/etc/', pattern: 'default*.sh' }
+- { dir: '{{ apigee_home }}/customer', pattern: '*' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*conf' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*cfg' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yml' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yaml' }
+- { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*properties' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*conf' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*cfg' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yml' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yaml' }
+- { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*properties' }
+- { dir: '{{ apigee_home }}/apigee-postgresql/', pattern: '*conf' }

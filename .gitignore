@@ -114,4 +114,7 @@ out
 *~
 ansible.cfg
 backups
+ansible
+apigee
+apigee-secure
 
