@@ -2,12 +2,12 @@
 
 This folder contains the playbooks that use the [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 role to setup an Ansible Controller. An Ansible controller is used to run Ansible playbooks. The
-[setup-control-server.yml] script enables you to setup an
+[setup-control-server.yml](setup-control-server.yml) script enables you to setup an
 Ansible controller for setting up a local planet or the structure to manage multiple planets.
 
 This folder also contains the playbook to backup the Ansible Control server using the
 [Apigee OPDK Setup Ansible Controller Backup](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller-backup)
-role. The [backup-control-server.yml] script backs up to either a default folder or a provided folder on your local file system.
+role. The [backup-control-server.yml](backup-control-server.yml) script backs up to either a default folder or a provided folder on your local file system.
 
 Please see [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) or 
 [Apigee OPDK Setup Ansible Controller Backup](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller-backup)
