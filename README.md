@@ -1,6 +1,8 @@
 # Apigee OPDK Ansible Configuration Accelerator
 The purpose of this project is to quickly configure an Ansible controller. This is used to configure
-a controller to manage a single planet or multiple planets. 
+a controller to manage a single planet or multiple planets. This is the entry point to understand 
+how to make your license material available as well as how to customize installation, configuration 
+or maintenance options.
 
 ## Usage Instructions
 
