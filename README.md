@@ -7,7 +7,7 @@ or maintenance options.
 ## Usage Instructions
 
 ### Setup or Backup an Ansible Controller
-Playbook and usage instructions and information are available at 
+Playbook and usage instructions and information is available at 
 [setup-ansible-controller](setup-ansible-controller/README.md)
 
 
