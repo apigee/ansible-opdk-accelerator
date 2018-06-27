@@ -9,7 +9,7 @@ for additional details.
 
 # Usage Instructions
 
-## Sample Usage to Setup an Ansible Control Server in the local folder 
+## Sample Usage to Setup an Ansible Control Server 
 
 A basic controller can be configured in the current directory: 
 
@@ -17,23 +17,10 @@ A basic controller can be configured in the current directory:
     export ANSIBLE_ROLES_PATH=.
     
     # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r setup-control-server-requirements.yml.yml  -f
+    ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
     
     # Setup the Ansible controller
-    ansible-playbook setup-control-server.yml -e remote_user=<remote user login> -e target_hosts=localhost --connection=local
-
-## Sample Usage to Setup an Ansible Control Server in a remote server 
-
-A basic controller can be configured in the current directory: 
-
-    # Set the Ansible roles path to the current directory temporarily
-    export ANSIBLE_ROLES_PATH=.
-    
-    # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r setup-control-server-requirements.yml.yml  -f
-    
-    # Setup the Ansible controller
-    ansible-playbook setup-control-server.yml -e remote_user=<remote user login> -e target_hosts=<ip address> 
+    ansible-playbook setup-control-server.yml -e remote_user=<remote user login>
     
 ### Change the location of the Ansible working folder
    

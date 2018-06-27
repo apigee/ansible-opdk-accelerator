@@ -1,8 +1,6 @@
 ---
-- name: Setup the controller workspace
-  hosts: localhost
-  connection: local
-  gather_facts: no
+- name: Setup the Ansible controller
+  hosts: "{{ target_hosts }}"
 
   vars:
     remote_user: friasc
