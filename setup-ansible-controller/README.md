@@ -48,7 +48,7 @@ A basic controller setup can be configured in the current directory:
     ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
     
     # Setup the Ansible controller
-    ansible-playbook setup-control-server.yml -e remote_user=<remote user login> -e apigee_config_folder=~/.apigee
+    ansible-playbook setup-control-server.yml -e remote_user=<remote user login> -e apigee_workspace=~/.apigee
     
 ## Sample Usage to Backup an Ansible Control Server 
 
