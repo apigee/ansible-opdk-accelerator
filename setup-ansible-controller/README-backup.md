@@ -11,7 +11,7 @@ for additional details.
 
 ## Sample Usage to Setup an Ansible Control Server 
 
-A basic controller can be configured in the current directory: 
+A basic controller setup can be configured in the current directory: 
 
     # Set the Ansible roles path to the current directory temporarily
     export ANSIBLE_ROLES_PATH=.
@@ -21,7 +21,7 @@ A basic controller can be configured in the current directory:
     
     # Setup the Ansible controller
     ansible-playbook setup-control-server.yml -e remote_user=<remote user login>
-    
+
 ### Change the location of the Ansible working folder
    
     # Set the Ansible roles path to the current directory temporarily
@@ -44,14 +44,25 @@ A basic controller can be configured in the current directory:
     # Setup the Ansible controller
     ansible-playbook setup-control-server.yml -e remote_user=<remote user login> -e apigee_config_folder=~/.apigee
     
-## Sample Usage to Backup an Ansible Control Server
+## Sample Usage to Backup an Ansible Control Server 
 
-    # Download the required roles to setup the Ansible controller
+A backup of a controller setup can be configured in the current directory: 
+
+    # Download the required roles to backup the Ansible controller
     ansible-galaxy install -r backup-control-server-requirements.yml.yml -f
     
-    # Setup the Ansible controller
-    ansible-playbook backup-control-server.yml -e target_hosts=<ip address of control server>
+    # Backup the Ansible controller
+    ansible-playbook backup-control-server.yml 
     
+### Sample Usage to Backup to different local folder
    
+    # Download the required roles to backup the Ansible controller
+    ansible-galaxy install -r backup-control-server-requirements.yml.yml -f
+    
+    # Backup the Ansible controller
+    ansible-playbook backup-control-server.yml -e target_download_folder=<Location on local filesystem>
+    
+
+       
 
 
