@@ -1,0 +1,48 @@
+---
+- name: Configure SSH for a remote user
+  hosts: '{{ hosts }}'
+  become: yes
+
+  vars:
+    pubkey: '~/.ssh/id_rsa.pub'
+
+  tasks:
+  - name: Assert that the remote_user was provided
+    assert:
+      that:
+      - remote_user is defined
+      msg: "Please provide the remote user: -e remote_user=<remote login user>"
+
+  - name: Determine state of public key
+    stat:
+      path: "{{ pubkey }}"
+    register: pubkey_state
+
+  - name: Assert publice key exists
+    assert:
+      that:
+      - pubkey_state.stat.exists
+      msg: "Please provide a pubkey file: -e pubkey=~/.ssh/id_rsa.pub"
+
+  - name: Copy local public keys to server for user {{ user }}
+    authorized_key:
+      user: '{{ remote_user }}'
+      state: present
+      key: "{{ lookup('file', '{{ pubkey }}') }}"
+
+  - name: Enable root login over SSH
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '(^#)(PermitRootLogin yes)'
+      line: '\2'
+      backrefs: yes
+    notify:
+    - Restart SSH service
+    when: user == 'root'
+
+  handlers:
+  - name: Restart SSH service
+    service:
+      name: sshd
+      state: restarted
