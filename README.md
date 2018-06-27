@@ -4,7 +4,7 @@ a controller to manage a single planet or multiple planets.
 
 ## Usage Instructions
 
-### Setup an Ansible Controller
+### Setup or Backup an Ansible Controller
 Playbook and usage instructions and information are available at 
 [setup-ansible-controller](setup-ansible-controller/README.md)
 
