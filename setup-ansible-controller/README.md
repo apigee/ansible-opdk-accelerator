@@ -9,7 +9,7 @@ for additional details.
 
 # Usage Instructions
 
-## Sample Usage 
+## Sample Usage to Setup an Ansible Control Server 
 
 A basic controller can be configured in the current directory: 
 
@@ -17,10 +17,10 @@ A basic controller can be configured in the current directory:
     export ANSIBLE_ROLES_PATH=.
     
     # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r setup-requirements.yml -f
+    ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
     
     # Setup the Ansible controller
-    ansible-playbook setup.yml -e remote_user=<remote user login>
+    ansible-playbook setup-control-server.yml -e remote_user=<remote user login>
     
 ### Change the location of the Ansible working folder
    
@@ -28,10 +28,10 @@ A basic controller can be configured in the current directory:
     export ANSIBLE_ROLES_PATH=.
     
     # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r setup-requirements.yml -f
+    ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
     
     # Setup the Ansible controller
-    ansible-playbook setup.yml -e remote_user=<remote user login> -e ansible_workspace=~/.ansible
+    ansible-playbook setup-control-server.yml -e remote_user=<remote user login> -e ansible_workspace=~/.ansible
     
 ### Change the location of the Apigee configuration folder
    
@@ -39,12 +39,19 @@ A basic controller can be configured in the current directory:
     export ANSIBLE_ROLES_PATH=.
     
     # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r setup-requirements.yml -f
+    ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
     
     # Setup the Ansible controller
-    ansible-playbook setup.yml -e remote_user=<remote user login> -e apigee_config_folder=~/.apigee
+    ansible-playbook setup-control-server.yml -e remote_user=<remote user login> -e apigee_config_folder=~/.apigee
     
+## Sample Usage to Backup an Ansible Control Server
 
-
+    # Download the required roles to setup the Ansible controller
+    ansible-galaxy install -r backup-control-server-requirements.yml.yml -f
+    
+    # Setup the Ansible controller
+    ansible-playbook backup-control-server.yml -e target_hosts=<ip address of control server>
+    
+   
 
 
