@@ -20,7 +20,7 @@ for additional details.
 A basic controller setup can be configured in the current directory: 
 
     # Set the Ansible roles path to the current directory temporarily
-    export ANSIBLE_ROLES_PATH=.
+    export ANSIBLE_ROLES_PATH=./roles
     
     # Download the required roles to setup the Ansible controller
     ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
@@ -31,7 +31,7 @@ A basic controller setup can be configured in the current directory:
 ### Change the location of the Ansible working folder
    
     # Set the Ansible roles path to the current directory temporarily
-    export ANSIBLE_ROLES_PATH=.
+    export ANSIBLE_ROLES_PATH=./roles
     
     # Download the required roles to setup the Ansible controller
     ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
@@ -42,7 +42,7 @@ A basic controller setup can be configured in the current directory:
 ### Change the location of the Apigee configuration folder
    
     # Set the Ansible roles path to the current directory temporarily
-    export ANSIBLE_ROLES_PATH=.
+    export ANSIBLE_ROLES_PATH=./roles
     
     # Download the required roles to setup the Ansible controller
     ansible-galaxy install -r setup-control-server-requirements.yml.yml -f
