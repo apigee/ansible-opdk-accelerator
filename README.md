@@ -13,3 +13,14 @@ Playbook and usage instructions and information are available at
 Playbook and usage instructions and information is available at 
 [configure-ssh-login](configure-ssh-login/README.md). `root` user configuration option is provided.
 
+<!-- BEGIN Google How To Contribute -->
+# How to Contribute
+
+We'd love to accept your patches and contributions to this project. Please review our [guidelines](CONTRIBUTING.md).
+<!-- END Google How To Contribute -->
+<!-- BEGIN Google Required Disclaimer -->
+
+# Not Google Product Clause
+
+This is not an officially supported Google product.
+<!-- END Google Required Disclaimer -->
