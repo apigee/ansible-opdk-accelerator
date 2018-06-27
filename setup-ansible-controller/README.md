@@ -4,6 +4,9 @@ This folder contains the playbooks that uses the [Apigee OPDK Setup Ansible Cont
 role. An Ansible controller is used to run Ansible playbooks. This `setup.yml` script enables you to setup 
 Ansible as a controller for setting up a local planet or the structure to manage multiple planets.
 
+Please see [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
+for additional details.
+
 # Usage Instructions
 
 ## Sample Usage 
