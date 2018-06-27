@@ -11,5 +11,5 @@ Playbook and usage instructions and information are available at
 
 ### Configure SSH User Logins
 Playbook and usage instructions and information is available at 
-[configure-ssh-login](configure-ssh-login/README.md). Root user configuration is also enabled.
+[configure-ssh-login](configure-ssh-login/README.md). `root` user configuration option is provided.
 

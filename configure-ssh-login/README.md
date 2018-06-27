@@ -1,6 +1,6 @@
 # Configure SSH Login
 
-This `configure-ssh-user.yml` playbook configures a user for access over SSH. This playbook will configure
+This `configure-ssh-user.yml` playbook configures a user for access over SSH. This playbook can configure
 the `root` user so that SSH will permit the `root` user to login. 
 
 # Usage Instructions
