@@ -117,4 +117,6 @@ backups
 ansible
 apigee
 apigee-secure
+inventory
+
 

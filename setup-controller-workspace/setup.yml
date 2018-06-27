@@ -1,0 +1,11 @@
+---
+- name: Setup the controller workspace
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    remote_user: friasc
+
+  roles:
+  - { role: apigee-opdk-setup-ansible-controller }
