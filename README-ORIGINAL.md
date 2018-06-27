@@ -40,7 +40,7 @@ The folders and initial files are listed as follows:
 * `~/.ansible/inventory/{environment inventory}/`: This contains several templates to guide how you should 
 configure the inventory.
 * `~/.apigee/`: This folder contains files used to install Apigee components.
-* `~/.apigee/license.txt`: This is the license file you received from Apigee. 
+* `~/.apigee-secure/license.txt`: This is the license file you received from Apigee. 
 * `~/.apigee/custom-properties.yml`: The installation framework is parameterized. Variables can be
 either uncommented and used or added to this file. 
 * `~/.apigee-secure`: This folder contains file that contain sensitive attributes that should be secured.
