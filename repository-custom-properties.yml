@@ -4,7 +4,7 @@ apigee_config: "~/.apigee"
 apigee_security: "~/.apigee-secure"
 apigee_workspace: "~/apigee-workspace"
 
-playbook_workspace: "{{ apigee_workspace }}/apigee-opdk-playbook-workspace"
+playbook_workspace: "{{ apigee_workspace }}/playbooks"
 role_workspace: "{{ apigee_workspace }}/apigee-opdk-role-workspace"
 
 repository_secure_endpoint_https: "https://github.com/carlosfrias"
