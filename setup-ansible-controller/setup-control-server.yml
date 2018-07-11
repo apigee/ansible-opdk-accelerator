@@ -4,6 +4,7 @@
 
   vars:
     remote_user: friasc
+    ansible_workspace: "~/apigee-workspace"
 
   roles:
   - { role: apigee-opdk-setup-ansible-controller }
