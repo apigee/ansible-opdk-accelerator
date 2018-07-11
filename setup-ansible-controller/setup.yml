@@ -1,7 +1,7 @@
 ---
 - name: Setup the Ansible controller
   hosts: "{{ target_host }}"
-
+  gather_facts: no
   vars:
     remote_user: friasc
     ansible_workspace: "~/apigee-workspace"
