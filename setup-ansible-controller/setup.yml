@@ -2,12 +2,10 @@
 - name: Setup the Ansible controller
   hosts: controller
   vars:
-    remote_user: friasc
     ansible_workspace: "~/.ansible"
     apigee_workspace: "~/apigee-workspace"
     apigee_secure_folder: "~/.apigee-secure"
     apigee_custom_properties_folder: "~/.apigee"
-
 
   roles:
   - { role: apigee-opdk-setup-ansible-controller }

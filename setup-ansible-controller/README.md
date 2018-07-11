@@ -25,6 +25,16 @@ A basic controller setup can be configured in the current directory:
     # Setup the Ansible controller
     ansible-playbook setup.yml -e target_host=<IP of target host, can be localhost> -e remote_user=<remote user login>
 
+## Sample Usage to Setup an Ansible Control Server on localhost
+
+A basic controller setup can be configured in the current directory: 
+
+    # Download the required roles to setup the Ansible controller
+    ansible-galaxy install -r setup-requirements.yml -f
+    
+    # Setup the Ansible controller
+    ansible-playbook setup.yml -c local -e remote_user=<remote user login>
+
 ### Change the location of the Ansible workspace folder
    
     # Download the required roles to setup the Ansible controller
