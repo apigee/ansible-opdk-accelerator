@@ -112,7 +112,6 @@ out
 *retry
 *.db
 *~
-ansible.cfg
 backups
 ansible
 apigee
