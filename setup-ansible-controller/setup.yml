@@ -4,8 +4,9 @@
   vars:
     remote_user: friasc
     ansible_workspace: "~/apigee-workspace/ansible"
-    apigee_workspace: "~/apigee-workspace"
-    apigee_secure_folder: "~/.apigee-secure"
+    apigee_workspace: "~/apigee-workspace/test-4-apigee"
+    apigee_secure_folder: "~/apigee-workspace/test-3-apigee-secure"
+
 
   roles:
   - { role: apigee-opdk-setup-ansible-controller }
