@@ -1,4 +1,4 @@
-# Apigee OPDK Setup Ansible Controller Workspace
+# Apigee OPDK Ansible Configuration Accelerator
 
 This folder contains the playbooks that use the [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 role to setup an Ansible Controller. An Ansible controller is used to run Ansible playbooks. The
