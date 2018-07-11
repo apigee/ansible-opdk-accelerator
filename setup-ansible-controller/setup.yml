@@ -1,6 +1,6 @@
 ---
 - name: Setup the Ansible controller
-  hosts: "{{ target_host }}"
+  hosts: controller
   vars:
     remote_user: friasc
     ansible_workspace: "~/.ansible"
