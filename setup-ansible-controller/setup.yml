@@ -3,7 +3,8 @@
   hosts: "{{ target_host }}"
   vars:
     remote_user: friasc
-    ansible_workspace: "~/apigee-workspace"
+    ansible_workspace: "~/apigee-workspace/ansible"
+    apigee_workspace: "~/apigee-workspace"
 
   roles:
   - { role: apigee-opdk-setup-ansible-controller }
