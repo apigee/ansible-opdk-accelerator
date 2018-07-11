@@ -67,7 +67,7 @@ This means that `install-edge-requirements.yml` updates the roles for the playbo
 Please see the provided [Cygwin readme](README-CYGWIN.md) for instructions on installing Ansible on Windows.
 
 # Installing Ansible
-We use provide a [pip requirements file](ansible-pip-requirements.txt) for pip to install Ansible and its dependencies. This requires the
+We use provide a [pip requirements file](archive/ansible-pip-requirements.txt) for pip to install Ansible and its dependencies. This requires the
 installation of pip on your system. Once pip is installed then the provided requirements file will
 install Ansible and the necessary dependencies on your system.
 
@@ -98,7 +98,7 @@ Set up your a workspace at ~/apigee-workspace/ if you already have git and pip i
     ansible-playbook setup-base.yml 
     
 # Requirements
-Requirements are declared in the [pip requirements file](ansible-pip-requirements.txt). The requirements
+Requirements are declared in the [pip requirements file](archive/ansible-pip-requirements.txt). The requirements
 are listed as follows:
 * Ansible 2.3.x
 * Pip
@@ -129,7 +129,7 @@ Sample configuration inventory template files that model the required
 
 ## ~/.apigee
 Folder to contain credentials, downloaded logs, configs and maintain the edge license.txt file.
-The [setup-apigee-license.yml](setup-apigee-license.yml) playbook will take a specified license file and
+The [setup-apigee-license.yml](archive/setup-apigee-license.yml) playbook will take a specified license file and
 install it in the correct location for your this workspace.
 
 ## ~/apigee-workspace/apigee-opdk-playbook-workspace
