@@ -234,6 +234,8 @@ sso_saml_idpmetaurl_skipsslvalidation: n
 sso_profile: "saml"
 sso_tomcat_port: 9099
 sso_tomcat_profile: DEFAULT
+
+
 pattern:
 - { dir: '/etc/', pattern: 'hosts*' }
 - { dir: '/etc/', pattern: 'environment' }
