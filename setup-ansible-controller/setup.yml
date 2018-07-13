@@ -7,5 +7,35 @@
     apigee_workspace: "~/apigee-workspace"
     apigee_secure_folder: "~/.apigee-secure"
     apigee_custom_properties_folder: "~/.apigee"
+  vars_prompt:
+    - name: ansible_workspace
+      default: "~/.ansible"
+      private: no
+      prompt: "Please provide the path to the Ansible workspace"
+
+    - name: apigee_workspace
+      default: "~/apigee-workspace"
+      private: no
+      prompt: "Please provide the path to the Apigee playbook workspace"
+
+    - name: apigee_secure_folder
+      default: "~/.apigee-secure"
+      private: no
+      prompt: "Please provide the path to the folder that will contain credentials and other sensitive information"
+
+    - name: apigee_custom_properties_folder
+      default: "/.apigee"
+      private: no
+      prompt: "Please provide the path to the location of the customer_properties.yml"
+
+  pre_tasks:
+  - name: Load variables
+    include_vars:
+      dir: "{{ item | expanduser }}"
+    with_items:
+    - "{{ apigee_secure_folder }}"
+    - "{{ apigee_custom_properties_folder }}"
+
   roles:
   - { role: apigee-opdk-setup-ansible-controller }
+

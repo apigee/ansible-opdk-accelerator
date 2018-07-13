@@ -1,5 +1,6 @@
 # Apigee OPDK Ansible Configuration Accelerator
 
+## Introduction
 This folder contains the playbooks that use the [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 role to setup an Ansible Controller. An Ansible controller is used to run Ansible playbooks. The
 [setup.yml](setup.yml) script enables you to setup an Ansible controller to work with either a single
@@ -8,10 +9,10 @@ single planet or a multiple planet deployment is essentially the same. You requi
 file system that contain configuration files, roles, cached attributes, log files and your inventory 
 of server nodes that will host your planet instance(s).
 
-# Quick Start
-
-The playbook `setup.yml` will setup your folder structure
-
+## Quick Start
+The playbook `setup.yml` will setup your folder structure in your user home directory. You can change
+the location of you folder structure by updating the `setup.yml` playbook. If you do not provide a 
+required attribute then you will be prompted by the script to provide the value. 
  
 
 This folder also contains the playbook to backup the Ansible Control server using the
