@@ -1,11 +1,11 @@
 ---
 - name: Setup the Ansible controller
   hosts: controller
+  gather_facts: no
   vars:
     ansible_workspace: "~/.ansible"
     apigee_workspace: "~/apigee-workspace"
     apigee_secure_folder: "~/.apigee-secure"
     apigee_custom_properties_folder: "~/.apigee"
-
   roles:
   - { role: apigee-opdk-setup-ansible-controller }
