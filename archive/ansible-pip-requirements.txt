@@ -1,6 +1,6 @@
 ansible==2.3.0
 boto==2.45.0
 markupsafe==0.23
-paramiko==2.0.2
+paramiko==2.0.8
 apache-libcloud
 
