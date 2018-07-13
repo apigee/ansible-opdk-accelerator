@@ -2,8 +2,17 @@
 
 This folder contains the playbooks that use the [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 role to setup an Ansible Controller. An Ansible controller is used to run Ansible playbooks. The
-[setup.yml](setup.yml) script enables you to setup an
-Ansible controller for setting up a local planet or the structure to manage multiple planets.
+[setup.yml](setup.yml) script enables you to setup an Ansible controller to work with either a single
+planet for your own testing or to set up to manage multiple planets. The setup required to manage a
+single planet or a multiple planet deployment is essentially the same. You require a workspace on the
+file system that contain configuration files, roles, cached attributes, log files and your inventory 
+of server nodes that will host your planet instance(s).
+
+# Quick Start
+
+The playbook `setup.yml` will setup your folder structure
+
+ 
 
 This folder also contains the playbook to backup the Ansible Control server using the
 [Apigee OPDK Setup Ansible Controller Backup](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller-backup)
@@ -17,7 +26,7 @@ for additional details.
 
 ## Sample Usage to Setup an Ansible Control Server 
 
-A basic controller setup can be configured in the current directory: 
+An Ansible controller con be configured to work from any directory. Please edit the setup.yml setup can be configured in the current directory: 
 
     # Download the required roles to setup the Ansible controller
     ansible-galaxy install -r setup-requirements.yml -f
