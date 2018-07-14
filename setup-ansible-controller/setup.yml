@@ -23,7 +23,7 @@
     - name: apigee_workspace
       default: "~/apigee-workspace"
       private: no
-      prompt: "Please provide the path to the Apigee playbook workspace"
+      prompt: "Please provide the path to the Apigee playbook workspacename: "
 
     - name: apigee_secure_folder
       default: "~/.apigee-secure"
@@ -34,6 +34,10 @@
       default: "/.apigee"
       private: no
       prompt: "Please provide the path to the location of the customer_properties.yml"
+
+    - name: remote_user
+      private: yes
+      prompt: "Please provide the remote user name"
 
   pre_tasks:
   - name: Load variables
