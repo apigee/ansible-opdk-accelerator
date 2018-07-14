@@ -39,14 +39,6 @@
       private: yes
       prompt: "Please provide the remote user name"
 
-  pre_tasks:
-  - name: Load variables
-    include_vars:
-      dir: "{{ item | expanduser }}"
-    with_items:
-    - "{{ apigee_secure_folder }}"
-    - "{{ apigee_custom_properties_folder }}"
-
   roles:
   - { role: apigee-opdk-setup-ansible-controller }
 
