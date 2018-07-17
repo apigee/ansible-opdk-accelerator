@@ -69,9 +69,9 @@ yum_packages:
 - yum-plugin-priorities
 - boost-filesystem
 - boost-program-options
-- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-devel-0.14.0-2.el7.x86_64.rpm
-- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-0.14.0-2.el7.x86_64.rpm
-- libdb4-4.8*
+#- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-devel-0.14.0-2.el7.x86_64.rpm
+#- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-0.14.0-2.el7.x86_64.rpm
+#- libdb4-4.8*
 
 # These are packages that can be excluded from yum installation:
 yum_exclude_packages:
