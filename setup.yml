@@ -1,8 +1,44 @@
 ---
-# - include: setup-ansible-config.yml
+- name: Setup the Ansible controller
+  hosts: controller
+  gather_facts: no
+  vars:
+    # This is the location in which Ansible files can be installed.
+    # ansible_workspace: "~/.ansible"
 
-#- include: control-server.yml
+    # This is the location where the playbook folder will be located.
+    # apigee_workspace: "~/apigee-workspace"
 
-- import_playbook: setup-base.yml
+    # This is the location where credentials, license material, GCP service account files, AWS key and secret, etc are stored"
+    # apigee_secure_folder: "~/.apigee-secure"
 
-#- include: setup-ec2.yml
+    # This is the location of custom property files.
+    # apigee_custom_properties_folder: "~/.apigee"
+  vars_prompt:
+    - name: ansible_workspace
+      default: "~/.ansible"
+      private: no
+      prompt: "Please provide the path to the Ansible workspace"
+
+    - name: apigee_workspace
+      default: "~/apigee-workspace"
+      private: no
+      prompt: "Please provide the path to the Apigee playbook workspacename: "
+
+    - name: apigee_secure_folder
+      default: "~/.apigee-secure"
+      private: no
+      prompt: "Please provide the path to the folder that will contain credentials and other sensitive information"
+
+    - name: apigee_custom_properties_folder
+      default: "/.apigee"
+      private: no
+      prompt: "Please provide the path to the location of the customer_properties.yml"
+
+    - name: remote_user
+      private: yes
+      prompt: "Please provide the remote user name"
+
+  roles:
+  - { role: apigee-opdk-setup-ansible-controller }
+
