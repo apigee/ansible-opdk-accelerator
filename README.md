@@ -23,6 +23,11 @@ If you need to configure SSH access for your nodes but you only have a username 
 a look at the [Configure SSH Login ](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/configure-ssh-login)
 for a playbook to help you set up SSH key access quickly over any number of servers. 
 
+### Backup an Ansible Control Server
+If you need to backup the setup of an Ansible control server then take a look at 
+[Ansible Control Server Backup](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/backup-ansible-controller)
+for a playbook to help you backup a control server.
+
 # Usage Instructions
 
 ## Sample Usage to Setup an Ansible Control Server 
