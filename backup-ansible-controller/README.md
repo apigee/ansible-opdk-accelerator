@@ -1,4 +1,4 @@
-# Apigee OPDK Ansible Configuration Accelerator
+# Apigee OPDK Ansible Controller Backup
  
 This folder also contains the playbook to backup the Ansible Control server using the
 [Apigee OPDK Setup Ansible Controller Backup](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller-backup)
