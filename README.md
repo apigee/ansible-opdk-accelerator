@@ -18,6 +18,10 @@ value. Please see
 [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 for additional details.
 
+### Playbooks
+You can `git clone` playbooks to get started and place them in the playbooks folder. You can start 
+with this [installation playbook](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region).
+
 ### Configure SSH Access for your Nodes
 If you need to configure SSH access for your nodes but you only have a username and password then take
 a look at the [Configure SSH Login ](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/configure-ssh-login)
