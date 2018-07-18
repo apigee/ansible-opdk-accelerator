@@ -18,6 +18,11 @@ value. Please see
 [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 for additional details.
 
+### Configure SSH Access for your Nodes
+If you need to configure SSH access for your nodes but you only have a username and password then take
+a look at the [Configure SSH Login ](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/configure-ssh-login)
+for a playbook to help you set up SSH key access quickly over any number of servers. 
+
 # Usage Instructions
 
 ## Sample Usage to Setup an Ansible Control Server 
