@@ -1,7 +1,6 @@
 ---
 - name: Setup the Ansible controller
   hosts: controller
-  gather_facts: no
   vars:
     # This is the location in which Ansible files can be installed.
     # ansible_workspace: "~/.ansible"
