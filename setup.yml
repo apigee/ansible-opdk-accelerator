@@ -31,7 +31,7 @@
       prompt: "Please provide the path to the folder that will contain credentials and other sensitive information"
 
     - name: apigee_custom_properties_folder
-      default: "/.apigee"
+      default: "~/.apigee"
       private: no
       prompt: "Please provide the path to the location of the customer_properties.yml"
 
