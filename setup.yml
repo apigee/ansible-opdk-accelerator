@@ -1,6 +1,7 @@
 ---
 - name: Setup the Ansible controller
   hosts: controller
+  connection: local
   vars:
     # This is the location in which Ansible files can be installed.
     # ansible_workspace: "~/.ansible"
