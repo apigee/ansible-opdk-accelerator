@@ -34,13 +34,13 @@
       args:
         creates: "{{ pubkey }}"
 
-    - name: Determine state of public key
-      stat:
-        path: "{{ pubkey }}"
-      register: pubkey_state
-
     delegate_to: localhost
     when: not pubkey_state.stat.exists
+
+  - name: Assert state of public key
+    stat:
+      path: "{{ pubkey }}"
+    register: pubkey_state
 
   - name: Copy local public keys to server for user {{ user }}
     authorized_key:
