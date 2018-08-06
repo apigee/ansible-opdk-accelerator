@@ -13,22 +13,36 @@
       - remote_user is defined
       msg: "Please provide the remote user: -e remote_user=<remote login user>"
 
+  - name: Get current user if remote_user not provided
+    shell: whoami
+    register: whoami
+
+  - name:  Set remote_user
+    set_facts:
+      remote_user: "{{ whoami.std_out }}"
+
   - name: Determine state of public key
     stat:
       path: "{{ pubkey }}"
     register: pubkey_state
 
-  - name: Assert publice key exists
-    assert:
-      that:
-      - pubkey_state.stat.exists
-      msg: "Please provide a pubkey file: -e pubkey=~/.ssh/id_rsa.pub"
+  - block:
+    - name: Assert availability of openssh
+      yum:
+        name: openssh
+        state: present
 
-  - name: Copy local public keys to server for user {{ user }}
-    authorized_key:
-      user: '{{ remote_user }}'
-      state: present
-      key: "{{ lookup('file', '{{ pubkey }}') }}"
+     - name: Generate SSH keys
+       shell: ssh-keygen -b 2048 -t rsa -f {{ pubkey }} -q -N ""
+       args:
+         creates: ~/.ssh/id_rsa
+
+    - name: Copy local public keys to server for user {{ user }}
+      authorized_key:
+        user: '{{ remote_user }}'
+        state: present
+        key: "{{ lookup('file', '{{ pubkey }}') }}"
+    when: not pubkey_state.stat.exists
 
   - name: Enable root login over SSH
     lineinfile:
