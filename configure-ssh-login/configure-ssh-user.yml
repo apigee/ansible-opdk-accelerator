@@ -14,7 +14,7 @@
 
     - name:  Set remote_user
       set_fact:
-        remote_user: "{{ whoami.std_out }}"
+        remote_user: "{{ whoami.stdout }}"
 
     - name: Determine state of public key
       stat:
