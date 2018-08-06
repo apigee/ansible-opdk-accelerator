@@ -1,10 +1,10 @@
 ---
 - name: Configure SSH for a remote user
   hosts: '{{ hosts }}'
-  become: yes
 
   vars:
     pubkey: '~/.ssh/id_rsa.pub'
+    pvtkey: '~/.ssh/id_rsa'
 
   tasks:
   - block:
@@ -30,9 +30,9 @@
         state: present
 
     - name: Generate SSH keys
-      shell: ssh-keygen -b 2048 -t rsa -f {{ pubkey }} -q -N ""
+      shell: ssh-keygen -b 2048 -t rsa -f {{ pvtkey }} -q -N ""
       args:
-        creates: "{{ pubkey }}"
+        creates: "{{ pvtkey }}"
 
     delegate_to: localhost
     when: not pubkey_state.stat.exists
