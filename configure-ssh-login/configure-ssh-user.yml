@@ -7,18 +7,21 @@
     pubkey: '~/.ssh/id_rsa.pub'
 
   tasks:
-  - name: Get current user if remote_user not provided
-    shell: whoami
-    register: whoami
+  - block:
+    - name: Get current user if remote_user not provided
+      shell: whoami
+      register: whoami
 
-  - name:  Set remote_user
-    set_fact:
-      remote_user: "{{ whoami.std_out }}"
+    - name:  Set remote_user
+      set_fact:
+        remote_user: "{{ whoami.std_out }}"
 
-  - name: Determine state of public key
-    stat:
-      path: "{{ pubkey }}"
-    register: pubkey_state
+    - name: Determine state of public key
+      stat:
+        path: "{{ pubkey }}"
+      register: pubkey_state
+
+    delegate_to: localhost
 
   - block:
     - name: Assert availability of openssh
@@ -31,13 +34,15 @@
       args:
         creates: ~/.ssh/id_rsa
 
-    - name: Copy local public keys to server for user {{ user }}
-      authorized_key:
-        user: '{{ remote_user }}'
-        state: present
-        key: "{{ lookup('file', '{{ pubkey }}') }}"
-
+    delegate_to: localhost
     when: not pubkey_state.stat.exists
+
+  - name: Copy local public keys to server for user {{ user }}
+    authorized_key:
+      user: '{{ remote_user }}'
+      state: present
+      key: "{{ lookup('file', '{{ pubkey }}') }}"
+  when: pubkey_state.stat.exists is defined
 
   - name: Enable root login over SSH
     lineinfile:
