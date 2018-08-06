@@ -33,10 +33,10 @@
     - name: apigee_custom_properties_folder
       default: "~/.apigee"
       private: no
-      prompt: "Please provide the path to the location of the customer_properties.yml"
+      prompt: "Please provide the path to the location of the custom_properties.yml"
 
     - name: remote_user
-      private: yes
+      private: no
       prompt: "Please provide the remote user name"
 
   roles:
