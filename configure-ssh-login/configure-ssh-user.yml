@@ -42,7 +42,7 @@
       user: '{{ remote_user }}'
       state: present
       key: "{{ lookup('file', '{{ pubkey }}') }}"
-  when: pubkey_state.stat.exists is defined
+    when: pubkey_state.stat.exists is defined
 
   - name: Enable root login over SSH
     lineinfile:
