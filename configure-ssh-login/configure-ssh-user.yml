@@ -7,12 +7,6 @@
     pubkey: '~/.ssh/id_rsa.pub'
 
   tasks:
-  - name: Assert that the remote_user was provided
-    assert:
-      that:
-      - remote_user is defined
-      msg: "Please provide the remote user: -e remote_user=<remote login user>"
-
   - name: Get current user if remote_user not provided
     shell: whoami
     register: whoami
@@ -32,16 +26,17 @@
         name: openssh
         state: present
 
-     - name: Generate SSH keys
-       shell: ssh-keygen -b 2048 -t rsa -f {{ pubkey }} -q -N ""
-       args:
-         creates: ~/.ssh/id_rsa
+    - name: Generate SSH keys
+      shell: ssh-keygen -b 2048 -t rsa -f {{ pubkey }} -q -N ""
+      args:
+        creates: ~/.ssh/id_rsa
 
     - name: Copy local public keys to server for user {{ user }}
       authorized_key:
         user: '{{ remote_user }}'
         state: present
         key: "{{ lookup('file', '{{ pubkey }}') }}"
+
     when: not pubkey_state.stat.exists
 
   - name: Enable root login over SSH
