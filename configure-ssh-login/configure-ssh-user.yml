@@ -12,7 +12,7 @@
     register: whoami
 
   - name:  Set remote_user
-    set_facts:
+    set_fact:
       remote_user: "{{ whoami.std_out }}"
 
   - name: Determine state of public key
