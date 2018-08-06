@@ -32,7 +32,12 @@
     - name: Generate SSH keys
       shell: ssh-keygen -b 2048 -t rsa -f {{ pubkey }} -q -N ""
       args:
-        creates: ~/.ssh/id_rsa
+        creates: "{{ pubkey }}"
+
+    - name: Determine state of public key
+      stat:
+        path: "{{ pubkey }}"
+      register: pubkey_state
 
     delegate_to: localhost
     when: not pubkey_state.stat.exists
