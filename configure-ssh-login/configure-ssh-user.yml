@@ -58,7 +58,7 @@
       backrefs: yes
     notify:
     - Restart SSH service
-    when: user == 'root'
+    when: remote_user == 'root'
 
   handlers:
   - name: Restart SSH service
