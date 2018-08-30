@@ -16,111 +16,148 @@ on cloud providers like AWS or GCP. Please refer to the Ansible document
 [Working with Inventory](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html)
 for details. We use groups of groups to enable the framework to manage planets of any size. 
 
-## Inventory File Conventions
-These roles depend on use of conventions in the inventory file. 
-Specifically inventory file conventions are [Ansible group](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-and-groups) names that
-are defined around Apigee semantics. These Ansible groups are 
-semantically linked to the Apigee documentation. The [Ansible groups of groups](http://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html#static-groups-of-dynamic-groups) used as
-conventions correspond to the installation roles and server 
-categorizations called out in the [Apigee Private Cloud Installation](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node) and 
-Configuration Guide. It has been useful to use planet and region 
-designations combined with the documented installation role names to 
-create categorization semantics that should be fairly intuitive once you 
-read the Apigee Private Cloud Installation and Configuration Guide. 
+## Managing Dynamic Inventory Defintions
+Ansible enables you to manage inventory definitions in three ways. First you are able to explicitly 
+define nodes and IP addresses directly in a single inventory file. Next, you are able to indicate 
+that a file system folder be viewed as containing inventory definitions. This second approach allows
+you to decompose a very large inventory into several smaller files that are simplier to manage. 
+The final option that Ansible provides to manage inventories is a combination of the second approach
+with the inclusion of Ansible provided Ansible scripts. The Ansible provided scripts are executed 
+and dynamically construct an inventory that is then available to Ansible playbooks. This last 
+approach is used to dynamically discover nodes in AWS and GCP. We will describe using the second 
+approach in the remainder of this document.
    
 ## Inventory Planet, Region and Installation Role Conventions
-A planet refers to all server nodes across all data centers. These 
-semantics are held via the use of group names for all nodes that fulfill 
-a specific purpose. The installation roles provide the semantic model we 
-followed. The inventory file group names for planet level semantics are 
-listed in the template inventory file below. 
+A planet is composed of regions. A region is a synonym for a data center. Data centers are referred 
+by the prefix `dc` and an ordinal. This convention describes a data center as `dc-1`. A second data 
+center would be described as `dc-2`. This simple convention is extended for as many data centers as 
+required.
 
-A region represents a subset of a planet. The semantics used for
-installation roles are congruent with a region. Regions have been
-referenced as data centers. The internal configurations of OPDK and BaaS 
-support many regions such as dc-1, dc-2 ... dc-n. Following this
-historical precedent we also define the regions with their corresponding 
-installation role to provide a semantic model as follows:
- 
-    # Listing that references all data centers that compose a planet. 
-    [planet]
-    dc-1
+## Group Conventions for Managing Apigee Private Cloud
+The following provides a detailed technical description of how inventory files are used to define 
+the group designation that are used by the Ansible framework to indicate the role of a server. 
+Inventory template files are installed using the setup that reduce modifications 
+to only indicating server details. 
+
+### Define an initial data center
+We then define an initial data center as:
 
     [dc-1]
     # Listing of all nodes in data center 1 (dc-1)
-    
-    [ds:children]
-    # Listing of all the Cassandra and Zookeeper nodes across the planet
-    dc-1-ds
-    
-    [dc-1-ds]
-    # Listing of all the Cassandra and Zookeeper nodes in dc-1
+    # Nodes are listed using inventory file syntax for Ansible
+    dc-1-n1 ansible_host=10.x.x.x
+    dc-1-n2 ansible_host=10.x.x.x
+    dc-1-n3 ansible_host=10.x.x.x
+    dc-1-n4 ansible_host=10.x.x.x
+    dc-1-n5 ansible_host=10.x.x.x
+    dc-1-n6 ansible_host=10.x.x.x
+    dc-1-n7 ansible_host=10.x.x.x
+    dc-1-n8 ansible_host=10.x.x.x
+    dc-1-n9 ansible_host=10.x.x.x
+    dc-1-n10 ansible_host=10.x.x.x
+
+### Define a planet
+We then define a planet as a group of data centers:
+
+    # Listing that references all data centers that compose a planet. 
+    [planet:children]
+    dc-1
+
+### Define a management server groups
+We then define a managment server group in dc-1 as: 
     
     [dc-1-ms]
-    # Listing of all the Management Server nodes in dc-1
-     
-    [dc-1-ldap]
-    # Listing of all OpenLDAP nodes in dc-1
+    dc-1-n1 
     
+We can add dc-1-ms group to the larger group of all managment servers as: 
+
+    [ms:children]
+    dc-1-ms 
+    
+### Define Cassandra & Zookeeper groups    
+We can define a Cassandra & Zookeeper group in dc-1 as:
+  
+    [dc-1-ds]
+    dc-1-n[2:4]
+    
+We can add the dc-1-ds group to the larger group of all Cassandra & Zookeeper groups as: 
+
+    [ds:children]
+    dc-1-ds 
+     
+### Define Router & Message Processor groups        
+We can define Router & Message processor group in dc-1 as: 
+
     [dc-1-rmp]
-    # Listing of all Router and Message Processor nodes in dc-1
+    dc-1-n[5:6]
+    
+We can add the dc-1-rmp group to the larger group of all Routers & Message Processors as: 
+
+    [rmp:children]    
+    dc-1-rmp
+    
+### Define Qpid groups
+We can define the Qpid components group in dc-1 as:
     
     [dc-1-qpid]
-    # Listing of all Qpid nodes in dc-1
+    dc-1-n[7:8]
+
+We can add the dc-1-qpid group to the larger group of all Qpid components as: 
+
+    [qpid:children]
+    dc-1-qpid
+    
+### Define Postgres groups
+We can define the Postgres components group in dc-1 as: 
     
     [dc-1-pg]
-    # Listing of all Postgres nodes in dc-1
+    dc-1-n[9:10]
     
+We can add the dc-1-pg group to the larger group of all Qpid components as:
+
+    [pg:children]
+    dc-1-pg
+    
+### Define Postgres Master group
+This is an optional group that is needed only if a Postgres Master and Postgres Standby will be used. 
+We can define a Postgres Master group as:
+
     [dc-1-pgmaster]
-    # Listing of the single Postgres master node in dc-1
+    dc-1-n9
     
+### Define Postgres Standby group
+This is an optional group that is needed only if a Postgres Master and Postgres Standby will be used. 
+We can define a Postgres Standby group as:
+
     [dc-1-pgstandby]
-    # Listing of the single Postgres standby node in dc-1
+    dc-1-n10
     
-    [dc-1-ui]
-    # Listing of the UI node in dc-1
-    
+                  
+   
 # Zookeeper Observer Nodes
-Zookeeper nodes can be designated as an observer node. Ansible inventory 
-files allow variables to be assigned to servers. These roles will update 
-the silent installation configuration file correctly for any zookeeper 
-node that is assigned the variable zk_observer.
+This is an optional attribute if number of Zookeeper nodes is odd. Please consult Apigee documentation
+for addtional considerations that apply when deciding to set a Zookeeper observer node. 
+
+Zookeeper nodes can be designated as an observer node. We use the Ansible inventory mechanism to 
+indicate which Zookeeper nodes should be designated as observer nodes. This is accomplished as 
+follows: 
   
-     zk_observer=true
-
-## Example Zookeeper Observer Node Configuration
-This is a sample of a configuration of a Zookeeper node as an observer. Assuming that the first three nodes listed are
-Cassandra/Zookeeper nodes then we can configure a node as a zookeeper observer as follows:
-
-    [planet]
-    dc-1-n1
-    dc-1-n2
-    dc-1-n3 zk_observer=true
-
     [dc-1-ds]
-    dc-1-n[1:3]
+    dc-1-n2
+    dc-1-n3
+    dc-1-n4 zk_observer=true
 
-# Cassandra Rackaware Configuration
-Cassandra nodes can be configured to be rackaware. This leverages the Cassandra built in functionality
+# Cassandra Rack Aware Configuration
+This is an optional attribute. This attribute must configured to indicate to Cassandra that it is 
+installed across availability zones. 
+
+Cassandra nodes can be configured to be rack aware. This leverages the Cassandra built in functionality
 for managing itself when the Cassandra ring is distributed across several availability zones. We would
 set the variable rack for each member of the Cassandra ring with the designated location we want for
 that node in the following way:
 
-    rack=1,1
-
-Please note that this follows the Cassandra rack aware configuration syntax:
-
-    rack=<Availability Zone>,<Position on Rack>
-
-## Example Cassandra Rackaware Configuration
-This is a sample of a configuration of Cassandra as a node that is rackaware. Assuming that the first three nodes listed are
-Cassandra/Zookeeper nodes then we can configure a node as rackaware as follows:
-
-    [planet]
-    dc-1-n1 rack=1,1
-    dc-1-n2 rack=2,1
-    dc-1-n3 rack=3,1
-
+  
     [dc-1-ds]
-    dc-1-n[1:3]
-
+    dc-1-n2 rack=1,1
+    dc-1-n3 rack=1,1
+    dc-1-n4 rack=1,1
