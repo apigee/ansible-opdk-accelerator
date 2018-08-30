@@ -7,7 +7,7 @@ assumptions:
 
 1. Introductory understanding of [Ansible](https://docs.ansible.com/) and 
 [Ansible Galaxy](https://galaxy.ansible.com/docs/).
-1. [Ansible installation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
+1. An [Ansible installation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 1. Creation and use of a known folder structure for Ansible artifacts.
 1. Creation and use of Ansible configuration files for switching between planet topologies.
 1. Planet topologies are managed by the use of Ansible inventory files.
