@@ -40,11 +40,12 @@ Inventory template files are installed using the setup that reduce modifications
 to only indicating server details. 
 
 ### Define an initial data center
-We then define an initial data center as:
+We define an initial data center as:
 
     [dc-1]
     # Listing of all nodes in data center 1 (dc-1)
     # Nodes are listed using inventory file syntax for Ansible
+    dc-1-n0 ansible_host=10.x.x.x
     dc-1-n1 ansible_host=10.x.x.x
     dc-1-n2 ansible_host=10.x.x.x
     dc-1-n3 ansible_host=10.x.x.x
@@ -54,20 +55,25 @@ We then define an initial data center as:
     dc-1-n7 ansible_host=10.x.x.x
     dc-1-n8 ansible_host=10.x.x.x
     dc-1-n9 ansible_host=10.x.x.x
-    dc-1-n10 ansible_host=10.x.x.x
 
 ### Define a planet
-We then define a planet as a group of data centers:
+We define a planet as a group of data centers:
 
     # Listing that references all data centers that compose a planet. 
     [planet:children]
     dc-1
+    
+### Define Edge group
+We define a group of nodes that contain Edge roles as:
+
+    [edge]
+    dc-1-n[0:9]
 
 ### Define a management server groups
 We then define a managment server group in dc-1 as: 
     
     [dc-1-ms]
-    dc-1-n1 
+    dc-1-n0
     
 We can add dc-1-ms group to the larger group of all managment servers as: 
 
@@ -78,7 +84,7 @@ We can add dc-1-ms group to the larger group of all managment servers as:
 We can define a Cassandra & Zookeeper group in dc-1 as:
   
     [dc-1-ds]
-    dc-1-n[2:4]
+    dc-1-n[1:3]
     
 We can add the dc-1-ds group to the larger group of all Cassandra & Zookeeper groups as: 
 
@@ -89,7 +95,7 @@ We can add the dc-1-ds group to the larger group of all Cassandra & Zookeeper gr
 We can define Router & Message processor group in dc-1 as: 
 
     [dc-1-rmp]
-    dc-1-n[5:6]
+    dc-1-n[4:5]
     
 We can add the dc-1-rmp group to the larger group of all Routers & Message Processors as: 
 
@@ -100,7 +106,7 @@ We can add the dc-1-rmp group to the larger group of all Routers & Message Proce
 We can define the Qpid components group in dc-1 as:
     
     [dc-1-qpid]
-    dc-1-n[7:8]
+    dc-1-n[6:7]
 
 We can add the dc-1-qpid group to the larger group of all Qpid components as: 
 
@@ -111,7 +117,7 @@ We can add the dc-1-qpid group to the larger group of all Qpid components as:
 We can define the Postgres components group in dc-1 as: 
     
     [dc-1-pg]
-    dc-1-n[9:10]
+    dc-1-n[8:9]
     
 We can add the dc-1-pg group to the larger group of all Qpid components as:
 
@@ -123,18 +129,16 @@ This is an optional group that is needed only if a Postgres Master and Postgres 
 We can define a Postgres Master group as:
 
     [dc-1-pgmaster]
-    dc-1-n9
+    dc-1-n8
     
 ### Define Postgres Standby group
 This is an optional group that is needed only if a Postgres Master and Postgres Standby will be used. 
 We can define a Postgres Standby group as:
 
     [dc-1-pgstandby]
-    dc-1-n10
-    
-                  
+    dc-1-n9
    
-# Zookeeper Observer Nodes
+## Zookeeper Observer Nodes
 This is an optional attribute if number of Zookeeper nodes is odd. Please consult Apigee documentation
 for addtional considerations that apply when deciding to set a Zookeeper observer node. 
 
@@ -143,11 +147,11 @@ indicate which Zookeeper nodes should be designated as observer nodes. This is a
 follows: 
   
     [dc-1-ds]
+    dc-1-n1
     dc-1-n2
-    dc-1-n3
-    dc-1-n4 zk_observer=true
+    dc-1-n3 zk_observer=true
 
-# Cassandra Rack Aware Configuration
+## Cassandra Rack Aware Configuration
 This is an optional attribute. This attribute must configured to indicate to Cassandra that it is 
 installed across availability zones. 
 
@@ -158,6 +162,69 @@ that node in the following way:
 
   
     [dc-1-ds]
+    dc-1-n1 rack=1,1
     dc-1-n2 rack=1,1
     dc-1-n3 rack=1,1
-    dc-1-n4 rack=1,1
+
+# Full Sample Inventory Configuration
+   
+    [dc-1-edge]
+    dc-1-n[0:9]
+    
+    [dc-1-ds]
+    dc-1-n[1:3]
+    
+    [dc-1-ms]
+    dc-1-n0
+    
+    [dc-1-rmp]
+    dc-1-n[4:5]
+    
+    [dc-1-qpid]
+    dc-1-n[6:7]
+    
+    [dc-1-pgmaster]
+    dc-1-n8
+    
+    [dc-1-pgstandby]
+    dc-1-n9
+        
+    # Groups of groups that don't need to be modified if using PG Master / PG Standby
+    [planet:children]
+    dc-1
+    
+    [dc-1:children]
+    dc-1-edge
+    dc-1-ds
+    dc-1-ms
+    dc-1-rmp
+    dc-1-qpid
+    dc-1-pg
+    
+    [edge:children]
+    dc-1-edge
+    
+    [ms:children]
+    dc-1-ms
+    
+    [ds:children]
+    dc-1-ds
+    
+    [rmp:children]
+    dc-1-rmp
+    
+    [qpid:children]
+    dc-1-qpid
+    
+    [pg:children]
+    dc-1-pg
+    
+    [dc-1-pg:children]
+    dc-1-pgmaster
+    dc-1-pgstandby
+    
+    [pgmaster:children]
+    dc-1-pgmaster
+    
+    [pgstandby:children]
+    dc-1-pgstandby
