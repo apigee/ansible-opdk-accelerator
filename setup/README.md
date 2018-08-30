@@ -35,55 +35,25 @@ Ansible control to another file system location. Please see
 
 # Usage Instructions
 
-## Setup an Ansible Control Server 
-
-The `setup.yml` will configure the localhost as an Ansible control server. 
+## Download Dependencies
+Use `ansible-galaxy` to download dependencies in the following way: 
 
     # Download the required roles to setup the Ansible controller
     ansible-galaxy install -r requirements.yml -f
+
+## Setup an Ansible Control Server on localhost
+
+`setup.yml` will configure the localhost as an Ansible control server in the following way:
     
     # Setup the Ansible controller
     ansible-playbook setup.yml -e remote_user=<remote user login>
 
-## Sample Usage to Setup an Ansible Control Server on localhost
+## Setup an Ansible Control Server on another host
 
-A basic controller setup can be configured in the current directory: 
+`setup.yml` will configure an Ansible control server you indicate assuming you have ssh access in 
+the following way: 
+    
+    # Setup the Ansible controller
+    ansible-playbook setup.yml -e remote_user=<remote user login> -e target_hosts=<IP Address>
 
-    # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r requirements.yml -f
-    
-    # Setup the Ansible controller
-    ansible-playbook setup.yml -c local -e remote_user=<remote user login>
-
-### Change the location of the Ansible workspace folder
-   
-    # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r requirements.yml -f
-    
-    # Setup the Ansible controller
-    ansible-playbook setup.yml -e remote_user=<remote user login> -e ansible_workspace=~/.ansible
-    
-### Change the location of the Apigee workspace folder
-   
-    # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r requirements.yml -f
-    
-    # Setup the Ansible controller
-    ansible-playbook setup.yml -e remote_user=<remote user login> -e apigee_workspace=~/.apigee
-    
-### Placing the Apigee Secure in a location of your choosing
-   
-    # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r requirements.yml -f
-    
-    # Setup the Ansible controller
-    ansible-playbook setup.yml -e apigee_secure_folder=<User defined path> -e remote_user=<remote user login> -e apigee_workspace=~/.apigee
-    
-### Placing the Apigee Customer Properties in a location of your choosing
-   
-    # Download the required roles to setup the Ansible controller
-    ansible-galaxy install -r requirements.yml -f
-    
-    # Setup the Ansible controller
-    ansible-playbook setup.yml -e apigee_custom_properties_folder=<User defined path> -e apigee_secure_folder=<User defined path> -e remote_user=<remote user login> -e apigee_workspace=~/.apigee
-    
+  
