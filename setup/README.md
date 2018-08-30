@@ -10,10 +10,11 @@ or several planets of any size.
 ## Assumptions
 * Ansible is installed on the server set aside as an Ansible Controller. 
 * The `setup.yml` playbook uses the [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
-role to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you are
-configuring the localhost. 
+role to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you 
+are configuring the localhost. 
 * Same setup for either a single planet or multiple planets.
-* The user home will be used to create the folders `~/.ansible`, `~/.apigee`, `~/.apigee-secure`, and `~/apigee-workspace`.
+* The user home will be used to create the folders `~/.ansible`, `~/.apigee`, `~/.apigee-secure`, 
+and `~/apigee-workspace`.
 * The folder `~/apigee-workspace` will be used to contain playbooks. Use 
 `git clone https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git`to get 
 started.
@@ -25,9 +26,9 @@ SSH keys for greater security. Please see
 for details. 
 
 ### Backup an Ansible Control Server
-If you need to backup the setup of an Ansible control server then take a look at 
-[Ansible Control Server Backup](backup-ansible-controller)
-for a playbook to help you backup a control server.
+A helper playbook is provided for the common task of backing up the configurations managed by the 
+Ansible control to another file system location. Please see 
+[Ansible Control Server Backup](backup-ansible-controller) for details.
 
 # Usage Instructions
 
