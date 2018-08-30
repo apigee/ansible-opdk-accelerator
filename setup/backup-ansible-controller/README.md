@@ -2,7 +2,7 @@
  
 This folder also contains the playbook to backup the Ansible Control server using the
 [Apigee OPDK Setup Ansible Controller Backup](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller-backup)
-role. The [backup.yml](../backup-ansible-controller/backup.yml) script backs up to either a default 
+role. The [backup.yml](backup.yml) script backs up to either a default 
 folder or a provided folder on your local file system. Please see  
 [Apigee OPDK Setup Ansible Controller Backup](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller-backup)
 for details.
