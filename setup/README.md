@@ -21,12 +21,12 @@ started.
 ### Configure SSH Access for your Nodes
 A helper playbook is provided for the common task of configuring SSH access to enable the use of 
 SSH keys for greater security. Please see 
-[Configure SSH Login ](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/configure-ssh-login) 
+[Configure SSH Login ](configure-ssh-login) 
 for details. 
 
 ### Backup an Ansible Control Server
 If you need to backup the setup of an Ansible control server then take a look at 
-[Ansible Control Server Backup](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/backup-ansible-controller)
+[Ansible Control Server Backup](backup-ansible-controller)
 for a playbook to help you backup a control server.
 
 # Usage Instructions
