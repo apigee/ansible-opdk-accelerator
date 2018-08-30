@@ -1,17 +1,20 @@
 Updating your Inventory File
 ============================
 
-We use a standard Ansible inventory file with some semantic conventions 
-applied to Ansible groups. The semantic model applied to the Ansible 
-inventory file is described in the following sections.
+We use a standard Ansible inventory file with semantic conventions applied using 
+[Ansible groups](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-and-groups). 
+The semantic model applied to the Ansible inventory file is described in the following sections.
  
-## Ansible Inventory Files
-Ansible provides rich semantics for inventory files. We leverage the 
-Ansible model by applying a semantic convention that is based on the 
-Apigee Private Cloud domain model for referencing server nodes as 
-collections of planets and regions. This means that Apigee semantics are used as group names 
-to ascribe roles to normal Ansible inventory files. Please refer to the [Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html)
-for more information on how this works.  
+## Inventory Semantic Model Description
+Apigee components must be installed on servers that fulfill a specific role in the topology of Apigee 
+Edge Private Cloud. These roles align with the installation profiles described in 
+[Install Edge components on a node](https://docs.apigee.com/private-cloud/v4.18.05/install-edge-components-node).
+The role of a servers is indicated by simply including it in the designated group. Group can be 
+composed as a simple group of servers or groups of groups. The ability to define groups using the
+`:children` syntax enable us the ability to define dynamically scalable topologies that can be hosted
+on cloud providers like AWS or GCP. Please refer to the Ansible document
+[Working with Inventory](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html)
+for details.  
 
 ## Inventory File Conventions
 These roles depend on use of conventions in the inventory file. 
