@@ -4,6 +4,9 @@ Updating your Inventory File
 We use a standard Ansible inventory file with semantic conventions applied using 
 [Ansible groups](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-and-groups). 
 The semantic model applied to the Ansible inventory file is described in the following sections.
+
+# Inventory Templates
+[Inventory templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples) are provided.
  
 ## Inventory Semantic Model Description
 Apigee components must be installed on servers that fulfill a specific role in the topology of Apigee 
@@ -167,6 +170,7 @@ that node in the following way:
     dc-1-n3 rack=1,1
 
 # Full Sample Inventory Configuration
+[Inventory templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples) are provided.
    
     [dc-1-edge]
     dc-1-n[0:9]
