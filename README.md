@@ -1,9 +1,9 @@
 # Apigee OPDK Ansible Configuration Accelerator
 
 ## Introduction
-This repository contain a framework of Ansible playbooks that use Ansible roles to help you install, 
-configure and manage one or multiple Apigee OPDK planet topologies. This framework makes the following
-assumptions: 
+This repository contain a framework of Ansible playbooks that use Ansible roles to automate the 
+installation, configuration and management of one or multiple Apigee OPDK planet topologies. This 
+framework makes the following assumptions: 
 
 1. Introductory understanding of [Ansible](https://docs.ansible.com/) and 
 [Ansible Galaxy](https://galaxy.ansible.com/docs/).
