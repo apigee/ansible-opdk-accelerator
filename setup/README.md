@@ -1,12 +1,13 @@
 # Setup Apigee OPDK Ansible Configuration Accelerator
 
 ## Introduction
-An Ansible controller is used to run Ansible playbooks. This repository contains playbooks that setup 
+An Ansible controller is used to run Ansible playbooks. This repository contains playbooks that configure 
 an Ansible controller. The role [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 is used to setup an Ansible Controller. 
 
 ## Assumptions
-The `setup.yml` playbook uses [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
+* Ansible is installed on the server set aside as an Ansible Controller. 
+* The `setup.yml` playbook uses [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you are
 configuring the localhost. 
  
