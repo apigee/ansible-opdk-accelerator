@@ -18,14 +18,11 @@ configuring the localhost.
 `git clone https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git`to get 
 started.
 
-### Playbooks
-You can `git clone` playbooks to get started and place them in the playbooks folder. You can start 
-with this [installation playbook](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region).
-
 ### Configure SSH Access for your Nodes
-If you need to configure SSH access for your nodes but you only have a username and password then take
-a look at the [Configure SSH Login ](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/configure-ssh-login)
-for a playbook to help you set up SSH key access quickly over any number of servers. 
+A helper playbook is provided for the common task of configuring SSH access to enable the use of 
+SSH keys for greater security. Please see 
+[Configure SSH Login ](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/tree/master/configure-ssh-login) 
+for details. 
 
 ### Backup an Ansible Control Server
 If you need to backup the setup of an Ansible control server then take a look at 
