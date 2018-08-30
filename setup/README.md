@@ -18,6 +18,8 @@ and `~/apigee-workspace`.
 * The folder `~/apigee-workspace` will be used to contain playbooks. Use 
 `git clone https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git`to get 
 started.
+* You must provde the name of the remote user that will be used for SSH access. This cannot be the 
+`apigee` user.
 
 ### Configure SSH Access for your Nodes
 A helper playbook is provided for the common task of configuring SSH access to enable the use of 
@@ -32,15 +34,15 @@ Ansible control to another file system location. Please see
 
 # Usage Instructions
 
-## Sample Usage to Setup an Ansible Control Server 
+## Setup an Ansible Control Server 
 
-The `setup.yml` will configure a control server 
+The `setup.yml` will configure the localhost as an Ansible control server. 
 
     # Download the required roles to setup the Ansible controller
     ansible-galaxy install -r requirements.yml -f
     
     # Setup the Ansible controller
-    ansible-playbook setup.yml 
+    ansible-playbook setup.yml -e remote_user=<remote user login>
 
 ## Sample Usage to Setup an Ansible Control Server on localhost
 
