@@ -13,14 +13,7 @@ or several planets of any size.
 role to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you are
 configuring the localhost. 
 * Same setup for either a single planet or multiple planets.
-
-## Quick Start
-The playbook `setup.yml` will setup your folder structure in your user home directory. You can change
-the location of you folder structure by providing updated folder paths using the `setup.yml` playbook. 
-If you do not provide a required attribute then you will be prompted by the script to provide the 
-value. Please see 
-[Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
-for additional details.
+* The user home will be used to create the folders `~/.ansible`, `~/.apigee`, and `~/.apigee-secure`.
 
 ### Playbooks
 You can `git clone` playbooks to get started and place them in the playbooks folder. You can start 
