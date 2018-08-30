@@ -13,7 +13,10 @@ or several planets of any size.
 role to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you are
 configuring the localhost. 
 * Same setup for either a single planet or multiple planets.
-* The user home will be used to create the folders `~/.ansible`, `~/.apigee`, and `~/.apigee-secure`.
+* The user home will be used to create the folders `~/.ansible`, `~/.apigee`, `~/.apigee-secure`, and `~/apigee-workspace`.
+* The folder `~/apigee-workspace` will be used to contain playbooks. Use 
+`git clone https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git`to get 
+started.
 
 ### Playbooks
 You can `git clone` playbooks to get started and place them in the playbooks folder. You can start 
