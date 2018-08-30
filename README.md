@@ -21,7 +21,7 @@ and change drift between different uses of the framework.
 The use of this framework is composed of the following steps:
 
 1. [Setup](setup) an Ansible control server and workspace.
-1. Configure an initial Planet topology using the Ansible inventory file(s).
+1. Configure an initial Planet topology using the [Ansible inventory](README-inventory.md) file(s).
 1. Place Apigee license material in `~/.apigee-secure/license.txt`.
 1. Update credentials stored `~/.apigee-secure/credentials.yml`.
 1. Update common installation attributes like `opdk_version` that is stored in 
