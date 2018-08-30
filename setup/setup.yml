@@ -1,6 +1,6 @@
 ---
 - name: Setup the Ansible controller
-  hosts: "{{ target_hosts | default('localhost') "
+  hosts: localhost
   connection: local
   vars:
      This is the location in which Ansible files can be installed.
@@ -14,30 +14,6 @@
 
      This is the location of custom property files.
      apigee_custom_properties_folder: "~/.apigee"
-#  vars_prompt:
-#    - name: ansible_workspace
-#      default: "~/.ansible"
-#      private: no
-#      prompt: "Please provide the path to the Ansible workspace"
-#
-#    - name: apigee_workspace
-#      default: "~/apigee-workspace"
-#      private: no
-#      prompt: "Please provide the path to the Apigee playbook workspacename: "
-#
-#    - name: apigee_secure_folder
-#      default: "~/.apigee-secure"
-#      private: no
-#      prompt: "Please provide the path to the folder that will contain credentials and other sensitive information"
-#
-#    - name: apigee_custom_properties_folder
-#      default: "~/.apigee"
-#      private: no
-#      prompt: "Please provide the path to the location of the custom_properties.yml"
-#
-#    - name: remote_user
-#      private: no
-#      prompt: "Please provide the remote user name"
 
   roles:
   - { role: apigee-opdk-setup-ansible-controller }

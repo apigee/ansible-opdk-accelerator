@@ -47,13 +47,3 @@ Use `ansible-galaxy` to download dependencies in the following way:
     
     # Setup the Ansible controller
     ansible-playbook setup.yml -e remote_user=<remote user login>
-
-## Setup an Ansible Control Server on another host
-
-`setup.yml` will configure an Ansible control server you indicate assuming you have ssh access in 
-the following way: 
-    
-    # Setup the Ansible controller
-    ansible-playbook setup.yml -e remote_user=<remote user login> -e target_hosts=<IP Address>
-
-  
