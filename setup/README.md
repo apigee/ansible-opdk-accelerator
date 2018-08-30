@@ -20,6 +20,7 @@ and `~/apigee-workspace`.
 started.
 * You must provde the name of the remote user that will be used for SSH access. This cannot be the 
 `apigee` user.
+* `ssh` access is working.
 
 ### Configure SSH Access for your Nodes
 A helper playbook is provided for the common task of configuring SSH access to enable the use of 
