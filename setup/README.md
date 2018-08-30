@@ -1,20 +1,18 @@
 # Setup Apigee OPDK Ansible Configuration Accelerator
 
 ## Introduction
-An Ansible controller is used to run Ansible playbooks. This repository contains playbooks that configure 
-an Ansible controller. The role [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
-is used to setup an Ansible Controller. 
+An Ansible controller is used to run Ansible playbooks. This repository contains playbooks that 
+configure an Ansible controller. The role [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
+is used to configure an Ansible Controller and should be consulted for additional details. This 
+setup provides you with a common configuration convention that simplifies managing either one planet 
+or several planets of any size.  
 
 ## Assumptions
 * Ansible is installed on the server set aside as an Ansible Controller. 
-* The `setup.yml` playbook uses [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
-to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you are
+* The `setup.yml` playbook uses the [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
+role to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you are
 configuring the localhost. 
- 
- to automate working with either a single planet or automate multiple 
-planets for the management of an Enterpreise scale development environment. This setup provides you 
-with a common configuration convention that simplifies managing either either one planet or several 
-of any size.  
+* Same setup for either a single planet or multiple planets.
 
 ## Quick Start
 The playbook `setup.yml` will setup your folder structure in your user home directory. You can change
