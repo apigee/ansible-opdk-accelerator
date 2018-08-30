@@ -9,7 +9,7 @@ The semantic model applied to the Ansible inventory file is described in the fol
 Apigee components must be installed on servers that fulfill a specific role in the topology of Apigee 
 Edge Private Cloud. These roles align with the installation profiles described in 
 [Install Edge components on a node](https://docs.apigee.com/private-cloud/v4.18.05/install-edge-components-node).
-The role of a servers is indicated by simply including it in the designated group. Group can be 
+The role of a server is indicated by simply including it in the designated group. Group can be 
 composed as a simple group of servers or groups of groups. The ability to define groups using the
 `:children` syntax enable us the ability to define dynamically scalable topologies that can be hosted
 on cloud providers like AWS or GCP. Please refer to the Ansible document
