@@ -2,9 +2,15 @@
 
 ## Introduction
 An Ansible controller is used to run Ansible playbooks. This repository contains playbooks that setup 
-an Ansible controller. The [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
-role to setup an Ansible Controller. The [setup.yml](setup/setup.yml) script enables you to setup and 
-manage an Ansible controller to automate working with either a single planet or automate multiple 
+an Ansible controller. The role [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
+is used to setup an Ansible Controller. 
+
+## Assumptions
+The `setup.yml` playbook uses [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
+to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you are
+configuring the localhost. 
+ 
+ to automate working with either a single planet or automate multiple 
 planets for the management of an Enterpreise scale development environment. This setup provides you 
 with a common configuration convention that simplifies managing either either one planet or several 
 of any size.  
