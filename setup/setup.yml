@@ -13,8 +13,7 @@
      apigee_secure_folder: "~/.apigee-secure"
 
 #     This is the location of custom property files.
-     apigee_c
-     ustom_properties_folder: "~/.apigee"
+     apigee_custom_properties_folder: "~/.apigee"
 
   roles:
   - { role: apigee-opdk-setup-ansible-controller }
