@@ -1,0 +1,13 @@
+---
+- name: Update scopes settings
+  hosts: ms[0]
+  gather_facts: no
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+    ax_group: "axgroup001"
+    org_name: opdk
+    env_name: test
+  roles:
+  - apigee-opdk-setup-scopes-add

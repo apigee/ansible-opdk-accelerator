@@ -1,0 +1,180 @@
+---
+- name: Apigee Component versions
+  hosts: pg
+  gather_facts: no
+  tags: ['version']
+  serial: 1
+  tasks:
+  - name: Component versions echo Apigee version
+    shell: "{{ apigee_all }} version"
+
+- name: Apigee Installation Configuration File
+  hosts: pg
+  gather_facts: no
+  tags: ['install-config']
+  tasks:
+  - name: Display silent-install.conf
+    command: "cat {{ opdk_installation_config_file }}"
+
+- name: Apigee Node Private IP Address
+  hosts: pg
+  gather_facts: no
+  tags: ['private-address']
+  tasks:
+  - name: Show private_address
+    debug:
+      msg: "Private IP: {{ private_address }}"
+
+- name: Apigee Node public IP Address
+  hosts: pg
+  gather_facts: no
+  tags: ['public-address']
+  tasks:
+  - name: Show public_address
+    debug:
+      msg: "Public IP: {{ public_address }}"
+
+- name: Apigee Status
+  hosts: pg
+  gather_facts: no
+  tags: ['status']
+  serial: 1
+  tasks:
+  - name: Display Node Status
+    shell: "{{ apigee_all }} status"
+
+- name: Apigee Start
+  hosts: pg
+  gather_facts: no
+  tags: ['start']
+  serial: 1
+  tasks:
+  - name: Start Node
+    shell: "{{ apigee_all }} start"
+
+- name: Apigee Stop
+  hosts: pg
+  gather_facts: no
+  tags: ['stop']
+  serial: 1
+  tasks:
+  - name: Stop Node
+    shell: "{{ apigee_all }} stop"
+
+- name: Apigee Restart
+  hosts: pg
+  gather_facts: no
+  tags: ['restart']
+  serial: 1
+  tasks:
+  - name: Stop Node
+    shell: "{{ apigee_all }} restart"
+
+
+
+- name: Apigee Postgres Master Check
+  hosts: pgmaster
+  gather_facts: no
+  tags: ['check-master','replication']
+  vars:
+    apigee_secure_folder: "~/.apigee-secure"
+  vars_files:
+  - "{{ apigee_secure_folder }}/credentials.yml"
+  tasks:
+  - name: Display Postgres Master Status Check
+    shell: "{{ apigee_service }} apigee-postgresql postgres-check-master"
+
+- name: Apigee Postgres Standby Check
+  hosts: pgstandby
+  gather_facts: no
+  tags: ['check-standby','replication']
+  vars:
+    apigee_secure_folder: "~/.apigee-secure"
+  vars_files:
+  - "{{ apigee_secure_folder }}/credentials.yml"
+  tasks:
+  - name: Display Postgres Standby Status Check
+    shell: "{{ apigee_service }} apigee-postgresql postgres-check-standby"
+
+- name: Apigee Postgres Self report
+  hosts: pg
+  gather_facts: no
+  tags: ['self']
+  serial: 1
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee/custom-properties.yml"
+  roles:
+  - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
+
+- name: Apigee Postgres Registration Status
+  hosts: pg
+  gather_facts: no
+  tags: ['registration']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee/custom-properties.yml"
+  roles:
+    - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
+    - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_ps_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+
+- name: Apigee Analytics group scope state
+  hosts: ms
+  gather_facts: no
+  tags: ['scope']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee/custom-properties.yml"
+  roles:
+  - { role: apigee-opdk-setup-scopes-state, ax_group: "{{ scopes_axgroup | default('axgroup001') }}" }
+
+- name: Analytics status
+  hosts: ms[0]
+  gather_facts: no
+  tags: ['axstatus']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee/custom-properties.yml"
+  roles:
+  - apigee-opdk-modules
+  tasks:
+  - name: List org and env provisioning axstatus
+    uri:
+      url: "http://127.0.0.1:8080/v1/organizations/{{ org_name }}/environments/{{ env_name }}/provisioning/axstatus"
+      user: "{{ opdk_user_email }}"
+      password: "{{ opdk_user_pass }}"
+
+- name: Analytics groups
+  hosts: ms[0]
+  gather_facts: no
+  tags: ['axgroups']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee/custom-properties.yml"
+  roles:
+  - apigee-opdk-modules
+  tasks:
+  - name: List analytics groups
+    uri:
+      url: "http://127.0.0.1:8080/v1/analytics/groups/ax"
+      user: "{{ opdk_user_email }}"
+      password: "{{ opdk_user_pass }}"
+
+- name: Describe analytics table
+  hosts: pgmaster
+  gather_facts: no
+  tags: ['axtables']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee/custom-properties.yml"
+  roles:
+  - apigee-opdk-modules
+  tasks:
+  - name: Describe postgres analytics table
+    shell: /usr/bin/psql -h {{ apigee_home }}/var/run/apigee-postgresql -U {{ pg_user }} -d apigee -w -c '\d analytics."{{ org_name }}.{{ env_name }}.fact"'

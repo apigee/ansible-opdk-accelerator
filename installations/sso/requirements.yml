@@ -1,0 +1,130 @@
+---
+- src: https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-edge-saml-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component-install.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-default-settings.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user-ownership.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-common.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-minimum.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-java-home.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-time-sync.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk-cache.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-limits.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-cache.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-silent-installation-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component-installer.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component-install.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-selinux-disable.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-shutdown-iptables.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-org-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-org.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-validate.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-validate-cleanup.git
+
+- src: https://github.com/carlosfrias/apigee-fetch-files.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-enable-swap.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-master.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-standby.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-postgres.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-status.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-rollback.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-modules.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-target-links.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-temporary-remove-targets.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-temporary-restore-targets.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-cache-update.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-ssh-user.git
+
+- src: https://github.com/carlosfrias/apigee-server-restart.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-server-self.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-start-components.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-stop-components.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-set-reachable.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-backup.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-restore.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-update-component.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-iptables-flush.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-iptables-port-block.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-cwc-update.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-db-upgrade.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-yum-repository-enabled.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-yum-repository-proxy-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-yum-packages.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-os-pre-requisites.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-license.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-epel.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-sysctl.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-pip.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-ldap.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-management-server.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-network-ip.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-postgres.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-region.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-scopes-add.git

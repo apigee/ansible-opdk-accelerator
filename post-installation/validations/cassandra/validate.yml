@@ -1,0 +1,146 @@
+---
+- name: Apigee Component versions
+  hosts: ds
+  gather_facts: no
+  tags: ['version']
+  serial: 1
+  tasks:
+  - name: Component versions echo Apigee version
+    shell: "{{ apigee_all }} version"
+
+- name: Apigee Installation Configuration File
+  hosts: ds
+  gather_facts: no
+  tags: ['install-config']
+  tasks:
+  - name: Display silent-install.conf
+    command: "cat {{ opdk_installation_config_file }}"
+
+- name: Apigee Node Private IP Address
+  hosts: ds
+  gather_facts: no
+  tags: ['private-address']
+  tasks:
+  - name: Show private_address
+    debug:
+      msg: "Private IP: {{ private_address }}"
+
+- name: Apigee Node public IP Address
+  hosts: ds
+  gather_facts: no
+  tags: ['public-address']
+  tasks:
+  - name: Show public_address
+    debug:
+      msg: "Public IP: {{ public_address }}"
+
+- name: Apigee Status
+  hosts: ds
+  gather_facts: no
+  tags: ['status']
+  serial: 1
+  tasks:
+  - name: Display Node Status
+    shell: "{{ apigee_all }} status"
+
+- name: Apigee Start
+  hosts: ds
+  gather_facts: no
+  tags: ['start']
+  serial: 1
+  tasks:
+  - name: Start Node
+    shell: "{{ apigee_all }} start"
+
+- name: Apigee Stop
+  hosts: ds
+  gather_facts: no
+  tags: ['stop']
+  serial: 1
+  tasks:
+  - name: Stop Node
+    shell: "{{ apigee_all }} stop"
+
+- name: Apigee Restart
+  hosts: ds
+  gather_facts: no
+  tags: ['restart']
+  serial: 1
+  tasks:
+  - name: Stop Node
+    shell: "{{ apigee_all }} restart"
+
+
+
+- name: Apigee Cassandra Ring
+  hosts: ds
+  gather_facts: no
+  tags: ['ring']
+  serial: 1
+  vars:
+
+    # Cassandra nodetool command
+    nodetool: '{{ apigee_home }}/apigee-cassandra/bin/nodetool'
+
+    # Cassandra cqlsh command
+    cqlsh: '{{ apigee_home }}/apigee-cassandra/bin/cqlsh'
+
+    # Cassandra command line command
+    cassandra_cli: '{{ apigee_home }}/apigee-cassandra/bin/cassandra-cli'
+
+  tasks:
+  - name: Display Cassandra Ring
+    shell: "{{ nodetool }} ring"
+
+- name: Apigee Cassandra Ring Status
+  hosts: ds
+  gather_facts: no
+  tags: ['ring-status']
+  serial: 1
+  vars:
+
+    # Cassandra nodetool command
+    nodetool: '{{ apigee_home }}/apigee-cassandra/bin/nodetool'
+
+    # Cassandra cqlsh command
+    cqlsh: '{{ apigee_home }}/apigee-cassandra/bin/cqlsh'
+
+    # Cassandra command line command
+    cassandra_cli: '{{ apigee_home }}/apigee-cassandra/bin/cassandra-cli'
+  tasks:
+  - name: Display Cassandra Status
+    shell: "{{ nodetool }} status"
+
+- name: Apigee Cassandra Replication Factor
+  hosts: ds
+  gather_facts: no
+  tags: ['replication']
+  vars:
+
+    # Cassandra nodetool command
+    nodetool: '{{ apigee_home }}/apigee-cassandra/bin/nodetool'
+
+    # Cassandra cqlsh command
+    cqlsh: '{{ apigee_home }}/apigee-cassandra/bin/cqlsh'
+
+    # Cassandra command line command
+    cassandra_cli: '{{ apigee_home }}/apigee-cassandra/bin/cassandra-cli'
+  tasks:
+  - name: Display Cassandra Replication Factor
+    shell: "{{ cqlsh }} -e 'select * from system.schema_keyspaces' {{ private_address}}"
+
+- name: Apigee Cassandra Topology Properties
+  hosts: ds
+  gather_facts: no
+  tags: ['topology']
+  tasks:
+  - name: Display cassandra-topology.properties
+    shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra-topology.properties | grep -A100 '^# Cassandra Node IP'"
+
+- name: Apigee Cassandra Properties
+  hosts: ds
+  gather_facts: no
+  tags: ['properties']
+  tasks:
+  - name: Display cassandra-topology.properties
+    shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra.yaml | grep 'seeds:\\|^listen_address:'"

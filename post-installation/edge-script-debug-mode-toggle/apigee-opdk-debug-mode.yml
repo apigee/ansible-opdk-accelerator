@@ -1,0 +1,7 @@
+---
+- name: Set or unset bash debug flag in apigee scripts
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  roles:
+  - { role: apigee-opdk-debug-mode }

@@ -1,0 +1,71 @@
+---
+- name: Install AIO
+  hosts: edge
+  gather_facts: no
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+
+  roles:
+  - { role: apigee-opdk-os-pre-requisites, tags: ['os'] }
+  - { role: apigee-opdk-setup-apigee-user, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-java-home, tags: ['java-home', 'bootstrap'] }
+  - { role: apigee-opdk-setup-bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee-opdk-setup-license, tags: ['license', 'bootstrap'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-modules, tags: ['config'] }
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config'] }
+  - { role: apigee-opdk-setup-component, profile: 'aio', tags: ['aio'] }
+  - { role: apigee-opdk-setup-status, tags: ['status'] }
+  - { role: apigee-opdk-setup-org-config, tags: ['org','org-config'] }
+  - { role: apigee-opdk-setup-org, tags: ['org', 'org-create'] }
+  - { role: apigee-opdk-setup-validate, tags: ['validate'] }
+  - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate', 'validate-rmp-cleanup'] }
+
+- name: Download log files
+  hosts: edge
+  gather_facts: no
+  become: true
+  tags: ['logs']
+  roles:
+  - { role: apigee-fetch-files, download_pattern: '{{ pattern }}', download_folder: "{{ playbook_dir }}/{{ target_logs_folder }}" }
+  vars:
+    opdk_installer_path: /tmp/edge
+    apigee_home: /opt/apigee
+    target_logs_folder: planet_logs
+    pattern:
+    - { dir: '/etc/', pattern: 'hosts*' }
+    - { dir: '/etc/', pattern: 'environment' }
+    - { dir: '/etc/', pattern: 'profile' }
+    - { dir: '/etc/', pattern: 'bashrc' }
+    - { dir: '/etc/', pattern: 'resolv.conf' }
+    - { dir: '/etc/', pattern: 'sysctl.conf' }
+    - { dir: '/etc/', pattern: 'sudoers' }
+    - { dir: '/etc/security/', pattern: 'limits.conf' }
+    - { dir: '/etc/security/limits.d/', pattern: '*conf' }
+    - { dir: '/var/log/', pattern: 'messages' }
+    - { dir: '/tmp', pattern: 'setup*.log' }
+    - { dir: '{{ opdk_installer_path }}/', pattern: '*' }
+    - { dir: '{{ apigee_home }}/', pattern: '*.out' }
+    - { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
+    - { dir: '{{ apigee_home }}/customer/', pattern: '*' }
+    - { dir: '{{ apigee_home }}/etc/', pattern: 'default*.sh' }
+    - { dir: '{{ apigee_home }}/customer', pattern: '*' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*conf' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*cfg' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yml' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yaml' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*properties' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*conf' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*cfg' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yml' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yaml' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*properties' }
+    - { dir: '{{ apigee_home }}/apigee-postgresql/', pattern: '*conf' }
+

@@ -1,0 +1,269 @@
+---
+- name: Install Edge
+  hosts: edge
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-os-pre-requisites, tags: ['os'] }
+  - { role: apigee-opdk-settings-network-ip, tags: ['cache']  }
+  - { role: apigee-opdk-setup-apigee-user, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-java-home, tags: ['java-home', 'bootstrap'] }
+  - { role: apigee-opdk-setup-bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee-opdk-setup-license, tags: ['license', 'bootstrap'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-modules, tags: ['config'] }
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config'] }
+
+- name: Configure & Install Cassandra & Zookeeper
+  hosts: ds
+  gather_facts: no
+  serial: 1
+  tags: ['ds']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'ds-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'ds', tags: ['ds-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['ds-start'] }
+  - { role: apigee-opdk-setup-status, tags: ['ds-status'] }
+
+- name: Configure & Install Management Server
+  hosts: ms
+  gather_facts: no
+  serial: 1
+  tags: ['ms']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'ms-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['ms-setup'] }
+  - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['ms-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['ms-start'] }
+  - { role: apigee-opdk-setup-status, tags: ['ms-status'] }
+
+- name: Configure & Install Router & Message Processor
+  hosts: rmp
+  gather_facts: no
+  serial: 1
+  tags: ['rmp']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'rmp-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'rmp', tags: ['rmp-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['rmp-start'] }
+  - { role: apigee-opdk-setup-status, tags: ['rmp-status'] }
+
+- name: Configure & Install Router
+  hosts: rmp
+  gather_facts: no
+  serial: 1
+  tags: ['r']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'r-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'r', tags: ['r-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['r-start'] }
+  - { role: apigee-opdk-setup-status, tags: ['r-status'] }
+
+- name: Configure & Install Message Processor
+  hosts: mp
+  gather_facts: no
+  serial: 1
+  tags: ['mp']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'mp-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'mp', tags: ['mp-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['mp-start'] }
+  - { role: apigee-opdk-setup-status, tags: ['mp-status'] }
+
+- name: Configure & Install Qpid
+  hosts: qpid
+  gather_facts: no
+  serial: 1
+  tags: ['qpid']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'qs-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'qs', tags: ['qs-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['qs-start'] }
+  - { role: apigee-opdk-setup-status, tags: ['qs-status'] }
+
+- name: Configure & Install Postgres
+  hosts: pg
+  gather_facts: no
+  tags: ['pg']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'pg-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['pg-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['pg-start'] }
+  - { role: apigee-opdk-setup-status, tags: ['pg-status'] }
+
+- name: Configure Postgres Master
+  hosts: pgmaster
+  gather_facts: no
+  serial: 1
+  tags: ['pgmaster']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-postgres-config, tags: ['config', 'pgmaster-config'] }
+  - { role: apigee-opdk-setup-postgres-master }
+  - { role: apigee-opdk-setup-status }
+
+- name: Configure Postgres Standby
+  hosts: pgstandby
+  gather_facts: no
+  serial: 1
+  tags: ['pgstandby']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql' }
+  - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True }
+  - { role: apigee-opdk-setup-postgres-standby }
+  - { role: apigee-opdk-setup-status }
+
+- name: Configure Organization and Environments
+  hosts: ms[0]
+  gather_facts: no
+  tags: ['org']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-org, tags: ['org', 'org-setup'] }
+
+- name: Restart of Planet
+  hosts: edge
+  serial: 1
+  tags: ['restart']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - apigee-opdk-stop-components
+  - apigee-opdk-start-components
+
+- name: Validate Routers & Message Processors
+  hosts: rmp
+  serial: 1
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-validate, tags: ['validate'] }
+  - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
+
+- name: Validate Routers
+  hosts: r
+  serial: 1
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-setup-validate, tags: ['validate'] }
+  - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
+
+- name: Download log files
+  hosts: edge
+  gather_facts: no
+  become: true
+  tags: ['logs']
+  roles:
+  - { role: apigee-fetch-files, download_pattern: '{{ pattern }}', download_folder: "{{ playbook_dir }}/{{ target_logs_folder }}" }
+  vars:
+    opdk_installer_path: /tmp/edge
+    apigee_home: /opt/apigee
+    target_logs_folder: planet_logs
+    pattern:
+    - { dir: '/etc/', pattern: 'hosts*' }
+    - { dir: '/etc/', pattern: 'environment' }
+    - { dir: '/etc/', pattern: 'profile' }
+    - { dir: '/etc/', pattern: 'bashrc' }
+    - { dir: '/etc/', pattern: 'resolv.conf' }
+    - { dir: '/etc/', pattern: 'sysctl.conf' }
+    - { dir: '/etc/', pattern: 'sudoers' }
+    - { dir: '/etc/security/', pattern: 'limits.conf' }
+    - { dir: '/etc/security/limits.d/', pattern: '*conf' }
+    - { dir: '/var/log/', pattern: 'messages' }
+    - { dir: '/tmp', pattern: 'setup*.log' }
+    - { dir: '{{ opdk_installer_path }}/', pattern: '*' }
+    - { dir: '{{ apigee_home }}/', pattern: '*.out' }
+    - { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
+    - { dir: '{{ apigee_home }}/customer/', pattern: '*' }
+    - { dir: '{{ apigee_home }}/etc/', pattern: 'default*.sh' }
+    - { dir: '{{ apigee_home }}/customer', pattern: '*' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*conf' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*cfg' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yml' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yaml' }
+    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*properties' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*conf' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*cfg' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yml' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yaml' }
+    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*properties' }
+    - { dir: '{{ apigee_home }}/apigee-postgresql/', pattern: '*conf' }
+

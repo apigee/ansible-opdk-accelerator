@@ -1,0 +1,8 @@
+---
+- name: Update Apigee User
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  strategy: free
+  roles:
+  - { role: apigee-opdk-setup-apigee-user, tags: ['apigee-user'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user'] }

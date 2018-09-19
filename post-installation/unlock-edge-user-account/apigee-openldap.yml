@@ -1,0 +1,17 @@
+---
+- name: Unlock user
+  hosts: ms
+  gather_facts: no
+  tags: ['unlock-user']
+  vars:
+    attribute_folders:
+    - "~/.apigee-secure"
+  roles:
+  - apigee-opdk-modules
+  tasks:
+  - name: Unlock user
+    uri:
+      url: "http://{{ inventory_hostname }}:8080//v1/users/{{ userEmail }}/status?action=unlock"
+      method: POST
+      user: "{{ opdk_user_email }}"
+      password: "{{ opdk_user_pass }}"

@@ -1,0 +1,30 @@
+---
+- name: View LDAP system user
+  hosts: ms
+  gather_facts: no
+  tags: ['ldap']
+  vars:
+    ldap_data_port: 10389
+
+  pre_tasks:
+  - name: Load credentials
+    include_vars: '~/.apigee-secure/credentials.yml'
+
+  tasks:
+  - name: Show LDAP system user
+    shell: "ldapsearch -D 'cn=manager,dc=apigee,dc=com' -b 'dc=apigee,dc=com' -LLL -h {{ inventory_hostname }} -p {{ ldap_data_port }} -w {{ opdk_ldap_pass }}"
+
+- name: List Users
+  hosts: ms
+  gather_facts: no
+  tags: ['users']
+  pre_tasks:
+  - name: Load credentials
+    include_vars: '~/.apigee-secure/credentials.yml'
+
+  tasks:
+  - name: List users
+    uri:
+      url: "http://127.0.0.1:8080/v1/users"
+      user: "{{ opdk_user_name }}"
+      password: "{{ opdk_user_pass }}"

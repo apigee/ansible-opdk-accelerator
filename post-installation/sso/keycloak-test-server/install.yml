@@ -1,0 +1,25 @@
+---
+- name: Keycloak Installer
+  hosts: sso-test
+  become: true
+  vars:
+    user: 'keycloak'
+    password: 'keycloak'
+    admin_user: friasc
+    admin_group: friasc
+    keycloak_ver: '4.1.0.Final'
+
+  pre_tasks:
+  - name: Update system packages
+    yum:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+    - mod_ssl
+    - openssl
+    - libcurl
+    - tree
+    - java-1.8.0-openjdk-devel
+
+  roles:
+  - keycloak-installation
