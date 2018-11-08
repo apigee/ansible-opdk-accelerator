@@ -1,21 +1,20 @@
 # Apigee OPDK Ansible Configuration Accelerator
 
 ## Introduction
-This repository contain a framework of Ansible playbooks that use Ansible roles to automate the 
-installation, configuration and management of one or multiple Apigee OPDK planet topologies. This 
-framework makes the following assumptions: 
+This repository contain Ansible playbooks that use Ansible roles to automate the 
+installation, configuration and management of Apigee Private Cloud instances. These playbooks are 
+suitable for a range of deployment scenarios that include a small All in One planet or a multi-node, 
+multi-region planet. 
 
-1. Introductory understanding of [Ansible](https://docs.ansible.com/) and 
+## Assumptions 
+* This repository assumes that no Apigee Operating System requirements have been fulfilled beyond the 
+selection of the initial operating system version. 
+* A control server is available from which [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) 
+scripts can be invoked.
+* A control server that can download scripts from [Github](https://github.com).
+* We assume that you have an introductory understanding of [Ansible](https://docs.ansible.com/) and 
 [Ansible Galaxy](https://galaxy.ansible.com/docs/).
-1. An [Ansible installation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
-1. Creation and use of a known folder structure for Ansible artifacts.
-1. Creation and use of Ansible configuration files for switching between planet topologies.
-1. Planet topologies are managed by the use of Ansible inventory files.
-1. Apigee component nodes are assigned roles by their inclusion in the designated inventory groups.
-1. Playbooks are collections of Apigee OPDK roles that dynamically adjust to the target installation 
-environment.
-1. Ansible Galaxy is used as the distribution mechanism to deliver roles to manage making modifications
-and change drift between different uses of the framework. 
+* Availability of administrative privilege escalation on the control server and the target nodes.
 
 ## Usage Overview
 The use of this framework is composed of the following steps:
