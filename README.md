@@ -24,3 +24,14 @@ The use of this framework is composed of the following steps:
 `~/.apigee/custom-properties.yml`.
 1. export ANSIBLE_CONFIG to use the target `ansible.cfg` file. 
 1. Use `ansible-playbook` to complete the target activity.
+<!-- BEGIN Google How To Contribute -->
+# How to Contribute
+
+We'd love to accept your patches and contributions to this project. Please review our [guidelines](CONTRIBUTING.md).
+<!-- END Google How To Contribute -->
+<!-- BEGIN Google Required Disclaimer -->
+
+# Not Google Product Clause
+
+This is not an officially supported Google product.
+<!-- END Google Required Disclaimer -->
