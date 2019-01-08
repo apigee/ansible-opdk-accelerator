@@ -36,7 +36,7 @@
   hosts: ds
   gather_facts: no
   serial: 1
-  tags: ['ds']
+  tags: ['ds','edge']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -52,7 +52,7 @@
   hosts: ms
   gather_facts: no
   serial: 1
-  tags: ['ms']
+  tags: ['ms','edge']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -69,7 +69,7 @@
   hosts: rmp
   gather_facts: no
   serial: 1
-  tags: ['rmp']
+  tags: ['rmp','edge']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -89,7 +89,7 @@
   hosts: router
   gather_facts: no
   serial: 1
-  tags: ['r']
+  tags: ['r','edge']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -107,7 +107,7 @@
   hosts: mp
   gather_facts: no
   serial: 1
-  tags: ['mp']
+  tags: ['mp','edge']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -125,7 +125,7 @@
   hosts: qpid
   gather_facts: no
   serial: 1
-  tags: ['qpid']
+  tags: ['qpid','edge']
   vars:
     ansible_workspace: "~/.ansible"
     apigee_workspace: "~/apigee-workspace"
@@ -142,7 +142,7 @@
 - name: Configure & Install Postgres
   hosts: pg
   gather_facts: no
-  tags: ['pg']
+  tags: ['pg','edge']
   vars:
     ansible_workspace: "~/.ansible"
     apigee_workspace: "~/apigee-workspace"
@@ -160,7 +160,7 @@
   hosts: pgmaster
   gather_facts: no
   serial: 1
-  tags: ['pgmaster']
+  tags: ['pgmaster','edge']
   vars:
     ansible_workspace: "~/.ansible"
     apigee_workspace: "~/apigee-workspace"
@@ -177,7 +177,7 @@
   hosts: pgstandby
   gather_facts: no
   serial: 1
-  tags: ['pgstandby']
+  tags: ['pgstandby','edge']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -215,17 +215,19 @@
 
 - name: Validate Routers & Message Processors
   hosts: rmp
+  tags: ['validate']
   serial: 1
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+  - "~/.apigee-secure"
+  - "~/.apigee"
   roles:
   - { role: apigee-opdk-setup-validate, tags: ['validate'] }
   - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
 
 - name: Validate Routers
   hosts: r
+  tags: ['validate']
   serial: 1
   vars:
     property_folders:
