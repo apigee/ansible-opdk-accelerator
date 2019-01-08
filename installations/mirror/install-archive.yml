@@ -1,0 +1,31 @@
+---
+- name: Install apigee mirror archive
+  hosts: "{{ target_hosts }}"
+  tags: ['install']
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+    apigeerepobasepath: '/opt/apigee/data/apigee-mirror'
+  roles:
+  - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
+  #  - { role: apigee-opdk-os-pre-requisites, tags: ['os'] }
+  - { role: apigee-opdk-modules }
+  - { role: apigee-opdk-setup-os-epel, tags: ['os','epel'] }
+  - { role: apigee-opdk-temporary-remove-targets, tags: ['os','remove']}
+  - { role: apigee-opdk-shutdown-iptables, tags: ['os','iptables'] }
+  - { role: apigee-opdk-yum-repository-proxy-config, tags: ['os','yum-proxy-config']}
+  - { role: apigee-opdk-setup-os-minimum, tags: ['os','os-minimum'] }
+  - { role: apigee-opdk-setup-os-limits, tags: ['os','limit'] }
+  - { role: apigee-opdk-setup-os-sysctl, tags: ['os','sysctl'] }
+  - { role: apigee-opdk-setup-selinux-disable, tags: ['os','selinux'] }
+  - { role: apigee-server-restart, tags: ['os','restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+  - { role: apigee-opdk-setup-os-common, tags: ['os','os-common'] }
+  - { role: apigee-opdk-setup-openjdk, tags: ['os','openjdk'], jdk_version: '1.8' }
+  - { role: apigee-opdk-setup-apigee-user, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-java-home, tags: ['java-home', 'bootstrap'] }
+  - { role: apigee-opdk-setup-bootstrap, tags: ['install'], install_archive_mirror: true }
+
