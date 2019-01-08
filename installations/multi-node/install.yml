@@ -57,8 +57,8 @@
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'ds-config']  }
   - { role: apigee-opdk-setup-component, profile: 'ds', tags: ['ds-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['ds-start'] }
-  - { role: apigee-opdk-setup-status, tags: ['ds-status'] }
+  - { role: apigee-opdk-start-components, tags: ['ds-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['ds-status', 'status'] }
 
 - name: Configure & Install Management Server
   hosts: ms
@@ -74,8 +74,8 @@
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'ms-config']  }
   - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['ms-setup'] }
   - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['ms-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['ms-start'] }
-  - { role: apigee-opdk-setup-status, tags: ['ms-status'] }
+  - { role: apigee-opdk-start-components, tags: ['ms-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['ms-status', 'status'] }
 
 - name: Configure & Install Router & Message Processor
   hosts: rmp
@@ -90,8 +90,8 @@
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'rmp-config']  }
   - { role: apigee-opdk-setup-component, profile: 'rmp', tags: ['rmp-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['rmp-start'] }
-  - { role: apigee-opdk-setup-status, tags: ['rmp-status'] }
+  - { role: apigee-opdk-start-components, tags: ['rmp-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['rmp-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
   - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
   - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
@@ -110,8 +110,8 @@
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'r-config']  }
   - { role: apigee-opdk-setup-component, profile: 'r', tags: ['r-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['r-start'] }
-  - { role: apigee-opdk-setup-status, tags: ['r-status'] }
+  - { role: apigee-opdk-start-components, tags: ['r-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['r-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
   - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
 
@@ -128,8 +128,8 @@
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'mp-config']  }
   - { role: apigee-opdk-setup-component, profile: 'mp', tags: ['mp-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['mp-start'] }
-  - { role: apigee-opdk-setup-status, tags: ['mp-status'] }
+  - { role: apigee-opdk-start-components, tags: ['mp-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['mp-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
   - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
 
@@ -148,8 +148,8 @@
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'qs-config']  }
   - { role: apigee-opdk-setup-component, profile: 'qs', tags: ['qs-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['qs-start'] }
-  - { role: apigee-opdk-setup-status, tags: ['qs-status'] }
+  - { role: apigee-opdk-start-components, tags: ['qs-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['qs-status', 'status'] }
 
 - name: Configure & Install Postgres
   hosts: pg
@@ -165,8 +165,8 @@
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config', 'pg-config']  }
   - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['pg-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['pg-start'] }
-  - { role: apigee-opdk-setup-status, tags: ['pg-status'] }
+  - { role: apigee-opdk-start-components, tags: ['pg-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['pg-status', 'status'] }
 
 - name: Configure Postgres Master
   hosts: pgmaster
@@ -183,7 +183,7 @@
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-postgres-config, tags: ['config', 'pgmaster-config'] }
   - { role: apigee-opdk-setup-postgres-master }
-  - { role: apigee-opdk-setup-status }
+  - { role: apigee-opdk-setup-status, tags: ['status'] }
 
 - name: Configure Postgres Standby
   hosts: pgstandby
@@ -199,7 +199,7 @@
   - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql' }
   - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True }
   - { role: apigee-opdk-setup-postgres-standby }
-  - { role: apigee-opdk-setup-status }
+  - { role: apigee-opdk-setup-status, tags: ['status'] }
 
 - name: Configure Organization and Environments
   hosts: ms[0]
@@ -216,7 +216,7 @@
 - name: Restart of Planet
   hosts: edge
   serial: 1
-  tags: ['restart']
+  tags: ['restart', 'start']
   vars:
     property_folders:
     - "~/.apigee-secure"
