@@ -23,7 +23,7 @@ The use of this framework is composed of the following steps:
 1. Update common installation attributes like `opdk_version` that is stored in 
 `~/.apigee/custom-properties.yml`.
 1. export ANSIBLE_CONFIG to use the target `ansible.cfg` file. 
-1. Use `ansible-playbook` to complete the target activity in the correct folder.
+1. Use `ansible-playbook` to complete the target activity available in either the [installations](installations) or [post-installation](post-installation) folders.
 <!-- BEGIN Google How To Contribute -->
 # How to Contribute
 

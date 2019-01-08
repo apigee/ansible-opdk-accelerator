@@ -40,7 +40,7 @@ required.
 The following provides a detailed technical description of how inventory files are used to define 
 the group designation that are used by the Ansible framework to indicate the role of a server. 
 Inventory template files are installed using the setup that reduce modifications 
-to only indicating server details. 
+to only indicating server IP addresses. 
 
 ### Define an initial data center
 We define an initial data center as:
