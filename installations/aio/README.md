@@ -1,16 +1,16 @@
-# Apigee Private Cloud Dev Portal Installer
-This script will install the Devportal for a Private Cloud installation of Apigee Edge. 
+# Install Apigee Edge AIO
 
-## Usage: 
-This is an Ansible script and require Ansible. Please follow the usage instructions below:
+The playbook `install.yml` will perform an installation of Apigee Edge AIO. Version 4.16.xx through 4.18.05 can be installed
+from this playbook. Please see the [Setup](https://github.com/apigee/ansible-opdk-accelerator/blob/master/setup/README.md) 
+for guidance on configuring your local environment.
 
-### Dependencies
-Use `ansible-galaxy` to download and install Ansible roles. This is best to perform after [Setup](https://github.com/apigee/ansible-opdk-accelerator/blob/master/setup/README.md)
-above. 
+## Basic Usage
+We have created `ansible-galaxy` requirement file `requirements.yml` that will download the roles 
+used by this playbook and install them for usage according to your configuration. You can download and install the 
+required roles like this: 
+
+    ansible-galaxy install -r requirements.yml -f
     
-    ansible-galaxy install -r requirements -f
-    
-### Installer
-This playbook completes the installation of the `aio` instances of Edge.
-    
-    ansible-playbook install.yml 
+The install process will be engaged when you invoke the playbook like this:
+
+    ansible-playbook install.yml
