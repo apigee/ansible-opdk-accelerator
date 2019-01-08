@@ -1,6 +1,6 @@
 # Install Apigee Edge
 
-The playbook `install.yml` will perform an installation of Apigee Edge. Version 4.16.xx through 4.18.01 can be installed
+The playbook `install.yml` will perform an installation of Apigee Edge. Version 4.16.xx through 4.18.05 can be installed
 from this playbook. 
 
 ## Basic Usage
@@ -13,7 +13,3 @@ required roles like this:
 The install process will be engaged when you invoke the playbook like this:
 
     ansible-playbook install.yml
-
-## Dependencies
-
-Dependencies are managed as described in the [README](README.md).
