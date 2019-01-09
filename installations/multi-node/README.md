@@ -17,7 +17,7 @@ The install process will be engaged when you invoke the playbook like this:
 
 
 
-#### Ansible Tags
+### Ansible Tags
 These playbooks use [Ansible tags](http://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-tags) 
 extensively to execute functionally significant portions of the installation. These tags have been used consistently across all
 the playbooks. In some cases, the tags perform slightly different tasks but achieve the semantic functionality ascribed by the name. 
