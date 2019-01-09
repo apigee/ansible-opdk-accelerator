@@ -7,7 +7,7 @@
      ansible_workspace: "~/ansible"
 
 #     This is the location where the playbook folder will be located.
-     apigee_workspace: "~/apigee-workspace"
+#     apigee_workspace: "~/apigee-workspace"
 
 #     This is the location where credentials, license material, GCP service account files, AWS key and secret, etc are stored"
      apigee_secure_folder: "~/apigee-secure"
