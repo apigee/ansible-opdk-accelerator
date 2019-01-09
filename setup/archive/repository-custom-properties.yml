@@ -1,6 +1,6 @@
 ---
 ansible_config: "~/.ansible"
-apigee_config: "~/.apigee"
+apigee_config: "~/apigee"
 apigee_security: "~/.apigee-secure"
 apigee_workspace: "~/apigee-workspace"
 
