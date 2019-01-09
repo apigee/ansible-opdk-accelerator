@@ -39,4 +39,3 @@ the playbooks. In some cases, the tags perform slightly different tasks but achi
 | pg | Install the [ps](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile |
 | org | [Onboard an organization](https://docs.apigee.com/private-cloud/v4.18.01/onboard-organization) |
 | validate | [Validate](https://docs.apigee.com/private-cloud/v4.18.01/test-install) the installation |
-| logs | Download the configuration files and logs on a node that contains an Apigee component | 
