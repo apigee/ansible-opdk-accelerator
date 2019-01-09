@@ -79,7 +79,7 @@ the associated inventory folder.
 
 ### Ansible Inventory 
 
-Ansible inventory templates have been provided that will assist you to quickly configure your 
+[Ansible Inventory Templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples) have been provided that will assist you to quickly configure your 
 inventory. The inventory templates are setup so that you only need to indicate either the FQDN or 
 the IP address of a target node. In the `dc-n` area near the top of the template file. The remainder
 inventory file uses the Ansible group of groups feature to properly nest your configured nodes in 
