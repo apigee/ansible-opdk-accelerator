@@ -25,7 +25,7 @@
   strategy: free
   tags: ['edge']
   vars:
-  property_folders:
+    property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
