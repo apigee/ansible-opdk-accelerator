@@ -47,3 +47,6 @@ Use `ansible-galaxy` to download dependencies in the following way:
     
     # Setup the Ansible controller
     ansible-playbook setup.yml -e remote_user=<remote user login>
+
+## Configuration Review
+
