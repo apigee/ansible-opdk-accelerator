@@ -1,0 +1,7 @@
+---
+- name: Rebuild Cassandra Ring
+  hosts: ds
+  gather_facts: no
+  serial: 1
+  roles:
+    - apigee-opdk-cassandra-rebuild

@@ -1,0 +1,74 @@
+---
+- name: Playbook to remove a cassandra
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  vars:
+    property_folders:
+    - '~/.apigee'
+    - '~/.apigee-secure'
+    component_name: "edge-message-processor"
+    orgs_envs:
+    - { org_name: "rbc-apigee", env_name: "sb" }
+    - { org_name: "rbc-apigee", env_name: "prod" }
+    - { org_name: "rbc-apigee", env_name: "prod-external" }
+    - { org_name: "adventist", env_name: "prod" }
+    - { org_name: "adventist", env_name: "dev" }
+    - { org_name: "adventist", env_name: "test" }
+    - { org_name: "opdk", env_name: "test" }
+    - { org_name: "VALIDATE", env_name: "test" }
+
+  roles:
+  - { role: apigee-opdk-server-self, server_types: ['mp'] }
+
+  tasks:
+  - name: Set attributes if available
+    set_fact:
+      uuid: "{{ edge_mp_self.uUID }}"
+      pod: "{{ edge_mp_self.pod }}"
+
+  - name: Assert variables exist
+    assert:
+      that:
+      - region is defined and region | trim | length > 0
+      - pod is defined and pod | trim | length > 0
+      - uuid is defined and uuid | trim | length > 0
+      - opdk_user_email is defined
+      - opdk_user_pass is defined
+      msg: "Please provide the missing attribute"
+
+  - name: Deregister Message Processor from the organization's environments
+    uri:
+      url: "http://{{ local_mgmt_ip }}:8080/v1/o/{{ item.org_name }}/e/{{ item.env_name }}/servers"
+      method: POST
+      user: '{{ opdk_user_email }}'
+      password: '{{ opdk_user_pass }}'
+      body_format: 'form-urlencoded'
+      body:
+        uuid: '{{ uuid }}'
+        action: 'remove'
+    with_items: "{{ orgs_envs }}"
+
+  - name: Deregister server's type
+    uri:
+      url: "http://{{ local_mgmt_ip }}:8080/v1/servers"
+      method: POST
+      user: '{{ opdk_user_email }}'
+      password: '{{ opdk_user_pass }}'
+      body_format: 'form-urlencoded'
+      body:
+        uuid: '{{ uuid }}'
+        region: '{{ region }}'
+        pod: '{{ pod }}'
+        type: 'message-processor'
+        action: 'remove'
+
+  - name: Delete the server
+    uri:
+      url: http://{{ local_mgmt_ip }}:8080/v1/servers/{{ uuid }}
+      method: DELETE
+      user: '{{ opdk_user_email }}'
+      password: '{{ opdk_user_pass }}'
+
+  - name: Remove message processor
+    include_tasks: remove-component.yml

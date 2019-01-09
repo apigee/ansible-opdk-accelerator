@@ -1,0 +1,53 @@
+---
+- name: Playbook to remove a cassandra
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  vars:
+    property_folders:
+    - '~/.apigee'
+    - '~/.apigee-secure'
+    component_name: "edge-router"
+
+  roles:
+  - { role: apigee-opdk-server-self, server_types: ['router'] }
+
+  tasks:
+  - name: Set attributes if available
+    set_fact:
+      uuid: "{{ edge_router_self.uUID }}"
+      pod: "{{ edge_router_self.pod }}"
+
+  - name: Assert variables exist
+    assert:
+      that:
+      - region is defined and region | trim | length > 0
+      - pod is defined and pod | trim | length > 0
+      - uuid is defined and uuid | trim | length > 0
+      - opdk_user_email is defined
+      - opdk_user_pass is defined
+      msg: "Please provide the missing attribute"
+
+  - name: Deregister server's type
+    uri:
+      url: "http://{{ local_mgmt_ip }}:8080/v1/servers"
+      method: POST
+      user: '{{ opdk_user_email }}'
+      password: '{{ opdk_user_pass }}'
+      body_format: 'form-urlencoded'
+      body:
+        uuid: '{{ uuid }}'
+        region: '{{ region }}'
+        pod: '{{ pod }}'
+        type: 'router'
+        action: 'remove'
+
+  - name: Delete the server
+    uri:
+      url: http://{{ local_mgmt_ip }}:8080/v1/servers/{{ uuid }}
+      method: DELETE
+      user: '{{ opdk_user_email }}'
+      password: '{{ opdk_user_pass }}'
+
+  - name: Remove Router
+    include_tasks: remove-component.yml

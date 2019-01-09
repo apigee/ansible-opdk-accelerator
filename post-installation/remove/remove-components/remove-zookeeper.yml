@@ -1,0 +1,19 @@
+---
+- name: Playbook to remove zookeeper
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  vars:
+    property_folders:
+    - '~/.apigee'
+    - '~/.apigee-secure'
+    component_name: "apigee-zookeeper"
+
+  tasks:
+  - name: Backup component
+    tags: ['backup']
+    import_role:
+      name: apigee-opdk-backup
+
+  - name: Remove Zookeeper
+    include_tasks: remove-component.yml

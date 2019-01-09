@@ -1,0 +1,35 @@
+---
+- name: Playbook to remove a cassandra
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  vars:
+    nodetool: /opt/apigee/apigee-cassandra/bin/nodetool
+    property_folders:
+    - '~/.apigee'
+    - '~/.apigee-secure'
+    component_name: "apigee-cassandra"
+
+  tasks:
+  - name: Backup component
+    tags: ['backup']
+    import_role:
+      name: apigee-opdk-backup
+
+  - name: Assert variables exist
+    assert:
+      that:
+      - private_address is defined and private_address | trim | length > 0
+      - nodetool is defined and nodetool | trim | length > 0
+      msg: "Please provide the missing attribute"
+
+  - block:
+    - name: Decommission cassandra node
+      command: "{{ apigee_service }} apigee-cassandra decommission"
+
+    rescue:
+      - name: Remove node that is not a part of the ring
+        command: "{{ nodetool }} removenode"
+
+  - name: Remove Cassandra
+    include_tasks: remove-component.yml

@@ -1,0 +1,21 @@
+---
+- name: Obtain list of servers for the environment
+  uri:
+    url: "http://{{ local_mgmt_ip }}:{{ ms_port }}/v1/o/{{ org }}/e/{{ each_env }}/servers"
+    user: "{{ opdk_user_email }}"
+    password: "{{ opdk_user_pass }}"
+  register: server_uuids
+
+- name: Delete servers from environment
+  uri:
+    url: "http://{{ local_mgmt_ip }}:{{ ms_port }}/v1/organizations/{{ org }}/environments/{{ each_env }}/servers"
+    user: "{{ opdk_user_email }}"
+    password: "{{ opdk_user_pass }}"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      action: "remove"
+      uuid: "{{ item }}"
+      region: "{{ region }}"
+      pod: "{{ pod }}"
+  with_items: "{{ server_uuids.json }}"

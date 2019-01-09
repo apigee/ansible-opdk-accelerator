@@ -1,0 +1,19 @@
+---
+- name: Playbook to remove apigee
+  hosts: "{{ target_hosts }}"
+  become: yes
+  strategy: free
+  gather_facts: no
+
+  vars:
+    remove_apigee: true
+    clear_logs: true
+    property_folders:
+    - '~/.apigee'
+    - '~/.apigee-secure'
+
+  roles:
+  - { role: apigee-opdk-modules }
+  - { role: apigee-opdk-setup-bootstrap-rollback, tags: ['rollback-only'] }
+  - { role: apigee-server-restart, tags: ['restart'] }
+

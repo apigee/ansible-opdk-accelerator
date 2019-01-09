@@ -1,0 +1,34 @@
+---
+- name: Remove servers
+  hosts: ms[0]
+  gather_facts: no
+  vars:
+    org: VALIDATE
+    property_folders:
+    - "~/.apigee-secure"
+  roles:
+  - { role: apigee-opdk-modules }
+  - { role: apigee-opdk-settings-region }
+  - { role: apigee-opdk-settings-private-address }
+  - { role: apigee-opdk-settings-management-server }
+
+  tasks:
+  - name: Obtain list of environments for organizations
+    uri:
+      url: "http://{{ local_mgmt_ip }}:{{ ms_port }}/v1/o/{{ org }}/pods"
+      user: "{{ opdk_user_email }}"
+      password: "{{ opdk_user_pass }}"
+    register: pod_list
+
+  - name: Delete pods
+    uri:
+      url: "http://{{ local_mgmt_ip }}:{{ ms_port }}/v1/o/{{ org }}/pods"
+      user: "{{ opdk_user_email }}"
+      password: "{{ opdk_user_pass }}"
+      method: DELETE
+      body_format: form-urlencoded
+      body:
+        action: "remove"
+        region: "{{ region }}"
+        pod: "{{ item.name }}"
+    with_items: "{{ pod_list.json }}"

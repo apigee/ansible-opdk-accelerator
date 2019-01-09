@@ -1,0 +1,31 @@
+---
+- hosts: ms
+  vars:
+    cwc_properties:
+    - { key: 'conf_security_externalized.authentication.implementation.class', value: 'com.apigee.rbac.impl.LdapAuthenticatorImpl', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.bind.direct.type', value: 'false', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.server.url', value: 'ldap://s6flokydcmsdc04.dm0006.info53.com:389', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.server.version', value: '3', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.server.conn.timeout', value: '50000', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.user.store.baseDN', value: 'Dc=dm0006,dc=info53,dc=com', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.user.store.search.query', value: '(&(${userAttribute}=${userId}))', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.user.store.user.attribute', value: 'mail', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.indirect.bind.server.admin.dn', value: 'cn=s.bind.npad.apigee,ou=Special.Accounts,dc=dm0006,dc=info53,dc=com', file_name: 'edge-management-server' }
+    - { key: 'conf_security_externalized.authentication.indirect.bind.server.admin.dn', value: 'cn=s.bind.npad.apigee,ou=Special.Accounts,dc=dm0006,dc=info53,dc=com', file_name: 'edge-management-server' }
+
+
+
+
+#External LDAP integration with indirect binding
+#conf_security_authentication.user.store=ldap
+
+#c=externalized.authentication
+
+##Indirect Binding for non-prod functional account(DM0006)
+
+#conf_security_externalized.authentication.indirect.bind.server.admin.password=XXXXX
+#conf_security_externalized.authentication.indirect.bind.server.admin.password.encrypted=false
+
+#For RoleMapping
+#conf_security_externalized.authentication.role.mapper.enabled=true
+#conf_security_externalized.authentication.role.mapper.implementation.class=com.customer.authorization.impl.ExternalRoleMapperImpl

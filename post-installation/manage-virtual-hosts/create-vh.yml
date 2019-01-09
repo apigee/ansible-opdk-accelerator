@@ -1,0 +1,54 @@
+---
+- name: Collect server info into cache
+  hosts: ms
+  gather_facts: no
+  roles:
+  - { role: apigee-opdk-modules }
+  - { role: apigee-opdk-settings-region }
+  - { role: apigee-opdk-settings-private-address }
+  - { role: apigee-opdk-settings-management-server }
+
+- name: Configure Organizations, Environments and Virtual Hosts
+  hosts: ms[0]
+  gather_facts: no
+  vars:
+    # Use this virtual host with all MPs
+    use_all_mps: true
+
+    # Default for first_name in creating new user
+    first_name: Carlos
+
+    # Default for last_name in creating new user
+    last_name: Frias
+
+    # Path where to place the apigee-provision.conf file
+    opdk_installer_path: /tmp/edge
+
+    # Version of OPDK to work with
+    opdk_version: 4.18.05
+
+    # Virtual Host Port
+    virtual_host_port: 9002
+
+    # Virtual Host Name to use inside of Edge
+    virtual_host_name: virtual-host-2
+
+    # Load balancer fqdn or IP if available, if not available the RMP addresses will be used
+    #    load_balancer:
+
+    # Analytics group to use with this virtual host
+    ax_group: axgroup001
+
+    # Folder containing credentials
+    property_folders:
+    - "~/.apigee-secure"
+
+    # Orgs and environments to define and associate with this virtual host
+    tenants:
+    - { org: VALIDATE, env: dev, new_user: 'n' }
+#    - { org: opdk, env: test, new_user: 'n' }
+#    - { org: opdk, env: prod, new_user: 'n' }
+
+  roles:
+  - { role: apigee-opdk-modules }
+  - { role: apigee-opdk-setup-org}

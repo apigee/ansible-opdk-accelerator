@@ -1,0 +1,26 @@
+---
+- name: Assert component_name exists
+  assert:
+    that:
+    - component_name is defined
+    msg: "Please provide the component_name"
+
+- name: Stop component
+  import_role:
+    name: apigee-opdk-stop-components
+
+- name: Uninstall component
+  tags: ['uninstall']
+  ignore_errors: yes
+  shell: "/opt/apigee/apigee-service/bin/apigee-service {{ component_name  }} uninstall"
+  args:
+    removes: "{{ apigee_home }}/{{ component_name }}"
+  when: apigee_service is defined and apigee_service | trim | length > 0
+
+- name: Remove component files
+  tags: ['remove']
+  become: yes
+  file:
+    path: '{{ apigee_home }}/data/{{ component_name }}'
+    state: absent
+    follow: yes

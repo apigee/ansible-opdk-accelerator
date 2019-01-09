@@ -1,0 +1,48 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    clean_dirs:
+    - '~/.apigee/planet_resources'
+    - '~/.ansible/roles'
+    - '~/.ansible/tmp'
+    - '~/.ansible/cache'
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - ~/.apigee/custom-properties.yml
+  tasks:
+  - name: Clean all folders
+    ignore_errors: yes
+    file:
+      path: '{{ item }}'
+      state: absent
+    with_items: "{{ clean_dirs }}"
+    when: clean_scope is not defined
+
+  - name: Clean roles folder only
+    tags: ['roles']
+    ignore_errors: yes
+    file:
+      path: '{{ item }}'
+      state: absent
+    with_items: "{{ clean_dirs[1] }}"
+    when: clean_scope is defined and clean_scope | trim == "roles"
+
+  - name: Clean cache folder only
+    tags: ['roles']
+    ignore_errors: yes
+    file:
+      path: '{{ item }}'
+      state: absent
+    with_items: "{{ clean_dirs[3] }}"
+    when: clean_scope is defined and clean_scope | trim == "cache"
+
+  - name: Recreate folders
+    ignore_errors: yes
+    file:
+      path: '{{ item }}'
+      state: directory
+    with_items: "{{ clean_dirs }}"
+
+
