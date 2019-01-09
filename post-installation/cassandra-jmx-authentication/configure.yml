@@ -1,7 +1,0 @@
----
-- name: Enable Cassandra JMX Authentication
-  hosts: ds
-  tasks:
-  - name: Update cassandra properties wi
-
-
