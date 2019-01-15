@@ -14,8 +14,8 @@ role to configure an Ansible controller to use the framework. The `setup.yml` as
 are configuring the localhost. 
 * Same setup for either a single planet or multiple planets.
 * The user home will be used to create the folders `~/.ansible`, `~/.apigee`, `~/.apigee-secure`, 
-and `~/apigee-workspace`.
-* The folder `~/apigee-workspace` will be used to contain playbooks. Use 
+and `~/.apigee-workspace`.
+* The folder `~/.apigee-workspace` will be used to contain playbooks. Use 
 `git clone https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git`to get 
 started.
 * You must provde the name of the remote user that will be used for SSH access. This cannot be the 

@@ -21,7 +21,7 @@ response files from the updated inventory.
 # Quick Installation
 Please note that this installation framework uses Ansible. Please install Ansible 4.x prior to cloning
 this project. Once Ansible is ready for use you can follow these steps: 
-1. Clone this project into a workspace. We recommend ~/apigee-workspace.
+1. Clone this project into a workspace. We recommend ~/.apigee-workspace.
 1. Change into the cloned directory.  
 1. Review [repository-mapping-name-folder.yml](repository-mapping-name-folder.yml) to select the
 projects, roles and configurations you wish to work with.
@@ -56,7 +56,7 @@ like this: `export ANSIBLE_CONFIG=~/.ansible/configurations/{configuration file 
 1. Update the appropriate files in the inventory folder for either Edge, DevPortal, Baas or Monitoring as needed Observe
 groupings and add your ip addresses at the lowest level which would be the dc-1-xx, dc-2-xx, etc.
 1. Confirm connectivity using the the `ping` module. 
-1. Change to the folder which is likely to be `~/apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
+1. Change to the folder which is likely to be `~/.apigee-workspace/apigee-opdk-playbook-workspace/apigee-opdk-playbook-installation-single-region`
 and download the Ansible roles using Ansible Galaxy to the location you indicated in the `ansible.cfg` file you are using. Take note that files that end in `-requirements.yml` are Ansible Galaxy requirement files. Update the roles
 following this sample: `ansible-galaxy install -r install-edge-requirements.yml`
 The playbook that the `-requirements.yml` file supports is the playbook with the same name as the first part of the requirements file. 
@@ -83,7 +83,7 @@ updating the pip.conf file with the url of your managed repository. To accomplis
     index-url = {{ pip_index_url }}
 
 ## Managed Pip Url
-Please note that the url can be found in the your ~/apigee-workspace/apigee/custom-properties.yml. Please replace as follows:
+Please note that the url can be found in the your ~/.apigee-workspace/apigee/custom-properties.yml. Please replace as follows:
 
     {{ pip_index_url }} >> "https://private.repository.com/api/pypi/Pypi-remote/simple"
 
@@ -93,7 +93,7 @@ Please note that the url can be found in the your ~/apigee-workspace/apigee/cust
 * Install ansible and dependencies using the requirements file: `pip install -r ansible-pip-requirements.txt`
 
 # Usage: Minimum Setup
-Set up your a workspace at ~/apigee-workspace/ if you already have git and pip installed: 
+Set up your a workspace at ~/.apigee-workspace/ if you already have git and pip installed: 
 
     ansible-playbook setup-base.yml 
     
@@ -132,10 +132,10 @@ Folder to contain credentials, downloaded logs, configs and maintain the edge li
 The [setup-apigee-license.yml](setup-apigee-license.yml) playbook will take a specified license file and
 install it in the correct location for your this workspace.
 
-## ~/apigee-workspace/apigee-opdk-playbook-workspace
+## ~/.apigee-workspace/apigee-opdk-playbook-workspace
 Starter templates for playbooks. Use these playbooks as accelerators for your own.
 
-## ~/apigee-workspace/apigee-opdk-role-workspace
+## ~/.apigee-workspace/apigee-opdk-role-workspace
 Workspace containing the roles used by the playbooks.
 
 # Configure Credentials

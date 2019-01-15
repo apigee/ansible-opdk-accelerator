@@ -5,8 +5,8 @@
   tags: ['os']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
   - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
@@ -26,8 +26,8 @@
   tags: ['edge']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
   - { role: apigee-opdk-setup-apigee-user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
@@ -52,8 +52,8 @@
   tags: ['ds','edge']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config']  }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ds-config'] }
@@ -68,8 +68,8 @@
   tags: ['ms','edge']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ms-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ms-config']  }
@@ -85,8 +85,8 @@
   tags: ['rmp','edge']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'rmp-config']  }
@@ -105,8 +105,8 @@
   tags: ['r','edge']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'r-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'r-config']  }
@@ -123,8 +123,8 @@
   tags: ['mp','edge']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'mp-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'mp-config']  }
@@ -141,10 +141,10 @@
   tags: ['qpid','edge']
   vars:
     ansible_workspace: "~/ansible"
-    apigee_workspace: "~/apigee-workspace"
+    apigee_workspace: "~/.apigee-workspace"
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'qs-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'qs-config']  }
@@ -159,10 +159,10 @@
   tags: ['pg','edge']
   vars:
     ansible_workspace: "~/ansible"
-    apigee_workspace: "~/apigee-workspace"
+    apigee_workspace: "~/.apigee-workspace"
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
@@ -177,10 +177,10 @@
   tags: ['pgmaster','edge']
   vars:
     ansible_workspace: "~/ansible"
-    apigee_workspace: "~/apigee-workspace"
+    apigee_workspace: "~/.apigee-workspace"
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgmaster-config'] }
   - { role: apigee-opdk-setup-postgres-config, tags: ['minimum', 'config', 'pgmaster-config'] }
@@ -194,8 +194,8 @@
   tags: ['pgstandby','edge']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgstandby-config'] }
   - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql', tags: ['minimum', 'pgstandby-config'] }
@@ -209,8 +209,8 @@
   tags: ['org']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['config', 'org-config'] }
   - { role: apigee-opdk-setup-org, tags: ['org', 'org-setup'] }
@@ -221,8 +221,8 @@
   tags: ['restart', 'start']
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - apigee-opdk-stop-components
   - apigee-opdk-start-components
@@ -233,8 +233,8 @@
   serial: 1
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-setup-validate, tags: ['validate'] }
   - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
@@ -245,8 +245,8 @@
   serial: 1
   vars:
     property_folders:
-    - "~/apigee-secure"
-    - "~/apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
   - { role: apigee-opdk-setup-validate, tags: ['validate'] }
   - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }

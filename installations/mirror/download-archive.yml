@@ -5,7 +5,7 @@
   gather_facts: no
   vars:
     ansible_workspace: "~/.ansible"
-    apigee_workspace: "~/apigee-workspace"
+    apigee_workspace: "~/.apigee-workspace"
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"

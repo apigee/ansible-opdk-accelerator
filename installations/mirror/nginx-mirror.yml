@@ -4,7 +4,7 @@
   hosts: "{{ target_hosts }}"
   vars:
     ansible_workspace: "~/.ansible"
-    apigee_workspace: "~/apigee-workspace"
+    apigee_workspace: "~/.apigee-workspace"
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"

@@ -1,6 +1,6 @@
 ---
 opdk_version: 4.18.01
-target_logs_folder: "~/apigee/planet_resources/"
+target_logs_folder: "~/.apigee/planet_resources/"
 assign_mgmt_ip: True
 
 # Variable to indicate the previous OPDK version to upgrade from
