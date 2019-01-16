@@ -28,8 +28,9 @@
     register: nodetool_status
 
   - name: Obtain node UUID
-    set_fact:
-      cassandra_uuid: "{{ nodetool_status.stdout.split(' ')[-3] }}"
+    cache:
+      key: 'cassandra_uuid'
+      value: "{{ nodetool_status.stdout.split(' ')[-3] }}"
 
   - name: Decommission cassandra node
     command: "{{ apigee_service }} apigee-cassandra decommission"
