@@ -29,13 +29,13 @@
 
   - name: Obtain node UUID
     set_fact:
-      uuid: "{{ nodetool_status.stdout.split(' ')[-2] }}"
+      cassandra_uuid: "{{ nodetool_status.stdout.split(' ')[-2] }}"
 
   - name: Decommission cassandra node
     command: "{{ apigee_service }} apigee-cassandra decommission"
 
   - name: Remove node that is not a part of the ring
-    command: "{{ nodetool }} removenode {{ uuid }}"
+    command: "{{ nodetool }} removenode {{ cassandra_uuid }}"
 
   - name: Remove Cassandra
     include_tasks: remove-component.yml
