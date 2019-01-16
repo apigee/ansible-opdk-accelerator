@@ -27,9 +27,9 @@
     shell: "{{ nodetool }} status | grep {{ private_address }}"
     register: nodetool_status
 
-#  - name: Obtain node UUID
-#    set_fact:
-#      uuid: "{{ register.stdout.split()[-1] }}"
+  - name: Obtain node UUID
+    set_fact:
+      uuid: "{{ register.stdout.split()[-1] }}"
 
   - name: Decommission cassandra node
     command: "{{ apigee_service }} apigee-cassandra decommission"
