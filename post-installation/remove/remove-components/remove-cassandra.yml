@@ -36,7 +36,7 @@
 
   - name: Remove node that is not a part of the ring
     command: "{{ nodetool }} removenode {{ cassandra_uuid }}"
-    delegate_to: "{{ hostvars[nodetool_delegate]['private_address'] }}"
+    delegate_to: "{{ nodetool_delegate }}"
 
   - name: Remove Cassandra
     include_tasks: remove-component.yml
