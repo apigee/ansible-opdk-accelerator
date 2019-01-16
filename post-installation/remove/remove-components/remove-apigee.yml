@@ -1,7 +1,6 @@
 ---
 - name: Playbook to remove apigee
   hosts: "{{ target_hosts }}"
-  become: yes
   strategy: free
   gather_facts: no
 
