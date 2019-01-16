@@ -23,13 +23,11 @@
       - nodetool is defined and nodetool | trim | length > 0
       msg: "Please provide the missing attribute"
 
-  - block:
-    - name: Decommission cassandra node
-      command: "{{ apigee_service }} apigee-cassandra decommission"
+  - name: Decommission cassandra node
+    command: "{{ apigee_service }} apigee-cassandra decommission"
 
-    rescue:
-      - name: Remove node that is not a part of the ring
-        command: "{{ nodetool }} removenode"
+  - name: Remove node that is not a part of the ring
+    command: "{{ nodetool }} removenode"
 
   - name: Remove Cassandra
     include_tasks: remove-component.yml
