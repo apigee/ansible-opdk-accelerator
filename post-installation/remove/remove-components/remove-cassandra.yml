@@ -26,8 +26,16 @@
   - name: Decommission cassandra node
     command: "{{ apigee_service }} apigee-cassandra decommission"
 
+  - name: Obtain Nodetool status
+    command: "{{ nodetool }} status | grep {{ private_address }}"
+    register: nodetool_status
+
+  - name: Obtain node UUID
+    set_facts:
+      uuid: "{{ register.stdout.split()[-1] }}"
+
   - name: Remove node that is not a part of the ring
-    command: "{{ nodetool }} removenode"
+    command: "{{ nodetool }} removenode {{ uuid }}"
 
   - name: Remove Cassandra
     include_tasks: remove-component.yml
