@@ -29,7 +29,7 @@
 
   - name: Obtain node UUID
     set_fact:
-      uuid: "{{ nodetool_status.stdout.split(' ')[-1] }}"
+      uuid: "{{ nodetool_status.stdout.split(' ')[-2] }}"
 
   - name: Decommission cassandra node
     command: "{{ apigee_service }} apigee-cassandra decommission"
