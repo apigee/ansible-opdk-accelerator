@@ -31,7 +31,7 @@
     register: nodetool_status
 
   - name: Obtain node UUID
-    set_facts:
+    set_fact:
       uuid: "{{ register.stdout.split()[-1] }}"
 
   - name: Remove node that is not a part of the ring
