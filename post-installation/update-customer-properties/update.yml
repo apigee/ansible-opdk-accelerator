@@ -1,5 +1,6 @@
 ---
-- hosts: ms
+- name: Update Customer Application Properties using Code with Config
+  hosts: ms
   vars:
     cwc_properties:
     - { key: 'conf_security_externalized.authentication.implementation.class', value: 'com.apigee.rbac.impl.LdapAuthenticatorImpl', file_name: 'edge-management-server' }
@@ -12,7 +13,8 @@
     - { key: 'conf_security_externalized.authentication.user.store.user.attribute', value: 'mail', file_name: 'edge-management-server' }
     - { key: 'conf_security_externalized.authentication.indirect.bind.server.admin.dn', value: 'cn=s.bind.npad.apigee,ou=Special.Accounts,dc=dm0006,dc=info53,dc=com', file_name: 'edge-management-server' }
     - { key: 'conf_security_externalized.authentication.indirect.bind.server.admin.dn', value: 'cn=s.bind.npad.apigee,ou=Special.Accounts,dc=dm0006,dc=info53,dc=com', file_name: 'edge-management-server' }
-
+  roles:
+  - { roles: apigee-opdk-cwc-update }
 
 
 
