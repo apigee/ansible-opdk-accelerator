@@ -24,7 +24,7 @@
       msg: "Please provide the missing attribute"
 
   - name: Obtain Nodetool status
-    command: "{{ nodetool }} status | grep {{ private_address }}"
+    shell: "{{ nodetool }} status | grep {{ private_address }}"
     register: nodetool_status
 
 #  - name: Obtain node UUID
