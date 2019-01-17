@@ -17,8 +17,6 @@
   strategy: free
   vars:
     ports: "{{ ms_ports }}"
-  vars_files:
-  -  port-list.yml
 
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
