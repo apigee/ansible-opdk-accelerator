@@ -1,4 +1,17 @@
 ---
+- name: Update cache
+  hosts: planet
+  tags: ['cache']
+  strategy: free
+  roles:
+  - { role: apigee-opdk-settings-private-address }
+  - { role: apigee-opdk-settings-public-address }
+  - { role: apigee-opdk-settings-region }
+  - { role: apigee-opdk-settings-management-server }
+  - { role: apigee-opdk-settings-cassandra }
+  - { role: apigee-opdk-settings-ldap }
+  - { role: apigee-opdk-settings-postgres }
+
 - name: Validate that port requirements are met
   hosts: ms
   vars:
