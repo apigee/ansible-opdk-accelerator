@@ -16,7 +16,8 @@
   tags: ['ms']
   strategy: free
   vars:
-    ports: "{{ ms_ports }}"
+    ports:
+    - "{{ ms_ports }}"
 
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
