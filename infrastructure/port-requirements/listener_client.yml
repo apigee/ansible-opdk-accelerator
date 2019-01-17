@@ -1,7 +1,7 @@
 ---
 - name: Setup listener
   shell: "nc -l -p {{ item }} &"
-  with_items: "{{ ms_ports }}"
+  with_items: "{{ ports }}"
 
 - name: Validate port
   wait_for:
@@ -9,5 +9,5 @@
     timeout: 2
     host: "{{ private_address }}"
   delegate_to: "{{ hostvars[host]['private_address'] }}"
-  with_items: "{{ ms_ports }}"
+  with_items: "{{ ports }}"
 
