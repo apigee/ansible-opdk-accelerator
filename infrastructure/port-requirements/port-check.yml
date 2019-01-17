@@ -27,7 +27,6 @@
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ui'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ldap'] }}" }
 
-
 - name: Validate that Cassandra  port requirements are met
   hosts: ds
   tags: ['ds']
@@ -42,4 +41,38 @@
     - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
+
+- name: Validate that Router port requirements are met
+  hosts: rmp
+  tags: ['router']
+  strategy: free
+  vars:
+    ports:
+    - "{{ router_ports }}"
+
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+
+- name: Validate that Message Processor port requirements are met
+  hosts: rmp
+  tags: ['mp']
+  strategy: free
+  vars:
+    ports:
+    - "{{ mp_ports }}"
+
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+
+- name: Validate that Message Processor port requirements are met
+  hosts: qpid
+  tags: ['qpid']
+  strategy: free
+  vars:
+    ports:
+    - "{{ qpid_ports }}"
+
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
 
