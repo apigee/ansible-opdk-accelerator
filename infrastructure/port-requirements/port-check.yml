@@ -76,3 +76,15 @@
     - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
 
+- name: Validate that Postgres port requirements are met
+  hosts: pg
+  tags: ['pg']
+  strategy: free
+  vars:
+    ports:
+    - "{{ pg_ports }}"
+
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
+
