@@ -13,6 +13,7 @@
 
 - name: Validate that port requirements are met
   hosts: ms
+  tags: ['ms']
   strategy: free
   vars:
     ports: "{{ ms_ports }}"
@@ -21,10 +22,9 @@
 
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ui'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ldap'] }}" }
 
-#  tasks:
-#  - name: Loop through ports
-#    include_tasks: listener_client.yml
-#    with_items: "{{ groups['ds'] }}"
-#    loop_control:
-#      loop_var: host
