@@ -11,7 +11,7 @@
   - { role: apigee-opdk-settings-ldap }
   - { role: apigee-opdk-settings-postgres }
 
-- name: Validate that port requirements are met
+- name: Validate that Management Server port requirements are met
   hosts: ms
   tags: ['ms']
   strategy: free
@@ -26,4 +26,20 @@
     - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ui'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ldap'] }}" }
+
+
+- name: Validate that Cassandra  port requirements are met
+  hosts: ds
+  tags: ['ds']
+  strategy: free
+  vars:
+    ports:
+    - "{{ cassandra_ports }}"
+
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
 
