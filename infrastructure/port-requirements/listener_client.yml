@@ -9,5 +9,5 @@
     timeout: 2
     host: "{{ private_address }}"
   delegate_to: "{{ hostvars[host]['private_address'] }}"
-  with_items: "{{ ms_port }}"
+  with_items: "{{ ms_ports }}"
 
