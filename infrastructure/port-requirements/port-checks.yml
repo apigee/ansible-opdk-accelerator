@@ -10,13 +10,8 @@
     shell: "nc -l -p {{ test_port }}"
     register: listener_ps
 
-  - block:
-    - name: Validate port
-      wait_for:
-        port: "{{ test_port }}"
+  - name: Validate port
+    wait_for:
+      port: "{{ test_port }}"
+      timeout: 2
 
-    always:
-      - name: Cleanup listener
-        command: kill {{ test_port }}
-        async: 45
-        poll: 0
