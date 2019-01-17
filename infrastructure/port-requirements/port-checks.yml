@@ -13,6 +13,6 @@
   tasks:
   - name: Loop through ports
     include_tasks: listener_client.yml
-    with_items: groups['ds']
+    with_items: "{{ groups['ds'] }}"
     loop_control:
       loop_var: host
