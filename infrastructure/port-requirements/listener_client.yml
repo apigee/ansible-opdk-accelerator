@@ -11,6 +11,6 @@
     port: "{{ port }}"
     timeout: 2
     host: "{{ private_address }}"
-  delegate_to: "{{ item }}"
+  delegate_to: "{{ hostvars[item]['private_address'] }}"
   with_items: "{{ groups['ds'] }}"
 
