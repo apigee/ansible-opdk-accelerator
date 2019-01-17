@@ -1,2 +1,22 @@
 ---
 - name: Validate that port requirements are met
+  hosts: ms
+  vars:
+    test_port: 1234
+  vars_files:
+  -  port-list.yml
+  tasks:
+  - name: Setup listener
+    command: nc -l -p {{ test_port }} &
+    register: listener_ps
+
+  - block:
+    - name: Validate port
+      wait_for:
+        port: "{{ test_port }}"
+
+    always:
+      - name: Cleanup listener
+        command: kill {{ test_port }}
+        async: 45
+        poll: 0
