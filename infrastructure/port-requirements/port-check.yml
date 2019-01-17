@@ -18,7 +18,6 @@
   vars:
     ports:
     - "{{ ms_ports }}"
-
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
@@ -49,7 +48,6 @@
   vars:
     ports:
     - "{{ router_ports }}"
-
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
 
@@ -71,7 +69,6 @@
   vars:
     ports:
     - "{{ qpid_ports }}"
-
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
@@ -83,7 +80,6 @@
   vars:
     ports:
     - "{{ pg_ports }}"
-
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
