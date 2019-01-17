@@ -10,6 +10,7 @@
   wait_for:
     port: "{{ port }}"
     timeout: 2
-    host: "{{ item }}"
+    host: "{{ private_address }}"
+  delegate_to: "{{ item }}"
   with_items: "{{ groups['ds'] }}"
 
