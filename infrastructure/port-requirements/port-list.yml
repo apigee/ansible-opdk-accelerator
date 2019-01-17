@@ -1,38 +1,47 @@
 ---
 # Apigee Edge Ports
-cassandra_port_jmx: 7199
-cassandra_port_thrift_client: 9160
-cassandra_port_cql_native: 9042
-cassandra_port_gossip: 7000
-cassandra_port_ssl_gossip: 7001
+cassandra_ports:
+- 7199
+- 9160
+- 9042
+- 7000
+- 7001
 
-zk_port_data: 2181
-zk_port_leader: 2888
-zk_port_voter: 3888
+zk_ports:
+- 2181
+- 2888
+- 3888
 
-mp_port_mgmt_int: 4528
-mp_port_mgmt: 8082
-mp_port_jmx: 1101
-mp_port_router: 8998
+mp_ports:
+- 4528
+- 8082
+- 1101
+- 8998
 
-ms_port_jmx: 1099
-ms_port: 8080
+ms_ports:
+- 1099
+- 8080
 
-router_port_jmx: 1100
-router_port_mgmt: 8081
-router_port_mgmt_int: 4527
-router_port_proxy: 9001
+router_ports:
+- 1100
+- 8081
+- 4527
+- 9001
 
-qpid_port_jmx: 1102
-qpid_port_mgmt_int: 4529
-qpid_port_messaging: 5672
-qpid_port_mgmt: 8083
+qpid_ports:
+- 1102
+- 4529
+- 5672
+- 8083
 
-pg_port_jmx: 1103
-pg_port_mgmt_int: 4530
-pg_port_db: 5432
-pg_port_mgmt: 8084
+pg_ports:
+- 1103
+- 4530
+- 5432
+- 8084
 
-ui_port: 9000
+ui_ports:
+- 9000
 
-ldap_port: 10389
+ldap_ports:
+- 10389

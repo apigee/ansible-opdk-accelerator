@@ -5,15 +5,11 @@
     test_port: 1234
   vars_files:
   -  port-list.yml
+#  roles:
+#    - { role: apigee-opdk-module }
   tasks:
-  - name: Setup listener
-    shell: "nc -l -p {{ test_port }}"
-    register: listener_ps
-    async: 4
-    poll: 0
-
-  - name: Validate port
-    wait_for:
-      port: "{{ test_port }}"
-      timeout: 2
-
+  - name: Loop through ports
+    include_tasks: listener_client.yml
+    with_items: "{{ ms_ports }}"
+    loop_control:
+      loop_var: port

@@ -1,0 +1,15 @@
+---
+
+- name: Setup listener
+  shell: "nc -l -p {{ port }}"
+  register: listener_ps
+  async: 4
+  poll: 0
+
+- name: Validate port
+  wait_for:
+    port: "{{ port }}"
+    timeout: 2
+    host: "{{ item }}"
+  with_items: "{{ groups['ds'] }}"
+
