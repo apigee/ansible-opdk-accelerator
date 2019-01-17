@@ -8,23 +8,20 @@
 #  roles:
 #    - { role: apigee-opdk-module }
   tasks:
-  - name: Setup listener
-    shell: "nc -l -p {{ item }} &"
-    with_items: "{{ ms_ports }}"
 
-  - name: Validate port
-    wait_for:
-      port: "{{ item.1 }}"
-      timeout: 2
-      host: "{{ private_address }}"
-    delegate_to: "{{ hostvars[item.0]['private_address'] }}"
-    with_items:
-    - "{{ groups['ds'] }}"
-    - "{{ ms_ports }}"
 
-#
-#  - name: Loop through ports
-#    include_tasks: listener_client.yml
-#    with_items: "{{ ms_ports }}"
-#    loop_control:
-#      loop_var: port
+#  - name: Validate port
+#    wait_for:
+#      port: "{{ item.1 }}"
+#      timeout: 2
+#      host: "{{ private_address }}"
+#    delegate_to: "{{ hostvars[item.0]['private_address'] }}"
+#    with_cartesian:
+#    - "{{ groups['ds'] }}"
+#    - "{{ ms_ports }}"
+
+  - name: Loop through ports
+    include_tasks: listener_client.yml
+    with_items: "{{ groups['ds'] }}"
+    loop_control:
+      loop_var: host
