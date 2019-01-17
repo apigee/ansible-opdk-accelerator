@@ -1,5 +1,4 @@
 ---
-# Apigee Edge Ports
 cassandra_ports:
 - 7199
 - 9160

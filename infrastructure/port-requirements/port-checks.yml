@@ -13,18 +13,18 @@
 
 - name: Validate that port requirements are met
   hosts: ms
+  strategy: free
   vars:
-    test_port: 1234
     ports: "{{ ms_ports }}"
   vars_files:
   -  port-list.yml
 
-#  roles:
-#    - { role: apigee-opdk-module }
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
 
-  tasks:
-  - name: Loop through ports
-    include_tasks: listener_client.yml
-    with_items: "{{ groups['ds'] }}"
-    loop_control:
-      loop_var: host
+#  tasks:
+#  - name: Loop through ports
+#    include_tasks: listener_client.yml
+#    with_items: "{{ groups['ds'] }}"
+#    loop_control:
+#      loop_var: host
