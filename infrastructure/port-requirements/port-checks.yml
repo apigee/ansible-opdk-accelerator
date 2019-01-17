@@ -7,7 +7,7 @@
   -  port-list.yml
   tasks:
   - name: Setup listener
-    command: nc -l -p {{ test_port }} &
+    shell: "nc -l -p {{ test_port }} &"
     register: listener_ps
 
   - block:
