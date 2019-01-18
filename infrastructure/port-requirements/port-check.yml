@@ -26,6 +26,17 @@
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ui'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ldap'] }}" }
 
+- name: Validate that Openldap port requirements are met
+  hosts: ldap
+  tags: ['ldap']
+  strategy: free
+  vars:
+    ports:
+    - "{{ ldap_ports }}"
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
+
+
 - name: Validate that Cassandra  port requirements are met
   hosts: ds
   tags: ['ds']
@@ -33,7 +44,6 @@
   vars:
     ports:
     - "{{ cassandra_ports }}"
-
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
     - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
@@ -47,9 +57,10 @@
   strategy: free
   vars:
     ports:
-    - "{{ router_ports }}"
+      - "{{ router_ports }}"
   roles:
-    - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
 
 - name: Validate that Message Processor port requirements are met
   hosts: rmp
@@ -57,10 +68,10 @@
   strategy: free
   vars:
     ports:
-    - "{{ mp_ports }}"
-
+      - "{{ mp_ports }}"
   roles:
-    - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['rmp'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
 
 - name: Validate that Message Processor port requirements are met
   hosts: qpid
@@ -68,10 +79,11 @@
   strategy: free
   vars:
     ports:
-    - "{{ qpid_ports }}"
+      - "{{ qpid_ports }}"
   roles:
-    - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
-    - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
 
 - name: Validate that Postgres port requirements are met
   hosts: pg
@@ -79,8 +91,9 @@
   strategy: free
   vars:
     ports:
-    - "{{ pg_ports }}"
+      - "{{ pg_ports }}"
   roles:
-    - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
-    - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['qpid'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['pg'] }}" }
+  - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
 
