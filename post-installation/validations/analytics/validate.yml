@@ -1,77 +1,4 @@
 ---
-- name: Apigee Component versions
-  hosts: pg
-  gather_facts: no
-  tags: ['version']
-  serial: 1
-  tasks:
-  - name: Component versions echo Apigee version
-    shell: "{{ apigee_all }} version"
-
-- name: Apigee Installation Configuration File
-  hosts: pg
-  gather_facts: no
-  tags: ['install-config']
-  tasks:
-  - name: Display silent-install.conf
-    command: "cat {{ opdk_installation_config_file }}"
-
-- name: Apigee Node Private IP Address
-  hosts: pg
-  gather_facts: no
-  tags: ['private-address']
-  tasks:
-  - name: Show private_address
-    debug:
-      msg: "Private IP: {{ private_address }}"
-
-- name: Apigee Node public IP Address
-  hosts: pg
-  gather_facts: no
-  tags: ['public-address']
-  tasks:
-  - name: Show public_address
-    debug:
-      msg: "Public IP: {{ public_address }}"
-
-- name: Apigee Status
-  hosts: pg
-  gather_facts: no
-  tags: ['status']
-  serial: 1
-  tasks:
-  - name: Display Node Status
-    shell: "{{ apigee_all }} status"
-
-- name: Apigee Start
-  hosts: pg
-  gather_facts: no
-  tags: ['start']
-  serial: 1
-  tasks:
-  - name: Start Node
-    shell: "{{ apigee_all }} start"
-
-- name: Apigee Stop
-  hosts: pg
-  gather_facts: no
-  tags: ['stop']
-  serial: 1
-  tasks:
-  - name: Stop Node
-    shell: "{{ apigee_all }} stop"
-
-- name: Apigee Restart
-  hosts: pg
-  gather_facts: no
-  tags: ['restart']
-  serial: 1
-  tasks:
-  - name: Stop Node
-    shell: "{{ apigee_all }} restart"
-
-
-
 - name: Apigee Postgres Master Check
   hosts: pgmaster
   gather_facts: no
@@ -165,7 +92,7 @@
       user: "{{ opdk_user_email }}"
       password: "{{ opdk_user_pass }}"
 
-- name: Describe analytics table
+- name: Describe analytics fact table
   hosts: pgmaster
   gather_facts: no
   tags: ['axtables']
