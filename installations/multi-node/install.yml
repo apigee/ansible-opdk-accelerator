@@ -1,7 +1,7 @@
 ---
 - name: Complete OS Pre-requisites
   hosts: edge
-  serial: 1
+  strategy: free
   tags: ['os']
   vars:
     property_folders:
@@ -22,7 +22,7 @@
 
 - name: Install Edge
   hosts: edge
-  serial: 1
+  strategy: free
   tags: ['edge', 'edge-common']
   vars:
     property_folders:
