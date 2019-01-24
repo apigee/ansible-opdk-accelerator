@@ -1,7 +1,7 @@
 ---
 - name: Complete OS Pre-requisites
   hosts: edge
-  strategy: free
+  serial: 1
   tags: ['os']
   vars:
     property_folders:
@@ -22,7 +22,7 @@
 
 - name: Install Edge
   hosts: edge
-  strategy: free
+  serial: 1
   tags: ['edge']
   vars:
     property_folders:
@@ -64,7 +64,7 @@
 - name: Configure & Install Management Server
   hosts: ms
   gather_facts: no
-  strategy: free
+  serial: 1
   tags: ['ms','edge']
   vars:
     property_folders:
@@ -81,7 +81,7 @@
 - name: Configure & Install Router & Message Processor
   hosts: rmp
   gather_facts: no
-  strategy: free
+  serial: 1
   tags: ['rmp','edge']
   vars:
     property_folders:
@@ -101,7 +101,7 @@
 - name: Configure & Install Router
   hosts: router
   gather_facts: no
-  strategy: free
+  serial: 1
   tags: ['r','edge']
   vars:
     property_folders:
@@ -119,7 +119,7 @@
 - name: Configure & Install Message Processor
   hosts: mp
   gather_facts: no
-  strategy: free
+  serial: 1
   tags: ['mp','edge']
   vars:
     property_folders:
@@ -137,7 +137,7 @@
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
-  strategy: free
+  serial: 1
   tags: ['qpid','edge']
   vars:
     ansible_workspace: "~/ansible"
