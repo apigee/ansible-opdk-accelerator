@@ -19,6 +19,12 @@
   - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
   - { role: apigee-opdk-modules, tags: ['config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config'] }
   - { role: apigee-opdk-setup-component, profile: 'aio', tags: ['aio'] }
