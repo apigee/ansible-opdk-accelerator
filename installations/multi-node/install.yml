@@ -23,7 +23,7 @@
 - name: Install Edge
   hosts: edge
   serial: 1
-  tags: ['edge']
+  tags: ['edge', 'edge-common']
   vars:
     property_folders:
     - "~/.apigee-secure"
