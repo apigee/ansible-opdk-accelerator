@@ -130,3 +130,5 @@
 - src: https://github.com/carlosfrias/apigee-opdk-settings-cassandra.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-settings-region.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-scopes-add.git
