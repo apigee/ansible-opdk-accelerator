@@ -15,7 +15,7 @@
     shell: "ldapsearch -D 'cn=manager,dc=apigee,dc=com' -b 'dc=apigee,dc=com' -LLL -h {{ inventory_hostname }} -p {{ ldap_data_port }} -w {{ opdk_ldap_pass }}"
 
 - name: List Users
-  hosts: ms[0]
+  hosts: ms
   gather_facts: no
   tags: ['users']
   vars:
