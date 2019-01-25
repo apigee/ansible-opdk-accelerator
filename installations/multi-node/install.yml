@@ -81,7 +81,7 @@
 - name: Configure & Install Router & Message Processor
   hosts: rmp
   gather_facts: no
-  serial: 1
+  strategy: free
   tags: ['rmp','edge']
   vars:
     property_folders:
@@ -101,7 +101,7 @@
 - name: Configure & Install Router
   hosts: router
   gather_facts: no
-  serial: 1
+  strategy: free
   tags: ['r','edge']
   vars:
     property_folders:
@@ -119,7 +119,7 @@
 - name: Configure & Install Message Processor
   hosts: mp
   gather_facts: no
-  serial: 1
+  strategy: free
   tags: ['mp','edge']
   vars:
     property_folders:
@@ -137,7 +137,7 @@
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
-  serial: 1
+  strategy: free
   tags: ['qpid','edge']
   vars:
     ansible_workspace: "~/ansible"
