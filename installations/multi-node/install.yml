@@ -1,7 +1,6 @@
 ---
 - name: Complete OS Pre-requisites
   hosts: edge
-  strategy: free
   tags: ['os']
   vars:
     property_folders:
@@ -22,7 +21,6 @@
 
 - name: Install Edge
   hosts: edge
-  strategy: free
   tags: ['edge', 'edge-common']
   vars:
     property_folders:
@@ -64,7 +62,6 @@
 - name: Configure & Install Management Server
   hosts: ms
   gather_facts: no
-  serial: 1
   tags: ['ms','edge']
   vars:
     property_folders:
@@ -81,7 +78,6 @@
 - name: Configure & Install Router & Message Processor
   hosts: rmp
   gather_facts: no
-  strategy: free
   tags: ['rmp','edge']
   vars:
     property_folders:
