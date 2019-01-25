@@ -70,4 +70,12 @@
   tags: ['properties']
   tasks:
   - name: Display cassandra-topology.properties
+    shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra.yaml"
+
+- name: Apigee Cassandra Seeds Properties
+  hosts: ds
+  gather_facts: no
+  tags: ['seeds']
+  tasks:
+  - name: Display cassandra-topology.properties
     shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra.yaml | grep 'seeds:\\|^listen_address:'"
