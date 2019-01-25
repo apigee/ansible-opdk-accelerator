@@ -28,5 +28,5 @@
   - name: List users
     uri:
       url: "http://127.0.0.1:8080/v1/users"
-      user: "{{ opdk_user_name }}"
+      user: "{{ opdk_user_email }}"
       password: "{{ opdk_user_pass }}"
