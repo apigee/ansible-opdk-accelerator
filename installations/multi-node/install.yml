@@ -137,7 +137,6 @@
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
-  strategy: free
   tags: ['qpid','edge']
   vars:
     ansible_workspace: "~/ansible"
@@ -216,7 +215,8 @@
   - { role: apigee-opdk-setup-org, tags: ['org', 'org-setup'] }
 
 - name: Restart of Planet
-  hosts: edge
+  hosts: ds,ms,rmp,qpid,pg
+  serial: 1
   strategy: free
   tags: ['restart', 'start']
   vars:
