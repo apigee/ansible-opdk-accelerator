@@ -79,4 +79,6 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-settings-region.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer.git
+
 
