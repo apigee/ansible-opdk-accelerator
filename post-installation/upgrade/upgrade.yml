@@ -91,13 +91,11 @@
     - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['qpid-config']}
     - { role: apigee-opdk-start-components }
     - { role: apigee-opdk-server-self, server_types: ['qs'], tags: ['self']  }
-#    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['qs'], tags: ['qpid-reachability-false'] }
     - { role: apigee-opdk-settings-qpid, tags: ['config', 'cache', 'qpid']}
     - { role: apigee-opdk-iptables-port-block, destination_port: '{{ qpid_messaging_port }}', tags: ['qpid-port-block'] }
     - { role: apigee-opdk-update-component-qpidd, tags: ['qpid-upgrade'] }
     - { role: apigee-opdk-update-component,  component: 'qpid', tags: ['qpid-upgrade'] }
     - { role: apigee-opdk-iptables-flush, tags: ['qpid-iptables-flush'] }
-#    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['qs'], tags: ['qpid-reachability-true'] }
 
 - name: Upgrade Ldap
   hosts: ldap
@@ -143,7 +141,6 @@
   roles:
   - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
   - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self']  }
-  - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['ps'] }
   - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}" }
   - { role: apigee-opdk-stop-components, component_name: "edge-postgres-server", when: "opdk_version is version_compare('4.18.01', '==')" }
   - { role: apigee-opdk-stop-components, component_name: "apigee-postgresql", when: "opdk_version is version_compare('4.18.01', '==')" }
@@ -152,7 +149,6 @@
   - { role: apigee-opdk-update-component,  component: 'edge', validate_ready: false, ignore_errors: true, tags: ['pgmaster-edge-update'] }
   - { role: apigee-opdk-start-components, component_name: "edge-postgres-server", when: "opdk_version is version_compare('4.18.01', '==')" }
   - { role: apigee-opdk-start-components, component_name: "apigee-postgresql", when: "opdk_version is version_compare('4.18.01', '==')" }
-  - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['ps'] }
 
 - name: Upgrade Postgres standby
   hosts: pgstandby
@@ -182,8 +178,6 @@
     - { role: apigee-opdk-stop-components, tags: ['stop'], when: update_max_wal_settings is defined and update_max_wal_settings  }
     - { role: apigee-opdk-start-components, tags: ['start'],  when: update_max_wal_settings is defined and update_max_wal_settings }
     - { role: apigee-opdk-setup-postgres-standby, when: update_max_wal_settings is defined and update_max_wal_settings }
-    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['ps'] }
-
 
 - name: Upgrade Qpid Edge Components
   hosts: qpid
@@ -268,9 +262,7 @@
     - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
     - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['rmp-config'] }
     - { role: apigee-opdk-server-self, server_types: ['router', 'mp'], tags: ['self']  }
-    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['router', 'mp'], tags: ['rmp-reachability-false'] }
     - { role: apigee-opdk-update-component, component: 'edge', tags: ['rmp-upgrade'] }
-    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['router', 'mp'], tags: ['rmp-reachability-true'] }
   tasks:
     - name: Remove router configuration directory
       tags: ['rmp-config-refresh']
@@ -322,9 +314,7 @@
     - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
     - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['r-config'] }
     - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self']  }
-    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['router'], tags: ['r-reachability-false'] }
     - { role: apigee-opdk-update-component, component: 'edge', tags: ['r-upgrade'] }
-    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['router'], tags: ['r-reachability-true'] }
   tasks:
     - name: Remove router configuration directory
       tags: ['r-config-refresh']
@@ -369,9 +359,7 @@
     - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
     - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['mp-config'] }
     - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self']  }
-    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['mp'], tags: ['mp-reachability-false'] }
     - { role: apigee-opdk-update-component, component: 'edge', tags: ['mp-upgrade'] }
-    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['mp'], tags: ['mp-reachability-true'] }
 
 - name: Upgrade UI
   hosts: ui
@@ -418,4 +406,3 @@
     - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
     - { role: apigee-opdk-setup-validate, tags: ['validate'] }
     - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate', 'validate-cleanup'] }
-

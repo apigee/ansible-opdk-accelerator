@@ -5,8 +5,6 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-default-settings
 
-#- src: https://github.com/carlosfrias/apigee-opdk-set-reachable
-
 - src: https://github.com/carlosfrias/apigee-fetch-files
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-status
