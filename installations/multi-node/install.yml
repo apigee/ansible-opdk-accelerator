@@ -150,8 +150,7 @@
 - name: Configure & Install Postgres
   hosts: pg
   gather_facts: no
-  serial: 1
-  tags: ['pg','edge']
+  tags: ['pg','edge', 'analytics']
   vars:
     ansible_workspace: "~/ansible"
     apigee_workspace: "~/.apigee-workspace"
@@ -168,8 +167,7 @@
 - name: Configure Postgres Master
   hosts: pgmaster
   gather_facts: no
-  serial: 1
-  tags: ['pgmaster','edge']
+  tags: ['pgmaster','edge', 'analytics']
   vars:
     ansible_workspace: "~/ansible"
     apigee_workspace: "~/.apigee-workspace"
@@ -185,8 +183,7 @@
 - name: Configure Postgres Standby
   hosts: pgstandby
   gather_facts: no
-  serial: 1
-  tags: ['pgstandby','edge']
+  tags: ['pgstandby','edge', 'analytics']
   vars:
     property_folders:
     - "~/.apigee-secure"
