@@ -1,0 +1,418 @@
+---
+- name: Update common components for the planet
+  hosts: planet
+  gather_facts: no
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  strategy: free
+  tags: ['common']
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-settings-private-address, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-management-server, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-ldap, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-region, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-cassandra, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-postgres, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-setup-bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
+    - { role: apigee-opdk-setup-license, tags: ['license', 'bootstrap'] }
+    - { role: apigee-opdk-update-component-inplace, component: 'apigee-setup', tags: ['setup', 'apigee-component-update'] }
+    - { role: apigee-opdk-update-component-inplace, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-update'] }
+    - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','ownership'] }
+
+- name: Update management server components
+  hosts: ms
+  gather_facts: no
+  vars:
+    property_folders:
+        - "~/.apigee-secure"
+        - "~/.apigee"
+  strategy: free
+  tags: ['common']
+  roles:
+  - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee-opdk-update-component-inplace, component: 'apigee-validate', tags: ['validate', 'apigee-component-update'] }
+  - { role: apigee-opdk-update-component-inplace, component: 'apigee-provision', tags: ['provision', 'apigee-component-update'] }
+
+- name: Upgrade Cassandra
+  hosts: ds
+  become: true
+  become_user: "apigee"
+  serial: 1
+  tags: ['ds']
+  gather_facts: no
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component cs,zk on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+  roles:
+  - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee-opdk-start-components }
+  - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['upgrade-ds-config'] }
+  - { role: apigee-opdk-update-component, component: 'cs,zk', tags: ['upgrade-ds'] }
+
+
+- name: Upgrade Qpid
+  hosts: qpid
+  become: true
+  become_user: "apigee"
+  serial: 1
+  tags: ['qpid']
+  gather_facts: no
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component qpid on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['qpid-config']}
+    - { role: apigee-opdk-start-components }
+    - { role: apigee-opdk-server-self, server_types: ['qs'], tags: ['self']  }
+    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['qs'], tags: ['qpid-reachability-false'] }
+    - { role: apigee-opdk-iptables-port-block, destination_port: '{{ qpid_messaging_port }}', tags: ['qpid-port-block'] }
+    - { role: apigee-opdk-update-component-qpidd, tags: ['qpid-upgrade'] }
+    - { role: apigee-opdk-update-component,  component: 'qpid', tags: ['qpid-upgrade'] }
+    - { role: apigee-opdk-iptables-flush, tags: ['qpid-iptables-flush'] }
+    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['qs'], tags: ['qpid-reachability-true'] }
+
+- name: Upgrade Ldap
+  hosts: ldap
+  become: true
+  become_user: "apigee"
+  tags: ['ldap']
+  serial: 1
+  gather_facts: no
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component ldap on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['ldap-config'] }
+    - { role: apigee-opdk-update-component, component: 'ldap', tags: ['ldap-upgrade'] }
+
+- name: Upgrade PS component
+  hosts: pgmaster
+  become: yes
+  become_user: "{{ opdk_user_name }}"
+  serial: 1
+  gather_facts: no
+  tags: ['pgmaster-update', 'pgmaster']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+  - name: Report current node
+    debug:
+      msg: "Upgrading component ps on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+
+  roles:
+  - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self']  }
+  - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['ps'] }
+  - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}" }
+  - { role: apigee-opdk-stop-components, component_name: "edge-postgres-server", when: "opdk_version is version_compare('4.18.01', '==')" }
+  - { role: apigee-opdk-stop-components, component_name: "apigee-postgresql", when: "opdk_version is version_compare('4.18.01', '==')" }
+  - { role: apigee-opdk-update-component,  component: 'ps', validate_ready: false, ignore_errors: true, tags: ['pgmaster-ps-update']}
+  - { role: apigee-opdk-setup-postgres-db-upgrade, tags: ['pgmaster-db-upgrade'], when: "opdk_version is version_compare('4.18.01', '==')" }
+  - { role: apigee-opdk-update-component,  component: 'edge', validate_ready: false, ignore_errors: true, tags: ['pgmaster-edge-update'] }
+  - { role: apigee-opdk-start-components, component_name: "edge-postgres-server", when: "opdk_version is version_compare('4.18.01', '==')" }
+  - { role: apigee-opdk-start-components, component_name: "apigee-postgresql", when: "opdk_version is version_compare('4.18.01', '==')" }
+  - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['ps'] }
+
+- name: Upgrade Postgres standby
+  hosts: pgstandby
+  become_user: "{{ opdk_user_name }}"
+  serial: 1
+  gather_facts: no
+  tags: ['pgstandby-update', 'pgstandby']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Report current node
+      debug:
+        msg: "Upgrading component ps on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self']  }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}" }
+    - { role: apigee-opdk-stop-components, component_name: "edge-postgres-server", when: "opdk_version is version_compare('4.18.01', '==')" }
+    - { role: apigee-opdk-stop-components, component_name: "apigee-postgresql", when: "opdk_version is version_compare('4.18.01', '==')" }
+    - { role: apigee-opdk-setup-postgres-config, tags: ['os-pre-req'], clear_pgdata: True }
+    - { role: apigee-opdk-update-component, component: 'ps', validate_ready: false, ignore_errors: true, tags: ['pgstandby-upgrade'] }
+    - { role: apigee-opdk-update-component, component: 'edge', validate_ready: false, ignore_errors: true, tags: ['pgstandby-edge-upgrade'] }
+    - { role: apigee-opdk-setup-postgres-standby }
+    - { role: apigee-opdk-cwc-update, when: update_max_wal_settings is defined and update_max_wal_settings }
+    - { role: apigee-opdk-stop-components, tags: ['stop'], when: update_max_wal_settings is defined and update_max_wal_settings  }
+    - { role: apigee-opdk-start-components, tags: ['start'],  when: update_max_wal_settings is defined and update_max_wal_settings }
+    - { role: apigee-opdk-setup-postgres-standby, when: update_max_wal_settings is defined and update_max_wal_settings }
+    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['ps'] }
+
+
+- name: Upgrade Qpid Edge Components
+  hosts: qpid
+  become: true
+  become_user: "apigee"
+  serial: 1
+  gather_facts: no
+  tags: ['qpid-edge']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component edge on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['qpid-edge-config'] }
+    - { role: apigee-opdk-start-components }
+    - { role: apigee-opdk-update-component, component: 'edge', tags: ['qpid-edge-upgrade'] }
+
+- name: Upgrade Management Server Edge Components
+  hosts: ms
+  become: true
+  become_user: "apigee"
+  serial: 1
+  gather_facts: no
+  tags: ['ms']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component edge on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['ms-config'] }
+    - { role: apigee-opdk-update-component,  component: 'edge', tags: ['ms-upgrade'] }
+    - { role: apigee-opdk-start-components }
+
+- name: Upgrade Router & Message Processor
+  hosts: rmp
+  become: true
+  become_user: "apigee"
+  serial: 1
+  gather_facts: no
+  tags: ['rmp']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component edge on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+
+    - name: Upgrade Apigee Nginx (https://b.corp.google.com/issues/74586724)
+      become: yes
+      yum:
+        name: apigee-nginx
+        state: latest
+
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['rmp-config'] }
+    - { role: apigee-opdk-server-self, server_types: ['router', 'mp'], tags: ['self']  }
+    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['router', 'mp'], tags: ['rmp-reachability-false'] }
+    - { role: apigee-opdk-update-component, component: 'edge', tags: ['rmp-upgrade'] }
+    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['router', 'mp'], tags: ['rmp-reachability-true'] }
+  tasks:
+    - name: Remove router configuration directory
+      tags: ['rmp-config-refresh']
+      file:
+        path: '/opt/nginx/config.d'
+        state: absent
+
+    - name: Restore router configuration directory
+      tags: ['rmp-config-refresh']
+      file:
+        path: '/opt/nginx/config.d'
+        state: directory
+        mode: 0755
+        owner: "apigee"
+        group: "apigee"
+
+    - name: Restart router
+      tags: ['rmp-config-refresh']
+      command: "/opt/apigee/apigee-service/bin/apigee-service edge-router restart"
+
+- name: Upgrade Router
+  hosts: r
+  become: true
+  become_user: "apigee"
+  serial: 1
+  gather_facts: no
+  tags: ['r']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component edge on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+
+    - name: Upgrade Apigee Nginx (https://b.corp.google.com/issues/74586724)
+      become: yes
+      yum:
+        name: apigee-nginx
+        state: latest
+
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['r-config'] }
+    - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self']  }
+    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['router'], tags: ['r-reachability-false'] }
+    - { role: apigee-opdk-update-component, component: 'edge', tags: ['r-upgrade'] }
+    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['router'], tags: ['r-reachability-true'] }
+  tasks:
+    - name: Remove router configuration directory
+      tags: ['r-config-refresh']
+      file:
+        path: '/opt/nginx/config.d'
+        state: absent
+
+    - name: Restore router configuration directory
+      tags: ['r-config-refresh']
+      file:
+        path: '/opt/nginx/config.d'
+        state: directory
+        mode: 0755
+        owner: "apigee"
+        group: "apigee"
+
+    - name: Restart router
+      tags: ['r-config-refresh']
+      command: "/opt/apigee/apigee-service/bin/apigee-service edge-router restart"
+
+- name: Upgrade Message Processor
+  hosts: mp
+  become: true
+  become_user: "apigee"
+  serial: 1
+  gather_facts: no
+  tags: ['mp']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component edge on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['mp-config'] }
+    - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self']  }
+    - { role: apigee-opdk-set-reachable, reachability: False, server_types: ['mp'], tags: ['mp-reachability-false'] }
+    - { role: apigee-opdk-update-component, component: 'edge', tags: ['mp-upgrade'] }
+    - { role: apigee-opdk-set-reachable, reachability: True, server_types: ['mp'], tags: ['mp-reachability-true'] }
+
+- name: Upgrade UI
+  hosts: ui
+  become: true
+  become_user: "apigee"
+  serial: 1
+  gather_facts: no
+  tags: ['ui']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  pre_tasks:
+    - name: Assert upgrade_from_opdk_version
+      fail:
+        msg: "Please set the upgrade_from_opdk_version."
+      when: "upgrade_from_opdk_version is not defined"
+
+    - name: Report current node
+      debug:
+        msg: "Upgrading component ui on {{ inventory_hostname }} ( {{ ansible_hostname }} )"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['ui-config'] }
+    - { role: apigee-opdk-update-component,  component: 'ui', tags: ['ui-upgrade'] }
+
+- name: Rolling restart of dc-1
+  hosts: edge
+  serial: 1
+  tags: ['restart']
+  roles:
+    - apigee-opdk-stop-components
+    - apigee-opdk-start-components
+
+- name: Validate RMP proxy functionality on dc-1
+  hosts: rmp
+  serial: 1
+  gather_facts: no
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-validate, tags: ['validate'] }
+    - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate', 'validate-cleanup'] }
+
