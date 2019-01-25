@@ -398,6 +398,7 @@
   hosts: rmp
   serial: 1
   gather_facts: no
+  tags: ['validate']
   vars:
     property_folders:
       - "~/.apigee-secure"
