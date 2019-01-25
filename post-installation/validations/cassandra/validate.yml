@@ -22,7 +22,7 @@
 - name: Apigee Cassandra Ring Status
   hosts: ds
   gather_facts: no
-  tags: ['ring-status']
+  tags: ['status']
   serial: 1
   vars:
 
