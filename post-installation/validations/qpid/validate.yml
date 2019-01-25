@@ -1,0 +1,28 @@
+---
+- name: Qpid stats
+  hosts: qpid
+  gather_facts: no
+  tags: ['stats']
+  serial: 1
+  vars:
+    # Qpid stat tool
+    qpid_stat: '{{ apigee_home }}/apigee-qpidd/bin/qpid-stat'
+
+  tasks:
+    - name: Gather qpid stats
+      shell: "{{ qpid_stat }} -g"
+      register: results
+
+- name: Qpid queue depth
+  hosts: qpid
+  gather_facts: no
+  tags: ['depth']
+  serial: 1
+  vars:
+    # Qpid queue depth
+    check_queue_depth: '{{ apigee_home }}/apigee-qpidd/bin/check_queue_depth.py'
+
+  tasks:
+    - name: Gather qpid queue depth
+      shell: "{{ check_queue_depth }}"
+      register: results
