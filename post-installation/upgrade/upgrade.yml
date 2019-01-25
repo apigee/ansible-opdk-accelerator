@@ -16,6 +16,7 @@
     - { role: apigee-opdk-settings-region, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
     - { role: apigee-opdk-settings-cassandra, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
     - { role: apigee-opdk-settings-postgres, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
     - { role: apigee-opdk-setup-java-home, tags: ['java-home', 'bootstrap'] }
     - { role: apigee-opdk-setup-bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
     - { role: apigee-opdk-setup-license, tags: ['license', 'bootstrap'] }
