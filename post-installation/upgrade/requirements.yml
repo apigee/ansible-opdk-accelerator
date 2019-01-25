@@ -81,4 +81,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-validate.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-validate-cleanup.git
+
 
