@@ -5,22 +5,24 @@
   tags: ['ldap']
   vars:
     ldap_data_port: 10389
-
-  pre_tasks:
-  - name: Load credentials
-    include_vars: '~/.apigee-secure/credentials.yml'
+    property_folders:
+      - "~/.apigee-secure"
+  roles:
+    - apigee-opdk-modules
 
   tasks:
   - name: Show LDAP system user
     shell: "ldapsearch -D 'cn=manager,dc=apigee,dc=com' -b 'dc=apigee,dc=com' -LLL -h {{ inventory_hostname }} -p {{ ldap_data_port }} -w {{ opdk_ldap_pass }}"
 
 - name: List Users
-  hosts: ms
+  hosts: ms[0]
   gather_facts: no
   tags: ['users']
-  pre_tasks:
-  - name: Load credentials
-    include_vars: '~/.apigee-secure/credentials.yml'
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+  roles:
+    - apigee-opdk-modules
 
   tasks:
   - name: List users
