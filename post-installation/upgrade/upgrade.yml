@@ -6,7 +6,6 @@
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
-  strategy: free
   tags: ['common']
   roles:
     - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
@@ -31,7 +30,6 @@
     property_folders:
         - "~/.apigee-secure"
         - "~/.apigee"
-  strategy: free
   tags: ['common']
   roles:
   - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
