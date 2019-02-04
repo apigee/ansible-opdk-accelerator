@@ -32,7 +32,7 @@
     apigee_custom_properties_folder: "~/.apigee"
   roles:
   - { role: apigee-opdk-devportal-postgres-config, tags: ['config'] }
-  - { role: apigee-opdk-setup-component, profile: 'pdb', tags: ['apigee-component'], opdk_installation_config_file: "{{ opdk_portal_db_config_file }}"  }
+  - { role: apigee-opdk-setup-component, profile: 'pdb', tags: ['apigee-component'], target_response_file_path: "{{ opdk_portal_db_config_file }}"  }
   - { role: apigee-opdk-start-components, tags: ['apigee-component'] }
   - { role: apigee-opdk-setup-status, tags: ['status'] }
 
@@ -48,7 +48,7 @@
     apigee_custom_properties_folder: "~/.apigee"
   roles:
   - { role: apigee-opdk-devportal-config, tags: ['config'] }
-  - { role: apigee-opdk-setup-component, profile: 'dp',tags: ['apigee-component'], opdk_installation_config_file: "{{ opdk_portal_config_file }}" }
+  - { role: apigee-opdk-setup-component, profile: 'dp',tags: ['apigee-component'], target_response_file_path: "{{ opdk_portal_config_file }}" }
   - { role: apigee-opdk-start-components, tags: ['apigee-component'] }
   - { role: apigee-opdk-setup-status, tags: ['status'] }
 
