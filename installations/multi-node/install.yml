@@ -192,6 +192,7 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgstandby-config'] }
+  - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
   - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql', tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True, tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-standby, tags: ['minimum', 'pgstandby-setup'] }
