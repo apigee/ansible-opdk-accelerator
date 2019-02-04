@@ -1,6 +1,6 @@
 ---
 - name: Generate Response files
-  hosts: "{{ target_hosts }}"
+  hosts: "{{ target_hosts }}",pg
   tags: ['edge', 'edge-common']
   vars:
     property_folders:
