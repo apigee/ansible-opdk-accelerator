@@ -1,4 +1,20 @@
 ---
+- name: Collect Edge Installation Attributes
+  hosts: edge
+  tags: ['cache']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-settings-private-address  }
+    - { role: apigee-opdk-settings-management-server  }
+    - { role: apigee-opdk-settings-ldap  }
+    - { role: apigee-opdk-settings-region  }
+    - { role: apigee-opdk-settings-cassandra  }
+    - { role: apigee-opdk-settings-postgres  }
+
 - name: Download apigee mirror archive
   tags: ['download']
   hosts: "{{ target_hosts }}"
