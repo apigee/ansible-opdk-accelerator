@@ -1,6 +1,6 @@
 ---
 - name: Collect Edge Installation Attributes
-  include_playbooks: collect-attributes.yml
+  import_playbook: collect-attributes.yml
   tags: ['cache']
 
 - name: Install Edge Mirror
