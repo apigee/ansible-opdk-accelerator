@@ -8,7 +8,8 @@
   gather_facts: no
   tags: ['nginx']
   vars:
-    apigee_home: /opt/apigee
+    apigee_home: "/opt/apigee"
+    apigee_service: "{{ apigee_home }}/apigee-service/bin/apigee-service"
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
