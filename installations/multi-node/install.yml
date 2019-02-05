@@ -161,13 +161,13 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
-            - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
-            - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-            - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-            - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
-            - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['minimum', 'pg-setup'] }
-            - { role: apigee-opdk-start-components, tags: ['pg-start', 'start'] }
-            - { role: apigee-opdk-setup-status, tags: ['pg-status', 'status'] }
+    - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
+    - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['minimum', 'pg-setup'] }
+    - { role: apigee-opdk-start-components, tags: ['pg-start', 'start'] }
+    - { role: apigee-opdk-setup-status, tags: ['pg-status', 'status'] }
 
 - name: Configure Postgres Master
   hosts: pgmaster
