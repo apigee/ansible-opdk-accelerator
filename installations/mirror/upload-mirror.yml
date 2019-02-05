@@ -1,6 +1,6 @@
 ---
 - name: Collect Edge Installation Attributes
-  include_playbook: collect-attributes.yml
+  import_playbook: collect-attributes.yml
   tags: ['cache']
 
 - name: Upload apigee mirror archive
