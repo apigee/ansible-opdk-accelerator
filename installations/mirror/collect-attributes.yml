@@ -8,7 +8,7 @@
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
-    - { role: apigee-opdk-settings-private-address , tags: ['private-address'] }
+    - { role: apigee-opdk-settings-private-address, tags: ['private-address'] }
     - { role: apigee-opdk-settings-management-server  }
     - { role: apigee-opdk-settings-ldap  }
     - { role: apigee-opdk-settings-region  }
