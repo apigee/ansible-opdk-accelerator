@@ -4,7 +4,7 @@
   tags: ['cache']
 
 - name: Expose apigee mirror web server
-  hosts: "{{ target_hosts }}"Hi S
+  hosts: "{{ target_hosts }}"
   gather_facts: no
   tags: ['nginx']
   vars:
