@@ -15,4 +15,5 @@
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-setup-component-install, component: 'apigee-mirror' }
     - { role: apigee-opdk-setup-mirror-nginx }

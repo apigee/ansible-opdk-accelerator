@@ -29,6 +29,7 @@
   - { role: apigee-opdk-setup-java-home, tags: ['java-home', 'bootstrap'] }
   - { role: apigee-opdk-setup-bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-mirror' }
   - { role: apigee-opdk-setup-bootstrap-create-archive, tags: ['bootstrap', 'create'] }
 
 
