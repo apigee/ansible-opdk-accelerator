@@ -8,6 +8,7 @@
   tags: ['upload']
   vars:
     apigee_home: "/opt/apigee"
+    local_apigee_path: "~/.apigee"
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
