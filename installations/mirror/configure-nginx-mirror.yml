@@ -1,0 +1,16 @@
+---
+- name: Collect Edge Installation Attributes
+  import_playbook: collect-attributes.yml
+  tags: ['cache']
+
+- name: Expose apigee mirror web server
+  hosts: "{{ target_hosts }}"Hi S
+  gather_facts: no
+  tags: ['nginx']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-setup-mirror-nginx }
