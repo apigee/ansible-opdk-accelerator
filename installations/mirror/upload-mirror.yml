@@ -7,7 +7,7 @@
   hosts: "{{ target_hosts }}"
   tags: ['upload']
   vars:
-    ansible_workspace: "~/.ansible"
+    apigee_home: "/opt/apigee"
     apigee_workspace: "~/.apigee-workspace"
     property_folders:
     - "~/.apigee-secure"
