@@ -20,9 +20,10 @@
   hosts: "{{ target_hosts }}"
   gather_facts: no
   vars:
+    local_apigee_path: ~/.apigee
     property_folders:
     - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ local_apigee_path }}"
   roles:
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-bootstrap-download-archive }
