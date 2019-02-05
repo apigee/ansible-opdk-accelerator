@@ -1,6 +1,7 @@
 ---
 - name: Complete OS Pre-requisites
   hosts: edge
+  strategy: free
   tags: ['os']
   vars:
     property_folders:
@@ -21,6 +22,7 @@
 
 - name: Install Edge
   hosts: edge
+  strategy: free
   tags: ['edge', 'edge-common']
   vars:
     property_folders:
@@ -62,6 +64,7 @@
 - name: Configure & Install Management Server
   hosts: ms
   gather_facts: no
+  strategy: free
   tags: ['ms','edge']
   vars:
     property_folders:
@@ -78,6 +81,7 @@
 - name: Configure & Install Router & Message Processor
   hosts: rmp
   gather_facts: no
+  strategy: free
   tags: ['rmp','edge']
   vars:
     property_folders:
@@ -133,6 +137,7 @@
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
+  strategy: free
   tags: ['qpid','edge']
   vars:
     ansible_workspace: "~/ansible"
@@ -238,7 +243,7 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
-  - { role: apigee-opdk-setup-validate, tags: ['validate'] }
+  - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
   - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
 
 - name: Validate Routers
@@ -250,6 +255,6 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
-  - { role: apigee-opdk-setup-validate, tags: ['validate'] }
+  - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
   - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
 
