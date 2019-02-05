@@ -19,7 +19,7 @@
     - { dir: '/etc/security/limits.d/', pattern: '*conf' }
     - { dir: '/var/log/', pattern: 'messages' }
     - { dir: '/tmp', pattern: 'setup*.log' }
-    - { dir: '{{ opdk_installer_path }}/', pattern: '*' }
+    - { dir: '{{ opdk_resources_path }}/', pattern: '*' }
     - { dir: '{{ apigee_home }}/', pattern: '*.out' }
     - { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
     - { dir: '{{ apigee_home }}/customer/', pattern: '*' }

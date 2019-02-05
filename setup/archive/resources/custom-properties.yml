@@ -202,7 +202,7 @@ install_qpid_upgrade_components:
 
 # Edge SSO and SAML Configuration
 edge_sso_installation_config_file_name: edge-sso-installer-config.conf
-edge_sso_installation_config_file: "{{ opdk_installer_path }}/{{ edge_sso_installation_config_file_name }}"
+edge_sso_installation_config_file: "{{ opdk_resources_path }}/{{ edge_sso_installation_config_file_name }}"
 jwt_key_folder: "{{ apigee_home }}/customer/application/apigee-sso/jwt-keys"
 jwt_private_key: private_key.pem
 sso_jwt_signinig_key_file_path: "{{ jwt_key_folder }}/{{ jwt_private_key }}"
@@ -222,7 +222,7 @@ saml_cert_expiry_days: 365
 saml_cert_subject: "/C=US/O=google/OU=apigee/CN=apigee.com"
 sso_saml_idp_metadata_url: "{{ saml_folder }}/target_idp_metadata_url.xml"
 edgeui_response_file_name: edge-ui-saml-response.conf
-edgeui_response_file_path: "{{ opdk_installer_path }}/{{ edgeui_response_file_name }}"
+edgeui_response_file_path: "{{ opdk_resources_path }}/{{ edgeui_response_file_name }}"
 edgeui_public_uris: http://{{ local_mgmt_ip }}:9000
 edgeui_sso_enabled: y
 sso_public_url_port: 9099
@@ -248,7 +248,7 @@ pattern:
 - { dir: '/etc/security/limits.d/', pattern: '*conf' }
 - { dir: '/var/log/', pattern: 'messages' }
 - { dir: '/tmp', pattern: 'setup*.log' }
-- { dir: '{{ opdk_installer_path }}/', pattern: '*' }
+- { dir: '{{ opdk_resources_path }}/', pattern: '*' }
 - { dir: '{{ apigee_home }}/', pattern: '*.out' }
 - { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
 - { dir: '{{ apigee_home }}/customer/', pattern: '*' }

@@ -22,7 +22,7 @@
     last_name: Frias
 
     # Path where to place the apigee-provision.conf file
-    opdk_installer_path: /tmp/edge
+    opdk_resources_path: /tmp/edge
 
     # Version of OPDK to work with
     opdk_version: 4.18.05
