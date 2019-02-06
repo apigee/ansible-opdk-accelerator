@@ -7,4 +7,5 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
+  - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-mirror-nginx, tags: ['nginx'] }
