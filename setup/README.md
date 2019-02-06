@@ -46,7 +46,7 @@ Use `ansible-galaxy` to download dependencies in the following way:
 `setup.yml` will configure the localhost as an Ansible control server in the following way:
     
     # Setup the Ansible controller
-    ansible-playbook setup.yml -e remote_user=<remote user login>
+    ansible-playbook setup.yml
 
 ## Configuration Review
 
