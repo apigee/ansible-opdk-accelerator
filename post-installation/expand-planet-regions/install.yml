@@ -1,0 +1,62 @@
+---
+- name: Complete OS Pre-requisites
+  hosts: "{{ target_hosts }}"
+  tags: ['os']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+    - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
+    - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
+    - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
+    - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
+    - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
+    - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
+    - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
+    - { role: apigee-server-restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+    - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
+    - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+
+- name: Install Edge
+  hosts: "{{ target_hosts }}"
+  tags: ['edge', 'edge-common']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-setup-apigee-user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
+  - { role: apigee-opdk-setup-bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+
+- name: Configure & Install Cassandra & Zookeeper
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  serial: 1
+  tags: ['ds','edge']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config']  }
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ds-config'] }
+  - { role: apigee-opdk-setup-cassandra-registration }
+  - { role: apigee-opdk-setup-component, profile: 'ds', tags: ['minimum', 'ds-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['ds-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['ds-status', 'status'] }
+
