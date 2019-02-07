@@ -21,6 +21,7 @@
       that:
       - private_address is defined and private_address | trim | length > 0
       - nodetool is defined and nodetool | trim | length > 0
+      - nodetool_delegate is defined and nodetool_delegate | trim | length > 0
       msg: "Please provide the missing attribute"
 
   - name: Obtain Nodetool status
