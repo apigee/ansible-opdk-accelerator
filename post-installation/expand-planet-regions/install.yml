@@ -19,5 +19,6 @@
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ds-config'] }
   - { role: apigee-opdk-setup-cassandra-registration }
   - { role: apigee-opdk-start-components, tags: ['ds-start', 'start'] }
+  - { role: apigee-opdk-cassandra-rebuild }
   - { role: apigee-opdk-setup-status, tags: ['ds-status', 'status'] }
 
