@@ -235,8 +235,8 @@
     - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
     - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
     - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-setup-cassandra-registration, when: "{{ region_num is version_compare('2', '>') }}"
-    - { role: apigee-opdk-cassandra-rebuild, when: "{{ region_num is version_compare('2', '>') }}" }
+    - { role: apigee-opdk-setup-cassandra-registration, when: region_num > 2 }
+    - { role: apigee-opdk-cassandra-rebuild, when: region_num > 2  }
 
 - name: Restart of Planet
   hosts: ds,ms,rmp,qpid,pg
