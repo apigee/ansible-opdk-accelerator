@@ -177,8 +177,6 @@
   gather_facts: no
   tags: ['pgmaster','edge', 'analytics']
   vars:
-    ansible_workspace: "~/ansible"
-    apigee_workspace: "~/.apigee-workspace"
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
@@ -243,9 +241,14 @@
   serial: 1
   strategy: free
   tags: ['restart', 'start']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
   roles:
-  - apigee-opdk-stop-components
-  - apigee-opdk-start-components
+  - { role: apigee-opdk-modules }
+  - { role: apigee-opdk-stop-components }
+  - { role: apigee-opdk-start-components }
 
 - name: Validate Routers & Message Processors
   hosts: rmp
