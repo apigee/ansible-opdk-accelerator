@@ -73,8 +73,8 @@
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ms-config']  }
   - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'] }
   - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['minimum', 'ms-setup'] }
-  - { role: apigee-opdk-setup-cassandra-registration }
   - { role: apigee-opdk-start-components, tags: ['ms-start', 'start'] }
+  - { role: apigee-opdk-setup-cassandra-registration }
   - { role: apigee-opdk-setup-status, tags: ['ms-status', 'status'] }
 
 - name: Configure & Install Router & Message Processor
