@@ -94,4 +94,5 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-validate-cleanup.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild.git
 
