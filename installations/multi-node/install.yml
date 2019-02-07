@@ -61,6 +61,7 @@
 - name: Configure & Install Management Server
   hosts: ms
   gather_facts: no
+  serial: 1
   tags: ['ms','edge']
   vars:
     property_folders:
