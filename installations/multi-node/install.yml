@@ -248,6 +248,11 @@
 - name: Update for Regions with No Management Server
   hosts: ds
   tags: ['expansion']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
   roles:
+    - { role: apigee-opdk-modules, tags: ['config', 'org-config'] }
     - { role: apigee-opdk-setup-cassandra-registration, when: region_num > 2 }
     - { role: apigee-opdk-cassandra-rebuild, when: region_num > 2  }
