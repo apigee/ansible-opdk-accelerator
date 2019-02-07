@@ -47,6 +47,8 @@
       body:
         uuid: '{{ uuid }}'
         action: 'remove'
+        pod: "{{ pod }}"
+        region: "{{ region }}"
     with_items: "{{ orgs_envs }}"
 
   - name: Deregister server's type
