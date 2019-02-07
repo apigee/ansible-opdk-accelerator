@@ -9,9 +9,9 @@
     - '~/.apigee-secure'
     component_name: "edge-message-processor"
     orgs_envs:
-    - { org_name: "rbc-apigee", env_name: "sb" }
-    - { org_name: "rbc-apigee", env_name: "prod" }
-    - { org_name: "rbc-apigee", env_name: "prod-external" }
+    - { org_name: "rbcapigee", env_name: "sb" }
+    - { org_name: "rbcapigee", env_name: "prod" }
+    - { org_name: "rbcapigee", env_name: "prodexternal" }
     - { org_name: "adventist", env_name: "prod" }
     - { org_name: "adventist", env_name: "dev" }
     - { org_name: "adventist", env_name: "test" }
