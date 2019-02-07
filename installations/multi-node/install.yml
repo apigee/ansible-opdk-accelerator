@@ -75,7 +75,6 @@
   - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'] }
   - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['minimum', 'ms-setup'] }
   - { role: apigee-opdk-start-components, tags: ['ms-start', 'start'] }
-  - { role: apigee-opdk-setup-cassandra-registration }
   - { role: apigee-opdk-setup-status, tags: ['ms-status', 'status'] }
 
 - name: Configure & Install Router & Message Processor
@@ -226,10 +225,6 @@
   serial: 1
   strategy: free
   tags: ['restart', 'start']
-  vars:
-    property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
   roles:
   - apigee-opdk-stop-components
   - apigee-opdk-start-components
@@ -238,10 +233,6 @@
   hosts: rmp
   tags: ['validate']
   serial: 1
-  vars:
-    property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
   roles:
   - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
   - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
@@ -250,11 +241,13 @@
   hosts: r
   tags: ['validate']
   serial: 1
-  vars:
-    property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
   roles:
   - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
   - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
 
+- name: Update for Regions with No Management Server
+  hosts: ds
+  tags: ['expansion']
+  roles:
+    - { role: apigee-opdk-setup-cassandra-registration, when: region_num > 2 }
+    - { role: apigee-opdk-cassandra-rebuild, when: region_num > 2  }
