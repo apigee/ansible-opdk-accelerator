@@ -67,7 +67,7 @@
       become: true
       synchronize:
         src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
-        dest: "{{ HOME | expand_env }}"
+        dest: "{{ HOME | expand_vars }}"
       delegate_to: "{{ target_hosts }}"
       with_items:
           - ".ansible"
