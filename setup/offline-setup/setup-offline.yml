@@ -10,6 +10,10 @@
       - "../../installations/multi-node/requirements.yml"
       - "../../installations/devportal/requirements.yml"
       - "../../installations/mirror/requirements.yml"
+    folder_list_to_archive:
+      - "~/.ansible"
+      - "~/.apigee"
+      - "~/.apigee-secure"
 
   tasks:
     - name: Create Archive folder
@@ -20,12 +24,18 @@
     - name: Download Ansible OPDK Accelerator
       git:
         repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
-        dest: "{{ archive_folder }}"
+        dest: "{{ archive_folder }}/{{ repo_name }}"
         accept_hostkey: yes
 
     - name: Download Roles used by All Playbooks
       command: "ansible-galaxy install -r {{ item }} -f"
       with_items: "{{ playbook_requirements_path }}"
+
+    - name: Synchronize Folder List to Archive
+      synchronize:
+        src: "{{ item }}"
+        dest: "{{ archive_folder }}"
+      with_items: "{{ folder_list_to_archive }}"
 
 #    - name: Create an Ansible OPDK Accelerator Archive
 #
