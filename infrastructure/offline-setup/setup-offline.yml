@@ -76,7 +76,7 @@
       synchronize:
         src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
         dest: "~/{{ item }}"
-        recursive: yes
+        dir: yes
         verify_host: no
         set_remote_user: no
         rsync_opts:
