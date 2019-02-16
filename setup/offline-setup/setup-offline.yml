@@ -43,8 +43,11 @@
         dest: "{{ archive_folder }}"
       with_items: "{{ folder_list_to_archive }}"
 
-#    - name: Create an Ansible OPDK Accelerator Archive
-#
+    - name: Create an Ansible OPDK Accelerator Archive
+      archive:
+        path: "{{ archive_folder }}"
+        format: gz
+
 #    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
 
 
