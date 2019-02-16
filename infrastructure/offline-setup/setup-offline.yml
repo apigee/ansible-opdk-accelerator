@@ -1,6 +1,8 @@
 ---
 - name: Setup Accelerator Offline
   hosts: localhost
+  gather_vars: no
+
   vars:
     # Use this endpoint to clone github.com using HTTPS
     repository_secure_endpoint_https: "https://github.com/carlosfrias"
