@@ -57,10 +57,11 @@
       delegate_to: "{{ target_hosts }}"
 
     - name: Move folder list to User Home on Target Host
+      ignore_errors: true
       command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
       delegate_to: "{{ target_hosts }}"
       with_items:
-#          - ".ansible"
+          - ".ansible"
           - ".apigee"
           - ".apigee-secure"
           - "{{ repo_name }}"
