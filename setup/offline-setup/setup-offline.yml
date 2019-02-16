@@ -1,0 +1,28 @@
+---
+- name: Setup Accelerator Offline
+  hosts: localhost
+  vars:
+    # Use this endpoint to clone github.com using HTTPS
+    repository_secure_endpoint_https: "https://github.com/carlosfrias"
+    repo_name: "ansible-opdk-playbook-setup-ansible"
+    archive_folder: "apigee-opdk-accelerator"
+
+  tasks:
+    - name: Create Archive folder
+      file:
+        path: "{{ archive_folder }}"
+        state: directory
+
+    - name: Download Ansible OPDK Accelerator
+      github:
+        repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
+        dest: "{{ archive_folder }}"
+        accept_hostkey: yes
+
+    - name: Download Roles used by All Playbooks
+
+    - name: Create an Ansible OPDK Accelerator Archive
+
+    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+
+
