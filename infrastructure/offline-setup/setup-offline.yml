@@ -79,6 +79,7 @@
         dirs: yes
         verify_host: no
         set_remote_user: no
+        use_ssh_args: no
         rsync_opts:
           - "--remove-source-files"
       delegate_to: "{{ target_hosts }}"
