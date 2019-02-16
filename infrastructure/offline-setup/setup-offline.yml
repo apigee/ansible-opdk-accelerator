@@ -77,6 +77,7 @@
         src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
         dest: "~/{{ item }}"
         recursive: yes
+        verify_host: no
         rsync_opts:
           - "--remove-source-files"
       delegate_to: "{{ target_hosts }}"
