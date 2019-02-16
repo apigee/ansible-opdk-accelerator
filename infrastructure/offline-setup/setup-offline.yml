@@ -5,7 +5,8 @@
     # Use this endpoint to clone github.com using HTTPS
     repository_secure_endpoint_https: "https://github.com/carlosfrias"
     repo_name: "apigee-opdk-playbook-setup-ansible"
-    archive_folder: "{{ playbook_dir }}/apigee-opdk-accelerator"
+    archive_target_folder_name: apigee-opdk-accelerator
+    archive_folder: "{{ playbook_dir }}/{{ archive_target_folder_name }}"
     playbook_requirements_path:
       - "../../installations/multi-node/requirements.yml"
       - "../../installations/devportal/requirements.yml"
@@ -62,6 +63,26 @@
         dest: "/tmp"
         src: "{{ archive_folder }}.tar.gz"
       delegate_to: "{{ target_hosts }}"
+
+    - name: Verify that rsync is installed on Target Host
+      become: true
+      package:
+        name: "rsync"
+        state: present
+      delegate_to: "{{ target_hosts }}"
+
+    - name: Move folder list to User Home on Target Host
+      synchronize:
+        src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
+        dest: "~/{{ item }}"
+        recursive: yes
+        rsync_opts:
+          - "--remove-source-files"
+      delegate_to: "{{ target_hosts }}"
+      with_items:
+          - ".ansible"
+          - ".apigee"
+          - ".apigee-secure"
 
 
 
