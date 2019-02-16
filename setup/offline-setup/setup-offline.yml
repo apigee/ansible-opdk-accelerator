@@ -45,6 +45,7 @@
 
     - name: Create an Ansible OPDK Accelerator Archive
       archive:
+        dest: "{{ archive_folder }}.tar.gz"
         path: "{{ archive_folder }}"
         format: gz
 
