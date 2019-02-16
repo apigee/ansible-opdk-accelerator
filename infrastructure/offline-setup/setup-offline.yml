@@ -63,7 +63,6 @@
           - ".ansible"
           - ".apigee"
           - ".apigee-secure"
-          - "{{ repo_name }}"
 
 #    - name: Obtain list of files to move to User Home on Target Hosts
 #      find:
