@@ -14,7 +14,7 @@
         state: directory
 
     - name: Download Ansible OPDK Accelerator
-      github:
+      git:
         repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
         dest: "{{ archive_folder }}"
         accept_hostkey: yes
