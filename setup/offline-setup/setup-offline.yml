@@ -6,6 +6,10 @@
     repository_secure_endpoint_https: "https://github.com/carlosfrias"
     repo_name: "apigee-opdk-playbook-setup-ansible"
     archive_folder: "{{ playbook_dir }}/apigee-opdk-accelerator"
+    playbook_requirements_path:
+      - "../../installations/multi-node/requirements.yml"
+      - "../../installations/devportal/requirements.yml"
+      - "../../installations/mirror/requirements.yml"
 
   tasks:
     - name: Create Archive folder
@@ -19,8 +23,10 @@
         dest: "{{ archive_folder }}"
         accept_hostkey: yes
 
-#    - name: Download Roles used by All Playbooks
-#
+    - name: Download Roles used by All Playbooks
+      command: "ansible-galaxy install -r {{ item }} -f"
+      with_items: "{{ playbook_requirements_path }}"
+
 #    - name: Create an Ansible OPDK Accelerator Archive
 #
 #    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
