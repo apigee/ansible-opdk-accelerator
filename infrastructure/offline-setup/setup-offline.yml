@@ -11,11 +11,12 @@
       - "../../installations/multi-node/requirements.yml"
       - "../../installations/devportal/requirements.yml"
       - "../../installations/mirror/requirements.yml"
+    local_apigee_path: ~/.apigee
+    local_apigee_secure_path: ~/.apigee-secure
     folder_list_to_archive:
       - "~/.ansible"
-      - "~/.apigee"
-      - "~/.apigee-secure"
-    local_apigee_path: ~/.apigee
+      - "{{ local_apigee_path }}"
+      - "{{ local_apigee_secure_path}}"
 
   tasks:
     - name: Create Archive folder
@@ -53,7 +54,7 @@
     - name: Create an Ansible OPDK Accelerator Archive
       tags: ['create']
       archive:
-        dest: "{{ local_apigee_path }}/{{ archive_folder }}.tar.gz"
+        dest: "{{ archive_folder }}.tar.gz"
         path: "{{ archive_folder }}"
         format: gz
 
@@ -61,7 +62,7 @@
       tags: ['upload']
       unarchive:
         dest: "/tmp"
-        src: "{{ local_apigee_path }}/{{ archive_folder }}.tar.gz"
+        src: "{{ archive_folder }}.tar.gz"
       delegate_to: "{{ target_hosts }}"
 
     - name: Verify that rsync is installed
