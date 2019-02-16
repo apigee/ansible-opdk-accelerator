@@ -78,6 +78,7 @@
         dest: "~/{{ item }}"
         recursive: yes
         verify_host: no
+        set_remote_user: no
         rsync_opts:
           - "--remove-source-files"
       delegate_to: "{{ target_hosts }}"
