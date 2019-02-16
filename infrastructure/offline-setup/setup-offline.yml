@@ -50,13 +50,6 @@
         path: "{{ archive_folder }}"
         format: gz
 
-    - name: Verify that gtar is installed on Target Host
-      become: true
-      package:
-        name: gtar
-        state: present
-      delegate_to: "{{ target_hosts }}"
-
     - name: Transfer Ansible OPDK Accelerator Archive to Target Host
       become: true
       unarchive:
@@ -65,7 +58,6 @@
       delegate_to: "{{ target_hosts }}"
 
     - name: Move folder list to User Home on Target Host
-      become: true
       command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
       delegate_to: "{{ target_hosts }}"
       with_items:
