@@ -56,9 +56,17 @@
         src: "{{ archive_folder }}.tar.gz"
       delegate_to: "{{ target_hosts }}"
 
+    - name: Verify that rsync is installed
+      become: true
+      delegate_to: "{{ target_hosts }}"
+      package:
+        name: "rsync"
+        state: present
+
     - name: Move folder list to User Home on Target Host
       ignore_errors: true
-      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
+#      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
+      command: "rsync -avzh /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
       delegate_to: "{{ target_hosts }}"
       with_items:
           - ".ansible"
