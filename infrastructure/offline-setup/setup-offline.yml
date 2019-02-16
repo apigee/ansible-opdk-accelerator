@@ -19,73 +19,69 @@
       - "{{ local_apigee_secure_path}}"
 
   tasks:
-    - name: Create Archive folder
-      tags: ['create']
-      file:
-        path: "{{ archive_folder }}"
-        state: directory
+    - block:
 
-    - name: Download Ansible OPDK Accelerator
-      tags: ['create']
-      git:
-        repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
-        dest: "{{ archive_folder }}/{{ repo_name }}"
-        accept_hostkey: yes
+      - name: Create Archive folder
+        file:
+          path: "{{ archive_folder }}"
+          state: directory
 
-    - name: Download Roles used by All Playbooks
-      tags: ['create']
-      command: "ansible-galaxy install -r {{ item }} -f"
-      with_items: "{{ playbook_requirements_path }}"
+      - name: Download Ansible OPDK Accelerator
+        git:
+          repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
+          dest: "{{ archive_folder }}/{{ repo_name }}"
+          accept_hostkey: yes
 
-    - name: Verify that rsync is installed
-      tags: ['create']
-      become: true
-      package:
-        name: "rsync"
-        state: present
+      - name: Download Roles used by All Playbooks
+        command: "ansible-galaxy install -r {{ item }} -f"
+        with_items: "{{ playbook_requirements_path }}"
 
-    - name: Synchronize Folder List to Archive
-      tags: ['create']
-      synchronize:
-        src: "{{ item }}"
-        dest: "{{ archive_folder }}"
-      with_items: "{{ folder_list_to_archive }}"
+      - name: Verify that rsync is installed
+        become: true
+        package:
+          name: "rsync"
+          state: present
 
-    - name: Create an Ansible OPDK Accelerator Archive
-      tags: ['create']
-      archive:
-        dest: "{{ archive_folder }}.tar.gz"
-        path: "{{ archive_folder }}"
-        format: gz
+      - name: Synchronize Folder List to Archive
+        synchronize:
+          src: "{{ item }}"
+          dest: "{{ archive_folder }}"
+        with_items: "{{ folder_list_to_archive }}"
 
-    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+      - name: Create an Ansible OPDK Accelerator Archive
+        archive:
+          dest: "{{ archive_folder }}.tar.gz"
+          path: "{{ archive_folder }}"
+          format: gz
+
+      tags: ['create']
+
+    - block:
+
+      - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+        unarchive:
+          dest: "/tmp"
+          src: "{{ archive_folder }}.tar.gz"
+
+      - name: Verify that rsync is installed
+        become: true
+        package:
+          name: "rsync"
+          state: present
+
+      - name: Synchronize folder list to User Home on Target Host
+        command: "rsync -avzh --remove-source-files --partial /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
+        with_items:
+            - ".ansible"
+            - ".apigee"
+            - ".apigee-secure"
+            - "{{ repo_name }}"
+
+      - name: Remove Synchronization folder Target Host
+        file:
+          path: "/tmp/{{ archive_target_folder_name }}"
+          state: absent
+
       tags: ['upload']
-      unarchive:
-        dest: "/tmp"
-        src: "{{ archive_folder }}.tar.gz"
       delegate_to: "{{ target_hosts }}"
 
-    - name: Verify that rsync is installed
-      tags: ['upload']
-      become: true
-      delegate_to: "{{ target_hosts }}"
-      package:
-        name: "rsync"
-        state: present
-
-    - name: Synchronize folder list to User Home on Target Host
-      tags: ['upload']
-      command: "rsync -avzh --remove-source-files --partial /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
-      delegate_to: "{{ target_hosts }}"
-      with_items:
-          - ".ansible"
-          - ".apigee"
-          - ".apigee-secure"
-          - "{{ repo_name }}"
-
-    - name: Remove Synchronization folder Target Host
-      tags: ['upload']
-      file:
-        path: "/tmp/{{ archive_target_folder_name }}"
-        state: absent
-      delegate_to: "{{ target_hosts }}"
