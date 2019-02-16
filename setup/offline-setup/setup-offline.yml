@@ -31,6 +31,12 @@
       command: "ansible-galaxy install -r {{ item }} -f"
       with_items: "{{ playbook_requirements_path }}"
 
+    - name: Verify that rsync is installed
+      become: true
+      package:
+        name: "rsync"
+        state: present
+
     - name: Synchronize Folder List to Archive
       synchronize:
         src: "{{ item }}"
