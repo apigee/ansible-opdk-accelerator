@@ -19,10 +19,10 @@
         dest: "{{ archive_folder }}"
         accept_hostkey: yes
 
-    - name: Download Roles used by All Playbooks
-
-    - name: Create an Ansible OPDK Accelerator Archive
-
-    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+#    - name: Download Roles used by All Playbooks
+#
+#    - name: Create an Ansible OPDK Accelerator Archive
+#
+#    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
 
 
