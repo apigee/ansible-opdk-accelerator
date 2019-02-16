@@ -19,45 +19,53 @@
 
   tasks:
     - name: Create Archive folder
+      tags: ['create']
       file:
         path: "{{ archive_folder }}"
         state: directory
 
     - name: Download Ansible OPDK Accelerator
+      tags: ['create']
       git:
         repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
         dest: "{{ archive_folder }}/{{ repo_name }}"
         accept_hostkey: yes
 
     - name: Download Roles used by All Playbooks
+      tags: ['create']
       command: "ansible-galaxy install -r {{ item }} -f"
       with_items: "{{ playbook_requirements_path }}"
 
     - name: Verify that rsync is installed
+      tags: ['create']
       become: true
       package:
         name: "rsync"
         state: present
 
     - name: Synchronize Folder List to Archive
+      tags: ['create']
       synchronize:
         src: "{{ item }}"
         dest: "{{ archive_folder }}"
       with_items: "{{ folder_list_to_archive }}"
 
     - name: Create an Ansible OPDK Accelerator Archive
+      tags: ['create']
       archive:
         dest: "{{ local_apigee_path }}/{{ archive_folder }}.tar.gz"
         path: "{{ archive_folder }}"
         format: gz
 
     - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+      tags: ['upload']
       unarchive:
         dest: "/tmp"
         src: "{{ local_apigee_path }}/{{ archive_folder }}.tar.gz"
       delegate_to: "{{ target_hosts }}"
 
     - name: Verify that rsync is installed
+      tags: ['upload']
       become: true
       delegate_to: "{{ target_hosts }}"
       package:
@@ -65,6 +73,7 @@
         state: present
 
     - name: Synchronize folder list to User Home on Target Host
+      tags: ['upload']
       command: "rsync -avzh --remove-source-files --partial /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
       delegate_to: "{{ target_hosts }}"
       with_items:
@@ -74,6 +83,7 @@
           - "{{ repo_name }}"
 
     - name: Remove Synchronization folder Target Host
+      tags: ['upload']
       file:
         path: "/tmp/{{ archive_target_folder_name }}"
         state: absent
