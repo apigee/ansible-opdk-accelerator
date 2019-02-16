@@ -64,7 +64,7 @@
         state: present
 
     - name: Synchronize folder list to User Home on Target Host
-      ignore_errors: true
+      become: true
       synchronize:
         src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
         dest: "file://"
