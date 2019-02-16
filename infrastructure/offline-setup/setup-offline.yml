@@ -72,6 +72,7 @@
       delegate_to: "{{ target_hosts }}"
 
     - name: Move folder list to User Home on Target Host
+      become: true
       synchronize:
         src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
         dest: "~/{{ item }}"
