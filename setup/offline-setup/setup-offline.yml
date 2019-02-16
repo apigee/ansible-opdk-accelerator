@@ -49,6 +49,19 @@
         path: "{{ archive_folder }}"
         format: gz
 
-#    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+    - name: Verify that gtar is installed on Target Host
+      become: true
+      package:
+        name: gtar
+        state: present
+      delegate_to: "{{ target_hosts }}"
+
+    - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+      become: true
+      unarchive:
+        dest: "/tmp"
+        src: "{{ archive_folder }}.tar.gz"
+      delegate_to: "{{ target_hosts }}"
+
 
 
