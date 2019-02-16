@@ -63,16 +63,28 @@
         name: "rsync"
         state: present
 
-    - name: Move folder list to User Home on Target Host
+    - name: Synchronize folder list to User Home on Target Host
       ignore_errors: true
-#      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
-      command: "rsync -avzh /tmp/{{ archive_target_folder_name }}/{{ item }} {{ ~ | expand_user ||"
+      synchronize:
+        src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
+        dest: "{{ ~ | expand_user }}"
       delegate_to: "{{ target_hosts }}"
       with_items:
           - ".ansible"
           - ".apigee"
           - ".apigee-secure"
           - "{{ repo_name }}"
+
+#    - name: Synchronize folder list to User Home on Target Host
+#      ignore_errors: true
+##      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
+#      command: "rsync -avzh /tmp/{{ archive_target_folder_name }}/{{ item }} {{ ~ | expand_user }}"
+#      delegate_to: "{{ target_hosts }}"
+#      with_items:
+#          - ".ansible"
+#          - ".apigee"
+#          - ".apigee-secure"
+#          - "{{ repo_name }}"
 
 #    - name: Obtain list of files to move to User Home on Target Hosts
 #      find:
