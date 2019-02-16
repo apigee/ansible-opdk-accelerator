@@ -73,10 +73,7 @@
 
     - name: Move folder list to User Home on Target Host
       become: true
-      copy:
-        src: "/tmp/{{ archive_target_folder_name }}/{{ item }}"
-        dest: "~/{{ item }}"
-        remote_src: yes
+      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
       delegate_to: "{{ target_hosts }}"
       with_items:
           - ".ansible"
