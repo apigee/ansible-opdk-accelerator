@@ -64,35 +64,36 @@
         src: "{{ archive_folder }}.tar.gz"
       delegate_to: "{{ target_hosts }}"
 
-#    - name: Move folder list to User Home on Target Host
-#      become: true
-#      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
-#      delegate_to: "{{ target_hosts }}"
-#      with_items:
-#          - ".ansible"
-#          - ".apigee"
-#          - ".apigee-secure"
-
-    - name: Obtain list of files to move to User Home on Target Hosts
-      find:
-        path: '/tmp/{{ archive_target_folder_name }}/{{ item }}'
-        pattern: '*'
-        file_type: file
-        hidden: yes
-        recurse: yes
+    - name: Move folder list to User Home on Target Host
+      become: true
+      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
       delegate_to: "{{ target_hosts }}"
       with_items:
-        - ".ansible"
-        - ".apigee"
-        - ".apigee-secure"
-      register: downloads
+          - ".ansible"
+          - ".apigee"
+          - ".apigee-secure"
 
-    - name: Download files
-      copy:
-        src: "{{ item.1.path }}"
-        dest: "~"
-        remote_src: yes
-      with_subelements:
-        - "{{ downloads.results }}"
-        - files
+#    - name: Obtain list of files to move to User Home on Target Hosts
+#      find:
+#        path: '/tmp/{{ archive_target_folder_name }}/{{ item }}'
+#        pattern: '*'
+#        file_type: file
+#        hidden: yes
+#        recurse: yes
+#      delegate_to: "{{ target_hosts }}"
+#      with_items:
+#        - ".ansible"
+#        - ".apigee"
+#        - ".apigee-secure"
+#      register: downloads
+#
+#    - name: Download files
+#      become: true
+#      copy:
+#        src: "{{ item.1.path }}"
+#        dest: "~"
+#        remote_src: yes
+#      with_subelements:
+#        - "{{ downloads.results }}"
+#        - files
 
