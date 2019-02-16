@@ -15,6 +15,7 @@
       - "~/.ansible"
       - "~/.apigee"
       - "~/.apigee-secure"
+    local_apigee_path: ~/.apigee
 
   tasks:
     - name: Create Archive folder
@@ -46,14 +47,14 @@
 
     - name: Create an Ansible OPDK Accelerator Archive
       archive:
-        dest: "{{ archive_folder }}.tar.gz"
+        dest: "{{ local_apigee_path }}/{{ archive_folder }}.tar.gz"
         path: "{{ archive_folder }}"
         format: gz
 
     - name: Transfer Ansible OPDK Accelerator Archive to Target Host
       unarchive:
         dest: "/tmp"
-        src: "{{ archive_folder }}.tar.gz"
+        src: "{{ local_apigee_path }}/{{ archive_folder }}.tar.gz"
       delegate_to: "{{ target_hosts }}"
 
     - name: Verify that rsync is installed
