@@ -72,3 +72,8 @@
           - ".apigee-secure"
           - "{{ repo_name }}"
 
+    - name: Remove Synchronization folder Target Host
+      file:
+        path: "/tmp/{{ archive_target_folder_name }}"
+        state: absent
+      delegate_to: "{{ target_hosts }}"
