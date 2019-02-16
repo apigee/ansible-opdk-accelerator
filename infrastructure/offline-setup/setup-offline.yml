@@ -66,7 +66,7 @@
     - name: Move folder list to User Home on Target Host
       ignore_errors: true
 #      command: "mv /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
-      command: "rsync -avzh /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
+      command: "rsync -avzh /tmp/{{ archive_target_folder_name }}/{{ item }} {{ ~ | expand_user ||"
       delegate_to: "{{ target_hosts }}"
       with_items:
           - ".ansible"
