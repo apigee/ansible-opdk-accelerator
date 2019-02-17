@@ -1,6 +1,7 @@
 ---
 - name: Configure SSH for a remote user
   hosts: '{{ target_hosts }}'
+  gather_facts: no
 
   vars:
     pubkey: '~/.ssh/id_rsa.pub'
