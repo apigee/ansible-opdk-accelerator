@@ -45,6 +45,14 @@
           name: "rsync"
           state: present
 
+      - name: Uncomment apigee_archive_file_name attribute
+        lineinfile:
+          path: "{{ local_apigee_path }}/custom-properties.yml"
+          regexp: '#apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
+          line: 'apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
+          backup: yes
+          state: present
+
       - name: Synchronize Folder List to Archive
         synchronize:
           src: "{{ item }}"
