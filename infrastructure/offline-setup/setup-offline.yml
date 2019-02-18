@@ -11,6 +11,7 @@
     archive_folder: "{{ playbook_dir }}/{{ archive_target_folder_name }}"
     playbook_requirements_path:
       - "../../installations/multi-node/requirements.yml"
+      - "../../installations/aio/requirements.yml"
       - "../../installations/devportal/requirements.yml"
       - "../../installations/mirror/requirements.yml"
       - "../../post-installations/validations/analytics/requirements.yml"
@@ -39,18 +40,18 @@
         command: "ansible-galaxy install -r {{ item }} -f"
         with_items: "{{ playbook_requirements_path }}"
 
-      - name: Verify that rsync is installed
-        become: true
-        package:
-          name: "rsync"
-          state: present
-
       - name: Uncomment apigee_archive_file_name attribute
         lineinfile:
           path: "{{ local_apigee_path }}/custom-properties.yml"
           regexp: '#apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
           line: 'apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
           backup: yes
+          state: present
+
+      - name: Verify that rsync is installed
+        become: true
+        package:
+          name: "rsync"
           state: present
 
       - name: Synchronize Folder List to Archive
