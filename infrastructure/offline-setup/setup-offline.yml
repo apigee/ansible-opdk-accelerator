@@ -21,6 +21,11 @@
       - "~/.ansible"
       - "{{ local_apigee_path }}"
       - "{{ local_apigee_secure_path}}"
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
 
   tasks:
     - block:
