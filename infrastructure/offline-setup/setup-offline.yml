@@ -14,7 +14,7 @@
       - "../../installations/aio/requirements.yml"
       - "../../installations/devportal/requirements.yml"
       - "../../installations/mirror/requirements.yml"
-      - "../../post-installations/validations/analytics/requirements.yml"
+      - "../../post-installation/validations/analytics/requirements.yml"
     local_apigee_path: ~/.apigee
     local_apigee_secure_path: ~/.apigee-secure
     folder_list_to_archive:

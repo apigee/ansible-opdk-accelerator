@@ -13,7 +13,7 @@ Playbook and usage instructions and information is available at
 
 ### Configure SSH User Logins
 Playbook and usage instructions and information is available at 
-[configure-ssh-login](../configure-ssh-login/README.md). `root` user configuration option is provided.
+[configure-ssh-login](../../infrastructure/configure-ssh-login/README.md). `root` user configuration option is provided.
 
 <!-- BEGIN Google How To Contribute -->
 # How to Contribute

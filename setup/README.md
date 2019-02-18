@@ -25,13 +25,13 @@ started.
 ### Configure SSH Access for your Nodes
 A helper playbook is provided for the common task of configuring SSH access to enable the use of 
 SSH keys for greater security. Please see 
-[Configure SSH Login ](configure-ssh-login) 
+[Configure SSH Login ](../infrastructure/configure-ssh-login) 
 for details. 
 
 ### Backup an Ansible Control Server
 A helper playbook is provided for the common task of backing up the configurations managed by the 
 Ansible control to another file system location. Please see 
-[Ansible Control Server Backup](backup-ansible-controller) for details.
+[Ansible Control Server Backup](../infrastructure/backup-ansible-controller) for details.
 
 # Usage Instructions
 
