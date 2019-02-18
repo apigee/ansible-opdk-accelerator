@@ -137,7 +137,7 @@
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
-  strategy: free
+  serial: 1
   tags: ['qpid','edge']
   vars:
     ansible_workspace: "~/ansible"
