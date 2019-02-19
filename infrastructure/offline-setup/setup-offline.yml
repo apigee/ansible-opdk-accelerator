@@ -59,7 +59,7 @@
   property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
-      - "{{ playbook_dir }}"
+    - "{{ playbook_dir }}"
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
   tasks:
