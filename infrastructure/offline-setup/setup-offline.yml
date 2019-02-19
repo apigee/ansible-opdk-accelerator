@@ -28,10 +28,10 @@
     with_items: "{{ playbook_requirements_path }}"
 
   - name: Uncomment apigee_archive_file_name attribute
-    lineinfile:
+    replace:
       path: "{{ local_apigee_path }}/custom-properties.yml"
-      regexp: '#apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
-      line: 'apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
+      regexp: '#(apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz)"'
+      replace: '\1'
       backup: yes
       state: present
 
