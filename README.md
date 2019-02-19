@@ -1,7 +1,15 @@
 # Apigee OPDK Ansible Configuration Accelerator
 
 ## Introduction
-This repository contains a set of Ansible roles and playbooks to manage the installation, configuration and maintenance of Private Cloud across multiple environments regardless of the size of those environments. These playbooks will ensure that Apigee requirements are met regarding the configuration of the operating system, the bootstrap configuration and the installation of components. The operating system prerequisites are managed with the option to defer management of specific items. The bootstrap configuration is managed whether you do an online installation or exercise one of the two offline installation options. Component installation is managed so that all configuration files are generated to the topology indicated and role of the individual node. These playbooks create a central location from where to manage Private Cloud installations.
+This repository contains a set of Ansible roles and playbooks to manage the installation, 
+configuration and maintenance of Private Cloud across multiple environments. These playbooks 
+will ensure that Apigee requirements are met regarding the 
+configuration of the operating system, the bootstrap configuration and the installation of 
+components. The operating system prerequisites are managed with the option to defer management of 
+specific items. The bootstrap configuration is managed whether you do an online installation or 
+exercise one of the two offline installation options. Component installation is managed so that all 
+configuration files are generated to the topology indicated and role of the individual node. These 
+playbooks create a central location from where to manage Private Cloud installations.
 
 ## Assumptions 
 * This repository assumes that no Apigee Operating System requirements have been fulfilled beyond the 

@@ -1,5 +1,5 @@
 ---
-- name: Setup Accelerator Offline
+- name: Setup Apigee OPDK Accelerator Offline
   hosts: localhost
   gather_facts: no
 
