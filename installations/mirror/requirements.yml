@@ -1,45 +1,45 @@
 ---
-- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user
+- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-os-common
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-common.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-os-epel
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-epel.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-os-openldap
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-openldap.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-os-limits
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-limits.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-os-minimum
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-minimum.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-default-settings
+- src: https://github.com/carlosfrias/apigee-opdk-setup-default-settings.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-time-sync
+- src: https://github.com/carlosfrias/apigee-opdk-time-sync.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk
+- src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-license
+- src: https://github.com/carlosfrias/apigee-opdk-setup-license.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-create-archive
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-create-archive.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-download-archive
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-download-archive.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-upload-archive
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-upload-archive.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-component
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-set-reachable
+- src: https://github.com/carlosfrias/apigee-opdk-set-reachable.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-component-installer
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component-installer.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-selinux-disable
+- src: https://github.com/carlosfrias/apigee-opdk-setup-selinux-disable.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-shutdown-iptables
+- src: https://github.com/carlosfrias/apigee-opdk-shutdown-iptables.git
 
-- src: https://github.com/carlosfrias/apigee-fetch-files
+- src: https://github.com/carlosfrias/apigee-fetch-files.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-config.git
 
@@ -49,17 +49,17 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-os-postgres.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-status
+- src: https://github.com/carlosfrias/apigee-opdk-setup-status.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-rollback
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-rollback.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-start-components
+- src: https://github.com/carlosfrias/apigee-opdk-start-components.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-stop-components
+- src: https://github.com/carlosfrias/apigee-opdk-stop-components.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-backup.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-restore
+- src: https://github.com/carlosfrias/apigee-opdk-restore.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-server-self.git
 
