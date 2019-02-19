@@ -3,11 +3,12 @@
   hosts: localhost
   gather_facts: no
   tags: ['create']
+  vars_files:
+    - setup-offline-attributes.yml
   vars:
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
-      - "{{ playbook_dir }}"
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
   tasks:
@@ -56,11 +57,12 @@
   hosts: "{{ target_offline_hosts }}"
   tags: ['upload']
   gather_facts: no
+  vars_files:
+    - setup-offline-attributes.yml
   vars:
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
-      - "{{ playbook_dir }}"
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
   tasks:
