@@ -2,103 +2,87 @@
 - name: Setup Apigee OPDK Accelerator Offline
   hosts: localhost
   gather_facts: no
-
+  tags: ['create']
   vars:
-    # Use this endpoint to clone github.com using HTTPS
-    repository_secure_endpoint_https: "https://github.com/carlosfrias"
-    repo_name: "apigee-opdk-playbook-setup-ansible"
-    archive_target_folder_name: apigee-opdk-accelerator
-    archive_folder: "{{ playbook_dir }}/{{ archive_target_folder_name }}"
-    playbook_requirements_path:
-      - "../../installations/multi-node/requirements.yml"
-      - "../../installations/aio/requirements.yml"
-      - "../../installations/devportal/requirements.yml"
-      - "../../installations/mirror/requirements.yml"
-      - "../../post-installation/validations/analytics/requirements.yml"
-    local_apigee_path: ~/.apigee
-    local_apigee_secure_path: ~/.apigee-secure
-    folder_list_to_archive:
-      - "~/.ansible"
-      - "{{ local_apigee_path }}"
-      - "{{ local_apigee_secure_path}}"
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
+      - "{{ playbook_dir }}"
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
-
   tasks:
-    - block:
+  - name: Create Archive folder
+    file:
+      path: "{{ archive_folder }}"
+      state: directory
 
-      - name: Create Archive folder
-        file:
-          path: "{{ archive_folder }}"
-          state: directory
+  - name: Download Ansible OPDK Accelerator
+    git:
+      repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
+      dest: "{{ archive_folder }}/{{ repo_name }}"
+      accept_hostkey: yes
 
-      - name: Download Ansible OPDK Accelerator
-        git:
-          repo: "{{ repository_secure_endpoint_https }}/{{ repo_name }}"
-          dest: "{{ archive_folder }}/{{ repo_name }}"
-          accept_hostkey: yes
+  - name: Download Roles used by All Playbooks
+    command: "ansible-galaxy install -r {{ item }} -f"
+    with_items: "{{ playbook_requirements_path }}"
 
-      - name: Download Roles used by All Playbooks
-        command: "ansible-galaxy install -r {{ item }} -f"
-        with_items: "{{ playbook_requirements_path }}"
+  - name: Uncomment apigee_archive_file_name attribute
+    lineinfile:
+      path: "{{ local_apigee_path }}/custom-properties.yml"
+      regexp: '#apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
+      line: 'apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
+      backup: yes
+      state: present
 
-      - name: Uncomment apigee_archive_file_name attribute
-        lineinfile:
-          path: "{{ local_apigee_path }}/custom-properties.yml"
-          regexp: '#apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
-          line: 'apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz"'
-          backup: yes
-          state: present
+  - name: Verify that rsync is installed
+    become: true
+    package:
+      name: "rsync"
+      state: present
 
-      - name: Verify that rsync is installed
-        become: true
-        package:
-          name: "rsync"
-          state: present
+  - name: Synchronize Folder List to Archive
+    synchronize:
+      src: "{{ item }}"
+      dest: "{{ archive_folder }}"
+    with_items: "{{ folder_list_to_archive }}"
 
-      - name: Synchronize Folder List to Archive
-        synchronize:
-          src: "{{ item }}"
-          dest: "{{ archive_folder }}"
-        with_items: "{{ folder_list_to_archive }}"
+  - name: Create an Ansible OPDK Accelerator Archive
+    archive:
+      dest: "{{ archive_folder }}.tar.gz"
+      path: "{{ archive_folder }}"
+      format: gz
 
-      - name: Create an Ansible OPDK Accelerator Archive
-        archive:
-          dest: "{{ archive_folder }}.tar.gz"
-          path: "{{ archive_folder }}"
-          format: gz
+- name: Upload Ansible OPDK Accelerator Archive
+  hosts: "{{ target_offline_hosts }}"
+  tags: ['upload']
+  gather_facts: no
+  property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+      - "{{ playbook_dir }}"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
+  tasks:
+  - name: Transfer Ansible OPDK Accelerator Archive to Target Host
+    unarchive:
+      dest: "/tmp"
+      src: "{{ archive_folder }}.tar.gz"
 
-      tags: ['create']
+  - name: Verify that rsync is installed
+    become: true
+    package:
+      name: "rsync"
+      state: present
 
-    - block:
+  - name: Synchronize folder list to User Home on Target Host
+    command: "rsync -avzh --remove-source-files --partial /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
+    with_items:
+        - ".ansible"
+        - ".apigee"
+        - ".apigee-secure"
+        - "{{ repo_name }}"
 
-      - name: Transfer Ansible OPDK Accelerator Archive to Target Host
-        unarchive:
-          dest: "/tmp"
-          src: "{{ archive_folder }}.tar.gz"
-
-      - name: Verify that rsync is installed
-        become: true
-        package:
-          name: "rsync"
-          state: present
-
-      - name: Synchronize folder list to User Home on Target Host
-        command: "rsync -avzh --remove-source-files --partial /tmp/{{ archive_target_folder_name }}/{{ item }} ~"
-        with_items:
-            - ".ansible"
-            - ".apigee"
-            - ".apigee-secure"
-            - "{{ repo_name }}"
-
-      - name: Remove Synchronization folder Target Host
-        file:
-          path: "/tmp/{{ archive_target_folder_name }}"
-          state: absent
-
-      tags: ['upload']
-      delegate_to: "{{ target_hosts }}"
-
+  - name: Remove Synchronization folder Target Host
+    file:
+      path: "/tmp/{{ archive_target_folder_name }}"
+      state: absent
