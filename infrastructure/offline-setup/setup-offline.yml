@@ -33,7 +33,6 @@
       regexp: '#(apigee_archive_file_name: "apigee-{{ opdk_version }}.tar.gz)"'
       replace: '\1'
       backup: yes
-      state: present
 
   - name: Verify that rsync is installed
     become: true
