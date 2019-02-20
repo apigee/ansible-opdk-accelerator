@@ -14,7 +14,7 @@
   tasks:
     - name: Enable teams on org
       uri:
-        url: http://{{ local_mgmt_ip }}:{{ ms_port }}/organizations/{{ org_name }}
+        url: http://{{ local_mgmt_ip }}:{{ ms_port }}/o/{{ org_name }}
         method: POST
         username: "{{ opdk_user_email }}"
         password: "{{ opdk_user_pass }}"
@@ -22,7 +22,7 @@
         body:
           name: "{{ org_name }}"
           properties:
-            property:
-              name: features.isTeamsEnabled
-              value: true
+            - property:
+                name: features.isTeamsEnabled
+                value: true
 
