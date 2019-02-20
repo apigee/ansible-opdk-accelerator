@@ -4,3 +4,5 @@
 - src: https://github.com/carlosfrias/apigee-opdk-stop-components.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-cwc-update.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-modules.git
