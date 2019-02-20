@@ -4,7 +4,7 @@
   gather_facts: no
   vars:
     cwc_properties:
-      - { key: "conf_security_ldap.enable.teams" value: "true", file_name: "management-server" }
+      - { key: "conf_security_ldap.enable.teams", value: "true", file_name: "management-server" }
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
