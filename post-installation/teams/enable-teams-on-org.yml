@@ -23,7 +23,7 @@
         body:
           name: "{{ org_name }}"
           properties:
-            - property:
-                name: features.isTeamsEnabled
-                value: true
+            property:
+            - name: features.isTeamsEnabled
+              value: true
 
