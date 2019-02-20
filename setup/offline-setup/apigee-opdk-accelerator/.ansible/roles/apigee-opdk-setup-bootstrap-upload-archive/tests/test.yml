@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  remote_user: root
+#  roles:
+#    - apigee-opdk-setup-local-repository-archive
+
+  tasks:
+  - name: Update to include tty temporarily
+#    become: yes
+    lineinfile:
+      path: formatted-lines.txt
+      backrefs: yes
+      backup: yes
+      regexp: "^(Defaults)(.*)(requiretty)"
+      line: '\1\2!\3'
+      state: present
+#      validate: '/usr/sbin/visudo -cf %s'

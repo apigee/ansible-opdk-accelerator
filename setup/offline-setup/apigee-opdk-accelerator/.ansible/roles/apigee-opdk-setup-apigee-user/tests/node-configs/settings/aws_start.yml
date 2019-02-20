@@ -1,0 +1,10 @@
+---
+- include: ../../facts.yml
+
+- hosts: planet
+  connection: local
+  gather_facts: false
+  strategy: free
+  roles:
+  - aws-start
+

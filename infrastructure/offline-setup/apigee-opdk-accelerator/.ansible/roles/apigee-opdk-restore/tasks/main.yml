@@ -1,0 +1,7 @@
+---
+# tasks file for apigee-opdk-backup
+- include: restore-non-postgres-component.yml
+  when: component_name != 'apigee-postgresql'
+
+- include: restore-postgres-component.yml
+  when: component_name == 'apigee-postgresql'

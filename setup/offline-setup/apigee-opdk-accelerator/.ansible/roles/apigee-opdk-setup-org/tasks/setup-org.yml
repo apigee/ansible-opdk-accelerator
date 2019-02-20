@@ -1,0 +1,22 @@
+---
+- name: Set local attributes
+  set_fact:
+    org_name: "{{ tenant.org }}"
+    env_name: "{{ tenant.env }}"
+    new_user: "{{ tenant.new_user }}"
+
+- name: Create provisioning file
+  tags: ['org-config']
+  include_role:
+    name: apigee-opdk-setup-org-config
+
+- name: Apigee organization setup with proxy
+  shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-provision setup-org -f {{ onboarding_config_file_path }}'
+  environment:
+    no_proxy: "{{ no_proxy | default('') }}"
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+
+- name: Make sure that analytics scope is set
+  import_role:
+    name: apigee-opdk-setup-scopes-add

@@ -1,0 +1,26 @@
+---
+# tasks file for apigee-opdk-setup-local-repository
+#- name: Update cache with key and value
+#  set_fact:
+#    cacheable: yes
+#    apigee_archive_file_name: '{{ apigee_archive_file_name }}'
+#    apigeerepobasepath: '{{ apigeerepobasepath }}'
+
+- name: Install rsync if its missing
+  become: yes
+  yum:
+    name: rsync
+    state: present
+
+- name: Download with rsync
+  become: no
+  synchronize:
+    mode: pull
+    partial: yes
+    src: '{{ apigeerepobasepath }}/{{ apigee_archive_file_name }}'
+    dest: '{{ local_apigee_path }}/{{ apigee_archive_file_name }}'
+  register: result
+
+- name: Download archive status report
+  debug:
+    var: result

@@ -1,0 +1,5 @@
+---
+# tasks file for opdk-setup-aws
+- name: Configure AWS AMI OS package manager repositories for Apigee
+  shell: "yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional"
+  when: ansible_bios_version | lower | search('amazon') and ansible_os_family | lower == 'redhat' and ansible_distribution_major_version | version_compare('6', '>')

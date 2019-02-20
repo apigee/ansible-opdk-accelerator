@@ -1,0 +1,28 @@
+---
+# tasks file for apigee-opdk-yum-packages
+- name: Update basic yum os packages with proxy
+  become: yes
+  yum:
+    name: "{{ yum_os_minimum_packages }}"
+    state: present
+    exclude: "{{ yum_exclude_packages | join(',') }}"
+    disable_gpg_check: yes
+    allow_downgrade: yes
+  environment:
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+    no_proxy: "{{ no_proxy | default('') }}"
+  when: yum_os_minimum_packages is defined and yum_exclude_packages is defined
+
+- name: Update basic yum os packages with proxy
+  become: yes
+  yum:
+    name: "{{ yum_os_minimum_packages }}"
+    state: present
+    disable_gpg_check: yes
+    allow_downgrade: yes
+  environment:
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+    no_proxy: "{{ no_proxy | default('') }}"
+  when: yum_os_minimum_packages is defined and yum_exclude_packages is not defined

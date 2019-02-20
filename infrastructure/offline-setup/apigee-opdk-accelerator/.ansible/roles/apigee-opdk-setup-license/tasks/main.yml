@@ -1,0 +1,11 @@
+---
+# tasks file for apigee-opdk-setup-license
+- name: Copy license file
+  become: yes
+  copy:
+    src: "{{ opdk_license_source_file_name }}"
+    dest: "{{ opdk_license_target_file_path }}"
+    mode: 0644
+    force: yes
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"

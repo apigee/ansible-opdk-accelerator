@@ -1,0 +1,25 @@
+---
+- name: Install bootstrap from local repository for 4.16.01
+  shell: "bash {{ apigeerepobasepath  | default(opdk_resources_path) }}/{{ apigee_archive_name }}/repos/bootstrap.sh apigeeprotocol='file://' apigeerepobasepath={{ apigeerepobasepath }}/repos JAVA_FIX=C"
+  environment:
+    JAVA_HOME: '{{ java_home }}'
+  when: opdk_version is version_compare('4.16.01', '==')
+
+- name: DEBUG_MODE - Install bootstrap from local repository for 4.16.01
+  shell: "bash -x {{ apigeerepobasepath  | default(opdk_resources_path) }}/{{ apigee_archive_name }}/repos/bootstrap.sh apigeeprotocol='file://' apigeerepobasepath={{ apigeerepobasepath }}/repos JAVA_FIX=C"
+  environment:
+    JAVA_HOME: '{{ java_home }}'
+  when: opdk_version is version_compare('4.16.01', '==') and opdk_debug_mode is defined and opdk_debug_mode | trim | lower == 'on'
+
+- name: Install bootstrap from local repository for greater than 4.16.01
+  shell: "bash {{ apigeerepobasepath  | default(opdk_resources_path) }}/{{ apigee_archive_name }}/repos/bootstrap_{{ opdk_version }}.sh apigeeprotocol='file://' apigeerepobasepath={{ apigeerepobasepath }}/repos JAVA_FIX=C"
+  environment:
+    JAVA_HOME: '{{ java_home }}'
+  when: opdk_version is version_compare('4.16.01', '>')
+
+- name: DEBUG_MODE - Install bootstrap from local repository for greater than 4.16.01
+  shell: "bash -x {{ apigeerepobasepath  | default(opdk_resources_path) }}/{{ apigee_archive_name }}/repos/bootstrap_{{ opdk_version }}.sh apigeeprotocol='file://' apigeerepobasepath={{ apigeerepobasepath }}/repos JAVA_FIX=C"
+  environment:
+    JAVA_HOME: '{{ java_home }}'
+  when: opdk_version is version_compare('4.16.01', '>') and opdk_debug_mode is defined and opdk_debug_mode | trim | lower == 'on'
+

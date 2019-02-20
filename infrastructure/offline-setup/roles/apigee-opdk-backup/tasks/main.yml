@@ -1,0 +1,40 @@
+---
+# tasks file for apigee-opdk-backup
+#- name: Stop component
+#  shell: '{{ apigee_service }} {{ component_name }} stop'
+#  when: component_name != 'apigee-postgresql' or component_name != 'all'
+
+- name: Start component if it is Postgres
+  shell: '{{ apigee_service }} {{ component_name }} start'
+  args:
+    removes: "{{ apigee_home }}/{{ component_name }}"
+  when: component_name == 'apigee-postgresql'
+
+- name: Backup component {{ component_name }}
+  shell: '{{ apigee_service }} {{ component_name }} backup'
+  args:
+    removes: "{{ apigee_home }}/{{ component_name }}"
+  when: component_name != 'all'
+
+- name: Backup all components
+  shell: '{{ apigee_all }} backup'
+  when: component_name == 'all'
+
+- name: Start component {{ component_name }}
+  shell: '{{ apigee_service }} {{ component_name }} start'
+  args:
+    removes: "{{ apigee_home }}/{{ component_name }}"
+  when: component_name != 'all'
+
+#- name: Wait For component {{ component_name }}
+#  shell: '{{ apigee_service }} {{ component_name }} wait_for_ready'
+#  when: component_name != 'all'
+
+- name: Start all components
+  shell: '{{ apigee_all }} start'
+  when: component_name == 'all'
+
+#- name: Wait For all components
+#  shell: '{{ apigee_all }} wait_for_ready'
+#  when: component_name == 'all'
+

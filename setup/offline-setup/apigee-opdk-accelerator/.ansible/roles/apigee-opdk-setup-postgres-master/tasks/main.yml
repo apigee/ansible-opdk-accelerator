@@ -1,0 +1,9 @@
+---
+# tasks file for apigee-opdk-setup-postgres-master
+- name: Postgres replication master
+  command: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-master -f {{ target_response_file_path }}'
+
+- name: Wait for ready with no proxy
+  become: yes
+  command: '{{ apigee_all }} wait_for_ready'
+  when: validate_ready | default(true)

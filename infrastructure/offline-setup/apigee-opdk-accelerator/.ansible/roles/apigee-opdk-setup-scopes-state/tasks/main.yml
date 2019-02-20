@@ -1,0 +1,29 @@
+---
+# tasks file for apigee-opdk-setup-scopes-state
+- name: Assert that attributes are available.
+  assert:
+    that:
+      - "ax_group is defined and ax_group | trim | length > 0"
+      - "local_mgmt_ip is defined and local_mgmt_ip | trim | length > 0"
+      - "opdk_user_email is defined and opdk_user_email | trim | length > 0"
+      - "opdk_user_pass is defined and opdk_user_pass | trim | length > 0"
+    msg: "Please provide the missing attribute"
+
+- name: Add scope to analytics group
+  uri:
+    user: '{{ opdk_user_email }}'
+    password: '{{ opdk_user_pass }}'
+    method: GET
+    body_format: json
+    url: http://{{ local_mgmt_ip }}:8080/v1/analytics/groups/ax/{{ ax_group }}
+  register: ax_state
+
+- name: Assert that scopes is not empty
+  assert:
+    that:
+      - "ax_state.json['scopes'] | length > 0"
+    msg: "analytics group has no scopes defined, please define scopes for analytics group"
+
+
+
+

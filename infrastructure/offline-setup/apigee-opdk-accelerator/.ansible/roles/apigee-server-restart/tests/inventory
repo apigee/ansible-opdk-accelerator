@@ -1,0 +1,5 @@
+[grafana]
+cf-013 ansible_host=10.142.0.19
+
+[influxdb]
+cf-014 ansible_host=10.142.0.20

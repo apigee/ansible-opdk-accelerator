@@ -1,0 +1,80 @@
+---
+- block:
+
+  - name: Install openldap packages if needed
+    become: yes
+    yum:
+      name: "{{ item }}"
+      state: present
+      allow_downgrade: yes
+    with_items: "{{ openldap }}"
+    when: opdk_version | version_compare('4.17.05', '>')
+    environment:
+      http_proxy: "{{ http_proxy }}"
+      https_proxy: "{{ https_proxy }}"
+      no_proxy: "{{ no_proxy }}"
+
+  rescue:
+
+    - block:
+
+      - name: Downgrade openldap packages if needed
+        become: yes
+        yum:
+          name: "{{ item }}"
+          state: present
+          allow_downgrade: yes
+        with_items: "{{ openldap_downgrade_version }}"
+        when:  opdk_version | version_compare('4.17.09', '<')
+        environment:
+          http_proxy: "{{ http_proxy }}"
+          https_proxy: "{{ https_proxy }}"
+          no_proxy: "{{ no_proxy }}"
+
+
+      rescue:
+        - block:
+
+          - name: Installed named version
+            yum:
+              name: "{{ item }}"
+              state: present
+            with_items: "{{ openldap_named_versions }}"
+            environment:
+              http_proxy: "{{ http_proxy }}"
+              https_proxy: "{{ https_proxy }}"
+              no_proxy: "{{ no_proxy }}"
+
+
+          rescue:
+            - name: Install the remainder openldap manually
+              shell: "rpm -ivh --oldpackage {{ openldap_named_versions }}"
+              environment:
+                http_proxy: "{{ http_proxy }}"
+                https_proxy: "{{ https_proxy }}"
+                no_proxy: "{{ no_proxy }}"
+
+
+      become: yes
+      when: opdk_version | version_compare('4.17.05', '<=') and ansible_distribution_major_version | version_compare("6", ">" )
+
+#- block:
+#  - name: Update LDAP dependent libraries
+#    file:
+#      force: yes
+#      state: link
+#      src: "{{ item.src }}"
+#      path: "{{ item.path }}"
+#    with_items: "{{ ldap_dependent_library_links }}"
+
+#  rescue:
+
+#        - name: Update LDAP dependent libraries
+#          file:
+#            force: yes
+#            state: link
+#            src: "{{ item.src }}"
+#            path: "{{ item.path }}"
+#          with_items: "{{ ldap_dependent_library_links }}"
+
+#  when: opdk_version | version_compare('4.17.01', '>=') and opdk_version | version_compare('4.17.05', '<=')

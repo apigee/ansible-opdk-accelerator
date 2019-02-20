@@ -1,0 +1,10 @@
+---
+# tasks file for apigee-opdk-setup-os-postgres
+- name: Update sysctl attributes
+  become: yes
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_set: yes
+  with_items: "{{ sysctl_pg }}"

@@ -1,0 +1,39 @@
+---
+# tasks file for apigee-opdk-enable-swap
+- block:
+
+  - name: Allocate swap file
+    command: creates={{ swap_path }} /bin/dd if=/dev/zero of={{ swap_path }} bs=1M count={{ swap_size_mb }}
+    register: swap_allocate
+
+  - name: Set swap file permissions
+    file: dest={{ swap_path }} owner=root group=root mode=0600
+    when: swap_allocate | changed
+
+
+  - name: Determine whether swap file must be initialized
+    command: file {{ swap_path }}
+    register: file_type
+    changed_when: false
+    when: swap_allocate | changed
+
+  - name: Initialize swap file
+    command: mkswap {{ swap_path }}
+    when: swap_allocate | changed and file_type.stdout.count('swap file') == 0
+
+  - name: Add swap to fstab
+    mount: src={{ swap_path }} name=none fstype=swap opts=sw passno=0 dump=0 state=present
+    when: swap_allocate | changed
+
+  - name: Determine whether swap file must be activated
+    command: swapon -s
+    register: active_swaps
+    changed_when: false
+    when: swap_allocate | changed
+
+  - name: Activate swap
+    command: swapon {{ swap_path}}
+    when: swap_allocate | changed and active_swaps.stdout.count('{{ swap_path }}') == 0
+
+  become: yes
+  become_user: root

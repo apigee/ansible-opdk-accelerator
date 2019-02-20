@@ -1,0 +1,10 @@
+---
+- hosts: ms
+  remote_user: root
+  roles:
+    - apigee-opdk-setup-default-settings
+
+  tasks:
+  - name: Selinux status
+    selinux_status:
+    register: status

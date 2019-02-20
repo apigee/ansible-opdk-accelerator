@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "edge-ops-lab",
+  "private_key_id": "bfab7f463d89546f7dd5a589b02be9dcf691aff7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDUksR7oM4LDK6z\nW6E5KVn8QlktnQ8L6NY+9LOahdpdOXHbPb6JT2R/fFk1b+/7LhBCXgJfr0L+mOdH\nLfygwlhrYBMPmO/eQlC0Fu138KHsiUJPFjhxei2zIQmYjUQcEY0/fYJyV4PbKeZb\nMQoGY8bpkhQMAC5EhsV4j3KCYvn1bnN3EBryVyo9FNkNx+OtkGNW46uCXgUsQP4X\nPuBypIVc9l0igToBo+rlJpCuKwYBZD7KR3+jAoHkZoKMFhtxWd5g3C3K1AXv6M+D\nG8hF6lsqvsypU58RV+mugO9DePyFfHdL1dLmTgawAoL5fjG6Tezrp4E32NZcX1ru\n7m2T4qxHAgMBAAECggEAFmW3vb5Ah2nY1xKz/DBZsq+7nV07h8ngF7ZeXXfLUrWU\nmVY6RwBuT9URFzAfTSFaMDafMb1nJdPZe9FMxBQbZIY1Fph1dD8bfrtzCNykoFC0\nA7ONKJOy0KQN/UdWd6NNH8qVyH4PvrNS+fptmnpqgRNVo7q5z+7n9onICxSU+UwZ\nRZ+LqqJ1QxBpmphgJzEoWbYCEh4Wmpi9G4EIS4H2TH/S0Nk7865jXM9RulwiaXum\nVZGQ93oJcP+EHZoCNZAndliBE12a6CQ9zC3qq7BLUzXhbA4l+2hqaGIDtQR8EXqR\nLDaecbT/Tn3DQ3a0pkAViJ4mOsEuysPUYTF6WHYq1QKBgQDrZFcydJgJzAhnq8Qu\nHtgK1WWmAuT9IsdE1mvJScpSYNnNyJLFAYVyDSxtTE0zJcXZ8p1dfo8cthTg285T\njMkDl+szHSuIBq3/KaaakSaI/X+/aNWuzmLpxtwhnL2b5akQetib4woZf5Z6Za3R\n5EVy0YNhPEH6e4QTzoVwuGCXVQKBgQDnLwKWam00MeMZeYUcpQIm1Ps1eQpwRN4A\nGrnmcXnxysr3tqnMO1gQfHqKoc4gDzqsJtn7WW9jXO83HBed5FFMCfOHIXN9t28t\nMOp3epXTDDymQFD6pwdlH52VPhQC4oXDgjvZ6jF+hLgE2Wouxt+pIPfe7AixImLO\nxa8H5TI9KwKBgFuKA9bdPJriu4oFZB9DY2SjJApxKbe/JJsCf5whlAqBG3JJQ7pV\nIx39PX+rooH3eH+PN9857lGOBYSENjKLl0hMdezEtT8KyfNmsSF+vOudGWbIUADQ\nxep/qO9xUtMjdqGwBDhrDGxqD4y9qeDr0o4aJ+tSUZ4lFnHVaFMzgGyZAoGAe+z0\nSyNT1MXlQhOlKly90Ykb/GcdFF+mTZIGEyTDRLz7nlw5mzQ4meXQXp4r+32OaxgM\ng7NGhZIc3YLemhH5DnTLKaXh3gNFwojVNyTsSYzmugwCHMsKqMeQ1p7HZWB+afZX\nFRJ4Y6TLbDYLuHV9EZGNrd8DLckMBGFt2SKgkq8CgYA3G1C9CIiensjqL6kvR8SO\nmklcrqNiaXJWGfPOzqR+GYkb1+5B5AYtgPcfLVl3w3UOeo9/tlYwnpzE3bHs77VX\n/feBfG9xGCylof7aL2EeLhODLtb3pDcZuxjlylTh1d+bCw8XD1MW35ey6cds0fd7\nX9aWX+WtaolkAbLxDSfwPg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "jump-east-sa@edge-ops-lab.iam.gserviceaccount.com",
+  "client_id": "102156313800403822901",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/jump-east-sa%40edge-ops-lab.iam.gserviceaccount.com"
+}

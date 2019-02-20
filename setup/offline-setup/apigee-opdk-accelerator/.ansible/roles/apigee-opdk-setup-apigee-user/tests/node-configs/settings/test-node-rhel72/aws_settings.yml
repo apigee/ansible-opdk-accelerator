@@ -1,0 +1,24 @@
+---
+rhel: ami-2051294a # rhel 7.2
+image_id: '{{ rhel }}'
+instance_type: 't2.medium'
+key_name: cfrias
+security_group: OPDK
+vpc_subnet_id: subnet-3fbcb64b
+wait: yes
+assign_public_ip: yes
+name_prefix: cfrias
+session_name: 1601-test-rhel72-1
+application: edge
+bag: infrastructure
+department: 45
+company_env: training
+owner_contact_info: 'cfrias@apigee.com'
+pod: NA
+team_contact_info: cs-technical@apigee.com
+env: '{{ name_prefix }}-{{ env_name }}'
+aws_access_key: ''
+aws_secret_key: ''
+aws_region: 'us-east-1'
+start: 1
+node_count: 1

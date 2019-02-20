@@ -1,0 +1,12 @@
+---
+- include: ../../facts.yml
+
+- hosts: planet
+  connection: local
+  gather_facts: false
+  strategy: free
+  vars_files:
+  - "~/.apigee/credentials.yml"
+  roles:
+  - aws-start
+

@@ -1,0 +1,62 @@
+---
+- block:
+  - name: Obtain pgmaster IP for DC 2, if not provided
+    set_fact:
+      cacheable: yes
+      pgmaster_ip: "{{ hostvars[groups['dc-2-pgmaster'][0]][interface_name].ipv4.address }}"
+    when: pgmaster_ip is not defined and groups['dc-2-pgmaster'] is defined
+
+  - name: Obtain pgstandby IP for DC 2, if not provided
+    set_fact:
+      cacheable: yes
+      pgstandby_ip: "{{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address }}"
+    when: pgstandby_ip is not defined and groups['dc-2-pgstandby'] is defined
+
+- block:
+  - name: Obtain pgmaster IP for DC 1, if not provided
+    set_fact:
+      cacheable: yes
+      pgmaster_ip: "{{ hostvars[groups['dc-1-pgmaster'][0]][interface_name].ipv4.address }}"
+    when: pgmaster_ip is not defined and groups['dc-1-pgmaster'] is defined
+
+  - name: Obtain pgstandby IP for DC 1, if not provided
+    set_fact:
+      cacheable: yes
+      pgstandby_ip: "{{ hostvars[groups['dc-1-pgstandby'][0]][interface_name].ipv4.address }}"
+    when: pgstandby_ip is not defined and groups['dc-1-pgstandby'] is defined
+
+  when: (groups['dc-1-pgmaster'] is defined or groups['dc-1-pgstandby'] is defined) and inventory_hostname in groups['dc-1']
+
+- block:
+  - name: Obtain pgmaster IP for DC 1, if not provided
+    set_fact:
+      cacheable: yes
+      pgmaster_ip: "{{ hostvars[groups['dc-1-pgmaster'][0]][interface_name].ipv4.address }}"
+
+  - name: Obtain pgstandby IP for DC 1, if not provided
+    set_fact:
+      cacheable: yes
+      pgstandby_ip: "{{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address }}"
+
+  when: groups['dc-1-pgmaster'] is defined and groups['dc-2-pgstandby'] is defined
+
+- block:
+  - name: Obtain pgmaster IP for DC 2, if not provided
+    set_fact:
+      cacheable: yes
+      pgmaster_ip: "{{ hostvars[groups['dc-2-pgmaster'][0]][interface_name].ipv4.address }}"
+
+  - name: Obtain pgstandby IP for DC 1, if not provided
+    set_fact:
+      cacheable: yes
+      pgstandby_ip: "{{ hostvars[groups['dc-1-pgstandby'][0]][interface_name].ipv4.address }}"
+
+  when: groups['dc-2-pgmaster'] is defined and groups['dc-1-pgstandby'] is defined
+
+- block:
+  - name: Obtain postgres ip
+    set_fact:
+      cacheable: yes
+      pg_ip: "{{ hostvars[groups['pg'][0]][interface_name].ipv4.address }}"
+
+  when: groups['pgmaster'] is not defined and groups['pgstandby'] is not defined

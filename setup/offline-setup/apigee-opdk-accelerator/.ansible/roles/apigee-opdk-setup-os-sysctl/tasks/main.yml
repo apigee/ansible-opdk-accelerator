@@ -1,0 +1,28 @@
+---
+# tasks file for apigee-opdk-setup-os-sysctl
+- name: Check for ipv6
+  stat:
+    path: /proc/sys/net/ipv6/
+  register: ipv6_status
+
+- name: Update sysctl attributes for ipv6
+  tags: ['ipv6']
+  become: yes
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_set: yes
+  with_items: "{{ sysctl_ipv6 }}"
+  when: ipv6_status.stat.exists == true
+
+
+- name: Update sysctl attributes
+  become: yes
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_set: yes
+  with_items: "{{ sysctl_minimum }}"
+

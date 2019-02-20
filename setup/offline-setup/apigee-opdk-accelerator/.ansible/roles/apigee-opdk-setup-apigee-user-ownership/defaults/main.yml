@@ -1,0 +1,3 @@
+---
+# defaults file for apigee-opdk-setup-apigee-user-ownership
+apigee_home: /opt/apigee

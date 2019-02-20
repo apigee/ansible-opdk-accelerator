@@ -1,0 +1,70 @@
+#-*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ms_jmx_port = 1099
+router_jmx_port = 1100
+mp_jmx_port = 1101
+ingest_jmx_port = 1102
+pgserver_jmx_port = 1103
+pg_db_port = 5432
+zk_jmx_port = 2181
+cassandra_jmx_port = 7199
+ms_http_port = 8080
+router_self_port = 8081
+mp_self_port = 8082
+qpid_self_port = 8083
+pgserver_self_port = 8084
+cassandra_db_port = 9160
+cassandra_interal_comm_port1 = 7000
+cassandra_interal_comm_port2 = 9042
+ui_http_port = 9000
+edge_proxy_port = 9001
+mysql_port = 3306
+open_ldap_port = 10389
+http_port = 80
+expose_graphite_port = 9090
+grafana_http_port = 3000
+
+local_address = "172.28.128.55"
+vm_memory = 8192
+
+Vagrant.configure(2) do |config|
+  config.ssh.insert_key = false
+
+  config.vm.box = "centos/7"
+
+  config.vm.define "aio_node" do |node|
+
+    node.vm.hostname = '127.0.0.1'
+    node.vm.network "private_network", ip: local_address
+
+    node.vm.network "forwarded_port", guest: ms_http_port, host: ms_http_port
+    node.vm.network "forwarded_port", guest: ms_jmx_port, host: ms_jmx_port
+    node.vm.network "forwarded_port", guest: grafana_http_port, host: grafana_http_port
+    node.vm.network "forwarded_port", guest: cassandra_jmx_port, host: cassandra_jmx_port
+    node.vm.network "forwarded_port", guest: cassandra_db_port, host: cassandra_db_port
+    node.vm.network "forwarded_port", guest: cassandra_interal_comm_port1, host: cassandra_interal_comm_port1
+    node.vm.network "forwarded_port", guest: cassandra_interal_comm_port2, host: cassandra_interal_comm_port2
+    node.vm.network "forwarded_port", guest: zk_jmx_port, host: zk_jmx_port
+    node.vm.network "forwarded_port", guest: ui_http_port, host: ui_http_port
+    node.vm.network "forwarded_port", guest: edge_proxy_port, host: edge_proxy_port
+    node.vm.network "forwarded_port", guest: open_ldap_port, host: open_ldap_port
+    node.vm.network "forwarded_port", guest: router_jmx_port, host: router_jmx_port
+    node.vm.network "forwarded_port", guest: router_self_port, host: router_self_port
+    node.vm.network "forwarded_port", guest: mp_jmx_port, host: mp_jmx_port
+    node.vm.network "forwarded_port", guest: mp_self_port, host: mp_self_port
+    node.vm.network "forwarded_port", guest: http_port, host: expose_graphite_port
+    node.vm.network "forwarded_port", guest: mysql_port, host: mysql_port
+    node.vm.network "forwarded_port", guest: qpid_self_port, host: qpid_self_port
+    node.vm.network "forwarded_port", guest: pgserver_self_port, host: pgserver_self_port
+    node.vm.network "forwarded_port", guest: pg_db_port, host: pg_db_port
+    node.vm.network "forwarded_port", guest: pgserver_jmx_port, host: pgserver_jmx_port
+    node.vm.network "forwarded_port", guest: ingest_jmx_port, host: ingest_jmx_port
+
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.memory = vm_memory
+  end
+
+end

@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    results:
+    - files:
+      - { path: 'path1'}
+      - { path: 'path2' }
+
+#    fetch_files:
+#    - { dir: '~', name: '.bashrc' }
+#    - { dir: '~', name: 'id_rsa.pub' }
+#    - { dir: '~', name: '.profile' }
+
+#  roles:
+#  - fetch-files
+  tasks:
+  - debug:
+      msg: "{{ item.1 }}"
+    with_subelements:
+    - "{{ results }}"
+    - files

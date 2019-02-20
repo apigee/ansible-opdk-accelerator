@@ -1,0 +1,45 @@
+---
+# tasks file for apigee-opdk-devportal-postgres-config
+- name: Determine Region of current node
+  include_tasks: region.yml
+
+- name: Update cache with key and value
+  cache:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items:
+  - { key: 'target_response_file_path', value: '{{ opdk_resources_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf' }
+  - { key: 'opdk_portal_config_file', value: '{{ opdk_resources_path }}/edge-devportal-response-{{ opdk_version }}.conf' }
+  - { key: 'opdk_portal_db_config_file', value: '{{ opdk_resources_path }}/edge-devportal-postgres-response.conf' }
+
+- name: Remove the old dev portal db response file
+  file:
+    path: "{{ opdk_portal_db_config_file }}"
+    state: absent
+  when: manual_devportal_db_response_file is not defined or not manual_devportal_db_response_file
+
+- name: Ensure that a folder exists for the file to be generated
+  file:
+    path: "{{ opdk_portal_db_config_file | dirname }}"
+    state: directory
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+
+- name: Construct the dev portal silent-install file
+  template:
+    src: 'devportal-postgres.conf.j2'
+    dest: "{{ opdk_portal_db_config_file }}"
+    force: yes
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    mode: 0655
+  when: manual_devportal_db_response_file is not defined or not manual_devportal_db_response_file
+
+- name: Copy provided silent-install file
+  copy:
+    src: "{{ manual_devportal_db_response_file }}"
+    dest: "{{ opdk_portal_db_config_file }}"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    mode: 0655
+  when: manual_devportal_db_response_file is defined and manual_devportal_db_response_file

@@ -1,0 +1,70 @@
+---
+# tasks file for apigee-opdk-setup-local-repository-archive
+#- name: Clean up any old repos
+#  become: true
+#  file:
+#    path: '{{ apigeerepobasepath | default(opdk_resources_path) }}/repos'
+#    state: absent
+
+- name: Ensure repo folders exists
+  become: true
+  file:
+    path: '{{ apigeerepobasepath | default(opdk_resources_path) }}'
+    state: directory
+
+- name: Ensure rsync is present
+  become: true
+  yum:
+    name: rsync
+    state: present
+
+- block:
+  - name: Copy archive to target node
+    become: true
+    synchronize:
+      src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
+      dest: "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
+      rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
+#    register: results
+#    failed_when: "'sudo: sorry, you must have a tty to run sudo' in results.stderr"
+
+  rescue:
+    - name: Update to include tty temporarily
+      become: yes
+      lineinfile:
+        path: /etc/sudoers
+        backrefs: yes
+        backup: yes
+        regexp: "^(Defaults)(.*)(requiretty)"
+        line: '\1\2!\3'
+        state: present
+        validate: '/usr/sbin/visudo -cf %s'
+
+    - name: Copy archive to target node
+      become: true
+      synchronize:
+        src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
+        dest: "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
+        rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
+
+    - name: Restore tty modified temporarily
+      become: yes
+      lineinfile:
+        path: /etc/sudoers
+        backrefs: yes
+        backup: yes
+        regexp: "^(Defaults)(.*)(requiretty)"
+        line: '\1\2!\3'
+        state: present
+        validate: '/usr/sbin/visudo -cf %s'
+
+- name: Create folder for archive contents
+  become: true
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+  - "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_name }}"
+  - "{{ apigeerepobasepath | default(opdk_resources_path) }}"
+
+

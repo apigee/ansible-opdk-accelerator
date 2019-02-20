@@ -1,0 +1,8 @@
+---
+# defaults file for apigee-opdk-setup-jdk
+
+# Target Java JDK version
+jdk_version: '1.8'
+
+# System file path to use in JAVA_HOME
+java_home: /usr/lib/jvm/java-openjdk

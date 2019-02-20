@@ -1,0 +1,45 @@
+---
+# tasks file for apigee-opdk-set-reachable can handle server type collections
+- name: Validate that reachability has been provided
+  fail:
+    msg: "Please provide the reachability to set"
+  when: reachability is not defined
+
+- name: Set uuid if router
+  set_fact:
+    uuid: '{{ edge_router_self.uUID }}'
+  when: edge_router_self is defined and 'router' in server_types
+
+- name: Set uuid if message processor
+  set_fact:
+    uuid: '{{ edge_mp_self.uUID }}'
+  when: edge_mp_self is defined and 'mp' in server_types
+
+- name: Set uuid if qpid server
+  set_fact:
+    uuid: '{{ edge_qs_self.uUID }}'
+  when: edge_qs_self is defined and 'qs' in server_types
+
+- name: Set uuid if postgres server
+  set_fact:
+    uuid: '{{ edge_ps_self.uUID }}'
+  when: edge_ps_self is defined and 'ps' in server_types
+
+- name: Fail if uuid is not set
+  fail:
+    msg: "No uUID available, please make sure that server is running"
+  when: uuid is not defined
+
+- name: Use local {{ local_mgmt_ip }} to set reachability to {{ reachability }} if set
+  uri:
+    user: '{{ opdk_user_email }}'
+    password: '{{ opdk_user_pass }}'
+    method: POST
+    body_format: raw
+    url: "http://{{ local_mgmt_ip }}:{{ ms_port }}/v1/servers/{{ uuid }}"
+    body: reachable={{ reachability }}
+
+- name: Allow calls in flight to complete
+  become: no
+  local_action: wait_for host='{{ ansible_host }}' state=started delay={{ reachability_delay | d(0) }}
+  when: reachability_delay is defined

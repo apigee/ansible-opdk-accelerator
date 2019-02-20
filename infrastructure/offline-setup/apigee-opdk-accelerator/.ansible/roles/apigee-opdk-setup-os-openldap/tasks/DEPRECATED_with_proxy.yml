@@ -1,0 +1,57 @@
+---
+- name: Install openldap packages if needed with proxy
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ openldap }}"
+  when: opdk_version | version_compare('4.17.01', '<')
+  environment:
+    http_proxy: "{{ http_proxy }}"
+    https_proxy: "{{ https_proxy }}"
+    no_proxy: "{{ no_proxy }}"
+
+- block:
+  - name: Downgrade openldap packages if needed with proxy
+    become: yes
+    shell: "yum downgrade -y {{ openldap_2_4_40 | join(' ') }}"
+    environment:
+      http_proxy: "{{ http_proxy }}"
+      https_proxy: "{{ https_proxy }}"
+      no_proxy: "{{ no_proxy }}"
+
+  - name: Update LDAP dependent libraries
+    file:
+      force: yes
+      state: link
+      src: "{{ item.src }}"
+      path: "{{ item.path }}"
+    with_items:
+    - { src: "/lib64/liblber-2.4.so.2.10.3", path: "/lib64/liblber-2.4.so.2" }
+    - { src: "/lib64/libslapi-2.4.so.2.10.3", path: "/lib64/libslapi-2.4.so.2" }
+    - { src: "/lib64/libldap_r-2.4.so.2.10.3", path: "/lib64/libldap_r-2.4.so.2" }
+    environment:
+      http_proxy: "{{ http_proxy }}"
+      https_proxy: "{{ https_proxy }}"
+      no_proxy: "{{ no_proxy }}"
+  rescue:
+    - block:
+      - name: Install because downgrade failure means the openldap packages are needed with proxy
+        become: yes
+        yum:
+          name: "{{ item }}"
+          state: present
+        with_items: "{{ openldap_2_4_40 }}"
+        environment:
+          http_proxy: "{{ http_proxy }}"
+          https_proxy: "{{ https_proxy }}"
+          no_proxy: "{{ no_proxy }}"
+      rescue:
+        - name: Download openldap manually, may need to change the link
+          shell: "yum downgrade -y {{ openldap_manual_download | join(' ') }}"
+          environment:
+            http_proxy: "{{ http_proxy }}"
+            https_proxy: "{{ https_proxy }}"
+            no_proxy: "{{ no_proxy }}"
+
+  when: opdk_version | version_compare('4.17.01', '>=') and opdk_version | version_compare('4.17.05', '<=')

@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Remove .ansible_cache
+    file:
+      path: '{{ item }}'
+      state: absent
+      force: yes
+    with_items:
+    - '.ansible_cache'
+    - 'ansible.log'
+    - 'ssh_keys'
+    - 'configs_and_logs'

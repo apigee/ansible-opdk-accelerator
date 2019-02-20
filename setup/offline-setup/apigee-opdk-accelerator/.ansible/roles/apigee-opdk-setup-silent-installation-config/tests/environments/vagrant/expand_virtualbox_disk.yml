@@ -1,0 +1,49 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    vbox_manage: 'VBoxManage'
+    vmdk_path: '~/.vagrant.d/boxes/uclbioresource-VAGRANTSLASH-oracle68/1.0.0/virtualbox'
+    original_hd: '{{ vmdk_path }}/box-disk1.vmdk'
+    resize_hd: '{{ vmdk_path }}/resized-box-disk1.vdi'
+    swap_hd: '{{ vmdk_path }}/swap-box-disk1.vmdk'
+    size: '32678'
+
+  tasks:
+  - name: Check for existing resize hd
+    stat:
+      path: '{{ resize_hd }}'
+    register: exists
+
+  - name: Remove existing resize hd
+    ignore_errors: yes
+    shell: "{{ vbox_manage }} closemedium {{ resize_hd }}"
+    register: exists.stat.exists
+
+  - name: Remove existing resize hd file if it still remains
+    file:
+      path: '{{ resize_hd }}'
+      state: absent
+    register: exists.stat.exists
+
+  - name: Clone and reformat hd
+    shell: "{{ vbox_manage }} clonehd {{ original_hd }} {{ resize_hd }} --format VDI"
+
+  - name: Resize hd
+    shell: "{{ vbox_manage }} modifyhd {{ resize_hd }} --resize {{ size }}"
+
+  - name: Clone the resized and reformat hd to swap
+    shell: "{{ vbox_manage }} clonehd {{ original_hd }} {{ swap_hd }} --format VMDK"
+
+  - name: Remove original_hd
+    shell: "{{ vbox_manage }} closemedium {{ original_hd }}"
+
+#  - name: Rename swap file to original
+#    copy:
+#      src: '{{ swap_hd }}'
+#      dest: '{{ original_hd }}'
+#      force: yes
+
+#  - name: Attached resized hd to vm
+#    shell: "{{ vbox_manage }} modifyvm aio_node --hda {{ original_hd }}"
+

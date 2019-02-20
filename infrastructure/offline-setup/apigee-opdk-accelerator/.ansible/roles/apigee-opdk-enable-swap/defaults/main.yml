@@ -1,0 +1,4 @@
+---
+# defaults file for apigee-opdk-enable-swap
+swap_path: /var/swap
+swap_size_mb: 4096

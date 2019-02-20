@@ -1,0 +1,15 @@
+---
+# defaults file for apigee-opdk-settings-postgres
+
+# Postgres command line tool
+psql: "/usr/bin/psql"
+
+# Postgres dump
+pg_dump: "/usr/bin/pg_dump"
+
+# Apigee Postgres Data Directory
+apigee_postgresql_data_dir: '{{ apigee_home }}/data/apigee-postgresql'
+
+# Apigee default installation folder
+apigee_home: /opt/apigee
+
