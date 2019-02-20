@@ -14,12 +14,12 @@
   tasks:
     - name: Enable teams on org
       uri:
-        url: http://{{ local_mgmt_ip }}:{{ ms_port }}/o/{{ org_name }}
-        method: POST
+        url: "http://{{ local_mgmt_ip }}:{{ ms_port }}/o/{{ org_name }}"
+        method: "POST"
         user: "{{ opdk_user_email }}"
         password: "{{ opdk_user_pass }}"
-        force_basic_auth: yes
-        body_format: json
+        force_basic_auth: "yes"
+        body_format: "json"
         body:
           name: "{{ org_name }}"
           properties:
