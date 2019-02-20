@@ -1,3 +1,0 @@
----
-# defaults file for apigee-opdk-debug-mode
-bash_regex: '#.*bash'

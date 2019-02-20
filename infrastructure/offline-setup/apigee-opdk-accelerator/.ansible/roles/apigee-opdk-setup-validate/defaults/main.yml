@@ -1,9 +1,0 @@
----
-# defaults file for apigee-opdk-setup-validate
-# Apigee validate config file path
-apigee_validate_config_file: '{{ opdk_resources_path }}/apigee-validate.conf'
-confirm_delete_org: 'y'
-ms_port: 8080
-mp_ext_mgmt_port: 8082
-opdk_mp_pod: 'gateway'
-

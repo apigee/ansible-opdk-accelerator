@@ -1,9 +1,0 @@
----
-# vars file for apigee-opdk-server-self
-server_ports:
-- { ms: '8080' }
-- { router: '8081' }
-- { r: '8081' }
-- { mp: '8082' }
-- { rmp: '8082' }
-- { qs: '8083' }

@@ -1,6 +1,0 @@
----
-- name: Start component {{ component_name }}
-  shell: '{{ apigee_service }} {{ component_name }} start'
-
-- name: Restore component {{ component_name }}
-  shell: '{{ apigee_service }} {{ component_name }} restore {{ backup_time }}'

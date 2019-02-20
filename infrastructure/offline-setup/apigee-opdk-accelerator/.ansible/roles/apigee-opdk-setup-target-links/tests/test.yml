@@ -1,5 +1,0 @@
----
-- hosts: localhost
-  remote_user: root
-  roles:
-    - /Users/carlosfrias/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-setup-target-links

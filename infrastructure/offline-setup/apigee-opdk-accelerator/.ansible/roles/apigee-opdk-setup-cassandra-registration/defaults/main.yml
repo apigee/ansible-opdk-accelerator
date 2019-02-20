@@ -1,3 +1,0 @@
----
-# defaults file for apigee-opdk-setup-cassandra-registration
-local_apigee_secure_path: '~/.apigee-secure'

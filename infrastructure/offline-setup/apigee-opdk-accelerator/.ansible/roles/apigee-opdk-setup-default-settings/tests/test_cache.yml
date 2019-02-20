@@ -1,6 +1,0 @@
----
-- hosts: ms
-  remote_user: root
-  roles:
-    - apigee-opdk-setup-default-settings
-
