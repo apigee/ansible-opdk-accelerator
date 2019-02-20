@@ -171,7 +171,7 @@
   hosts: pgmaster,pg[0]
   serial: 1
   gather_facts: no
-  tags: ['pgmaster','edge', 'analytics']
+  tags: ['pg','pgmaster','edge', 'analytics']
   vars:
     property_folders:
     - "~/.apigee-secure"
