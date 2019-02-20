@@ -1,0 +1,38 @@
+---
+# defaults file for apigee-opdk-devportal-config
+opdk_resources_path: /tmp/edge
+opdk_portal_config_file: '{{ opdk_resources_path }}/edge-devportal-response-{{ opdk_version }}.conf'
+
+# SMTP settings for Edge Configuration
+opdk_smtp_skip: 'y'
+opdk_smtp_host: 'smtp.gmail.com'
+opdk_smtp_port: '25'
+opdk_smtp_user: ''
+opdk_smtp_password: ''
+opdk_smtp_ssl: 'n'
+php_packages:
+- php
+- php-cli
+- php-common
+- php-gd
+- php-mbstring
+- php-mysql
+- php-pdo
+- php-pear
+- php-pecl-apc
+- php-process
+- php-xml
+
+dp_pg_name: devportal
+dp_pg_user: apigee
+dp_pg_pass: "{{ pg_pass | default('postgres') }}"
+dp_pg_database: postgres
+org_name: opdk
+dp_php_fpm_port: 8888
+ms_port: 8080
+
+# SMTP settings for Edge Configuration
+opdk_smtp_host: 'smtp.gmail.com'
+opdk_smtp_port: '25'
+opdk_smtp_ssl: 'n'
+

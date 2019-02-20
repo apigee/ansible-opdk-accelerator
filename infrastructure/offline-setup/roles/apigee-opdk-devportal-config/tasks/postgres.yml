@@ -1,0 +1,10 @@
+---
+- name: Obtain pg IP for dev portal
+  set_fact:
+    dp_pg_host: "{{ hostvars[groups['dp-db'][0]][interface_name].ipv4.address }}"
+
+- name: Update cache with PG IP for dev portal
+  cache:
+    key: dp_pg_host
+    value: '{{ dp_pg_host }}'
+  when: dp_pg_host is defined

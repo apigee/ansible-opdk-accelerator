@@ -1,0 +1,12 @@
+---
+- hosts: planet
+  pre_tasks:
+  - name: Required packages for test
+    yum:
+      name: '{{ item }}'
+      state: present
+    with_items:
+    - libselinux-python
+
+  roles:
+    - apigee-opdk-setup-selinux-disable

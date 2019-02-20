@@ -1,0 +1,9 @@
+---
+# defaults file for apigee-opdk-setup-mirror-nginx
+mirror_file: "{{ apigee_home }}/customer/application/mirror.properties"
+apigee_mirror_listen_port: 3939
+apigee_mirror_server_name: localhost
+apigee_nginx: "/opt/nginx/scripts/apigee-nginx"
+apigee_repo_user: admin
+apigee_repo_password: admin
+

@@ -1,0 +1,32 @@
+[dc-4-ds]
+cf-01[5:7] zk_observer=true
+
+[dc-4-rmp]
+cf-01[6:7]
+
+[dc-4-qpid]
+cf-01[8:9]
+
+# Group mappings for the nodes indicated above
+[dc-4-edge:children]
+dc-4-ds
+dc-4-rmp
+dc-4-qpid
+
+[edge:children]
+dc-4-edge
+
+[dc-4:children]
+dc-4-edge
+
+[planet:children]
+dc-4
+
+[ds:children]
+dc-4-ds
+
+[rmp:children]
+dc-4-rmp
+
+[qpid:children]
+dc-4-qpid

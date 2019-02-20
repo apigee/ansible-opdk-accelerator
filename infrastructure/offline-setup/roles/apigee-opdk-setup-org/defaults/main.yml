@@ -1,0 +1,4 @@
+---
+# defaults file for apigee-opdk-setup-org
+tenants:
+- { org: opdk, env: test, new_user: 'y' }

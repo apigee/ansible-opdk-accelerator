@@ -1,0 +1,39 @@
+---
+# tasks file for apigee-shutdown-iptables
+- block:
+
+  - name: Stop Iptables service
+    become: yes
+    service:
+      name: iptables
+      state: stopped
+    register: iptables_service
+
+  - name: Indicate whether iptables are disabled
+    set_fact:
+      cacheable: yes
+      iptables_disabled: "{{ (iptables_service.state == 'disabled') or (iptables_service.state == 'stopped') }}"
+
+  - name: Fail playbook if Iptables is running
+    fail:
+      msg: 'iptables must be disabled, please restart node'
+    when: iptables_disabled is defined and not iptables_disabled
+
+  when: (ansible_distribution | lower == "centos" or ansible_distribution | lower == "oraclelinux")  and ansible_distribution_major_version is version_compare("7", "<") and not ansible_virtualization_type | lower == "docker"
+
+- block:
+
+  - name: Assert that firewalld is installed
+    stat:
+      path: /usr/sbin/firewalld
+    register: result
+
+  - name: Stop Firewalld service
+    become: yes
+    service:
+      name: firewalld
+      state: stopped
+      enabled: no
+    when: result.stat.exists
+
+  when: (ansible_distribution | lower == "centos" or ansible_distribution | lower == "oraclelinux")  and ansible_distribution_major_version is version_compare("7", ">=") and not ansible_virtualization_type | lower == "docker"

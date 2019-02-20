@@ -1,0 +1,34 @@
+---
+# tasks file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-admin-user
+- name: User must be set or default will be used
+  set_fact:
+    user: "{{ user | default('apigee') }}"
+
+- name: Copy local public keys to server for user {{ user }}
+  become: yes
+  authorized_key:
+    user: '{{ user }}'
+    state: present
+    key: "{{ lookup('file', '{{ pubkey_path }}') }}"
+  when: pubkey_path is defined | default(False)
+
+- name: Update user with NOPASSWD
+  become: yes
+  lineinfile:
+    state: present
+    create: yes
+    line: "{{ user }} ALL = NOPASSWD : ALL"
+    path: "/etc/sudoers.d/{{ user }}-user"
+    validate: '/usr/sbin/visudo -cf %s'
+
+- name: Permit root login over SSH
+  become: yes
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '(^#)(PermitRootLogin yes)'
+    line: '\2'
+    backrefs: yes
+  when: permit_root_login | default(False)
+  notify:
+  - Restart SSH service

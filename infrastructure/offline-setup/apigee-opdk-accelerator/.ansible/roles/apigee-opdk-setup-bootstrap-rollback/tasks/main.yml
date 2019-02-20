@@ -1,0 +1,128 @@
+---
+# tasks file for apigee-opdk-setup-bootstrap-rollback
+- name: Gracefully Stop apigee components, if possible
+  ignore_errors: yes
+  shell: '{{ apigee_all }} stop'
+  when: apigee_all is defined and apigee_all | trim | length > 0
+
+- name: Apigee uninstall
+  ignore_errors: yes
+  shell: "/opt/apigee/apigee-service/bin/apigee-service apigee-service uninstall"
+  when: apigee_service is defined and apigee_service | trim | length > 0
+
+- name: Remove apigee, edge, baas and qpid packages
+  become: yes
+  ignore_errors: yes
+  yum:
+    name: '{{ apigee_packages }}'
+    state: absent
+  environment:
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+    no_proxy: "{{ no_proxy | default('') }}"
+
+- name: Set target bootstrap script name for 4.16.01
+  set_fact:
+    bootstrap_script: '{{ opdk_resources_path }}/bootstrap.sh'
+  when: opdk_version is version_compare('4.16.01', '==')
+
+- name: Set target bootstrap script name for version > 4.16.01
+  set_fact:
+    bootstrap_script: '{{ opdk_resources_path }}/bootstrap_{{ opdk_version }}.sh'
+  when: opdk_version is version_compare('4.16.01', '>')
+
+- name: Clear all artifacts from YUM repo
+  become: yes
+  shell: 'yum clean all'
+
+- name: Find files to remove
+  find:
+    path: '{{ item.dir }}'
+    pattern: '{{ item.pattern }}'
+    file_type: file
+    recurse: yes
+  with_items:
+  - { dir: "/opt/nginx/", pattern: "conf.d" }
+  - { dir: "/etc/yum/vars/", pattern: "apigee*" }
+  - { dir: "/tmp/", pattern: "edge" }
+  - { dir: "/var/cache/yum", pattern: "*" }
+  register: remove
+
+#- name: Show file variable contents
+#  debug:
+#    var: files
+
+- name: Remove files
+  become: true
+  file:
+    path: '{{ item.1.path }}'
+    state: absent
+    follow: yes
+  with_subelements:
+  - "{{ remove.results }}"
+  - files
+
+- block:
+  - name: Find apigee & edge folders to remove on rollback
+    find:
+      path: '{{ item.dir }}'
+      pattern: '{{ item.pattern }}'
+      recurse: yes
+      file_type: '{{ item.file_type }}'
+    register: apigee_folders
+    with_items:
+    - { dir: "{{ apigee_home }}", pattern: "apigee-adminapi*", file_type: "directory" }
+    - { dir: "{{ apigee_home }}", pattern: "apigee-attribution*", file_type: "directory" }
+    - { dir: "{{ apigee_home }}", pattern: "apigee-configutil*", file_type: "directory" }
+    - { dir: "{{ apigee_home }}", pattern: "apigee-lib*", file_type: "directory" }
+    - { dir: "{{ apigee_home }}", pattern: "edge*", file_type: "directory" }
+    - { dir: "{{ opdk_resources_path }}", pattern: "bootstrap*", file_type: "file" }
+    - { dir: "/opt", pattern: "nginx", file_type: "directory" }
+    - { dir: "{{ apigee_home }}", pattern: "data", file_type: "directory" }
+    - { dir: "{{ apigee_home }}", pattern: "etc", file_type: "directory" }
+    - { dir: "{{ apigee_home }}", pattern: "token", file_type: "directory" }
+    - { dir: "{{ apigee_home }}/var", pattern: "lock", file_type: "directory" }
+    - { dir: "{{ apigee_home }}/var", pattern: "run", file_type: "directory" }
+
+  - name: Remove files
+    become: true
+    file:
+      path: '{{ item.1.path }}'
+      state: absent
+      follow: yes
+    with_subelements:
+    - "{{ apigee_folders.results }}"
+    - files
+
+  - name: Determine current user
+    shell: whoami
+    register: whoami
+
+  - block:
+    - name: Determine if safe to kill user owned process
+      set_fact:
+        kill_user: '{{ whoami.stdout != opdk_user_name }}'
+
+    - name: Release any apigee user owned processes
+      ignore_errors: yes
+      become: yes
+      shell: 'pkill -u {{ opdk_user_name }}'
+      when: kill_user
+      async: 45
+      poll: 0
+    when: opdk_user_name is defined
+
+  when: remove_apigee is defined and remove_apigee
+
+- name: Remove logs
+  become: true
+  file:
+    path: '{{ apigee_home }}/var/'
+    state: absent
+  when: clear_logs is defined and clear_logs | bool == True
+
+- name: Remove on rollback
+  become: true
+  shell: "rm -rf {{ item }}"
+  with_items: "{{ remove_on_rollback }}"
+  when: remove_on_rollback is defined

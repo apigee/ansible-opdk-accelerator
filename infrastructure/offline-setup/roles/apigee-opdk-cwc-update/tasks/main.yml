@@ -1,0 +1,11 @@
+---
+# tasks file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-cwc-update
+- name: Validate that cwc_properties are provided
+  fail:
+    msg: "Please provide cwc_properties={ key: '<key>', value: '<value>', file_name: '<filename>' }"
+  when: cwc_properties is not defined
+
+- include_tasks: cwc-update.yml
+  with_items:  '{{ cwc_properties }}'
+  loop_control:
+    loop_var: cwc_property

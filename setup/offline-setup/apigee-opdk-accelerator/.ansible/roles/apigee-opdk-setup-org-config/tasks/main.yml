@@ -1,0 +1,112 @@
+---
+- name: Checking for Management Server Port
+  register: ms_port_status
+  wait_for:
+    port: '{{ ms_port }}'
+    host: '{{ private_address }}'
+    timeout: 1
+
+- name: Management server is not running
+  fail:
+    msg: "Management server is not running"
+  when: ms_port_status is failed
+
+- name: Construct name of edge response validate file
+  set_fact:
+    cacheable: yes
+    onboarding_config_file_path: '{{ opdk_resources_path }}/edge-response-validate-{{ opdk_version }}-{{ region }}.conf'
+
+- name: Remove old apigee-provision file
+  become: yes
+  file:
+    path: '{{ onboarding_config_file_path }}'
+    state: absent
+  when: provided_onboarding_config_file_path is not defined
+
+- name: Set virtual_host_alias to load_balancer
+  set_fact:
+    cacheable: yes
+    virtual_host_alias: "{{ load_balancer | default ('') }}"
+
+- block:
+  - name: Collect DC 1 RMP addresses
+    set_fact:
+      cacheable: yes
+      virtual_host_alias: "{{ virtual_host_alias | trim }} {{ hostvars[item].private_address | trim }}"
+    with_items: "{{ groups['dc-1-rmp'] }}"
+    when: groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] and groups['dc-1-rmp'] is defined
+
+  - name: Collect DC 2 RMP addresses
+    set_fact:
+      cacheable: yes
+      virtual_host_alias: "{{ virtual_host_alias | trim }} {{ hostvars[item].private_address | trim }}"
+    with_items: "{{ groups['dc-2-rmp'] }}"
+    when: groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] and groups['dc-2-rmp'] is defined
+
+  - name: Collect DC 3 RMP addresses
+    set_fact:
+      cacheable: yes
+      virtual_host_alias: "{{ virtual_host_alias | trim }} {{ hostvars[item].private_address | trim }}"
+    with_items: "{{ groups['dc-3-rmp'] }}"
+    when: groups['dc-3'] is defined and inventory_hostname in groups['dc-3'] and groups['dc-3-rmp'] is defined
+
+  - name: Collect DC 1 Router addresses
+    set_fact:
+      cacheable: yes
+      virtual_host_alias: "{{ virtual_host_alias | trim }} {{ hostvars[item].private_address | trim }}"
+    with_items: "{{ groups['dc-1-r'] }}"
+    when: groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] and groups['dc-1-r'] is defined
+
+  - name: Collect DC 2 Router addresses
+    set_fact:
+      cacheable: yes
+      virtual_host_alias: "{{ virtual_host_alias | trim }} {{ hostvars[item].private_address | trim }}"
+    with_items: "{{ groups['dc-2-r'] }}"
+    when: groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] and groups['dc-2-r'] is defined
+
+  - name: Collect DC 3 Router addresses
+    set_fact:
+      cacheable: yes
+      virtual_host_alias: "{{ virtual_host_alias | trim }} {{ hostvars[item].private_address | trim }}"
+    with_items: "{{ groups['dc-3-r'] }}"
+    when: groups['dc-3'] is defined and inventory_hostname in groups['dc-3'] and groups['dc-3-r'] is defined
+
+  when: ( load_balancer is not defined or load_balancer | trim | length == 0 )
+
+- name: Assert attributes are available
+  assert:
+    that:
+      - local_mgmt_ip is defined
+      - opdk_user_email is defined
+      - opdk_user_pass is defined
+      - org_name is defined
+      - new_user is defined
+      - opdk_user_email is defined
+      - first_name is defined
+      - last_name is defined
+      - opdk_user_pass is defined
+      - env_name is defined
+      - virtual_host_port is defined
+      - virtual_host_name is defined
+      - virtual_host_alias is defined
+      - ax_group is defined
+      - use_all_mps is defined
+      - ms_port is defined
+    msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+
+
+- name: Prepare onboarding config file
+  become: yes
+  template:
+    src: 'apigee-provision.conf.j2'
+    dest: '{{ onboarding_config_file_path }}'
+    mode: 0644
+  when: provided_onboarding_config_file_path is not defined
+
+- name: Copy provided onboarding config file
+  become: yes
+  copy:
+    src: '{{ provided_onboarding_config_file_path }}'
+    dest: '{{ onboarding_config_file_path }}'
+    mode: 0644
+  when: provided_onboarding_config_file_path is defined

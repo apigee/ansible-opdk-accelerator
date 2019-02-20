@@ -1,0 +1,22 @@
+---
+
+- hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee/credentials.yml
+
+  pre_tasks:
+  - setup:
+
+  - ec2_facts:
+
+  - name: "Load default provisioning settings"
+    include_vars: aws-create-default-settings.yml
+
+  - name: "Load provision profile settings"
+    include_vars: "profiles/{{ provision_profile }}.yml"
+
+  roles:
+  - apigee-opdk-setup-default-settings
+  - aws-create

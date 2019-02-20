@@ -1,0 +1,4 @@
+---
+# defaults file for apigee-opdk-yum-packages
+yum_exclude_packages:
+- ''

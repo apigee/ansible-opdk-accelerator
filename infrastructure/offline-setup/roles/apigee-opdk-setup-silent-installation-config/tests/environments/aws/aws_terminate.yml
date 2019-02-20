@@ -1,0 +1,15 @@
+---
+
+- hosts: "{{ hosts }}"
+  connection: local
+
+  vars_files:
+  - ~/.apigee/credentials.yml
+
+  pre_tasks:
+  - setup:
+  - ec2_facts:
+
+  roles:
+  - apigee-opdk-setup-default-settings
+  - aws-terminate

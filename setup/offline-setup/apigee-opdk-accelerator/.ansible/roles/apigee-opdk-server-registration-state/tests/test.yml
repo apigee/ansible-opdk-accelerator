@@ -1,0 +1,13 @@
+---
+
+- hosts: pgstandby
+  gather_facts: no
+  roles:
+    - {
+        role: apigee-opdk-server-registration-state,
+        username: "{{ opdk_user_email }}",
+        password: "{{ opdk_user_pass }}",
+        server_self: "{{ edge_ps_self }}",
+        mgmt_server_ip: "{{ local_mgmt_ip }}"
+      }
+

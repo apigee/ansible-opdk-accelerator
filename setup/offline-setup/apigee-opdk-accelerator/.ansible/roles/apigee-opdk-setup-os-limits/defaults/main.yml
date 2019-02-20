@@ -1,0 +1,7 @@
+---
+# defaults file for apigee-opdk-setup-os-ds
+apigee_limits:
+- { domain: '*', limit_type: '-', limit_item: 'memlock', value: 'unlimited' }
+- { domain: '*', limit_type: '-', limit_item: 'nofile', value: '100000' }
+- { domain: '*', limit_type: '-', limit_item: 'nproc', value: 'unlimited' }
+- { domain: '*', limit_type: '-', limit_item: 'as', value: 'unlimited' }

@@ -1,0 +1,21 @@
+---
+- name: Ensure that yum support is installed
+  become: true
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - yum-utils
+  - yum-plugin-priorities
+
+- name: Use Apigee Qpid Work Around
+  become: true
+  shell: yum --setopt=obsoletes=0 install apigee-qpidd -y
+
+- name: Install Apigee Qpid Component
+  import_role:
+    name: apigee-opdk-setup-component
+  vars:
+    profile: 'qs'
+
+

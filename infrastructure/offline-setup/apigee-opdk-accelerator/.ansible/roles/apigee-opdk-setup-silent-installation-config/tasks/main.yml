@@ -1,0 +1,116 @@
+---
+# tasks file for apigee-opdk-setup-silent-file
+- name: Construct the Edge response file name
+  set_fact:
+    cacheable: yes
+    response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
+
+- name: Construct the target Edge response file path
+  set_fact:
+    cacheable: yes
+    target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
+
+- name: Create Target Response File Folder
+  become: yes
+  file:
+    path: "{{ target_response_file_path | dirname }}"
+    state: directory
+
+- name: Update cache with manual_response_file if provided
+  set_fact:
+    cacheable: yes
+    manual_response_file: '{{ manual_response_file }}'
+    local_response_file_path: "{{ manual_response_file }}"
+    response_file_name: "{{ manual_response_file | basename }}"
+  when: manual_response_file is defined and manual_response_file
+
+- block:
+  - name: Construct the local Edge response file path
+    set_fact:
+      cacheable: yes
+      local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
+
+  - name: Regional LDAP IP for dc-1 if replicating LDAP
+    set_fact:
+      cacheable: yes
+      opdk_ldap_sid: '1'
+      opdk_ldap_peer: "{{ hostvars[groups['dc-2-ldap'][0]]['private_address'] }}"
+    when: region == 'dc-1' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc-2-ldap'] is defined
+
+  - name: Regional LDAP IP for dc-2 if replicating LDAP
+    set_fact:
+      cacheable: yes
+      opdk_ldap_sid: '2'
+      opdk_ldap_peer: "{{ hostvars[groups['dc-1-ldap'][0]]['private_address'] }}"
+    when: region == 'dc-2' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc-1-ldap'] is defined
+
+  - name: Create Local Response File Folder
+    become: yes
+    file:
+      path: "{{ local_apigee_secure_path }}"
+      state: directory
+
+  - name: Assert that all necessary attributes have been provided
+    assert:
+      that:
+        - enable_system_check is defined
+        - local_mgmt_ip is defined
+        - opdk_user_email is defined
+        - opdk_user_pass is defined
+        - opdk_license_target_file_path is defined
+        - use_opdk_ldap_remote_host is defined
+        - opdk_ldap_pass is defined
+        - opdk_ldap_sid is defined
+        - opdk_ldap_type is defined
+        - opdk_ldap_port is defined
+        - opdk_enable_ax is defined
+        - opdk_mp_pod is defined
+        - region is defined
+        - opdk_use_zk_cluster is defined
+        - groups['ds'] is defined
+        - groups['dc-1-ds'] is defined
+        - opdk_use_cass_cluster is defined
+        - opdk_cass_username is defined
+        - opdk_cass_password is defined
+        - opdk_cass_auth is defined
+        - opdk_smtp_skip is defined
+        - opdk_smtp_mail_from is defined
+        - opdk_user_name is defined
+        - pg_pass is defined
+        - opdk_monetization is defined
+      msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+
+  - block:
+    - name: Assert that LDAP replication attributes are available
+      assert:
+        that:
+          - opdk_ldap_ip is defined
+          - opdk_ldap_peer is defined
+        msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+      when: opdk_ldap_type == '2' or opdk_ldap_type == 2
+
+    - name: Set ldap type for the template
+      set_fact:
+        opdk_ldap_type: 2
+      when: opdk_ldap_type == '2'
+    when: inventory_hostname in groups['ldap']
+
+  - name: Construct the response file
+    delegate_to: localhost
+    template:
+      src: 'response-file-template.conf.j2'
+      dest: "{{ local_response_file_path }}"
+      backup: yes
+      mode: 0655
+
+  when: manual_response_file is not defined or not manual_response_file
+
+- name: Copy response file to target
+  become: yes
+  copy:
+    src: '{{ local_response_file_path }}'
+    dest: "{{ target_response_file_path }}"
+    backup: yes
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    mode: 0655

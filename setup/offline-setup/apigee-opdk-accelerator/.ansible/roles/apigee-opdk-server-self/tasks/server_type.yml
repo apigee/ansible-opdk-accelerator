@@ -1,0 +1,15 @@
+---
+- name: Obtain server self report for {{ server_type }}
+  opdk_server_self:
+    server_type: '{{ server_type }}'
+    username: '{{ opdk_user_email }}'
+    password: '{{ opdk_user_pass }}'
+
+- name: Construct self report variable name
+  set_fact:
+    self_report_name: 'edge_{{ server_type }}_self'
+
+- name: Server self report
+  debug:
+    msg: "{{ hostvars[inventory_hostname][self_report_name] }}"
+  when: self_report_name is defined

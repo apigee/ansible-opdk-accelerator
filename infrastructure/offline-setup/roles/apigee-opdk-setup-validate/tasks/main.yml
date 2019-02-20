@@ -1,0 +1,46 @@
+---
+# tasks file for apigee-opdk-setup-validate
+- name: Assert validate attributes
+  assert:
+    that:
+    - confirm_delete_org is defined
+    - interface_name is defined
+    - opdk_mp_pod is defined
+    - opdk_user_email is defined
+    - opdk_user_pass is defined
+    - groups['dc-1'] is defined
+    - ms_port is defined
+    - mp_ext_mgmt_port is defined
+    - region is defined
+    - apigee_validate_config_file is defined
+
+- name: Install Apigee Validate
+  shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-validate install'
+
+- name: Create apigee-validate configuration file for RMP
+  become: true
+  template:
+    src: apigee-validate-rmp.conf.j2
+    dest: '{{ apigee_validate_config_file }}'
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    force: yes
+  when: groups['rmp'] is defined
+
+- name: Create apigee-validate.conf file for Router separate from MP
+  become: true
+  template:
+    src: apigee-validate-r-mp.conf.j2
+    dest: '{{ apigee_validate_config_file }}'
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    force: yes
+  when: groups['r'] is defined and groups['mp']
+
+- name: Validate OPDK Installation
+  shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-validate setup -f {{ apigee_validate_config_file }}'
+  environment:
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+    no_proxy: "{{ no_proxy | default('') }}"
+

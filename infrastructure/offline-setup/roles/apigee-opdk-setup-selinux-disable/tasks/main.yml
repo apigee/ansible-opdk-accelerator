@@ -1,0 +1,33 @@
+---
+- name: Refresh setup facts
+  setup:
+
+- name: Indicate whether selinux is disabled
+  set_fact:
+    cacheable: yes
+    selinux_disabled: "{{ ansible_selinux.status == 'disabled' }}"
+
+- name: Confirm existence of selinux config file
+  stat:
+    path: /etc/sysconfig/selinux
+  register: selinux_state
+
+- block:
+  - name: Permanently disable SELINUX
+    selinux:
+      state: disabled
+    when:  ansible_selinux.status == 'enabled'
+    register: selinux_disabled
+
+  - name: Persist SELINUX disabled state
+    lineinfile:
+      path: /etc/sysconfig/selinux
+      line: 'SELINUX=disabled'
+      regexp: '^SELINUX=.*'
+  become: yes
+  when: selinux_state.stat.exists
+
+- name: Restart node
+  debug:
+    msg: 'SELinux MUST be disabled, selinux has been updated, please restart node now...'
+  when: selinux_disabled.changed

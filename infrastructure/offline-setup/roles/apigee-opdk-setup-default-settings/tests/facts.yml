@@ -1,0 +1,10 @@
+---
+- hosts: planet
+  strategy: free
+  pre_tasks:
+  - setup:
+  - ec2_facts:
+  roles:
+  - apigee-opdk-setup-default-settings
+  tags:
+  - facts

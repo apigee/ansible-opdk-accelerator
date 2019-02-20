@@ -1,0 +1,3 @@
+---
+# defaults file for apigee-opdk-setup-status
+all_status: "{{ apigee_installation_home }}/bin/all-status.sh"

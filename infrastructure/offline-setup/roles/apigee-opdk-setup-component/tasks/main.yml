@@ -1,0 +1,41 @@
+---
+# tasks file for apigee-opdk-setup-component
+- name: Cache attributes attributes
+  tags: ['cache']
+  include_tasks: "cache.yml"
+
+- block:
+  - name: Install Apigee component {{ profile }} for Private Cloud {{ opdk_version }}
+    become: yes
+    command: '{{ apigee_setup }} -p {{ profile }} -f {{ target_response_file_path }}'
+#    args:
+#      creates: "{{ create_folder }}"
+    environment:
+      http_proxy: "{{ http_proxy | default('') }}"
+      https_proxy: "{{ https_proxy | default('') }}"
+      no_proxy: "{{ no_proxy | default('') }}"
+      PORT_TIMEOUT: '{{ port_timeout | default(60) }}'
+      UP_TIMEOUT: '{{ up_timeout | default(60) }}'
+    when: opdk_debug_mode is not defined or opdk_debug_mode | trim | lower == 'off'
+
+  - name: DEBUG_MODE - Install Apigee component {{ profile }} for Private Cloud {{ opdk_version }}
+    become: yes
+    command: '/usr/bin/bash -x {{ apigee_setup }} -p {{ profile }} -f {{ target_response_file_path }}'
+#    args:
+#      creates: "{{ create_folder }}"
+    environment:
+      http_proxy: "{{ http_proxy | default('') }}"
+      https_proxy: "{{ https_proxy | default('') }}"
+      no_proxy: "{{ no_proxy | default('') }}"
+      PORT_TIMEOUT: '{{ port_timeout | default(60) }}'
+      UP_TIMEOUT: '{{ up_timeout | default(60) }}'
+    when: opdk_debug_mode is defined and opdk_debug_mode | trim | lower == 'on'
+
+  rescue:
+    - name: Recovery for Qpid components
+      include_tasks: rescue-qs.yml
+      when: profile == 'qs'
+
+    - name: Attempt to start component
+      shell: "{{ apigee_all }} start"
+

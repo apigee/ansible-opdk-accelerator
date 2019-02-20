@@ -1,0 +1,4 @@
+---
+# handlers file for apigee-opdk-setup-mirror-nginx
+- name: Nginx restart
+  shell: "{{ apigee_nginx }} restart"

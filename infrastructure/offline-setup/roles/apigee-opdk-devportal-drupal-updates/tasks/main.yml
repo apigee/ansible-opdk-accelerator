@@ -1,0 +1,8 @@
+---
+# tasks file for apigee-opdk-devportal-drupal-updates
+- name: Update Drupal Update module
+  become: yes
+  shell: drush pm-info update
+  args:
+    chdir: "{{ apigee_home }}/apigee-drupal"
+

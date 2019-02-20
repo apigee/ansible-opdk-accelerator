@@ -1,0 +1,135 @@
+---
+opdk_version: 4.19.01
+upgrade_from_opdk_version: 4.19.01
+apigeereleasever: "{{ opdk_version }}"
+#apigee_archive_name: apigee-{{ opdk_version }}.tar.gz
+#apigee_repo_uri: 10.142.0.14:3939
+#apigee_repo_protocol: http 
+#apigee_repo_url: "{{ apigee_repo_protocol }}://{{ apigee_repo_uri }}"
+target_logs_folder: "~/.apigee/planet_resources/"
+# assign_mgmt_ip: true
+opdk_resources_path: /tmp/edge
+
+# These are required yum packages
+yum_packages:
+- bind-utils
+- chkconfig
+- curl
+- tar
+- wget
+- yum-utils
+- unzip
+- rsync
+- which
+- libselinux-python
+- nss
+- openssh-clients
+- openssh-server
+- grep
+- rpm
+- rng-tools
+- sed
+- yum-plugin-priorities
+- boost-filesystem
+- boost-program-options
+- libdb-4.8*
+# - qpid-proton-c
+# - http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-devel-0.14.0-2.el7.x86_64.rpm
+# - http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-0.14.0-2.el7.x86_64.rpm
+
+# Yum packages to exclude during installation
+# yum_exclude_packages: 
+# - 'qpid-proton-c'
+
+os_packages:
+- lsof
+- nc
+- dos2unix
+- tcpdump
+- telnet
+- vim
+- tree
+
+pip_packages:
+- httplib2
+- passlib
+- urllib3
+- requests
+- six
+# - pexpect
+
+epel_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+tenants:
+- { org: rbcapigee, env: sb, new_user: 'y' }
+- { org: rbcapigee, env: prod, new_user: 'y' }
+- { org: rbcapigee, env: prodexternal, new_user: 'y' }
+- { org: opdk, env: test, new_user: 'n' }
+- { org: adventist, env: test, new_user: 'n' }
+- { org: adventist, env: dev, new_user: 'n' }
+- { org: adventist, env: prod, new_user: 'n' }
+
+clear_etc_hosts:
+- { regexp: '(^::1.*localhost6.*)$', replace: '# \1' }
+
+#port_timeout: 600
+#up_timeout: 600
+
+# OS Config for all Nodes
+sysctl_minimum:
+- { name: 'vm.swappiness', value: "{{ vm_swappiness }}" }
+- { name: 'net.ipv4.tcp_fin_timeout', value: "{{ apigee_net_ipv4_tcp_fin_timeout }}" }
+- { name: 'vm.max_map_count', value: '{{ apigee_max_map_count }}' }
+
+# OS Config for IPV6
+sysctl_ipv6:
+- { name: 'net.ipv6.conf.all.disable_ipv6', value: '1' }
+- { name: 'net.ipv6.conf.default.disable_ipv6', value: '1' }
+
+# OS Config for Postgres
+apigee_kernel_sem: '500 32000 32 1024'
+sysctl_pg:
+- { name: 'kernel.sem', value: "{{ apigee_kernel_sem }}" }
+
+# Extra Yum Packages that should be transferred manually for an offline installation
+archive_extra_packages:
+- yum-utils
+- yum-plugin-priorities
+- libdb4-4.8*
+
+# Edge SSO Configuration
+edge_sso_installation_config_file_name: edge-sso-installer-config.conf
+edge_sso_installation_config_file_path: "{{ opdk_installer_path }}/{{ edge_sso_installation_config_file_name }}"
+jwt_key_folder: "{{ apigee_home }}/customer/application/apigee-sso/jwt-keys"
+jwt_private_key: private_key.pem
+sso_jwt_signinig_key_file_path: "{{ jwt_key_folder }}/{{ jwt_private_key }}"
+jwt_public_key: public_key.pem
+sso_jwt_verification_key_file_path: "{{ jwt_key_folder }}/{{ jwt_public_key }}"
+jwt_key_size: 2048
+saml_folder: "{{ apigee_home }}/customer/application/apigee-sso/saml"
+sso_saml_service_provider_key_file_name: server.key
+sso_saml_service_provider_key_file_path: "{{ saml_folder }}/{{ sso_saml_service_provider_key_file_name}}"
+saml_private_encryption_type: aes256
+saml_private_key_size: 1024
+saml_cert_signing_request: server.csr
+sso_saml_service_provider_certificate_file_name: server.crt
+sso_saml_service_provider_certificate_file_path: "{{ saml_folder }}/{{ sso_saml_service_provider_certificate_file_name }}"
+saml_cert_encryption_type: sha256
+saml_cert_expiry_days: 365
+saml_cert_subject: "/C=US/O=google/OU=apigee/CN=apigee.com"
+sso_saml_idp_metadata_local_file_name: ~/.apigee/target_idp_metadata.xml
+#sso_saml_idp_metadata_url: "https://dev-834855.oktapreview.com/app/exkeonuahzrKy4meF0h7/sso/saml/metadata"
+
+# Edge UI SAML Integration
+edgeui_response_file_name: edge-ui-saml-response.conf
+edgeui_response_file_path: "{{ opdk_installer_path }}/{{ edgeui_response_file_name }}"
+edgeui_public_uris: http://{{ local_mgmt_ip }}:9000
+edgeui_sso_enabled: y
+sso_public_url_port: 9099
+sso_public_url_scheme: http
+edgeui_sso_client_overwrite: y
+edgeui_sso_client_name: 
+
+
+enable_system_check: n
+use_opdk_ldap_remote_host: n
+opdk_mp_pod: gateway

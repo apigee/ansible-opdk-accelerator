@@ -1,0 +1,6 @@
+---
+# defaults file for apigee-opdk-setup-component
+apigee_home: /opt/apigee
+apigee_setup: '{{ apigee_home }}/apigee-setup/bin/setup.sh'
+apigee_all: '{{ apigee_home }}/apigee-service/bin/apigee-all'
+

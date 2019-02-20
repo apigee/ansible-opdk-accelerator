@@ -1,0 +1,10 @@
+---
+- include: ../../facts.yml
+
+- hosts: '{{ hosts }}'
+  connection: local
+  strategy: free
+  roles:
+  - aws-terminate
+
+

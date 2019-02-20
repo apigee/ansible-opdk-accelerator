@@ -1,0 +1,42 @@
+---
+# tasks file for apigee-opdk-setup-java-home
+- name: Validate that java_home is available
+  fail:
+    msg: "Please provide java_home"
+  when: java_home is not defined
+
+- name: Refresh cache with provided java_home
+  set_fact:
+    cacheable: yes
+    java_home: '{{ java_home }}'
+
+- block:
+  - name: Remove old JAVA_HOME
+    lineinfile:
+      create: yes
+      dest: "{{ apigee_home }}/etc/defaults.sh"
+      regexp: "{{ item }}"
+      state: absent
+      backup: yes
+      owner: "{{ opdk_user_name | default('apigee') }}"
+      group: "{{ opdk_group_name | default('apigee') }}"
+    with_items:
+    - "^JAVA_HOME="
+    - "^export JAVA_HOME"
+    - "^PATH=\\$JAVA_HOME/bin"
+
+  - name: Update default.sh with JAVA_HOME
+    lineinfile:
+      create: yes
+      dest: "{{ apigee_home }}/etc/defaults.sh"
+      regexp: "{{ item.regexp }}"
+      line: '{{ item.line }}'
+      backup: yes
+      state: present
+      owner: "{{ opdk_user_name | default('apigee') }}"
+      group: "{{ opdk_group_name | default('apigee') }}"
+    with_items:
+    - { regexp: "^JAVA_HOME=", line: "JAVA_HOME={{ java_home }}" }
+    - { regexp: "^PATH=\\$JAVA_HOME/bin:\\$PATH", line: "PATH=$JAVA_HOME/bin:$PATH"}
+    - { regexp: "^export JAVA_HOME", line: "export JAVA_HOME"}
+  become: yes

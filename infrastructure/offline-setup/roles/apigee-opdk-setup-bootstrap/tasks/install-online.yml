@@ -1,0 +1,67 @@
+---
+- name: Construct Bootstrap Name for Versions Greater Than 4.16.01
+  set_fact:
+    cacheable: yes
+    bootstrap_file_name: "bootstrap_{{ opdk_version }}.sh"
+  when: opdk_version is version_compare('4.16.01', '>')
+
+- name: Construct Bootstrap Name for Version 4.16.01
+  set_fact:
+    cacheable: yes
+    bootstrap_file_name: "bootstrap.sh"
+  when: opdk_version is version_compare('4.16.01', '==')
+
+- name: Construct Bootstrap Path for Version 4.16.01
+  set_fact:
+    cacheable: yes
+    bootstrap_file_path: "{{ opdk_resources_path }}/{{ bootstrap_file_name }}"
+
+- name: Download bootstrap with proxy
+  become: yes
+  uri:
+    url: '{{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }}'
+    dest: '{{ bootstrap_file_path }}'
+    creates: '{{ bootstrap_file_path }}'
+    user: '{{ apigee_repo_user | default(default_apigee_repo_user) }}'
+    password: '{{ apigee_repo_password | default(default_apigee_repo_password) }}'
+  register: results
+  environment:
+    no_proxy: "{{ no_proxy | default('') }}"
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+
+- name: Bootstrap script exists
+  stat:
+    path: '{{ bootstrap_file_path }}'
+  register: bootstrap_exists
+
+- name: Cache bootstrap script state
+  set_fact:
+    cacheable: yes
+    bootstrap_file_path_exists: '{{ bootstrap_exists.stat.exists }}'
+
+- name: Fail the playbook if bootstrap fails to download
+  fail:
+    msg: 'Bootstrap installation failed, no point in letting this go further'
+  when: not bootstrap_exists.stat.exists
+
+- block:
+  - name: Yum clean all
+    shell: "yum clean all"
+
+  - name: Clear yum cache folder
+    file:
+      path: /var/cache/yum
+      state: absent
+
+  become: yes
+
+- block:
+  - include_tasks: install-bootstrap.yml
+
+  rescue:
+    - name: Yum failed to update, let's clean yum
+      command: 'yum clean all'
+
+    - include_tasks: install-bootstrap.yml
+  become: yes

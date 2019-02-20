@@ -1,0 +1,8 @@
+---
+# defaults file for apigee-opdk-setup-os-pip/
+pip_packages:
+- httplib2
+- passlib
+- urllib3
+- requests
+- six

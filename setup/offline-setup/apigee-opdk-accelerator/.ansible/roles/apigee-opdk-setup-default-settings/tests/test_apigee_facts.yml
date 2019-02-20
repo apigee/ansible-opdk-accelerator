@@ -1,0 +1,9 @@
+---
+- hosts: ms
+  remote_user: root
+  roles:
+    - apigee-opdk-setup-default-settings
+
+  tasks:
+  - name: Set Apigee facts
+    apigee_facts: topology='cassandra' my_hostname='dc-1'

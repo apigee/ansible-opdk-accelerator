@@ -1,0 +1,26 @@
+
+In what ways could we deconstruct an actual inventory file so that it is less verbose and easier to understand:
+Sample inventory file
+[dc-1-ds]
+emp23 ansible_host=172.31.20.136 ansible_password=password1 ansible_ssh_key=~/.ssh/cfrias.pem zk_observer=true
+172.31.20.137 ansible_password=password1 ansible_ssh_key=~/.ssh/cfrias.pem zk_observer=true
+172.31.20.138
+
+[ds]
+emp23
+172.31.20.137
+
+
+
+Possible sample compressed inventory files prepared by Paul and Maudrit:
+
+dc-1:
+     ds:
+      - 172.31.20.136
+      - 172.31.20.137
+      - 172.31.20.138
+OR
+
+dc-1:
+  ds: { 172.31.20.136, 172.31.20.137, 172.31.20.138 }
+

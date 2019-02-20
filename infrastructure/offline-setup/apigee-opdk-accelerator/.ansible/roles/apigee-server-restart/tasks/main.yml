@@ -1,0 +1,20 @@
+---
+# tasks file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-server-restart
+- name: Restarting node now
+  become: yes
+  shell: sleep 2 && reboot now
+  async: 1
+  poll: 0
+
+- name: Waiting for server to complete restarting
+  become: no
+  local_action:
+    module: wait_for
+    host: '{{ inventory_hostname }}'
+    state: started
+    delay: "{{ start_check_delay | d(15) }}"
+    timeout: '{{ server_restart_timeout | d(60) }}'
+
+- name: Report server started
+  debug:
+    msg: "Apigee node is ready."

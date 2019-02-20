@@ -1,0 +1,8 @@
+---
+- hosts: planet
+  strategy: free
+  tasks:
+  - setup:
+  - ec2_facts:
+  tags:
+  - facts

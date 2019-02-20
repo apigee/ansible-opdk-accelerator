@@ -1,0 +1,8 @@
+{
+    "ansible_all_ipv4_addresses": [
+        "10.142.0.33"
+    ], 
+    "ansible_all_ipv6_addresses": [
+        "fe80::4001:aff:fe8e:21"
+    ]
+}

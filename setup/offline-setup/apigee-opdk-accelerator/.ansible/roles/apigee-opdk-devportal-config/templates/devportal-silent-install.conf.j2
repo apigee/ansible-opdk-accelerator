@@ -1,0 +1,28 @@
+HOSTIP=$(hostname -i)
+PG_NAME={{ dp_pg_name }}
+PG_USER={{ dp_pg_user }}
+PG_PWD='{{ dp_pg_pass }}'
+
+PG_HOST={{ dp_pg_host }}
+DEFAULT_DB={{ dp_pg_database }}
+
+DRUPAL_PG_USER={{ dp_drupal_pg_user }}
+DRUPAL_PG_PASS='{{ dp_drupal_pg_pass }}'
+
+DEVPORTAL_ADMIN_FIRSTNAME={{ dp_admin_firstname }}
+DEVPORTAL_ADMIN_LASTNAME={{ dp_admin_lastname }}
+DEVPORTAL_ADMIN_USERNAME={{ dp_admin_username }}
+DEVPORTAL_ADMIN_PWD='{{ dp_admin_pwd }}'
+DEVPORTAL_ADMIN_EMAIL={{ dp_admin_email }}
+
+EDGE_ORG={{ org_name }}
+MGMT_URL=http://{{ local_mgmt_ip }}:{{ ms_ext_mgmt_port }}/v1
+DEVADMIN_USER={{ dp_devadmin_user }}
+DEVADMIN_PWD='{{ dp_devadmin_pwd }}'
+PHP_FPM_PORT={{ dp_php_fpm_port }}
+
+SMTPHOST={{ opdk_smtp_host }}
+SMTPSSL={{ opdk_smtp_ssl }}
+SMTPPORT={{ opdk_smtp_port }}
+SMTPUSER={{ opdk_smtp_user }}
+SMTPPASSWORD='{{ opdk_smtp_password }}'

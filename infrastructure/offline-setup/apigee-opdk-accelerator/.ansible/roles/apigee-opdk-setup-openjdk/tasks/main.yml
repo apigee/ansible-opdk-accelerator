@@ -1,0 +1,41 @@
+---
+- name: Update cache with key and value
+  tags: ['cache']
+  set_fact:
+    cacheable: yes
+    jdk_version: "{{ jdk_version }}"
+    java_home: '{{ java_home }}'
+
+- block:
+
+  - name: Install Java JDK with proxy
+    become: yes
+    yum:
+      name: "java-{{ jdk_version }}.0-openjdk-devel.{{ ansible_architecture }}"
+      state: present
+      disable_gpg_check: yes
+    environment:
+      http_proxy: "{{ http_proxy | default('') }}"
+      https_proxy: "{{ https_proxy | default('') }}"
+      no_proxy: "{{ no_proxy | default('') }}"
+
+  rescue:
+    - name: Install Java JDK with proxy
+      become: yes
+      yum:
+        name: "java-{{ jdk_version }}.0-openjdk-devel"
+        state: present
+        disable_gpg_check: yes
+      environment:
+        http_proxy: "{{ http_proxy | default('') }}"
+        https_proxy: "{{ https_proxy | default('') }}"
+        no_proxy: "{{ no_proxy | default('') }}"
+
+- name: Update environment with path to JAVA_HOME
+  become: yes
+  lineinfile:
+    dest: /etc/environment
+    regexp: "^export JAVA_HOME"
+    line: 'export JAVA_HOME={{ java_home }}'
+    backup: yes
+

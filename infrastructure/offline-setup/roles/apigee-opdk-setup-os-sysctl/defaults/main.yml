@@ -1,0 +1,13 @@
+---
+# defaults file for apigee-opdk-setup-os-sysctl
+# OS Config for IPV6
+sysctl_ipv6:
+- { name: 'net.ipv6.conf.all.disable_ipv6', value: '1' }
+- { name: 'net.ipv6.conf.default.disable_ipv6', value: '1' }
+
+sysctl_minimum:
+- { name: 'vm.swappiness', value: "{{ vm_swappiness }}" }
+- { name: 'net.ipv4.tcp_fin_timeout', value: "{{ apigee_net_ipv4_tcp_fin_timeout }}" }
+- { name: 'vm.max_map_count', value: '{{ apigee_max_map_count }}' }
+
+

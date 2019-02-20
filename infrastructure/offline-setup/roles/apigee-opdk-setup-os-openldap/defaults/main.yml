@@ -1,0 +1,65 @@
+---
+# defaults file for apigee-opdk-setup-os-openldap
+openldap:
+- openldap
+- openldap-clients
+- openldap-servers
+openldap_legacy_version: 2.4.40
+openldap_support:
+- http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/x86_64/RPMS.classic/libsasl2-3-2.1.26-alt7.x86_64.rpm
+
+openldap_downgrade_version:
+- openldap-2.4.40
+- openldap-clients-2.4.40
+- openldap-servers-2.4.40
+
+#openldap_manual_download:
+#- openldap-2.4.40-13.el7.x86_64.rpm
+#- openldap-clients-2.4.40-13.el7.x86_64.rpm
+#- openldap-servers-2.4.40-13.el7.x86_64.rpm
+
+#openldap_repo_host: http://mirror.centos.org/centos/6/os/x86_64/Packages
+#openldap_versioned_names:
+#- openldap-2.4.40-16.el6.x86_64.rpm
+#- openldap-clients-2.4.40-16.el6.x86_64.rpm
+#- openldap-servers-2.4.40-16.el6.x86_64.rpm
+
+#- ftp://fr2.rpmfind.net/linux/centos/7.3.1611/os/x86_64/Packages/openldap-2.4.40-13.el7.x86_64.rpm
+#- ftp://fr2.rpmfind.net/linux/centos/7.3.1611/os/x86_64/Packages/openldap-clients-2.4.40-13.el7.x86_64.rpm
+#- ftp://fr2.rpmfind.net/linux/centos/7.3.1611/os/x86_64/Packages/openldap-servers-2.4.40-13.el7.x86_64.rpm
+
+ldap_dependent_library_links:
+- { src: "/lib64/liblber-2.4.so.2.10.3", path: "/lib64/liblber-2.4.so.2" }
+- { src: "/lib64/libslapi-2.4.so.2.10.3", path: "/lib64/libslapi-2.4.so.2" }
+- { src: "/lib64/libldap_r-2.4.so.2.10.3", path: "/lib64/libldap_r-2.4.so.2" }
+
+#ftp://195.220.108.108/linux/centos/6.9/os/x86_64/Packages/cyrus-sasl-lib-2.1.23-15.el6_6.2.i686.rpm
+
+openldap_named_versions:
+- http://mirror.centos.org/centos/6/os/x86_64/Packages/openldap-2.4.40-16.el6.x86_64.rpm
+- http://mirror.centos.org/centos/6/os/x86_64/Packages/openldap-clients-2.4.40-16.el6.x86_64.rpm
+- http://mirror.centos.org/centos/6/os/x86_64/Packages/openldap-servers-2.4.40-16.el6.x86_64.rpm
+- http://mirror.centos.org/centos/6/os/x86_64/Packages/compat-openldap-2.3.43-2.el6.x86_64.rpm
+
+# Additional packages to add to the openldap_named_versions collection
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/libtool-ltdl-2.2.6-15.5.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/libstdc++-4.4.7-11.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/libuuid-2.17.2-12.18.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/boost-filesystem-1.41.0-25.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/boost-program-options-1.41.0-25.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/boost-system-1.41.0-25.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/boost-test-1.41.0-25.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/uuid-1.6.1-10.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/libaio-0.3.107-10.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/nspr-4.13.1-1.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/nss-3.27.1-13.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/nss-util-3.27.1-3.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/cyrus-sasl-ldap-2.1.23-15.el6_6.2.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/cyrus-sasl-lib-2.1.23-15.el6_6.2.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/glibc-2.12-1.209.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/compat-db42-4.2.52-17.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/compat-db-4.6.21-17.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/db4-4.7.25-22.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/db4-devel-4.7.25-22.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/db4-utils-4.7.25-22.el6.x86_64.rpm
+#- http://mirror.centos.org/centos/6/os/x86_64/Packages/db4-cxx-4.7.25-22.el6.x86_64.rpm

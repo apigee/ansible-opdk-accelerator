@@ -1,0 +1,46 @@
+---
+# tasks file for apigee-opdk-setup-cassandra-registration
+- name: Fail the role if we have not target response file
+  assert:
+    that:
+      - target_response_file_path is defined
+    msg: "Please provide the target_response_file_path"
+
+- name: Copy target response file to control server
+  fetch:
+    src: "{{ target_response_file_path }}"
+    dest: "{{ local_apigee_secure_path }}/"
+    flat: true
+
+- block:
+
+  - name: Copy target response file control server to management server
+    become: true
+    copy:
+      src: "{{ local_apigee_secure_path }}/{{ target_response_file_path | basename }}"
+      dest: "{{ target_response_file_path }}"
+      owner: "{{ opdk_user_name }}"
+      group: "{{ opdk_group_name }}"
+    delegate_to: "{{ local_mgmt_ip }}"
+
+  - name: Setup component with target response file
+    shell: /opt/apigee/apigee-service/bin/apigee-service edge-management-server apigee-registration-setup -f {{ target_response_file_path }}
+    delegate_to: "{{ local_mgmt_ip }}"
+
+  when: local_mgmt_ip != private_address
+
+- block:
+
+  - name: Copy target response file control server to management server
+    become: true
+    copy:
+      src: "{{ local_apigee_secure_path }}/{{ target_response_file_path | basename }}"
+      dest: "{{ target_response_file_path }}"
+      owner: "{{ opdk_user_name }}"
+      group: "{{ opdk_group_name }}"
+
+  - name: Setup component with target response file
+    shell: /opt/apigee/apigee-service/bin/apigee-service edge-management-server apigee-registration-setup -f {{ target_response_file_path }}
+
+  when: local_mgmt_ip == private_address
+

@@ -1,0 +1,25 @@
+---
+- name: Determine whether host is in Region 1
+  set_fact:
+    cacheable: yes
+    region: 'dc-1'
+  when: groups['dc-1'] is defined and inventory_hostname in groups['dc-1']
+
+- name: Determine whether host is in Region 2
+  set_fact:
+    cacheable: yes
+    region: 'dc-2'
+  when: groups['dc-2'] is defined and inventory_hostname in groups['dc-2']
+
+- name: Determine whether host is in Region 3
+  set_fact:
+    cacheable: yes
+    region: 'dc-3'
+  when: groups['dc-3'] is defined and inventory_hostname in groups['dc-3']
+
+- name: Set default region if not set
+  set_fact:
+    cacheable: yes
+    region: 'dc-1'
+  when: region is not defined or region | trim | length == 0
+

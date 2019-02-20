@@ -1,0 +1,43 @@
+---
+- hosts: planet
+  vars:
+    opdk_cass_password: 'cassandra'
+    opdk_cass_username: 'cassandra'
+    opdk_ldap_pass: 'Apigee123!'
+    opdk_user_name: 'apigee'
+    opdk_group_name: 'apigee'
+    opdk_user_email: 'opdk@apigee.com'
+    opdk_user_pass: 'Apigee123!'
+  pre_tasks:
+  - setup:
+  - ec2_facts:
+    when: ansible_bios_version | lower | search('amazon')
+  roles:
+  - apigee-opdk-setup-default-settings
+
+- hosts: dc-1-rmp[0]
+  become: yes
+  vars:
+    opdk_cass_password: 'cassandra'
+    opdk_cass_username: 'cassandra'
+    opdk_ldap_pass: 'Apigee123!'
+    opdk_user_name: 'apigee'
+    opdk_group_name: 'apigee'
+    opdk_user_email: 'opdk@apigee.com'
+    opdk_user_pass: 'Apigee123!'
+  roles:
+  - apigee-opdk-silent-installation-config
+
+  post_tasks:
+#  - name: Configure cassandra hosts
+#    ignore_errors: yes
+#    cassandra_hosts:
+#      inventory_hostname: '{{ inventory_hostname }}'
+#      hostvars: '{{ hostvars }}'
+
+  - debug: var=cassandra_hosts
+
+  - name: Fetch copy of silent-install file
+    fetch:
+      src: '/tmp/silent-install.conf'
+      dest: downloads

@@ -1,0 +1,32 @@
+---
+- name: Validate that cwc_property is provided
+  fail:
+    msg: "Please provide a cwc_property to update"
+  when: cwc_property is not defined
+
+- name: Validate that cwc_property.key is provided
+  fail:
+    msg: "Please provide a cwc_property.key to update"
+  when: cwc_property.key is not defined
+
+- name: Validate that cwc_property.value is provided
+  fail:
+    msg: "Please provide a cwc_property.value to update"
+  when: cwc_property.value is not defined
+
+- name: Validate that cwc_property.file_name is provided
+  fail:
+    msg: "Please provide a cwc_property.file_name to update"
+  when: cwc_property.file_name is not defined
+
+- name: Update defaults.sh with replace_address option for Cassandra
+  lineinfile:
+    backup: yes
+    create: yes
+    group: "{{ opdk_group_name }}"
+    owner: "{{ opdk_user_name }}"
+    mode: 0644
+    state: present
+    regexp: "^{{ cwc_property.key }}"
+    line: '{{ cwc_property.key }}={{ cwc_property.value }}'
+    dest: "{{ apigee_home }}/customer/application/{{ cwc_property.file_name }}.properties"
