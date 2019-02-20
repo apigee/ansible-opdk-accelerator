@@ -4,7 +4,7 @@
   gather_facts: no
   vars:
     cwc_properties:
-      - { key: conf_security_ldap, value: true, file_name: management-server.properties }
+      - { key: conf_security_ldap, value: true, file_name: management-server }
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
