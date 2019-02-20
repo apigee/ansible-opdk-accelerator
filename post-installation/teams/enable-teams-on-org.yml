@@ -21,7 +21,7 @@
         force_basic_auth: "yes"
         body_format: "json"
         body:
-          name: "{{ org_name }}"
+          name: "{{ org_name }} Team"
           properties:
             property:
             - name: features.isTeamsEnabled
