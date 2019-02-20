@@ -44,6 +44,7 @@
     register: pubkey_state
 
   - name: Copy local public keys to server for user {{ user }}
+    tags: ['copy-keys']
     authorized_key:
       user: '{{ remote_user }}'
       state: present
