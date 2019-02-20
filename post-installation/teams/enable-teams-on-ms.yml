@@ -1,0 +1,11 @@
+---
+- name: Enable teams on management server
+  hosts: ms
+  gather_facts: no
+  vars:
+    cwc_properties:
+      - { key: conf_security_ldap, value: true, file_name: management-server.properties }
+  roles:
+    - { role: apigee-opdk-cwc-update }
+    - { role: apigee-opdk-stop-components, component_name: 'edge-management-server' }
+    - { role: apigee-opdk-start-components, component_name: 'edge-management-server' }
