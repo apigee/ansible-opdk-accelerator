@@ -26,5 +26,4 @@
         body:
           name: "{{ org_name }}"
           displayName: "{{ org_name }}"
-          teamMembers:
-            - "{{ team_members }}"
+          teamMembers: "{{ team_members }}"
