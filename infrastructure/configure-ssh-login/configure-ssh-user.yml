@@ -6,6 +6,7 @@
   vars:
     pubkey: '~/.ssh/id_rsa.pub'
     pvtkey: '~/.ssh/id_rsa'
+    sshd_config
 
   tasks:
   - block:
@@ -72,6 +73,7 @@
       regexp: "{{ item.regexp }}"
       line: "{{ item.line }}"
       backrefs: yes
+      validate: '/usr/sbin/visudo -cf %s'
     with_items:
       - { regexp: '(^#)(Defaults.*requiretty)', line: "Defaults !requiretty" }
       - { regexp: '^root.*ALL=.*$', line: "root ALL=NOPASSWD:ALL" }
