@@ -68,6 +68,7 @@
     - Restart SSH service
 
   - name: Enable Root with no Password Prompt
+    become: true
     lineinfile:
       state: present
       dest: "{{ sudoers }}"
