@@ -6,7 +6,8 @@
   vars:
     pubkey: '~/.ssh/id_rsa.pub'
     pvtkey: '~/.ssh/id_rsa'
-    sshd_config
+    sshd_config: '/etc/ssh/sshd_config'
+    sudoers: '/etc/sudoers'
 
   tasks:
   - block:
@@ -56,7 +57,7 @@
     become: yes
     lineinfile:
       state: present
-      dest: /etc/ssh/sshd_config
+      dest: "{{ sshd_config }}"
       regexp: "{{ item.regexp }}"
       line: "{{ item.line}}"
       backrefs: yes
@@ -69,7 +70,7 @@
   - name: Enable Root with no Password Prompt
     lineinfile:
       state: present
-      dest: /etc/sudoers
+      dest: "{{ sudoers }}"
       regexp: "{{ item.regexp }}"
       line: "{{ item.line }}"
       backrefs: yes
