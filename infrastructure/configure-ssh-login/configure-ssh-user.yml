@@ -56,9 +56,12 @@
     lineinfile:
       state: present
       dest: /etc/ssh/sshd_config
-      insertafter: EOF
-      line: 'PermitRootLogin yes'
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line}}"
       backrefs: yes
+    with_items:
+      - {regexp: '(^#)(PermitRootLogin yes)', line: '\2' }
+      - {regexp: '(PermitRootLogin) no', line: '\1 yes' }
     notify:
     - Restart SSH service
 
@@ -66,12 +69,12 @@
     lineinfile:
       state: present
       dest: /etc/sudoers
-      insertafter: EOF
-      line: "{{ item }}"
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
       backrefs: yes
     with_items:
-      - "Defaults !requiretty"
-      - "root ALL=NOPASSWD:ALL"
+      - { regexp: '(^#)(Defaults.*requiretty)', line: "Defaults !requiretty" }
+      - { regexp: '^root.*ALL=.*$', line: "root ALL=NOPASSWD:ALL" }
 
 #  - name: Enable Default requiretty
 #    lineinfile:
