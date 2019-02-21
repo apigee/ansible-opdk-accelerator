@@ -78,16 +78,7 @@
       - { regexp: '(^#)(Defaults.*requiretty)', line: "Defaults !requiretty" }
       - { regexp: '^root.*ALL=.*$', line: "root ALL=NOPASSWD:ALL" }
 
-#  - name: Enable Default requiretty
-#    lineinfile:
-#      state: present
-#      dest: /etc/sudoers
-#      regexp: '(^#)(Defaults.*requiretty)'
-#      line: 'Defaults !requiretty'
-#      backrefs: yes
-#    notify:
-#    - Restart SSH service
-#    when: remote_user == 'root'
+
 
   handlers:
   - name: Restart SSH service
