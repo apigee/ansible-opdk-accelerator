@@ -61,7 +61,7 @@
     notify:
     - Restart SSH service
 
-  - name: Enable Default requiretty
+  - name: Enable Root with no Password Prompt
     lineinfile:
       state: present
       dest: /etc/sudoers
