@@ -56,35 +56,31 @@
     lineinfile:
       state: present
       dest: /etc/ssh/sshd_config
-      regexp: '(^#)(PermitRootLogin yes)'
-      line: '\2'
+      line: 'PermitRootLogin yes'
       backrefs: yes
     notify:
     - Restart SSH service
-    when: remote_user == 'root'
-
-  - name: Enable root login over SSH
-    become: yes
-    lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '(PermitRootLogin) no'
-      line: '\1 yes'
-      backrefs: yes
-    notify:
-    - Restart SSH service
-    when: remote_user == 'root'
 
   - name: Enable Default requiretty
     lineinfile:
       state: present
       dest: /etc/sudoers
-      regexp: '(^#)(Defaults.*requiretty)'
-      line: 'Defaults !requiretty'
+      line: "{{ item }}"
       backrefs: yes
-    notify:
-    - Restart SSH service
-    when: remote_user == 'root'
+    with_items:
+      - "Defaults !requiretty"
+      - "root ALL=NOPASSWD:ALL"
+
+#  - name: Enable Default requiretty
+#    lineinfile:
+#      state: present
+#      dest: /etc/sudoers
+#      regexp: '(^#)(Defaults.*requiretty)'
+#      line: 'Defaults !requiretty'
+#      backrefs: yes
+#    notify:
+#    - Restart SSH service
+#    when: remote_user == 'root'
 
   handlers:
   - name: Restart SSH service
