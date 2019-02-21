@@ -78,9 +78,7 @@
       validate: '/usr/sbin/visudo -cf %s'
     with_items:
       - { regexp: '(^#)(Defaults.*requiretty)', line: "Defaults !requiretty" }
-      - { regexp: '?!Defaults.*!requiretty', line: "Defaults !requiretty" }
       - { regexp: '^root.*ALL=.*$', line: "root ALL=NOPASSWD: ALL" }
-      - { regexp: 'root ALL=NOPASSWD: ALL', line: "root ALL=NOPASSWD: ALL" }
 
   handlers:
   - name: Restart SSH service
