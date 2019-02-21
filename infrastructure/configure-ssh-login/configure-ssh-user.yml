@@ -65,7 +65,7 @@
       - {regexp: '(^#)(PermitRootLogin yes)', line: '\2' }
       - {regexp: '(PermitRootLogin) no', line: '\1 yes' }
     notify:
-    - Restart SSH service
+    - Restart SSH servic
 
   - name: Enable Root with no Password Prompt
     become: true
@@ -78,9 +78,9 @@
       validate: '/usr/sbin/visudo -cf %s'
     with_items:
       - { regexp: '(^#)(Defaults.*requiretty)', line: "Defaults !requiretty" }
-      - { regexp: '^root.*ALL=.*$', line: "root ALL=NOPASSWD:ALL" }
-
-
+      - { regexp: '?!(Defaults.*!requiretty)', line: "Defaults !requiretty" }
+      - { regexp: '^root.*ALL=.*$', line: "root ALL=NOPASSWD: ALL" }
+      - { regexp: 'root ALL=NOPASSWD: ALL', line: "root ALL=NOPASSWD: ALL" }
 
   handlers:
   - name: Restart SSH service
