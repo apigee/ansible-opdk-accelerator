@@ -75,6 +75,7 @@
       regexp: "{{ item.regexp }}"
       line: "{{ item.line }}"
       backrefs: yes
+      mode: 0740
       validate: '/usr/sbin/visudo -cf %s'
     with_items:
       - { regexp: '(^#)(Defaults.*requiretty)', line: "Defaults !requiretty" }
