@@ -82,6 +82,7 @@
 
   handlers:
   - name: Restart SSH service
+    become: true
     service:
       name: sshd
       state: restarted
