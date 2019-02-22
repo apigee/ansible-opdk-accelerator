@@ -16,9 +16,8 @@
         replication_string: "{{ replication_string }}host     replication     apigee {{ hostvars[item]['private_address'] }}/32     trust\n"
       with_items: "{{ groups['pgstandby'] }}"
 
-    - name: Update attribute
-      set_fact:
-        replication_string: "conf_pg_hba_replication.connection={{ replication_string }}"
-
-    - debug:
-        var: replication_string
+    - name: Prepare properties
+      import_role:
+        name: apigee-opdk-cwc-update
+      vars:
+        { key: 'conf_pg_hba_replication.connection', value: '{{ replication_string }}', file_name: 'postgresql' }
