@@ -1,8 +1,0 @@
----
-- hosts: planet
-  become: root
-  vars:
-    sym_dir: /u01/apigee
-  roles:
-    - apigee-opdk-setup-apigee-user
-

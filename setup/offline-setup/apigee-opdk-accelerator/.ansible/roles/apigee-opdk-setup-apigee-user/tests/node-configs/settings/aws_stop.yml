@@ -1,8 +1,0 @@
----
-- include: ../../facts.yml
-
-- hosts: planet
-  connection: local
-  strategy: free
-  roles:
-  - aws-stop

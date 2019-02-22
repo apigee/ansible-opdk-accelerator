@@ -1,8 +1,0 @@
-[global]
-index-url = {{ pip_index_url }}
-{%  if http_proxy is defined %}
-proxy = {{ http_proxy }}
-{% endif %}
-{% if pip_trusted_hosts is defined %}
-trusted-host = {{ pip_trusted_hosts }}
-{% endif %}

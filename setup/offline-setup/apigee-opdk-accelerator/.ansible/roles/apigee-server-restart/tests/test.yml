@@ -1,4 +1,0 @@
----
-- hosts: influxdb
-  roles:
-    - apigee-server-restart

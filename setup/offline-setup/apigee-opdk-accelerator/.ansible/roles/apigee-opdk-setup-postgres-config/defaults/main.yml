@@ -1,5 +1,0 @@
----
-
-# defaults file for apigee-opdk-setup-ps
-apigee_postgresql_data_dir: '{{ apigee_home }}/data/apigee-postgresql/pgdata'
-

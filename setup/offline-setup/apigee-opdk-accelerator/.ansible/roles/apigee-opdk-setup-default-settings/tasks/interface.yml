@@ -1,9 +1,0 @@
----
-- name: Refresh setup
-  setup:
-  when: ansible_default_ipv4 is not defined
-
-- name: Normalized network interface name
-  set_fact:
-    cacheable: yes
-    interface_name: 'ansible_{{ ansible_default_ipv4.interface }}'

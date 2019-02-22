@@ -1,5 +1,0 @@
----
-# defaults file for apigee-opdk-devportal-postgres-config
-
-# Default pod
-default_mp_pod: 'gateway'

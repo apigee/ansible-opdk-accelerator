@@ -1,6 +1,0 @@
----
-# defaults file for apigee-opdk-setup-local-repository
-
-# Choose whether to copy the Apigee Mirror archive from your control machine or use an existing archive on the server.
-copy_archive: yes
-
