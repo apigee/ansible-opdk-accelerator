@@ -13,7 +13,7 @@
 
     - name: Create
       set_fact:
-        replication_string: "host     replication     apigee {{ hostvars[item]['private_address'] }}/32 trust\n"
+        replication_string: "{{ replication_string }}host     replication     apigee {{ hostvars[item]['private_address'] }}/32     trust\n"
       with_items: "{{ groups['pgstandby'] }}"
 
     - debug:
