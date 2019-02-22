@@ -147,7 +147,7 @@
   - { role: apigee-opdk-setup-status, tags: ['qs-status', 'status'] }
 
 - name: Configure & Install Postgres
-  hosts: pgmaster,pgstandby
+  hosts: pgmaster,pgstandby,pg[0]
   serial: 1
   gather_facts: no
   tags: ['pg','edge', 'analytics']
