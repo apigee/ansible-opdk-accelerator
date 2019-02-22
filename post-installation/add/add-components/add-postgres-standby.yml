@@ -11,7 +11,7 @@
     - name: Create
       set_fact:
         replication_string: "host     replication     apigee {{ item }}/32 trust\n"
-      with_item: "{{ groups['pgstandby'] }}"
+      with_items: "{{ groups['pgstandby'] }}"
 
     - debug:
         var: replication_string
