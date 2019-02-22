@@ -232,18 +232,3 @@
     - { role: apigee-opdk-setup-cassandra-registration, when: region_num > 2 }
     - { role: apigee-opdk-cassandra-rebuild, when: region_num > 2  }
 
-- name: Validate Routers & Message Processors
-  hosts: rmp
-  tags: ['validate']
-  serial: 1
-  roles:
-  - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
-  - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
-
-- name: Validate Routers
-  hosts: r
-  tags: ['validate']
-  serial: 1
-  roles:
-  - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
-  - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
