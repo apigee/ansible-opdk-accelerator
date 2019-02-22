@@ -1,8 +1,11 @@
 ---
+- name: Update Postgres Standby variables
+  hosts: pgstandby
+  roles:
+    - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+
 - name: Add Postgres Standby servers beyond one
   hosts: pgmaster
-  gather_facts: no
-
   tasks:
     - name: Setup replication variable
       set_fact:
@@ -10,8 +13,8 @@
 
     - name: Create
       set_fact:
-        replication_string: "host     replication     apigee {{ item }}/32 trust\n"
-      with_items: "{{ hostvars[groups['pgstandby']]['private_address'] }}"
+        replication_string: "host     replication     apigee {{ hostvars[item]['private_address'] }}/32 trust\n"
+      with_items: "{{ groups['pgstandby'] }}"
 
     - debug:
         var: replication_string
