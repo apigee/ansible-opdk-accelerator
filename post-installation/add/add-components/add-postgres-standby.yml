@@ -1,0 +1,17 @@
+---
+- name: Add Postgres Standby servers beyond one
+  hosts: pgmaster
+  gather_facts: no
+
+  tasks:
+    - name: Setup replication variable
+      set_fact:
+        replication_string: ''
+
+    - name: Create
+      set_fact:
+        replication_string: "host     replication     apigee {{ item }}/32 trust\n"
+      with_item: "{{ groups['pgstandby'] }}"
+
+    - debug:
+        var: replication_string
