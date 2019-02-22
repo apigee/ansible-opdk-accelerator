@@ -41,6 +41,8 @@
   - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ds-config', 'ms-config', 'rmp-config', 'r-config', 'mp-config', 'pg-config', 'qs-config'] }
+
 
 - name: Configure & Install Cassandra & Zookeeper
   hosts: ds
@@ -53,7 +55,6 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config']  }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ds-config'] }
   - { role: apigee-opdk-setup-component, profile: 'ds', tags: ['minimum', 'ds-setup'] }
   - { role: apigee-opdk-start-components, tags: ['ds-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['ds-status', 'status'] }
@@ -70,7 +71,6 @@
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ms-config'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-provision', tags: ['provision', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ms-config']  }
   - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num < 3 }
   - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num > 2, port_timeout: 300 }
   - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['minimum', 'ms-setup'] }
@@ -88,7 +88,6 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config'] }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'rmp-config']  }
   - { role: apigee-opdk-setup-component, profile: 'rmp', tags: ['minimum', 'rmp-setup'] }
   - { role: apigee-opdk-start-components, tags: ['minimum', 'rmp-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['rmp-status', 'status'] }
@@ -108,7 +107,6 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'r-config'] }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'r-config']  }
   - { role: apigee-opdk-setup-component, profile: 'r', tags: ['minimum', 'r-setup'] }
   - { role: apigee-opdk-start-components, tags: ['r-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['r-status', 'status'] }
@@ -126,7 +124,6 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'mp-config'] }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'mp-config']  }
   - { role: apigee-opdk-setup-component, profile: 'mp', tags: ['minimum', 'mp-setup'] }
   - { role: apigee-opdk-start-components, tags: ['mp-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['mp-status', 'status'] }
@@ -145,7 +142,6 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'qs-config'] }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'qs-config']  }
   - { role: apigee-opdk-setup-component, profile: 'qs', tags: ['minimum', 'qs-setup'] }
   - { role: apigee-opdk-start-components, tags: ['qs-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['qs-status', 'status'] }
@@ -164,7 +160,6 @@
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pg-config'] }
     - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
     - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['minimum', 'pg-setup'] }
     - { role: apigee-opdk-start-components, tags: ['pg-start', 'start'] }
     - { role: apigee-opdk-setup-status, tags: ['pg-status', 'status'] }
@@ -180,7 +175,6 @@
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgmaster-config'] }
     - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
     - { role: apigee-opdk-setup-postgres-config, tags: ['minimum', 'config', 'pgmaster-config'] }
     - { role: apigee-opdk-setup-postgres-master, tags: ['minimum', 'pgmaster-setup']  }
     - { role: apigee-opdk-setup-status, tags: ['pgmaster-status', 'status']  }
@@ -196,7 +190,6 @@
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgstandby-config'] }
   - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
   - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql', tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True, tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-standby, tags: ['minimum', 'pgstandby-setup'] }
