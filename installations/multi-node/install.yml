@@ -183,8 +183,8 @@
     - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
     - { role: apigee-opdk-setup-postgres-config, tags: ['minimum', 'config', 'pgmaster-config'] }
     - { role: apigee-opdk-setup-postgres-master, tags: ['minimum', 'pgmaster-setup']  }
-    - { role: apigee-opdk-start-components, tags: ['pgmaster-start', 'start'] }
     - { role: apigee-opdk-stop-components, tags: ['pgmaster-stop', 'stop'] }
+    - { role: apigee-opdk-start-components, tags: ['pgmaster-start', 'start'] }
     - { role: apigee-opdk-setup-status, tags: ['pgmaster-status', 'status']  }
 
 - name: Configure Postgres Standby
@@ -202,8 +202,8 @@
   - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql', tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True, tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-standby, tags: ['minimum', 'pgstandby-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['pgstandby-start', 'start'] }
   - { role: apigee-opdk-stop-components, tags: ['pgstandby-stop', 'stop'] }
+  - { role: apigee-opdk-start-components, tags: ['pgstandby-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['pgstandby-status','status']  }
 
 - name: Configure Organization and Environments
