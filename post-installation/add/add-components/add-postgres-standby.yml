@@ -33,7 +33,8 @@
       import_role:
         name: apigee-opdk-cwc-update
       vars:
-        { key: 'conf_pg_hba_replication.connection', value: '{{ replication_string }}', file_name: 'postgresql' }
+        cwc_properties:
+          - { key: 'conf_pg_hba_replication.connection', value: '{{ replication_string }}', file_name: 'postgresql' }
 
 - name: Configure & Install Postgres
   hosts: "{{ target_hosts }}"
