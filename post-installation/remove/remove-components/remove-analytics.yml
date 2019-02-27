@@ -1,0 +1,30 @@
+---
+- name: Playbook to remove analytics
+  hosts: "{{ target_hosts }}"
+  strategy: free
+  gather_facts: no
+
+  vars:
+    remove_apigee: true
+    clear_logs: true
+    property_folders:
+      - '~/.apigee'
+      - '~/.apigee-secure'
+
+  roles:
+    - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-server-self, server_types: ['qs'], tags: ['self'] }
+    - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
+    - { role: apigee-opdk-setup-bootstrap-rollback, tags: ['rollback-only'] }
+    - { role: apigee-opdk-setup-postgresql-remove }
+    - { role: apigee-opdk-setup-qpid-remove }
+    - { role: apigee-opdk-setup-scopes-remove }
+    - { role: apigee-opdk-setup-axgroup-remove }
+    - { role: apigee-server-restart, tags: ['restart'] }
+
