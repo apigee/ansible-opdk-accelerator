@@ -67,6 +67,13 @@ target host where the mirror will be installed. You indicate the target host by 
 ## Usage of Install an Apigee Mirror
 
     ansible-playbook install-archive.yml -e target_hosts=mirror
+
+# Update Custom Properties
+
+Update the `apigee_archive_name` attribute with the name of the uploaded archive. This attribute is 
+likely to be commented out in the `~/.apigee/custom-properties.yml` file. The default naming convention
+should be followed unless you are prepared to make appropriate changes throughout all of the variables
+used by the playbooks.
     
 <!-- BEGIN Google Required Disclaimer -->
 
