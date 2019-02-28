@@ -63,6 +63,9 @@ You can install an Apigee Mirror that has been placed on a target host after it 
 target host where the mirror will be installed. You indicate the target host by passing 
 `target_host` during the invocation of this script.
 
+# Update Custom Properties
+Update the `apigee_archive_name` attribute with the name of the uploaded archive. This attribute is likely to be commented out in the `~/.apigee/custom-properties.yml` file. 
+
 
 ## Usage of Install an Apigee Mirror
 
