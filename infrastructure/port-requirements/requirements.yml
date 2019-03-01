@@ -1,16 +1,79 @@
 ---
-# Updated Readme's
-- src: https://github.com/carlosfrias/apigee-opdk-port-check.git
+# Ansible Roles for Setting Operating System Requirements
+- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-settings-private-address.git
+- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user-ownership.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-settings-region.git
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-common.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-settings-management-server.git
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-minimum.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-settings-cassandra.git
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-limits.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-epel.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-sysctl.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-postgres.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-selinux-disable.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-shutdown-iptables.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-yum-repository-proxy-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-yum-packages.git
+
+- src: https://github.com/carlosfrias/apigee-server-restart.git
+
+
+# Ansible Roles for Bootstrap Installation and Setup
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component-install.git
+
+
+# Ansible Roles for Component Installation and Setup
+- src: https://github.com/carlosfrias/apigee-opdk-setup-silent-installation-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-component-installer.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-java-home.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-config.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-master.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-standby.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-status.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-modules.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-server-self.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-start-components.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-stop-components.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-license.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-settings-ldap.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-settings-management-server.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-settings-postgres.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-private-address.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-cassandra.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-region.git
+
 
