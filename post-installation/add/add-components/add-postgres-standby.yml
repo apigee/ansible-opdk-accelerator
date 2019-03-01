@@ -10,6 +10,7 @@
     - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
     - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
 
+
 - name: Add Postgres Standby servers beyond one
   hosts: pgmaster
   vars:
@@ -18,7 +19,6 @@
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgmaster-config'] }
-
   tasks:
     - name: Setup replication variable
       set_fact:
@@ -36,14 +36,22 @@
         cwc_properties:
           - { key: 'conf_pg_hba_replication.connection', value: '{{ replication_string }}', file_name: 'postgresql' }
 
+    - name: Restart pgmaster
+      import_role:
+        name: "{{ item }}"
+      vars:
+        component_name: "apigee-postgresql"
+      with_items:
+        - apigee-opdk-stop-components
+        - apigee-opdk-start-components
+
+
 - name: Configure & Install Postgres
   hosts: "{{ target_hosts }}"
   serial: 1
   gather_facts: no
   tags: ['pg','edge', 'analytics']
   vars:
-    ansible_workspace: "~/ansible"
-    apigee_workspace: "~/.apigee-workspace"
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
