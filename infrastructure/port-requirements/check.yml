@@ -1,7 +1,7 @@
 ---
 - name: Update cache
   hosts: planet
-  tags: ['cache']
+  tags: ['cache','ms','ldap','ds','router','mp','qpid','pg']
   strategy: free
   roles:
   - { role: apigee-opdk-settings-private-address }
