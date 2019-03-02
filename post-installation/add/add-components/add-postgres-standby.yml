@@ -82,7 +82,7 @@
   hosts: "{{ target_hosts }}"
   serial: 1
   gather_facts: no
-  tags: ['pg','edge', 'analytics']
+  tags: ['pg','pgstandby', 'analytics']
   vars:
     property_folders:
       - "~/.apigee-secure"
