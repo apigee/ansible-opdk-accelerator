@@ -1,6 +1,7 @@
 ---
 - name: Update Planet Cache
   hosts: planet
+  tags: ['os']
   vars:
     property_folders:
       - "~/.apigee-secure"
@@ -34,6 +35,7 @@
 
 - name: Add Postgres Standby servers beyond one
   hosts: pgmaster
+  tags: ['master']
   vars:
     property_folders:
       - "~/.apigee-secure"
@@ -41,6 +43,11 @@
   roles:
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgmaster-config'] }
   tasks:
+    - name: Clear old postgresql.properties file
+      file:
+        path: '/opt/apigee/customer/application/postgresql.properties'
+        state: 'absent'
+
     - name: Setup replication variable
       set_fact:
         replication_string: ''
