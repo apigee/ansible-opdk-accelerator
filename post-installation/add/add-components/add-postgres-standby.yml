@@ -85,5 +85,6 @@
     - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['minimum', 'pg-setup'] }
     - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True, tags: ['minimum', 'pgstandby-config'] }
     - { role: apigee-opdk-setup-postgres-standby, tags: ['minimum', 'pgstandby-setup'] }
+    - { role: apigee-opdk-stop-components, tags: ['pgstandby-start', 'start'] }
     - { role: apigee-opdk-start-components, tags: ['pgstandby-start', 'start'] }
     - { role: apigee-opdk-setup-status, tags: ['pgstandby-status','status']  }
