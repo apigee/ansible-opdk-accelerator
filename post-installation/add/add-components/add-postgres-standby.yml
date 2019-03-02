@@ -44,6 +44,7 @@
     - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgmaster-config'] }
   tasks:
     - name: Clear old postgresql.properties file
+      become: true
       file:
         path: '/opt/apigee/customer/application/postgresql.properties'
         state: 'absent'
