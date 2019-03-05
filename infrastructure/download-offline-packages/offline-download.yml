@@ -5,10 +5,10 @@
   tags: ['download']
   vars_files:
     - offline-download-packages.yml
-  vars:
-    property_folders:
-      - "~/.apigee-secure"
-      - "~/.apigee"
+#  vars:
+#    property_folders:
+#      - "~/.apigee-secure"
+#      - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
   tasks:
