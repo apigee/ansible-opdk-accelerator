@@ -7,7 +7,7 @@
     pubkey: '~/.ssh/id_rsa.pub'
     pvtkey: '~/.ssh/id_rsa'
     sshd_config: '/etc/ssh/sshd_config'
-    sudoers: '/etc/sudoers'
+    sudoers: '/etc/sudoers.d/apigee-requiretty'
 
   tasks:
   - block:
