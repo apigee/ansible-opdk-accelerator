@@ -4,16 +4,35 @@
   gather_facts: no
   tags: ['download']
   vars:
+    package_folder: "/tmp/edge"
+    local_apigee_path: "{{ local_apigee_path | default('~/.apigee') }}"
     property_folders:
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
   tasks:
+    - name: Ensure download folder exists
+      file:
+        path: "{{ package_folder }}"
+        state: directory
+
     - name: Download yum packages
       become: true
-      shell: "yum reinstall --downloadonly --downloaddir={{ local_apigee_path }} {{ archive_extra_packages | join(' ') }}"
+      shell: "yum reinstall --downloadonly --downloaddir={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
 
+    - name: Create list of actual RPM
+      find:
+        path: "{{ package_folder }}"
+        pattern: "*.rpm"
+        file_type: file
+      register: package_names
 
+    - name: Download RPMs
+      fetch:
+        src: "{{ item.path }}"
+        dest: "{{ local_apigee_path }}/{{ item.path | basename }}"
+      with_items: "{{ package_names.files }}"
+      delegate_to: localhost
 
 - name: Upload downloaded packages to planet
   hosts: planet
@@ -27,14 +46,14 @@
   tasks:
     - name: Ensure target folder exists
       file:
-        path: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7"
+        path: "{{ apigee_home | default('/opt/apigee') }}/data/apigee-mirror/repos/thirdparty/7"
         state: directory
         owner: apigee
         group: apigee
 
     - name: Create list of actual rpm file names
       find:
-        path: '{{ local_apigee_path }}'
+        path: "{{ local_apigee_path | default('~/.apigee') }}"
         pattern: '*.rpm'
         file_type: file
       register: package_names
@@ -43,15 +62,15 @@
       become: true
       copy:
         src: "{{ item.path }}"
-        dest: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7"
+        dest: "{{ apigee_home | default('/opt/apigee') }}/data/apigee-mirror/repos/thirdparty/7"
         owner: apigee
         group: apigee
-      with_subelements: "{{ package_names.files }}"
+      with_items: "{{ package_names.files }}"
 
     - name: Yum install
       become: true
       yum:
-        name: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7/{{ item.path | basename }}"
+        name: "{{ apigee_home | default('/opt/apigee') }}/data/apigee-mirror/repos/thirdparty/7/{{ item.path | basename }}"
         state: present
       with_subelements: "{{ package_names.files }}"
 
