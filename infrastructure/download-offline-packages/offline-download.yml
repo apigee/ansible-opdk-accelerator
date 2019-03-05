@@ -56,6 +56,7 @@
         path: "{{ local_apigee_path | default('~/.apigee') }}"
         pattern: '*.rpm'
         file_type: file
+        recurse: yes
       register: package_names
       delegate_to: 127.0.0.1
 
