@@ -52,12 +52,12 @@
         group: apigee
 
     - name: Create list of actual rpm file names
-      find:
-        path: "{{ local_apigee_path | default('~/.apigee') }}"
-        pattern: '*.rpm'
-        file_type: file
+      local_action:
+        find:
+          path: "{{ local_apigee_path | default('~/.apigee') }}"
+          pattern: '*.rpm'
+          file_type: file
       register: package_names
-      delegate_to: localhost
 
     - name: Upload yum packages
       become: true
