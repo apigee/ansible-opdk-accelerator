@@ -10,5 +10,4 @@
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
-    - { role: apigee-opdk-stop-components }
-    - { role: apigee-opdk-start-components }
+    - { role: apigee-server-restart }

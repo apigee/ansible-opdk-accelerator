@@ -1,0 +1,47 @@
+---
+- name: Download packages for manual installation
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars_files:
+    - offline-download-packages.yml
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules }
+  tasks:
+    - name: Download yum packages
+      shell: "yum reinstall --downloadonly --downloaddir={{ local_apigee_path }} {{ archive_extra_packages | join(' ') }}"
+
+- name: Upload downloaded packages to planet
+  hosts: planet
+  gather_facts: no
+  vars_files:
+    - offline-download-packages.yml
+  tasks:
+    - name: Ensure target folder exists
+      file:
+        path: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7"
+        state: directory
+
+    - name: Create list of actual rpm file names
+      find:
+        path: '{{ local_apigee_path }}'
+        pattern: '*.rpm'
+        file_type: file
+      register: package_names
+
+    - name: Upload yum packages
+      copy:
+        src: "{{ item.path }}"
+        dest: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7"
+      with_subelements: "{{ package_names.files }}"
+
+    - name: Yum install
+      yum:
+        name: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7/{{ item.name }}"
+        state: present
+      with_subelements: "{{ package_names.files }}"
+
