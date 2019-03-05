@@ -14,3 +14,5 @@ archive_extra_packages:
 - yum-plugin-priorities
 - libdb4-4.8*
 - boost-filesystem
+- tree
+- vim
