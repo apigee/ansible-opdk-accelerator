@@ -1,7 +1,7 @@
 ---
 archive_extra_packages:
 - java-1.8.0-openjdk-devel
-- filesystem-boost
+- java-1.8.0-openjdk
 - yum-utils
 - gtk2
 - libXfixes
@@ -10,3 +10,7 @@ archive_extra_packages:
 - libpangocairo
 - atk
 - libpangoft2
+- yum-utils
+- yum-plugin-priorities
+- libdb4-4.8*
+- boost-filesystem
