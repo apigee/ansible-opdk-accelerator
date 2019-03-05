@@ -1,6 +1,6 @@
 ---
 - name: Download packages for manual installation
-  hosts: localhost
+  hosts: "{{ target_hosts }}"
   connection: local
   gather_facts: no
   vars_files:
