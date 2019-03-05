@@ -1,12 +1,12 @@
 ---
 archive_extra_packages:
-  - java-1.8.0-openjdk-devel
-  - filesystem-boost
-  - yum-utils
-  - gtk2
-  - libXfixes
-  - libXrandr
-  - libXdamange
-  - libpangocairo
-  - atk
-  - libpangoft2
+- java-1.8.0-openjdk-devel
+- filesystem-boost
+- yum-utils
+- gtk2
+- libXfixes
+- libXrandr
+- libXdamange
+- libpangocairo
+- atk
+- libpangoft2
