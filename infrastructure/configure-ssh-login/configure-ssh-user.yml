@@ -54,6 +54,7 @@
     when: pubkey_state.stat.exists is defined
 
   - name: Enable root login over SSH
+    tags: ['ssh']
     become: yes
     lineinfile:
       state: present
@@ -68,6 +69,7 @@
     - Restart SSH service
 
   - name: Enable Root with no Password Prompt
+    tags: ['sudo']
     become: true
     lineinfile:
       state: present
