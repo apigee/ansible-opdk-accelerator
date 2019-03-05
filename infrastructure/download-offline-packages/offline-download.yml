@@ -75,5 +75,5 @@
       yum:
         name: "{{ apigee_home | default('/opt/apigee') }}/data/apigee-mirror/repos/thirdparty/7/{{ item.path | basename }}"
         state: present
-      with_subelements: "{{ package_names.files }}"
+      with_items: "{{ package_names.files }}"
 
