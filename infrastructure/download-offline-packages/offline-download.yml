@@ -3,12 +3,9 @@
   hosts: "{{ target_hosts }}"
   gather_facts: no
   tags: ['download']
-  vars_files:
-    - offline-download-packages.yml
-#  vars:
-#    property_folders:
-#      - "~/.apigee-secure"
-#      - "~/.apigee"
+  vars:
+    property_folders:
+      - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
   tasks:
@@ -22,13 +19,18 @@
   hosts: planet
   gather_facts: no
   tags: ['upload']
-  vars_files:
-    - offline-download-packages.yml
+  vars:
+    property_folders:
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules }
   tasks:
     - name: Ensure target folder exists
       file:
         path: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7"
         state: directory
+        owner: apigee
+        group: apigee
 
     - name: Create list of actual rpm file names
       find:
@@ -38,14 +40,18 @@
       register: package_names
 
     - name: Upload yum packages
+      become: true
       copy:
         src: "{{ item.path }}"
         dest: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7"
+        owner: apigee
+        group: apigee
       with_subelements: "{{ package_names.files }}"
 
     - name: Yum install
+      become: true
       yum:
-        name: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7/{{ item.name }}"
+        name: "{{ apigee_home }}/data/apigee-mirror/repos/thirdparty/7/{{ item.path | basename }}"
         state: present
       with_subelements: "{{ package_names.files }}"
 
