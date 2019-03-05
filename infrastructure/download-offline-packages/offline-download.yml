@@ -32,7 +32,6 @@
         src: "{{ item.path }}"
         dest: "{{ local_apigee_path }}/{{ item.path | basename }}"
       with_items: "{{ package_names.files }}"
-      delegate_to: localhost
 
 - name: Upload downloaded packages to planet
   hosts: planet
