@@ -3,6 +3,7 @@
   hosts: "{{ target_hosts }}"
   connection: local
   gather_facts: no
+  tags: ['download']
   vars_files:
     - offline-download-packages.yml
   vars:
@@ -18,6 +19,7 @@
 - name: Upload downloaded packages to planet
   hosts: planet
   gather_facts: no
+  tags: ['upload']
   vars_files:
     - offline-download-packages.yml
   tasks:
