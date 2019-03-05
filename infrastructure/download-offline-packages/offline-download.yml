@@ -57,6 +57,7 @@
         pattern: '*.rpm'
         file_type: file
       register: package_names
+      delegate_to: localhost
 
     - name: Upload yum packages
       become: true
