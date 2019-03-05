@@ -44,6 +44,7 @@
     - { role: apigee-opdk-modules }
   tasks:
     - name: Ensure target folder exists
+      become: true
       file:
         path: "{{ apigee_home | default('/opt/apigee') }}/data/apigee-mirror/repos/thirdparty/7"
         state: directory
