@@ -31,6 +31,7 @@
       fetch:
         src: "{{ item.path }}"
         dest: "{{ local_apigee_path }}/{{ item.path | basename }}"
+        flat: yes
       with_items: "{{ package_names.files }}"
 
 - name: Upload downloaded packages to planet
