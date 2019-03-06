@@ -41,7 +41,7 @@
   vars:
     package_folder: "/tmp/edge"
     local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}"
-        property_folders:
+    property_folders:
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
