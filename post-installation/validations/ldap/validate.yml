@@ -12,7 +12,7 @@
 
   tasks:
   - name: Show LDAP system user
-    shell: "ldapsearch -D 'cn=manager,dc=apigee,dc=com' -b 'dc=apigee,dc=com' -LLL -h {{ inventory_hostname }} -p {{ ldap_data_port }} -w {{ opdk_ldap_pass }}"
+    shell: "ldapsearch -D 'cn=manager,dc=apigee,dc=com' -b 'dc=apigee,dc=com' -LLL -h {{ ansible_ssh_host }} -p {{ ldap_data_port }} -w {{ opdk_ldap_pass }}"
 
 - name: List Users
   hosts: ms
