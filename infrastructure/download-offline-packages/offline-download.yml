@@ -54,7 +54,7 @@
 
     - name: Create list of actual rpm file names
       find:
-        path: "{{ local_apigee_path | default('~/.apigee') }}"
+        path: "{{ local_apigee_path }}"
         pattern: '*.rpm'
         file_type: file
         recurse: yes
