@@ -16,13 +16,13 @@
         path: "{{ package_folder }}"
         state: directory
 
-#    - name: Download yum packages
-#      become: true
-#      shell: "yum reinstall --downloadonly --downloaddir={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
-
-    - name: Download yumdownloader packages
+    - name: Download os packages
       become: true
-      shell: "yumdownloader --dest={{ package_folder }} --resolve {{ archive_extra_packages | join(' ') }}"
+      shell: "{{ item }}"
+      with_items:
+      - "yum reinstall --downloadonly --downloaddir={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
+      - "yumdownloader --dest={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
+      - "yumdownloader --dest={{ package_folder }} --resolve {{ archive_extra_packages | join(' ') }}"
 
     - name: Create list of actual RPM
       find:
