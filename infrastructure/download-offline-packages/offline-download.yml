@@ -1,6 +1,6 @@
 ---
 - name: Download packages for manual installation
-  hosts: "{{ target_hosts }}"
+  hosts: "{{ target_hosts | default('localhost') }}"
   gather_facts: no
   tags: ['download']
   vars:
@@ -20,9 +20,9 @@
       become: true
       shell: "{{ item }}"
       with_items:
-      - "yum reinstall --downloadonly --downloaddir={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
-      - "yumdownloader --dest={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
-      - "yumdownloader --dest={{ package_folder }} --resolve {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yum reinstall --downloadonly --downloaddir={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yumdownloader --dest={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yumdownloader --dest={{ package_folder }} --resolve {{ archive_extra_packages | join(' ') }}"
 
     - name: Create list of actual RPM
       find:
