@@ -16,6 +16,11 @@
         path: "{{ package_folder }}"
         state: directory
 
+    - name: Update with Yum utilities
+      yum:
+        name: "yum-utils"
+        state: present
+
     - name: Download os packages
       become: true
       shell: "{{ item }}"
