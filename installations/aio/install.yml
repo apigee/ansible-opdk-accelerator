@@ -10,7 +10,7 @@
     - "~/.apigee"
 
   roles:
-  - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee-opdk-modules, tags: ['cache'] }
   - { role: apigee-opdk-setup-os-epel, tags: ['epel', 'os'] }
   - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables', 'os'] }
   - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config', 'os']}
@@ -18,7 +18,7 @@
   - { role: apigee-opdk-setup-os-limits, tags: ['limit', 'os'] }
   - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl', 'os'] }
   - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux', 'os'] }
-  - { role: apigee-server-restart, tags: ['minimum', 'restart-server', 'os'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+  - { role: apigee-server-restart, tags: ['os'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
   - { role: apigee-opdk-setup-os-common, tags: ['os-common', 'os'] }
   - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk', 'os'], jdk_version: '1.8' }
   - { role: apigee-opdk-setup-apigee-user, tags: ['config', 'apigee-user', 'bootstrap'] }
@@ -26,19 +26,19 @@
   - { role: apigee-opdk-setup-java-home, tags: ['java-home', 'bootstrap'] }
   - { role: apigee-opdk-setup-bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
   - { role: apigee-opdk-setup-license, tags: ['license', 'bootstrap'] }
-  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
-  - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
-  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
-  - { role: apigee-opdk-settings-private-address, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-management-server, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-ldap, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-region, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-cassandra, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-postgres, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['setup', 'common'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'common'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','common'] }
+  - { role: apigee-opdk-settings-private-address, tags: ['config','cache']  }
+  - { role: apigee-opdk-settings-management-server, tags: ['config', 'cache' ]  }
+  - { role: apigee-opdk-settings-ldap, tags: ['config', 'minimum', 'cache' ]  }
+  - { role: apigee-opdk-settings-region, tags: ['config', 'minimum', 'cache' ]  }
+  - { role: apigee-opdk-settings-cassandra, tags: ['config', 'minimum', 'cache' ]  }
+  - { role: apigee-opdk-settings-postgres, tags: ['config', 'minimum', 'cache' ]  }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config'] }
   - { role: apigee-opdk-setup-component, profile: 'aio', tags: ['aio'] }
   - { role: apigee-opdk-setup-status, tags: ['status'] }
   - { role: apigee-opdk-setup-org-config, tags: ['org','org-config'] }
   - { role: apigee-opdk-setup-org, tags: ['org', 'org-create'] }
   - { role: apigee-opdk-setup-validate, tags: ['validate'] }
-  - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate', 'validate-rmp-cleanup'] }
+  - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate', 'validate-cleanup'] }
