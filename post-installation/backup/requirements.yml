@@ -21,6 +21,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user-ownership.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-setup-java-home.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap.git
