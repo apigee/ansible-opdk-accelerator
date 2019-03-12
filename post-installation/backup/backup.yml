@@ -9,15 +9,6 @@
   roles:
     - { role: apigee-opdk-modules }
     - { role: apigee-opdk-settings-private-address }
-    - { role: apigee-opdk-settings-management-server }
-    - { role: apigee-opdk-settings-ldap }
-    - { role: apigee-opdk-settings-region }
-    - { role: apigee-opdk-settings-cassandra }
-    - { role: apigee-opdk-settings-postgres }
-    - { role: apigee-opdk-setup-apigee-user }
-    - { role: apigee-opdk-setup-apigee-user-ownership }
-    - { role: apigee-opdk-setup-openjdk, tags: ['openjdk'] }
-    - { role: apigee-opdk-setup-java-home }
     - { role: apigee-opdk-setup-bootstrap }
 
 - name: Backup Zookeeper

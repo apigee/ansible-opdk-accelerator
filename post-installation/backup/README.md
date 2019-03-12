@@ -7,7 +7,8 @@ This playbook demonstrates how to perform backups of Apigee OPDK nodes.
 
 You can use this playbook to backup a planet as follows: 
 
-    ansible-playbook backup.yml -vv -b
+    ansible-galaxy install -r requirements.yml -f
+    ansible-playbook backup.yml
 
 <!-- BEGIN Google Required Disclaimer -->
 
