@@ -1,25 +1,9 @@
 ---
-- src: https://github.com/carlosfrias/apigee-opdk-settings-ldap.git
-
-- src: https://github.com/carlosfrias/apigee-opdk-settings-management-server.git
-
-- src: https://github.com/carlosfrias/apigee-opdk-settings-postgres.git
-
 - src: https://github.com/carlosfrias/apigee-opdk-settings-private-address.git
-
-- src: https://github.com/carlosfrias/apigee-opdk-settings-cassandra.git
-
-- src: https://github.com/carlosfrias/apigee-opdk-settings-region.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-backup.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-cache-update.git
-
 - src: https://github.com/carlosfrias/apigee-opdk-modules
-
-- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user.git
-
-- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user-ownership.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk.git
 
