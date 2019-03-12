@@ -16,3 +16,5 @@
 - src: https://github.com/carlosfrias/apigee-opdk-cache-update.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-modules
+
+- src: https://github.com/carlosfrias/apigee-opdk-setup-apigee-user.git
