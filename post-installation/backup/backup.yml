@@ -9,6 +9,8 @@
   roles:
     - { role: apigee-opdk-modules }
     - { role: apigee-opdk-settings-private-address }
+    - { role: apigee-opdk-setup-openjdk, tags: ['openjdk'] }
+    - { role: apigee-opdk-setup-java-home }
     - { role: apigee-opdk-setup-bootstrap }
 
 - name: Backup Zookeeper
