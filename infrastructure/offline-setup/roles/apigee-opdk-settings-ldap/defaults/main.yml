@@ -1,4 +1,0 @@
----
-# defaults file for apigee-opdk-settings-ldap
-
-opdk_ldap_port: 10389

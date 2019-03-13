@@ -1,8 +1,0 @@
----
-# tasks file for apigee-opdk-cache-update
-- name: Update cache with server facts
-  setup:
-
-- name: Update cache with AWS facts if running on AWS
-  ec2_metadata_facts:
-  when: ansible_bios_version | lower | search('amazon')

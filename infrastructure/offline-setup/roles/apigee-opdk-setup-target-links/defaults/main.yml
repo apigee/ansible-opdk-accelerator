@@ -1,7 +1,0 @@
----
-# defaults file for /Users/carlosfrias/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-setup-target-links
-
-# Used for creating softlinks from apigee system folders to customer hard targets
-# target_links:
-#- { src: '/apps/opt/apigee', dest: '/opt/apigee' }
-

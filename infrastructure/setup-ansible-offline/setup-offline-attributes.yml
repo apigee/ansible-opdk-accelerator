@@ -1,0 +1,20 @@
+---
+# Use this endpoint to clone github.com using HTTPS
+repository_secure_endpoint_https: "https://github.com/carlosfrias"
+repo_name: "apigee-opdk-playbook-setup-ansible"
+archive_target_folder_name: apigee-opdk-accelerator
+archive_folder: "{{ playbook_dir }}/{{ archive_target_folder_name }}"
+playbook_requirements_path:
+  - "../../infrastructure/port-requirements/requirements.yml"
+  - "../../installations/multi-node/requirements.yml"
+  - "../../installations/aio/requirements.yml"
+  - "../../installations/devportal/requirements.yml"
+  - "../../installations/mirror/requirements.yml"
+  - "../../installations/response-file-generator/requirements.yml"
+  - "../../post-installation/validations/analytics/requirements.yml"
+local_apigee_path: ~/.apigee
+local_apigee_secure_path: ~/.apigee-secure
+folder_list_to_archive:
+  - "~/.ansible"
+  - "{{ local_apigee_path }}"
+  - "{{ local_apigee_secure_path}}"
