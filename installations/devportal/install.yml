@@ -9,13 +9,14 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
   - { role: apigee-opdk-os-pre-requisites, tags: ['os'] }
   - { role: apigee-opdk-setup-target-links, tags: ['links', 'bootstrap'] }
   - { role: apigee-opdk-setup-apigee-user, tags: ['apigee-user', 'bootstrap'] }
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user', 'bootstrap'] }
   - { role: apigee-opdk-setup-java-home, tags: ['java-home', 'bootstrap'] }
   - { role: apigee-opdk-setup-bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
-  - { role: apigee-opdk-setup-license, tags: ['license', 'bootstrap'] }
+  - { role: apigee-opdk-setup-license, tags: ['license', 'bootstrap', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }

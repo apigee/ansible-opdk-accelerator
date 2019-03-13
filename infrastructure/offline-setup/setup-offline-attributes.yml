@@ -10,6 +10,7 @@ playbook_requirements_path:
   - "../../installations/devportal/requirements.yml"
   - "../../installations/mirror/requirements.yml"
   - "../../post-installation/validations/analytics/requirements.yml"
+  - "../../infrastructure/port-requirements/requirements.yml"
 local_apigee_path: ~/.apigee
 local_apigee_secure_path: ~/.apigee-secure
 folder_list_to_archive:
