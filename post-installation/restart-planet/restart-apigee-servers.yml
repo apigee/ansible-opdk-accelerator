@@ -1,0 +1,14 @@
+---
+- name: Restart of Apigee Planet Components
+  hosts: ds,ms,rmp,qpid,pg
+  serial: 1
+  strategy: free
+  tags: ['restart', 'start']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-restart }
+
