@@ -11,4 +11,5 @@
   roles:
     - { role: apigee-opdk-modules }
     - { role: apigee-opdk-restart }
+    - { role: apigee-opdk-start-components }
 
