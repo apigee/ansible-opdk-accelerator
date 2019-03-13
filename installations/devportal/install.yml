@@ -27,11 +27,11 @@
   become: yes
   tags: ['pdb']
   vars:
-    ansible_workspace: "~/.ansible"
-    apigee_workspace: "~/.apigee-workspace"
-    apigee_secure_folder: "~/.apigee-secure"
-    apigee_custom_properties_folder: "~/.apigee"
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
   roles:
+  - { role: apigee-opdk-modules, tags: ['cache'] }
   - { role: apigee-opdk-devportal-postgres-config, tags: ['config'] }
   - { role: apigee-opdk-setup-component, profile: 'pdb', tags: ['apigee-component'], target_response_file_path: "{{ opdk_portal_db_config_file }}"  }
   - { role: apigee-opdk-start-components, tags: ['apigee-component'] }
@@ -43,54 +43,12 @@
   gather_facts: no
   tags: ['dp']
   vars:
-    ansible_workspace: "~/.ansible"
-    apigee_workspace: "~/.apigee-workspace"
-    apigee_secure_folder: "~/.apigee-secure"
-    apigee_custom_properties_folder: "~/.apigee"
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
   roles:
+  - { role: apigee-opdk-modules, tags: ['cache'] }
   - { role: apigee-opdk-devportal-config, tags: ['config'] }
   - { role: apigee-opdk-setup-component, profile: 'dp',tags: ['apigee-component'], target_response_file_path: "{{ opdk_portal_config_file }}" }
   - { role: apigee-opdk-start-components, tags: ['apigee-component'] }
   - { role: apigee-opdk-setup-status, tags: ['status'] }
-
-- name: Download log files
-  hosts: dp
-  become: true
-  gather_facts: no
-  tags: ['logs']
-  roles:
-  - { role: apigee-fetch-files, download_pattern: '{{ pattern }}', download_folder: "{{ playbook_dir }}/{{ target_logs_folder }}" }
-  vars:
-    opdk_resources_path: /tmp/edge
-    apigee_home: /opt/apigee
-    target_logs_folder: planet_logs
-    pattern:
-    - { dir: '/etc/', pattern: 'hosts*' }
-    - { dir: '/etc/', pattern: 'environment' }
-    - { dir: '/etc/', pattern: 'profile' }
-    - { dir: '/etc/', pattern: 'bashrc' }
-    - { dir: '/etc/', pattern: 'resolv.conf' }
-    - { dir: '/etc/', pattern: 'sysctl.conf' }
-    - { dir: '/etc/', pattern: 'sudoers' }
-    - { dir: '/etc/security/', pattern: 'limits.conf' }
-    - { dir: '/etc/security/limits.d/', pattern: '*conf' }
-    - { dir: '/var/log/', pattern: 'messages' }
-    - { dir: '/tmp', pattern: 'setup*.log' }
-    - { dir: '{{ opdk_resources_path }}/', pattern: '*' }
-    - { dir: '{{ apigee_home }}/', pattern: '*.out' }
-    - { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
-    - { dir: '{{ apigee_home }}/customer/', pattern: '*' }
-    - { dir: '{{ apigee_home }}/etc/', pattern: 'default*.sh' }
-    - { dir: '{{ apigee_home }}/customer', pattern: '*' }
-    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*conf' }
-    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*cfg' }
-    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yml' }
-    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yaml' }
-    - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*properties' }
-    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*conf' }
-    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*cfg' }
-    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yml' }
-    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yaml' }
-    - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*properties' }
-    - { dir: '{{ apigee_home }}/apigee-postgresql/', pattern: '*conf' }
-
