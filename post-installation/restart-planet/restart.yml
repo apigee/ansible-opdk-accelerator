@@ -1,5 +1,5 @@
 ---
-- name: Restart of Planet
+- name: Restart of Apigee Planet Components
   hosts: ds,ms,rmp,qpid,pg
   serial: 1
   strategy: free
@@ -10,4 +10,6 @@
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
-    - { role: apigee-server-restart }
+    - { role: apigee-opdk-stop-components }
+    - { role: apigee-opdk-start-components }
+
