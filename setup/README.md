@@ -18,8 +18,6 @@ and `~/.apigee-workspace`.
 * The folder `~/.apigee-workspace` will be used to contain playbooks. Use 
 `git clone https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region.git`to get 
 started.
-* You must provde the name of the remote user that will be used for SSH access. This cannot be the 
-`apigee` user.
 * `ssh` access is working to target servers that will be a part of the Apigee planet.
 
 ### Configure SSH Access for your Nodes
