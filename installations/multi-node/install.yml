@@ -138,8 +138,6 @@
   gather_facts: no
   tags: ['qpid','edge']
   vars:
-    ansible_workspace: "~/ansible"
-    apigee_workspace: "~/.apigee-workspace"
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
@@ -157,8 +155,6 @@
   gather_facts: no
   tags: ['pg','edge', 'analytics']
   vars:
-    ansible_workspace: "~/ansible"
-    apigee_workspace: "~/.apigee-workspace"
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"

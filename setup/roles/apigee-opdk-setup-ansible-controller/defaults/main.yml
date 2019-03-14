@@ -5,7 +5,7 @@
 local_workspace: "~/apigee-workspace"
 
 # Default Ansible workspace, used if not provided.
-ansible_config_folder: "{{ local_workspace }}/ansible"
+ansible_config_folder: "{{ local_workspace }}/.ansible"
 
 # Set Ansible workspace to either provided or default
 target_ansible_workspace: "{{ ansible_workspace | default(ansible_config_folder) }}"
