@@ -32,7 +32,13 @@ We recommend that you invoke these playbooks in the following sequence:
 You can create an Apigee Mirror with the `create-archive.yml` playbook. You will need to indicate the 
 target host that should be used to create the mirror. The target host is optimally a machine with
 internet access. You indicate the target host by passing `target_host` during the invocation of this
-script.
+script. 
+
+This playbook will invoke apigee-mirror package so that a tarball will be available for download. This 
+playbook will use the attribute `archive_extra_packages` as a list of system packages that can be
+downloaded and included in the apigee mirror archives. This is used to facilitate the distribution of 
+system packages that are needed but not included in the apigee-mirror package. Any packages added to
+this list will be located in the archive folder `repos/thirdparty/7`. 
 
 ## Usage of Create an Apigee Mirror
 
@@ -41,7 +47,12 @@ script.
 # Download an Apigee Mirror
 You can download an Apigee Mirror that was created with the `create-archive.yml` playbook. You will 
 need to indicate the target host from which to download the mirror. You indicate the target host by 
-passing `target_host` during the invocation of this script.
+passing `target_host` during the invocation of this playbook.
+passing `target_host` during the invocation of this playbook.
+
+This playbook will expect to find the Apigee Mirror archive located under `/opt/apigee/data/apigee-mirror`
+using the Apigee naming convention `apigee-{{ opdk_version }}.tar.gz`. The archive will be downloaded
+to the control server to the folder `~/.apigee/apigee-{{ opdk_version }}.tar.gz`.
 
 ## Usage of Download an Apigee Mirror
  
@@ -73,10 +84,13 @@ Update the `apigee_archive_name` attribute with the name of the uploaded archive
 
 # Update Custom Properties
 
+This playbook is will 
 Update the `apigee_archive_name` attribute with the name of the uploaded archive. This attribute is 
 likely to be commented out in the `~/.apigee/custom-properties.yml` file. The default naming convention
 should be followed unless you are prepared to make appropriate changes throughout all of the variables
 used by the playbooks.
+
+
     
 <!-- BEGIN Google Required Disclaimer -->
 
