@@ -1,0 +1,155 @@
+---
+- name: Create Instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    service_account: "{{ lookup('file', credentials_file) }}"
+    ssh_private_key: "{{ service_account['private_key'] }}"
+    project_id: "{{ service_account['project_id'] }}"
+    service_account_email: "{{ service_account['client_email'] }}"
+
+  vars_files:
+  - gce-properties.yml
+
+  tasks:
+
+  - name: Launch instances using image
+    tags: ['launch']
+    gce:
+      name: "{{ host_prefix }}"
+      num_instances: "{{ num_instances | default(1) }}"
+      machine_type: "{{ machine_type }}"
+      image: "{{ image }}"
+      disk_size: "{{ disk_size }}"
+      zone: "{{ zone }}"
+      project_id: "{{ project_id }}"
+      service_account_email: "{{ service_account_email }}"
+      credentials_file: '{{ credentials_file }}'
+      state: present
+      tags: "{{ default_firewall_tags }}"
+      metadata: "{ 'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty' }"
+    register: gce
+    when: image_family is not defined
+
+  - name: Launch instances using image_family
+    tags: ['launch']
+    gce:
+      name: "{{ host_prefix }}"
+      num_instances: "{{ num_instances | default(1) }}"
+      machine_type: "{{ machine_type }}"
+      image_family: "{{ image_family }}"
+      external_projects: "{{ external_projects }}"
+      disk_size: "{{ disk_size }}"
+      zone: "{{ zone }}"
+      project_id: "{{ project_id }}"
+      service_account_email: "{{ service_account_email }}"
+      credentials_file: '{{ credentials_file }}'
+      state: present
+      tags: "{{ default_firewall_tags }}"
+      metadata: "{ 'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty' }"
+    register: gce
+    when: image_family is defined and external_projects is defined
+
+#  - name: Create firewall rule
+#    tags: ['firewall']
+#    gce_net:
+#      name: default
+#      state: present
+#      fwname: "{{ firewall_tag }}"
+#      src_range: ['0.0.0.0/0']
+#      target_tags: ["{{ firewall_tag }}"]
+#      allowed: tcp:8080
+#      mode: auto
+#      project_id: "{{ project_id }}"
+#      service_account_email: "{{ service_account_email }}"
+#      credentials_file: '{{ credentials_file }}'
+
+#  - name: Bind firewall rule to instances
+#    tags: ['bind']
+#    gce_tag:
+#      instance_pattern: "{{ host_prefix }}*"
+#      tags: "{{ firewall_tag }}"
+#      zone: "{{ zone }}"
+#      state: present
+#      project_id: "{{ project_id }}"
+#      service_account_email: "{{ service_account_email }}"
+#      credentials_file: '{{ credentials_file }}'
+
+#  - name: Save private key to file
+#    copy:
+#      dest: ~/.ssh/id_rsa
+#      content: "{{ sa_file['private_key'] }}"
+#      remote_src: no
+#      mode: 0400
+
+#  - name: Create public key from private key
+#    shell: ssh-keygen -y -f ~/.ssh/id_rsa
+#    register: ssh_public_key
+#
+#  - name: Save public key
+#    copy:
+#      content: "{{ ssy_public_key }}"
+#      dest: ~/.ssh/id_rsa.pub
+#      remote_src: no
+#
+#  - name: Update instances with public key
+
+#  - name: Label Instances if less than 10 instances
+#    tags: ['label']
+#    gce_labels:
+#      service_account_email: "{{ service_account_email }}"
+#      project_id: "{{ project_id }}"
+#      credentials_file: '{{ credentials_file }}'
+#      state: present
+#      resource_name: "{{ host_prefix }}-00{{ item }}"
+#      resource_type: instances
+#      resource_location: "{{ zone }}"
+#      labels: "{{ labels }}"
+#    with_sequence: "start=0 end={{ num_instances | int - 1 | default(0) }}"
+#    when: num_instances is not defined or num_instances | int - 1 < 10
+
+#  - block:
+#    - name: Label Instances if less than 10 instances
+#      tags: ['label']
+#      gce_labels:
+#        service_account_email: "{{ service_account_email }}"
+#        project_id: "{{ project_id }}"
+#        credentials_file: '{{ credentials_file }}'
+#        state: present
+#        resource_name: "{{ host_prefix }}-00{{ item }}"
+#        resource_type: instances
+#        resource_location: "{{ zone }}"
+#        labels: "{{ labels }}"
+#      with_sequence: "start=0 end={{ num_instances | int - 1 | default(0) }}"
+#      when: num_instances | int - 1 | int < 10
+#
+#    - name: Label Instances if between than 10 and 100 instances
+#      tags: ['label']
+#      gce_labels:
+#        service_account_email: "{{ service_account_email }}"
+#        project_id: "{{ project_id }}"
+#        credentials_file: '{{ credentials_file }}'
+#        state: present
+#        resource_name: "{{ host_prefix }}-0{{ item }}"
+#        resource_type: instances
+#        resource_location: "{{ zone }}"
+#        labels: "{{ labels }}"
+#      with_sequence: "start=0 end={{ num_instances | int - 1 | default(0) }}"
+#      when: num_instances | int - 1 < 100 and num_instances | int - 1 > 9
+#
+#    - name: Label Instances if greater 100 instances
+#      tags: ['label']
+#      gce_labels:
+#        service_account_email: "{{ service_account_email }}"
+#        project_id: "{{ project_id }}"
+#        credentials_file: '{{ credentials_file }}'
+#        state: present
+#        resource_name: "{{ host_prefix }}-{{ item }}"
+#        resource_type: instances
+#        resource_location: "{{ zone }}"
+#        labels: "{{ labels }}"
+#      with_sequence: "start=0 end={{ num_instances | int - 1 | default(0) }}"
+#      when: num_instances | int - 1 > 99
+#    when: num_instances is defined

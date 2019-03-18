@@ -1,0 +1,14 @@
+---
+credentials_file: ~/.apigee-secure/edge-ops-lab-e7a48eec6f40.json
+disk_size: 50G
+machine_type: 'n1-standard-2'
+external_projects: 'eip-images'
+image: 'centos-7'
+zone: 'us-east1-b'
+host_prefix: 'cf'
+labels:
+  carlos: ''
+firewall_tag: 'dev-test'
+default_firewall_tags:
+- 'default-zkrxups2f6ccnycpl3bokiut'
+- "{{ firewall_tag }}"

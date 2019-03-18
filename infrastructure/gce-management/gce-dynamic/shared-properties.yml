@@ -1,0 +1,25 @@
+---
+gcp_project: sandbox-173316
+gcp_auth_kind: serviceaccount
+gcp_service_account_file: /usr/local/google/home/friasc/.apigee-secure/sandbox-service-173316-e3a2eaa2963d.json 
+gcp_zone: "us-central1-c"
+gcp_region: "us-central1"
+network_name_default: "default"
+name_instance: "delete-apigee-instance"
+name_instance_network_tag: "{{ name_instance }}-network-tag"
+name_firewall: "{{ name_instance }}-firewall"
+name_address: "{{ name_instance }}-address"
+name_disk: "{{ name_instance }}-disk"
+scope_compute: "https://www.googleapis.com/auth/compute"
+image_project: 'centos-cloud'
+#image_project: 'ubuntu-os-cloud'
+image_family: 'centos-7'
+#image_family: 'ubuntu-1604-lts'
+disk_source_image: "projects/{{ image_project }}/global/images/family/{{ image_family }}"
+disk_size: 50
+machine_type: n1-standard-1
+gce_image: 'centos-7'
+service_account_email: "friasc@sandbox-173316.iam.gserviceaccount.com"
+
+
+

@@ -1,0 +1,46 @@
+---
+- name: Remove an instance
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars_files:
+  - shared-properties.yml
+
+  tasks:
+   - name: remove an instance
+     gcp_compute_instance:
+       name: "{{ name_instance }}"
+       state: absent
+       zone: "{{ gcp_zone }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       scopes:
+         - "{{ scope_compute }}"
+     register: instance
+
+   - name: remove an address
+     gcp_compute_address:
+       name: "{{ name_address }}"
+       region: "{{ gcp_region }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       state: absent
+       scopes:
+         - "{{ scope_compute }}"
+     register: address
+
+   - name: remove firewall rule
+     gcp_compute_firewall:
+       name: "{{ name_firewall }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       state: absent
+       scopes:
+         - "{{ scope_compute }}"
+
+       
+
+

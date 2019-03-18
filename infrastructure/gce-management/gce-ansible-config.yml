@@ -1,0 +1,46 @@
+---
+- name: Create SSH Private Key File From SA Account File
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    service_account: "{{ lookup('file', credentials_file) }}"
+    ssh_private_key: "{{ service_account['private_key'] }}"
+    project_id: "{{ service_account['project_id'] }}"
+    service_account_email: "{{ service_account['client_email'] }}"
+
+  tasks:
+  - name: Create project inventory folder
+    tags: ['gce-ini']
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+    - 'generated/inventory'
+    - 'generated/ssh'
+
+  - name: Generate default ssh key file name
+    set_fact:
+      default_ssh_private_key_file: "generated/ssh/{{ project_id }}-ssh.pem"
+    when: ssh_private_key_file is not defined
+
+  - name: Save private key to file
+    tags: ['ssh']
+    copy:
+      dest: "{{ ssh_private_key_file | default(default_ssh_private_key_file) }}"
+      content: "{{ ssh_private_key }}"
+      remote_src: no
+      mode: 0400
+    register: ssh_pem
+
+  - name: Obtain ssh private key file name
+    set_fact:
+      ssh_private_key_file: "{{ ssh_pem.path }}"
+
+  - name: Prepare the gce.ini file
+    tags: ['gce-ini']
+    template:
+      src: templates/gce.ini.j2
+      dest: "generated/inventory/{{ project_id }}-gce.ini"
+
+

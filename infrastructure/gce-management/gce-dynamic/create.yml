@@ -1,0 +1,70 @@
+---
+- name: Create an instance
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars_files:
+  - shared-properties.yml
+
+  tasks:
+   - name: create a network
+     gcp_compute_network:
+       name: "{{ network_name_default }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       scopes:
+         - "{{ scope_compute }}"
+       state: present
+     register: network
+
+   - name: create firewall rule
+     gcp_compute_firewall:
+       name: "{{ name_firewall }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       state: present
+       target_tags: ['{{ name_instance_network_tag }}']
+       network: "global/networks/{{ network.name }}"
+       scopes:
+         - "{{ scope_compute }}"
+       allowed: 
+       - ip_protocol: tcp
+         ports: 
+         - '22'
+
+   - name: create an address
+     tags: ['ext-addr']
+     gcp_compute_address:
+       name: '{{ name_address }}'
+       region: "{{ gcp_region }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       scopes:
+       - "{{ scope_compute }}"
+       state: present
+     register: address
+
+   - name: create instances
+     include_tasks: create-instance.yml
+     with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
+     loop_control:
+       loop_var: sequence 
+
+       #- name: create load balancer
+       #gce_backend_service: 
+       #credentials_file: "{{ gcp_service_account_file }}"
+       #project_id: "{{ gcp_project }}"
+       #service_account_email: "friasc@sandbox-173316.iam.gserviceaccount.com"
+       #backend_service_name: "delete_lb"
+       #backends: 
+       #- instance_group: "delete-instance-group-1"
+       #healthchecks: 
+       #- delete-apigee-instance-1
+       #port_name: myhttpport
+       #port: 9001
+       #state: present
+
+

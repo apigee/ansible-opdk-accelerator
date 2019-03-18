@@ -1,0 +1,20 @@
+---
+- name: Install GCE Dependencies
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+  - name: Install or Remove GCE Dependencies based on state requested
+    pip:
+      name: "{{ item }}"
+      state: "{{ state | default('present') }}"
+    with_items:
+    - apache-libcloud
+    - pyopenssl
+    - pycrypto
+    - crypto
+    - google-api-python-client
+    - google-auth
+    - google-auth-httplib2
+

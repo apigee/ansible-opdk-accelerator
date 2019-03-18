@@ -1,0 +1,99 @@
+---
+- name: Create an instance
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars_files:
+  - shared-properties.yml
+
+  tasks:
+  - name: create a network
+    gcp_compute_network:
+      name: "{{ network_name_default }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_auth_kind }}"
+      service_account_file: "{{ gcp_service_account_file }}"
+      scopes:
+      - "{{ scope_compute }}"
+      state: present
+    register: network
+
+  - name: create firewall rule
+    gcp_compute_firewall:
+      name: "{{ name_firewall }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_auth_kind }}"
+      service_account_file: "{{ gcp_service_account_file }}"
+      state: present
+      target_tags: ['{{ name_instance_network_tag }}']
+      network: "global/networks/{{ network.name }}"
+      scopes:
+      - "{{ scope_compute }}"
+      allowed: 
+      - ip_protocol: tcp
+        ports: 
+        - '22'
+
+  - name: create an address
+    tags: ['ext-addr']
+    gcp_compute_address:
+      name: '{{ name_address }}'
+#      name: '{{ name_address }}-{{ item }}'
+      region: "{{ gcp_region }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_auth_kind }}"
+      service_account_file: "{{ gcp_service_account_file }}"
+      scopes:
+      - "{{ scope_compute }}"
+      state: present
+    register: address
+#    with_sequence: start={{ start | default(1) }} end={{ end | default(1) }}
+
+  - name: create an instance template
+    gcp_compute_instance_template:
+      name: "{{ name_instance }}-template"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_auth_kind }}"
+      service_account_file: "{{ gcp_service_account_file }}"
+      state: present
+      scopes:
+      - "{{ scope_compute }}"
+      properties: 
+        machine_type: n1-standard-1
+        disks:
+        - auto_delete: true
+          boot: true
+          initialize_params:
+            source_image: '{{ disk_source_image }}'
+            disk_size_gb: 50
+        network_interfaces:
+        - network: "{{ network }}"
+          access_configs:
+           - name: 'External NAT'
+             type: 'ONE_TO_ONE_NAT'
+             nat_ip: "{{ address }}"
+    register: instance_template
+
+  - name: create an instance
+    gcp_compute_instance:
+      name: "{{ name_instance }}-template-created-instance"
+      state: present
+      machine_type: n1-standard-1
+      initialize_params:
+        source_image: "{{ name_instance }}-template"
+      zone: "{{ gcp_zone }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_auth_kind }}"
+      service_account_file: "{{ gcp_service_account_file }}"
+      tags: 
+        items:
+        - "{{ name_instance_network_tag }}"
+      metadata:
+        test: 'empty'
+      scopes:
+      - "{{ scope_compute }}"
+    register: instance
+
+  
+
+

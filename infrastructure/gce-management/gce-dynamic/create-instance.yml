@@ -1,0 +1,45 @@
+---
+- name: create a disk
+  gcp_compute_disk:
+    name: '{{ name_disk }}-{{ sequence }}'
+    size_gb: "{{ disk_size }}"
+    source_image: '{{ disk_source_image }}'
+    zone: "{{ gcp_zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_auth_kind }}"
+    service_account_file: "{{ gcp_service_account_file }}"
+    scopes:
+    - "{{ scope_compute }}"
+    state: present
+  register: disk
+
+- name: create an instance
+  gcp_compute_instance:
+    name: "{{ name_instance }}-{{ sequence }}"
+    state: present
+    machine_type: "{{ machine_type }}"
+    disks:
+    - auto_delete: true
+      boot: true
+      source: "{{ disk }}"
+    network_interfaces:
+    - network: "{{ network }}"
+      access_configs:
+      - name: 'External NAT'
+        type: 'ONE_TO_ONE_NAT'
+#        nat_ip: "{{ address }}"
+    zone: "{{ gcp_zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_auth_kind }}"
+    service_account_file: "{{ gcp_service_account_file }}"
+    tags: 
+      items:
+      - "{{ name_instance_network_tag }}"
+    metadata:
+       'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty' 
+    scopes:
+    - "{{ scope_compute }}"
+  async: 45
+  poll: 0
+  register: instance
+

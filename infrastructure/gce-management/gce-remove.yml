@@ -1,0 +1,42 @@
+---
+- name: Remove Instance
+  hosts: localhost
+  connection: local
+  strategy: free
+
+  vars:
+    service_account: "{{ lookup('file', credentials_file) }}"
+    ssh_private_key: "{{ service_account['private_key'] }}"
+    project_id: "{{ service_account['project_id'] }}"
+    service_account_email: "{{ service_account['client_email'] }}"
+
+  vars_files:
+  - gce-properties.yml
+
+  tasks:
+  - name: Split instance names
+    set_fact:
+      gcp_hostname: "{{ instance_names.split(',') }}"
+
+  - name: Remove instance
+    gce:
+      instance_names: "{{ item }}"
+      zone: "{{ zone }}"
+      project_id: "{{ project_id }}"
+      service_account_email: "{{ service_account_email }}"
+      credentials_file: '{{ credentials_file }}'
+      state: deleted
+    with_items: "{{ gcp_hostname }}"
+    async: 0
+    poll: 0
+#    register: gcp_tasks
+
+#  - name: Check remove status
+#    async_status:
+#      jid: "{{ gcp_task.ansible_job_id }}"
+#    loop: "{{ gcp_tasks.results }}"
+#    loop_control:
+#      loop_var: "gcp_task"
+#    register: gcp_task_results
+#    until: gcp_task_results.finished
+#    retries: 30
