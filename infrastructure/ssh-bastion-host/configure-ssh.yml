@@ -1,0 +1,37 @@
+---
+- name: Configure Local Control Server to Use Bastion Host
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    protected_target_hosts: 10.*.*.*
+    bastion_host_private_key: ~/.ssh/google_compute_engine
+    bastion_host_name: jump.us-east1-b.edge-ops-lab
+#    protected_private_key: ~/.ssh/google_compute_engine
+#    bastion_host_ip: 104.196.153.157
+#    bastion_host_user: friasc
+
+  tasks:
+    - name: Update SSH Config with Bastion Configuration
+      blockinfile:
+        path: ~/.ssh/config
+        create: yes
+        backup: yes
+        mode: 0400
+        block: |
+          Host {{ protected_target_hosts }}
+            ProxyCommand ssh -W %h:%p {{ bastion_host_name }}
+            IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') }}
+
+#          Host {{ bastion_host_ip }}
+#            Hostname {{ bastion_host_name }}
+#            User {{ bastion_host_user }}
+#            IdentityFile "{{ bastion_host_private_key | default('~/.ssh/id_rsa') }}"
+#            ControlMaster auto
+#            ControlPath ~/.ssh/ansible-%r@%h:%p
+#            ControlPersist 5m
+
+
+
+
+
