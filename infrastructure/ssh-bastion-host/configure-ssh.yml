@@ -5,11 +5,11 @@
   gather_facts: false
   vars:
     protected_target_hosts: 10.*.*.*
+    protected_private_key: ~/.ssh/google_compute_engine
     bastion_host_private_key: ~/.ssh/google_compute_engine
-    bastion_host_name: jump.us-east1-b.edge-ops-lab
-#    protected_private_key: ~/.ssh/google_compute_engine
-#    bastion_host_ip: 104.196.153.157
-#    bastion_host_user: friasc
+    bastion_host_name: edge-ops-lab-jump-host
+    bastion_host_ip: 104.196.153.157
+    bastion_host_user: friasc
 
   tasks:
     - name: Update SSH Config with Bastion Configuration
@@ -21,17 +21,12 @@
         block: |
           Host {{ protected_target_hosts }}
             ProxyCommand ssh -W %h:%p {{ bastion_host_name }}
-            IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') }}
+            IdentityFile {{ protected_private_key | default('~/.ssh/id_rsa') }}
 
-#          Host {{ bastion_host_ip }}
-#            Hostname {{ bastion_host_name }}
-#            User {{ bastion_host_user }}
-#            IdentityFile "{{ bastion_host_private_key | default('~/.ssh/id_rsa') }}"
-#            ControlMaster auto
-#            ControlPath ~/.ssh/ansible-%r@%h:%p
-#            ControlPersist 5m
-
-
-
-
-
+          Host {{ bastion_host_name }}
+            Hostname {{ bastion_host_ip }}
+            User {{ bastion_host_user }}
+            IdentityFile "{{ bastion_host_private_key | default('~/.ssh/id_rsa') }}"
+            ControlMaster auto
+            ControlPath ~/.ssh/ansible-%r@%h:%p
+            ControlPersist 5m
