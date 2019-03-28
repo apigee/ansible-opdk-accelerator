@@ -16,7 +16,11 @@
 
     # Cassandra command line command
     cassandra_cli: '{{ apigee_home }}/apigee-cassandra/bin/cassandra-cli'
-
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role:  apigee-opdk-modules }
   tasks:
   - name: Display Cassandra Ring
     shell: "{{ nodetool }} ring"
@@ -38,6 +42,12 @@
 
     # Cassandra command line command
     cassandra_cli: '{{ apigee_home }}/apigee-cassandra/bin/cassandra-cli'
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role:  apigee-opdk-modules }
+
   tasks:
   - name: Display Cassandra Status
     shell: "{{ nodetool }} status"
@@ -58,6 +68,12 @@
 
     # Cassandra command line command
     cassandra_cli: '{{ apigee_home }}/apigee-cassandra/bin/cassandra-cli'
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role:  apigee-opdk-modules }
+
   tasks:
   - name: Display Cassandra Replication Factor
     shell: "{{ cqlsh }} -e 'select * from system.schema_keyspaces' {{ private_address}}"
@@ -69,6 +85,12 @@
   vars:
     # Apigee installation directory
     apigee_home: "/opt/apigee"
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role:  apigee-opdk-modules }
+
   tasks:
   - name: Display cassandra-topology.properties
     shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra-topology.properties | grep -A100 '^# Cassandra Node IP'"
@@ -81,6 +103,12 @@
     # Apigee installation directory
     apigee_home: "/opt/apigee"
 
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role:  apigee-opdk-modules }
+
   tasks:
   - name: Display cassandra-topology.properties
     shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra.yaml"
@@ -92,6 +120,11 @@
   vars:
     # Apigee installation directory
     apigee_home: "/opt/apigee"
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role:  apigee-opdk-modules }
 
   tasks:
   - name: Display cassandra-topology.properties
