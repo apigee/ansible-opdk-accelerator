@@ -27,6 +27,8 @@
   tags: ['status']
   serial: 1
   vars:
+    # Apigee installation directory
+    apigee_home: "/opt/apigee"
 
     # Cassandra nodetool command
     nodetool: '{{ apigee_home }}/apigee-cassandra/bin/nodetool'
@@ -45,6 +47,8 @@
   gather_facts: no
   tags: ['replication']
   vars:
+    # Apigee installation directory
+    apigee_home: "/opt/apigee"
 
     # Cassandra nodetool command
     nodetool: '{{ apigee_home }}/apigee-cassandra/bin/nodetool'
@@ -62,6 +66,9 @@
   hosts: ds
   gather_facts: no
   tags: ['topology']
+  vars:
+    # Apigee installation directory
+    apigee_home: "/opt/apigee"
   tasks:
   - name: Display cassandra-topology.properties
     shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra-topology.properties | grep -A100 '^# Cassandra Node IP'"
@@ -70,6 +77,10 @@
   hosts: ds
   gather_facts: no
   tags: ['properties']
+  vars:
+    # Apigee installation directory
+    apigee_home: "/opt/apigee"
+
   tasks:
   - name: Display cassandra-topology.properties
     shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra.yaml"
@@ -78,6 +89,10 @@
   hosts: ds
   gather_facts: no
   tags: ['seeds']
+  vars:
+    # Apigee installation directory
+    apigee_home: "/opt/apigee"
+
   tasks:
   - name: Display cassandra-topology.properties
     shell: "cat {{ apigee_home }}/apigee-cassandra/conf/cassandra.yaml | grep 'seeds:\\|^listen_address:'"
