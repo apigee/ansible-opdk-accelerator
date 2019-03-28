@@ -1,4 +1,4 @@
-# Apigee OPDK Ansible Configuration Accelerator
+# Apigee Private Cloud Ansible Accelerator
 
 ## Introduction
 This repository contains a set of Ansible roles and playbooks to manage the installation, 
@@ -10,6 +10,18 @@ specific items. The bootstrap configuration is managed whether you do an online 
 exercise one of the two offline installation options. Component installation is managed so that all 
 configuration files are generated to the topology indicated and role of the individual node. These 
 playbooks create a central location from where to manage Private Cloud installations.
+
+# Ansible Private Cloud Accelerator Features
+The Ansible playbooks in this repository support a wide range of the installation, configuration
+and maintenance use cases that are necessary to successfully manage Apigee Private Cloud Planets.
+We describe the uses cases that are supported as follows: 
+
+| Feature Name | Feature Description |
+| --- | --- |
+| Planet Installation | A Private Cloud installation of a Planet containing any number of nodes that follow our recommended HA topologies. |
+| Planet Expansion | A Private Cloud Planet can be expanded to either increase the size of the Cassandra Ring, increase transaction capacity with additional Routers and Message Processors or expand the Planet with up to 9 additional regions. |
+| Disaster Recovery | These playbooks enabled automated disaster recovery scenarios. These playbooks currently operate on Apigee components to remove, re-install, re-configured, scale up or scale down a Planet thereby providing the necessary functionality to drastically reduce the time to recover from a disaster. |
+| Planet Maintenance | These playbooks are constructed by composing functional units called roles to achieve specific use cases. This has enabled this framework to re-use the same roles combined in new ways to provide automation support to the maintenance activities that the Apigee platform requires.  |
 
 ## Assumptions 
 * This repository assumes that no Apigee Operating System requirements have been fulfilled beyond the 
