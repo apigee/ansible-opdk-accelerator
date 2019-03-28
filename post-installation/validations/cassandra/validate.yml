@@ -5,6 +5,8 @@
   tags: ['ring']
   serial: 1
   vars:
+    # Apigee installation directory
+    apigee_home: "/opt/apigee"
 
     # Cassandra nodetool command
     nodetool: '{{ apigee_home }}/apigee-cassandra/bin/nodetool'
