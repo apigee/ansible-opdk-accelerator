@@ -7,16 +7,16 @@
       - "~/.apigee-secure"
       - "~/.apigee"
     pattern:
-    - { dir: '/etc/', pattern: 'hosts*' }
-    - { dir: '/etc/', pattern: 'environment' }
-    - { dir: '/etc/', pattern: 'profile' }
-    - { dir: '/etc/', pattern: 'bashrc' }
-    - { dir: '/etc/', pattern: 'resolv.conf' }
-    - { dir: '/etc/', pattern: 'sysctl.conf' }
-    - { dir: '/etc/', pattern: 'sudoers' }
-    - { dir: '/etc/security/', pattern: 'limits.conf' }
-    - { dir: '/etc/security/limits.d/', pattern: '*conf' }
-    - { dir: '/var/log/', pattern: 'messages' }
+#    - { dir: '/etc/', pattern: 'hosts*' }
+#    - { dir: '/etc/', pattern: 'environment' }
+#    - { dir: '/etc/', pattern: 'profile' }
+#    - { dir: '/etc/', pattern: 'bashrc' }
+#    - { dir: '/etc/', pattern: 'resolv.conf' }
+#    - { dir: '/etc/', pattern: 'sysctl.conf' }
+#    - { dir: '/etc/', pattern: 'sudoers' }
+#    - { dir: '/etc/security/', pattern: 'limits.conf' }
+#    - { dir: '/etc/security/limits.d/', pattern: '*conf' }
+#    - { dir: '/var/log/', pattern: 'messages' }
     - { dir: '/tmp', pattern: 'setup*.log' }
     - { dir: '{{ opdk_resources_path }}/', pattern: '*' }
     - { dir: '{{ apigee_home }}/', pattern: '*.out' }
