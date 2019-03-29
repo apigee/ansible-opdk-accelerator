@@ -13,6 +13,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk-cache.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-setup-os-limits.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap.git

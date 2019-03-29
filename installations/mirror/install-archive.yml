@@ -21,6 +21,7 @@
     - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
     - { role: apigee-server-restart, tags: ['restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
     - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
+    - { role: apigee-opdk-setup-openjdk-cache, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
     - { role: apigee-opdk-setup-openjdk, tags: ['openjdk'], jdk_version: '1.8' }
 
 - name: Install apigee mirror archive

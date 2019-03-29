@@ -3,10 +3,10 @@
   hosts: "{{ target_hosts }}"
   gather_facts: no
   become: true
-  vars_files:
-  - ~/.apigee-secure/credentials.yml
-  - ~/.apigee/custom-properties.yml
   vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
     pattern:
     - { dir: '/etc/', pattern: 'hosts*' }
     - { dir: '/etc/', pattern: 'environment' }
@@ -38,4 +38,5 @@
     - { dir: '{{ apigee_home }}/apigee-postgresql/', pattern: '*conf' }
 
   roles:
+  - { role:  apigee-opdk-modules }
   - { role: apigee-fetch-files, download_pattern: '{{ pattern }}', download_folder: "{{ target_logs_folder }}" }
