@@ -34,6 +34,8 @@
 # Ansible Roles for Bootstrap Installation and Setup
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-cache.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-component-install.git

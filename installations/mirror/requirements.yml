@@ -23,6 +23,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-cache.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-create-archive.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-download-archive.git
