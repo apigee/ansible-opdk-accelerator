@@ -2,7 +2,6 @@
 - name: Retrieve log files
   hosts: "{{ target_hosts }}"
   gather_facts: no
-  become: true
   vars:
     property_folders:
       - "~/.apigee-secure"
