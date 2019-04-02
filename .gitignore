@@ -117,5 +117,5 @@ ansible
 apigee
 apigee-secure
 setup/roles
-infrastructure/setup-ansible-offline/apigee-opdk-accelerator
+infrastructure/setup-ansible-offline/apigee-opdk-accelerator/*
 
