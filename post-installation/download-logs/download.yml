@@ -1,6 +1,6 @@
 ---
 - name: Retrieve log files
-  hosts: "{{ target_hosts }}"
+  hosts: "{{ target_hosts | default('planet') }}"
   gather_facts: no
   vars:
     property_folders:
