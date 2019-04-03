@@ -6,6 +6,9 @@
   vars_files:
   - shared-properties.yml
 
+  roles:
+   - { role: apigee-opdk-port-check }
+
   tasks:
    - name: create a network
      gcp_compute_network:
