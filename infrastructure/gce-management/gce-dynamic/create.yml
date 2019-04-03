@@ -25,14 +25,14 @@
        auth_kind: "{{ gcp_auth_kind }}"
        service_account_file: "{{ gcp_service_account_file }}"
        state: present
-       target_tags: ['{{ name_instance_network_tag }}']
+       target_tags: ['{{ name_instance }}-{{ item.port_type }}-firewall-tag']
        network: "global/networks/{{ network.name }}"
        scopes:
          - "{{ scope_compute }}"
        allowed: 
        - ip_protocol: tcp
-         ports: 
-         - '22'
+         ports: "{{ item.ports }}"
+     with_items: "{{ firewall_ports }}"
 
    - name: create an address
      tags: ['ext-addr']
