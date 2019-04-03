@@ -22,14 +22,14 @@ gce_image: 'centos-7'
 service_account_email: "friasc@sandbox-173316.iam.gserviceaccount.com"
 
 firewall_ports:
-- { ports: ms_ports, port_type: 'ms' }
-- { ports: router_ports, port_type: 'router' }
-- { ports: mp_ports, port_type: 'mp' }
-- { ports: zk_ports, port_type: 'zk' }
-- { ports: cassandra_ports, port_type: 'cs' }
-- { ports: qpid_ports, port_type: 'qs' }
-- { ports: pg_ports, port_type: 'pg' }
-- { ports: ui_ports, port_type: 'ui' }
-- { ports: ldap_ports, port_type: 'ldap' }
+- { ports: "{{ ms_ports }}", port_type: 'ms' }
+- { ports: "{{ router_ports }}", port_type: 'router' }
+- { ports: "{{ mp_ports }}", port_type: 'mp' }
+- { ports: "{{ zk_ports }}", port_type: 'zk' }
+- { ports: "{{ cassandra_ports }}", port_type: 'cs' }
+- { ports: "{{ qpid_ports }}", port_type: 'qs' }
+- { ports: "{{ pg_ports }}", port_type: 'pg' }
+- { ports: "{{ ui_ports }}", port_type: 'ui' }
+- { ports: "{{ ldap_ports }}", port_type: 'ldap' }
 
 
