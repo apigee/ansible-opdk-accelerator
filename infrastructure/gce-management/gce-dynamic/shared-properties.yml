@@ -1,7 +1,7 @@
 ---
 gcp_project: sandbox-173316
 gcp_auth_kind: serviceaccount
-gcp_service_account_file: /usr/local/google/home/friasc/.apigee-secure/sandbox-service-173316-e3a2eaa2963d.json 
+gcp_service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
 gcp_zone: "us-central1-c"
 gcp_region: "us-central1"
 network_name_default: "default"
