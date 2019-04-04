@@ -32,6 +32,23 @@ Ansible control to another file system location. Please see
 [Ansible Control Server Backup](../infrastructure/backup-ansible-controller) for details.
 
 # Usage Instructions
+## Terminal Window
+These scripts can be run from a terminal window. Please open your terminal and navigate to the folder
+containing the Ansible OPDK Accelerator. This can be accomplished as follows: 
+
+    cd ~/apigee-opdk-accelerator
+
+## Refresh Local Repository
+It may be necessary to update the local repository if it has been some time since the last update.
+This can be accomplished as follows: 
+
+    cd ~/apigee-opdk-accelerator
+    git pull origin master
+
+## Change Directory to the setup folder
+Open the terminal and change directory to the setup folder:
+
+    cd ~/apigee-opdk-accelerator/setup
 
 ## Download Dependencies
 Use `ansible-galaxy` to download dependencies in the following way: 
