@@ -58,10 +58,16 @@ Use `ansible-galaxy` to download dependencies in the following way:
 
 ## Setup an Ansible Control Server on localhost
 
-`setup.yml` will configure the localhost as an Ansible control server in the following way:
+`setup.yml` will configure the localhost as an Ansible control server. This tasks assume that the user has sudo privilege 
+ with no password prompt. Please invoke `setup.yml` in the following way:
     
     # Setup the Ansible controller
     ansible-playbook setup.yml
+
+If this task fails due to sudo privilege, please re-invoke the script and pass the sudo flag in the following way: 
+
+    ansible-playbook setup.yml -K
+    
 
 ## Configuration Review
 
