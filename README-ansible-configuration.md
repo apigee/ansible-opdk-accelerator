@@ -19,7 +19,7 @@ in the prior step then the step that would give you the correct result would be
 1. Update the inventory template files as indicated in  
 [Ansible Inventory](README-inventory.md).
 
-1. Activate the ansible configuration as indicated in the section "Activate Ansible Configuration".
+1. Activate the ansible configuration as indicated in the section [Activate Ansible Configuration](#activate-ansible-configuration).
 
 ## Editing the Ansible configuration file template
 
@@ -40,27 +40,3 @@ configure many environments as we have indicated here but to a set of scripts.
     
 1. Ansible commands will now use the ANSIBLE_CONFIG environment variable to find the `prod.cfg` and
 the associated inventory folder. 
-
-## Ansible Inventory 
-
-[Ansible Inventory Templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples) 
-have been provided that will assist you to quickly configure your 
-inventory. The inventory templates are setup so that you only need to indicate either the FQDN or 
-the IP address of a target node. In the `dc-n` area near the top of the template file. The remainder
-inventory file uses the Ansible group of groups feature to properly nest your configured nodes in 
-their correct roles. 
-
-Please note that we are using the attribute of the Ansible configuration file to point to the a 
-folder that can contain inventory files. Ansible will dynamically interpret all files placed in this 
-folder as properly defined inventory files. This approach is used to simplify management of nodes 
-defined using cloud providers and large inventory definitions.
-
-## Defining an Inventory to the Ansible Configuration
-Assuming an Ansible configuration named `prod.cfg` was defined and that the inventory attribute was 
-set as follows `inventory = ~/.ansible/inventory/TARGET_ENVIRONMENT_NAME_CONVENTION` then you can 
-define an inventory for a 10 node edge region in `prod` would require the following steps: 
-
-1. Copy the folder `~/.ansible/inventory/templates/edge-10-rmp` to `~/.ansible/inventory/prod`
-1. Delete the files `mirror` and `monitoring-dc1`
-1. Update each group above the line `# NO MODIFICATIONS BELOW THIS LINE ARE NECESSARY` with the FQDN
-or IP address of the node under the group that corresponds to the role of the node. 
