@@ -1,6 +1,6 @@
 # Apigee Edge Installations
 
-The folders in this section perform primary installations of the Apigee platform. These folders all contain the playbook 
+The folders in this section perform primary installations of the Apigee platform. These folders except `mirror` contain the playbook 
 `install.yml` that will perform the installation of Apigee Edge component as indicated by the folder name and the 
 contained README. This folder contains Ansible playbooks that will install the following Apigee components:
 
