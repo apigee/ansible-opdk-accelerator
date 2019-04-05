@@ -8,23 +8,29 @@ The playbook `install.yml` will perform an installation of Apigee Edge.
 1. [Activate an Ansible Configuration](../../README-activate-an-ansible-configuration.md) has been completed.
 
 ## Basic Usage
-We have created `ansible-galaxy` requirement file `requirements.yml` that will download the roles 
-used by this playbook and install them for usage according to your configuration. You can download and install the 
-required roles like this: 
+We have created an `ansible-galaxy` requirements file `requirements.yml` that will download and install the roles 
+used by this playbook. You can download and install the required roles as follows: 
 
     ansible-galaxy install -r requirements.yml -f
     
-The install process will be engaged when you invoke the playbook like this:
+Once the roles are installed you can invoke the install process as follows:
 
     ansible-playbook install.yml
-
-
 
 ### Ansible Tags
 These playbooks use [Ansible tags](http://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-tags) 
 extensively to execute functionally significant portions of the installation. These tags have been used consistently across all
 the playbooks. In some cases, the tags perform slightly different tasks but achieve the semantic functionality ascribed by the name. 
+Tags are invoked as follows: 
 
+    ansible-playbook install.yml --tags=os
+    
+### Tags Listing
+You can discover the names of tags using the Ansible flag --list-tags as follows: 
+
+    ansible-playbook install.yml --list-tags
+    
+The following table lists the tag names and a description of the functionality that can be invoked.
 | Tag Name | Description |
 | --- | --- |
 | minimum | Installs without performing any validation on the operating system and minimally verifying that components actually installed. This is the fastest installation available with this framework. |
