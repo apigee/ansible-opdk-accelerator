@@ -11,7 +11,7 @@ contained README. This folder contains Ansible playbooks that will install the f
 | [Apigee Mirror](mirror) | Installs an Apigee Mirror for offline installations |
 | [Apigee AIO](aio) |  Installs Apigee Edge as an AIO instance on a single node. |
 
-## Assumption
+## Assumptions
 
 1. [Configuration](../../README.md#usage-overview ) steps have been completed. 
 1. [Activate an Ansible Configuration](../../README-activate-an-ansible-configuration.md) has been completed.
