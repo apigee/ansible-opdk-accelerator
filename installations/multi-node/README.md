@@ -17,11 +17,12 @@ Once the roles are installed you can invoke the install process as follows:
 
     ansible-playbook install.yml
 
-### Ansible Tags
-These playbooks use [Ansible tags](http://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-tags) 
-extensively to execute functionally significant portions of the installation. These tags have been used consistently across all
-the playbooks. In some cases, the tags perform slightly different tasks but achieve the semantic functionality ascribed by the name. 
-Tags are invoked as follows: 
+### Executing Portions of the Installation
+It is necessary to many times only execute a portion of the overall installation script. This has been enabled by the 
+use of [Ansible tags](http://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-tags). 
+Ansible tags are used extensively to execute functionally significant portions of the installation. These tags have been 
+used consistently across all the installation playbooks. In some cases, the tags perform slightly different tasks but 
+achieve the semantic functionality ascribed by the name. Tags are invoked as follows: 
 
     ansible-playbook install.yml --tags=os
     
