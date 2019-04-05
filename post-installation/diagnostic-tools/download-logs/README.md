@@ -10,4 +10,4 @@ This playbook assumes that an [inventory](../../../README-ansible-inventory.md) 
 # Usage
 
     ansible-galaxy install -r requirements.yml -f 
-    ansible-playbook download-logs.yml -e target_hosts=[ planet | ms | ds | rmp | qpid | pg | ds[0] ]
+    ansible-playbook download-logs.yml -e target_hosts=[ planet | edge | ms | ds | rmp | qpid | pg ]

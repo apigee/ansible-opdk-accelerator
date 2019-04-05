@@ -20,4 +20,3 @@ in the prior step then the step that would give you the correct result would be
 1. Update the inventory template files as indicated in [Ansible Inventory](README-ansible-inventory.md).
 
 1. Activate the ansible configuration as indicated in [Activate an Ansible Configuration](README-activate-an-ansible-configuration.md).
-
