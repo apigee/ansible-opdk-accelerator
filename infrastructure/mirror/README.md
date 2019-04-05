@@ -1,8 +1,20 @@
-Apigee Mirror Playbooks
-=============================
+# Apigee Mirror Playbooks
 
-These playbooks work with an Apigee Mirror in preparation for performing offline installations of 
-the Apigee Edge Private Cloud. These playbook support the Apigee Mirror creation process discussed 
+These playbooks work to install and setup an Apigee Mirror in preparation for performing offline installations of 
+the Apigee Edge Private Cloud. It should be understood that offline installations require the interaction of online and 
+offline nodes. Consequently the playbooks are constructed to assist depending on whether you are performing online 
+activities or offline activities. Complexity arises from the split between where the online activities can be performed 
+and the location of the control server used to run these playbooks. These playbooks accommodate the use of a separate 
+online server or the use of the control server serving as the online server.  
+
+## Online Activities
+
+Despite the requirement to install Apigee Edge in an offline environment some activities must be performed online. 
+Specifically we need to be online to create the installation archive. Following the creation of the installation archive
+we need to download that archive and position it for upload and installation where the offline installation scripts can be
+used upload and install the installation archive. Once these processes are complete we can then proceed with an installation.
+
+These playbook support the Apigee Mirror creation process discussed 
 in detail [here](https://docs.apigee.com/private-cloud/v4.17.01/install-edge-apigee-setup-utility).
 These playbooks perform the following functions:
  

@@ -8,7 +8,7 @@ contained README. This folder contains Ansible playbooks that will install the f
 |--- | --- |
 | [Apigee Edge](multi-node) | Installs a multi-node and multi-region Apigee Edge planet |
 | [Apigee Developer Portal](devportal) | Installs Apigee Developer Portal |
-| [Apigee Mirror](mirror) | Installs an Apigee Mirror for offline installations |
+| [Apigee Mirror](../infrastructure/mirror) | Configures infrastructure and installs an Apigee Mirror for offline installations |
 | [Apigee AIO](aio) |  Installs Apigee Edge as an AIO instance on a single node. |
 
 ## Assumptions
