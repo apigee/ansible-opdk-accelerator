@@ -1,4 +1,4 @@
-# Ansible OPDK Accelerator Configuration
+# Configure the Ansible OPDK Accelerator 
 
 1. Copy the Ansible configuration template file named `apigee-opdk-configuration-template.cfg` from 
 the folder `multi-planet-configurations/templates` into the folder `multi-planet-configurations`. 
