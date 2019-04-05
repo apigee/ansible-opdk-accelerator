@@ -4,8 +4,9 @@ These playbooks work to install and setup an Apigee Mirror in preparation for pe
 the Apigee Edge Private Cloud. It should be understood that offline installations require the interaction of online and 
 offline nodes. Consequently the playbooks are constructed to assist depending on whether you are performing online 
 activities or offline activities. Complexity arises from the split between where the online activities can be performed 
-and the location of the control server used to run these playbooks. These playbooks accommodate the use of a separate 
-online server or the use of the control server serving as the online server.  
+and the location of the control server used to run these playbooks. These playbooks accommodate the construction of an
+installation archive using either a separate online server or the use of the control server serving as the online server
+such as a laptop.  
 
 ## Online Activities
 
