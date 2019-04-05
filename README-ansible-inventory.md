@@ -232,3 +232,7 @@ that node in the following way:
     
     [pgstandby:children]
     dc-1-pgstandby
+
+## Next Steps
+
+Please continue with the [next steps](README.md#usage-overview) in the process.

@@ -15,3 +15,7 @@ if you are configuring a `prod` environment and the Ansible configuration file i
 created in step #3 is named `inventory/prod` the you would replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` 
 with `prod`.
 1. Activate the Ansible configuration file as indicated in the section [Activate an Ansible Configuration](README-activate-an-ansible-configuration.md).
+
+## Next Steps
+
+Please continue with the [next steps](README.md#usage-overview) in the process.

@@ -14,3 +14,7 @@ the associated inventory folder.
 Ansible ad-hoc commands also use the `ANSIBLE_CONFIG` setting. This means that you can perform additional actions
 on the Apigee planet beyond what is configured in these playbooks. This allows you the opportunity to carry out 
 maintenance activities on multiple servers with a single command. Very cool!
+
+## Next Steps
+
+Please continue with the [next steps](README.md#usage-overview) in the process.
