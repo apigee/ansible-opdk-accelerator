@@ -43,7 +43,7 @@ The use of this framework is composed of the following steps:
 1. Update credentials stored `~/.apigee-secure/credentials.yml`.
 1. Update common installation attributes like `opdk_version` that is stored in 
 `~/.apigee/custom-properties.yml`.
-1. Use `ansible-playbook` to complete the target activity available in either the [installations](installations) or [post-installation](post-installation) folders.
+1. Use `ansible-playbook` to carry out an activity from either the [installations](installations), [infrastructure](infrastructure) or [post-installation](post-installation) folders.
 <!-- BEGIN Google How To Contribute -->
 # How to Contribute
 
