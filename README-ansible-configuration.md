@@ -17,7 +17,7 @@ in the prior step then the step that would give you the correct result would be
 1. Update the Ansible configuration as indicated in the section [Editing the Ansible configuration file template](#editing-the-ansible-configuration-file-template).     
      
 1. Update the inventory template files as indicated in  
-[Ansible Inventory](../README-inventory.md).
+[Ansible Inventory](README-inventory.md).
 
 1. Activate the ansible configuration as indicated in the section "Activate Ansible Configuration".
 
