@@ -2,6 +2,7 @@
 
 1. Copy the Ansible configuration template file named `apigee-opdk-configuration-template.cfg` from 
 the folder `multi-planet-configurations/templates` into the folder `multi-planet-configurations`. 
+
 1. We recommend that you follow the convention of using the name of the target environment as the name of the ansible 
 configuration file. For example, to configure a `prod` environment you would name your Ansible configuration file 
 `prod.cfg` such that the following step would give you the correct result would be 
@@ -22,6 +23,14 @@ in the prior step then the step that would give you the correct result would be
 1. Activate the ansible configuration as indicated in the section [Activate Ansible Configuration](#activate-ansible-configuration).
 
 ## Editing the Ansible configuration file template
+
+Ansible provides a rich command line syntax by which you can indicate a wide array of configuration attributes. This is 
+useful for short sessions that do not need to be persisted over time. The use of the command line syntax over a long 
+period of time will quickly become difficult to manage for scenarios like installing, configuring and maintaining Apigee
+platform. We recommend that you make use of the Ansible configuration file so that the interactions with Ansible at the 
+command line would be more concise and consequently easier to manage. Following the instructions in the section 
+[Ansible OPDK Accelerator Configuration](#ansible-opdk-accelerator-configuration) step #1 you would then be able to complete
+the configuration of Ansible with the following steps: 
 
 1. Search and replace for UPDATE_WITH_SSH_USER_NAME with the name of the SSH user you will use to 
 login to each node. 
