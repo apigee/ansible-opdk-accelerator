@@ -4,7 +4,7 @@ The playbook `install.yml` will perform an installation of Apigee Edge.
 
 ## Assumption
 
-1. [Configuration](../../#usage-overview )steps have been completed. 
+1. [Configuration](../../#usage-overview ) steps have been completed. 
 1. [Activate an Ansible Configuration](../../README-activate-an-ansible-configuration.md) has been completed.
 
 ## Basic Usage
