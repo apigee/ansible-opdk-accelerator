@@ -38,7 +38,7 @@ scripts and modules can be downloaded starting from the [Apigee Github](https://
 The use of this framework is composed of the following steps:
 
 1. [Setup](setup#usage-instructions) an Ansible control server and workspace.
-1. Configure an initial Planet topology using the [Ansible inventory](README-inventory.md) file(s).
+1. Configure [Ansible and the Ansible inventory](README-ansible-configuration.md).
 1. Place Apigee license material in `~/.apigee-secure/license.txt`.
 1. Update credentials stored `~/.apigee-secure/credentials.yml`.
 1. Update common installation attributes like `opdk_version` that is stored in 
