@@ -8,21 +8,30 @@ and the location of the control server used to run these playbooks. These playbo
 installation archive using either a separate online server or the use of the control server serving as the online server
 such as a laptop.  
 
-## Online Activities
+## Assumptions Regarding Online and Offline Activities
 
 Despite the requirement to install Apigee Edge in an offline environment some activities must be performed online. 
 Specifically we need to be online to create the installation archive. Following the creation of the installation archive
 we need to download that archive and position it for upload and installation where the offline installation scripts can be
-used upload and install the installation archive. Once these processes are complete we can then proceed with an installation.
+used to upload and install that archive. Once these processes are complete we can then proceed with an installation. The
+installation can either be performed manually or with the installation scripts provided by this repository. 
 
-These playbook support the Apigee Mirror creation process discussed 
-in detail [here](https://docs.apigee.com/private-cloud/v4.17.01/install-edge-apigee-setup-utility).
-These playbooks perform the following functions:
+## Online Activities
+These playbook support the creation and download of an Apigee Mirror:
  
 * [Create an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-create-archive.git)
-* [Download an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-download-archive.git) 
+* [Download an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-download-archive.git)
+
+## Offline Activities
+These playbooks support uploading and installing an Apigee Mirror. 
+ 
 * [Upload an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-upload-archive.git)
 * [Install an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer.git)
+
+# Apigee Mirror Repository
+This playbook will upload and setup the Apigee Nginx web server so that the offline installation can be completed from a
+central web server.
+
 * Setup the Apigee Nginx Web [server](https://docs.apigee.com/private-cloud/v4.17.01/install-edge-apigee-setup-utility#installedgeapigeesetuputilityonanodewithnoexternalinternetconnection-installapigeesetuponaremotenodefromthelocalrepo) as a yum repository for an offline Apigee Edge Private Cloud 
 installation.
  
