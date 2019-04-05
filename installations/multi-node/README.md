@@ -6,4 +6,4 @@ recommendations.
 
 ## Assumptions
 
-This playbook makes [these assumptions](../README.md).
+This playbook makes [these assumptions](../README.md#assumptions).
