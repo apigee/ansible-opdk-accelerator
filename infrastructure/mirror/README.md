@@ -8,6 +8,10 @@ and the location of the control server used to run these playbooks. These playbo
 installation archive using either a separate online server or the use of the control server serving as the online server
 such as a laptop.  
 
+## Basic Configuration Assumptions
+
+This playbook makes [these assumptions](../../installations/README.md#assumptions).
+
 ## Assumptions Regarding Online and Offline Activities
 
 Despite the requirement to install Apigee Edge in an offline environment some activities must be performed online. 
@@ -32,15 +36,9 @@ These playbooks support uploading and installing an Apigee Mirror.
 This playbook will upload and setup the Apigee Nginx web server so that the offline installation can be completed from a
 central web server.
 
-* Setup the Apigee Nginx Web [server](https://docs.apigee.com/private-cloud/v4.17.01/install-edge-apigee-setup-utility#installedgeapigeesetuputilityonanodewithnoexternalinternetconnection-installapigeesetuponaremotenodefromthelocalrepo) as a yum repository for an offline Apigee Edge Private Cloud 
+* [Setup the Apigee Nginx Web Server](https://docs.apigee.com/private-cloud/v4.17.01/install-edge-apigee-setup-utility#installedgeapigeesetuputilityonanodewithnoexternalinternetconnection-installapigeesetuponaremotenodefromthelocalrepo) as a yum repository for an offline Apigee Edge Private Cloud 
 installation.
  
-# Assumptions
-
-* These playbooks assume that you have configured an `ansible.cfg` that indicates the location of the 
-inventory and Ansible roles.
-* This playbook assumes you have invoked `ansible-galaxy install -r requirements.yml -f`
-
 # Usage
 
 We recommend that you invoke these playbooks in the following sequence:
