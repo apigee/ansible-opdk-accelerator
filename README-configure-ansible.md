@@ -14,4 +14,4 @@ login to each node. The assumption is that you will use the same SSH user to log
 if you are configuring a `prod` environment and the Ansible configuration file is named `prod.cfg` and the `inventory` 
 created in step #3 is named `inventory/prod` the you would replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` 
 with `prod`.
-1. Activate the Ansible configuration file as indicated in the section [Activate Ansible Configuration](README-activate-ansible-configuration.md).
+1. Activate the Ansible configuration file as indicated in the section [Activate an Ansible Configuration](README-activate-an-ansible-configuration.md).
