@@ -14,7 +14,7 @@ For example, suppose that you are creating a 5 node Planet inventory for the `pr
 in the prior step then the step that would give you the correct result would be
 `cp -r ~/.ansible/inventory/templates/edge-5/ ~/.ansible/inventory/prod/`.
 
-1. Update the Ansible configuration as indicated in the section "Editing the Ansible configuration file template".     
+1. Update the Ansible configuration as indicated in the section [Editing the Ansible configuration file template](#editing-the-ansible-configuration-file-template).     
      
 1. Update the inventory template files as indicated in  
 [Ansible Inventory](../README-inventory.md).
