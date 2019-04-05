@@ -5,7 +5,7 @@ This playbook downloads the logs and configuration settings from an Apigee platf
 
 # Requirements
 
-This playbook assumes that an inventory will be configured using ansible.cfg or on the command line.
+This playbook assumes that an [inventory](../../../README-ansible-inventory.md) will be configured using ansible.cfg or on the command line.
 
 # Usage
 
