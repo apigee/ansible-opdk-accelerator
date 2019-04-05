@@ -31,7 +31,7 @@ It is necessary to many times only execute a portion of the overall installation
 use of [Ansible tags](http://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-tags). 
 Ansible tags are used extensively to execute functionally significant portions of the installation. These tags have been 
 used consistently across all the installation playbooks. In some cases, the tags perform slightly different tasks but 
-achieve the semantic functionality ascribed by the name. A sample tag usage that invokes the os tag is as follows: 
+achieve the semantic functionality ascribed by the name. A sample tag usage that invokes the `os` tag is as follows: 
 
     ansible-playbook install.yml --tags=os
     
