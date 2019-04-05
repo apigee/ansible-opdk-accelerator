@@ -32,6 +32,7 @@ You can discover the names of tags using the Ansible flag --list-tags as follows
     ansible-playbook install.yml --list-tags
     
 The following table lists the tag names and a description of the functionality that can be invoked.
+
 | Tag Name | Description |
 | --- | --- |
 | minimum | Installs without performing any validation on the operating system and minimally verifying that components actually installed. This is the fastest installation available with this framework. |
