@@ -69,6 +69,6 @@ If this task fails due to sudo privilege, please re-invoke the script and pass t
     ansible-playbook setup.yml -K
     
 
-## Configuration Review
+## Next Steps
 
-Templates have been provided to help you [configure Ansible and Inventories](../README-ansible-configuration.md) for use by this framework. 
+Please continue with the [next steps](../README.md) in the process.
