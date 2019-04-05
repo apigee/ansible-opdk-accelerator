@@ -25,7 +25,7 @@ We describe the uses cases that are supported as follows:
 
 ## Assumptions 
 * This repository assumes that no [Apigee Operating System requirements](https://docs.apigee.com/release/supported-software#apigeeedgeforprivatecloudsupportedversions) 
-have been fulfilled. 
+have been fulfilled except to select the basic operating system that is supported. 
 * A [control server](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-machine-requirements) 
 is available from which [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) 
 scripts and modules can be downloaded starting from the [Apigee Github](https://github.com/apigee) repository.

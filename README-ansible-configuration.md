@@ -1,8 +1,16 @@
-# Ansible Configuration
+# Ansible OPDK Accelerator Configuration
 
-Please copy the Ansible configuration template file named apigee-opdk-configuration-template.cfg from 
-multi-planet-configurations/templates into the folder multi-planet-configurations. Please name the 
-the same as the environment you are configuring. Once you have created a file named for example 
+1. Copy the Ansible configuration template file named `apigee-opdk-configuration-template.cfg` from 
+the folder `multi-planet-configurations/templates` into the folder `multi-planet-configurations`. 
+1. We recommend that you follow the convention of name the template file you copied the same as the name of the 
+environment you are configuring.
+1. Update the template file as indicated below.
+1. Select an inventory template that is close enough to your target environment from the folder `inventory/templates` 
+and copy that folder to `inventory/{{ name_of_configuration_file_without_the_extension }}`.
+1. Update the `inventory/{{ name_of_configuration_file_without_the_extension }}` files as indicated with 
+[Ansible Inventory Templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples).
+
+Once you have created a file named for example 
 `prod.cfg` please perform the following updates:
 
 1. Search and replace for UPDATE_WITH_SSH_USER_NAME with the name of the SSH user you will use to 
