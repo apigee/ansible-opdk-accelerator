@@ -34,9 +34,9 @@ Ansible configuration file.
 
 Ansible uses several mechanisms to provide a flexible way to configure a control server. We recommend
 using the ANSIBLE_CONFIG environmental variable because it provides you with the flexibility to 
-configure many environments as we have indicated here but to a set of scripts. 
+configure many environments following the steps we have indicated here. 
 
     export ANSIBLE_CONFIG=~/.ansible/multi-planet-configurations/prod.cfg
     
-1. Ansible commands will now use the ANSIBLE_CONFIG environment variable to find the `prod.cfg` and
+Ansible commands will now use the ANSIBLE_CONFIG environment variable to find the `prod.cfg` and
 the associated inventory folder. 
