@@ -14,7 +14,8 @@ This playbook makes [these assumptions](../../installations/README.md#assumption
 
 ## Assumptions Regarding Online and Offline Activities
 
-Despite the requirement to install Apigee Edge in an offline environment some activities must be performed online. 
+Despite the requirement to install Apigee Edge in an offline environment some activities must be performed 
+[online](https://docs.apigee.com/private-cloud/v4.19.01/installation-overview#internet). 
 Specifically we need to be online to create the installation archive. Following the creation of the installation archive
 we need to download that archive and position it for upload and installation where the offline installation scripts can be
 used to upload and install that archive. Once these processes are complete we can then proceed with an installation. The
@@ -27,7 +28,7 @@ These playbook support the creation and download of an Apigee Mirror:
 * [Download an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-download-archive.git)
 
 ## Offline Activities
-These playbooks support uploading and installing an Apigee Mirror. 
+These playbooks support uploading and installing an Apigee Mirror: 
  
 * [Upload an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-upload-archive.git)
 * [Install an Apigee Mirror](https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-archive-installer.git)
