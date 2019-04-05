@@ -40,7 +40,9 @@ You can discover the names of tags using the Ansible flag --list-tags as follows
 
     ansible-playbook install.yml --list-tags
     
-The following table lists the tag names and a description of the functionality that can be invoked.
+The following table lists the main tag names and a description of the functionality that can be invoked. Additional, tags
+are available and sometimes added organically. It is expected that you will read the roles to understand how tags that are
+not listed here will function. 
 
 | Tag Name | Description |
 | --- | --- |
