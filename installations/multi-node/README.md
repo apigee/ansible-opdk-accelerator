@@ -49,4 +49,3 @@ The following table lists the tag names and a description of the functionality t
 | qpid | Install the [qs](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
 | pg | Install the [ps](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile |
 | org | [Onboard an organization](https://docs.apigee.com/private-cloud/v4.18.01/onboard-organization) |
-| validate | [Validate](https://docs.apigee.com/private-cloud/v4.18.01/test-install) the installation |
