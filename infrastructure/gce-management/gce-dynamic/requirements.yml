@@ -1,2 +1,3 @@
 ---
 - src: https://github.com/carlosfrias/apigee-opdk-port-check.git
+- src: https://github.com/carlosfrias/apigee-opdk-port-check-settings.git
