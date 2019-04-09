@@ -26,7 +26,6 @@
       initialize_params:
         disk_name: "{{ name_instance }}-bastion-disk"
         disk_size_gb: 25
-        source_image: "{{ image_family }}"
     network_interfaces:
     - network: "{{ network }}"
       access_configs:
