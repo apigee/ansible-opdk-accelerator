@@ -32,4 +32,6 @@ firewall_ports:
 - { ports: "{{ ui_ports }}", port_type: 'ui' }
 - { ports: "{{ ldap_ports }}", port_type: 'ldap' }
 
-
+address_types:
+- 'ms'
+- 'router'

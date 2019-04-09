@@ -35,12 +35,12 @@
        allowed: 
        - ip_protocol: tcp
          ports: "{{ item.ports }}"
-     with_items: "{{ firewall_ports }}"
+     loop: "{{ firewall_ports }}"
 
    - name: create an address
      tags: ['ext-addr']
      gcp_compute_address:
-       name: '{{ name_address }}'
+       name: '{{ name_address }}-{{ item }}'
        region: "{{ gcp_region }}"
        project: "{{ gcp_project }}"
        auth_kind: "{{ gcp_auth_kind }}"
@@ -49,6 +49,7 @@
        - "{{ scope_compute }}"
        state: present
      register: address
+     loop: "{{ address_types }}"
 
    - name: create instances
      include_tasks: create-instance.yml
