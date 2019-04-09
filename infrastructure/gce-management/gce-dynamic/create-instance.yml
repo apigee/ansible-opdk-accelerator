@@ -1,5 +1,6 @@
 ---
 - name: create a disk
+  tags: ['instances', 'disks']
   gcp_compute_disk:
     name: '{{ name_disk }}-{{ sequence }}'
     size_gb: "{{ disk_size }}"
@@ -14,6 +15,7 @@
   register: disk
 
 - name: create an instance
+  tags: ['instances']
   gcp_compute_instance:
     name: "{{ name_instance }}-{{ sequence }}"
     state: present

@@ -53,6 +53,7 @@
      loop: "{{ address_types }}"
 
    - name: create instances
+     tags: ['instances']
      include_tasks: create-instance.yml
      with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
      loop_control:
