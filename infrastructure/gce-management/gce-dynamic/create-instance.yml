@@ -14,6 +14,37 @@
     state: present
   register: disk
 
+- name: create a bastion host
+  tags: ['instances']
+  gcp_compute_instance:
+    name: "bastion-host"
+    state: present
+    machine_type: "{{ machine_type }}"
+    disks:
+    - auto_delete: true
+      boot: true
+      source: "{{ disk }}"
+    network_interfaces:
+    - network: "{{ network }}"
+      access_configs:
+      - name: 'External NAT'
+        type: 'ONE_TO_ONE_NAT'
+#        nat_ip: "{{ address }}"
+    zone: "{{ gcp_zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_auth_kind }}"
+    service_account_file: "{{ gcp_service_account_file }}"
+    tags: 
+      items:
+      - "{{ name_instance_network_tag }}"
+    metadata:
+       'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty' 
+    scopes:
+    - "{{ scope_compute }}"
+  async: 45
+  poll: 0
+  register: instance
+
 - name: create an instance
   tags: ['instances']
   gcp_compute_instance:
@@ -34,11 +65,11 @@
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_auth_kind }}"
     service_account_file: "{{ gcp_service_account_file }}"
-    tags: 
+    tags:
       items:
       - "{{ name_instance_network_tag }}"
     metadata:
-       'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty' 
+       'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
     scopes:
     - "{{ scope_compute }}"
   async: 45
