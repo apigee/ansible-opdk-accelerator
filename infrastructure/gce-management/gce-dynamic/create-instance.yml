@@ -15,7 +15,7 @@
   register: disk
 
 - name: create a bastion host
-  tags: ['instances']
+  tags: ['instances', 'bastion']
   gcp_compute_instance:
     name: "bastion-host"
     state: present
@@ -43,7 +43,6 @@
     - "{{ scope_compute }}"
   async: 45
   poll: 0
-  register: instance
 
 - name: create an instance
   tags: ['instances']
@@ -74,5 +73,4 @@
     - "{{ scope_compute }}"
   async: 45
   poll: 0
-  register: instance
 
