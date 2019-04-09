@@ -40,12 +40,12 @@
    - name: create an address
      tags: ['ext-addr']
      gcp_compute_address:
-       name: '{{ name_address }}-{{ item }}'
+       name: '{{ name_address }}-{{ item }}-lb'
        region: "{{ gcp_region }}"
        project: "{{ gcp_project }}"
        auth_kind: "{{ gcp_auth_kind }}"
        service_account_file: "{{ gcp_service_account_file }}"
-       address_type: INTERNAL
+       address_type: EXTERNAL
        scopes:
        - "{{ scope_compute }}"
        state: present
