@@ -24,7 +24,7 @@
     - auto_delete: true
       boot: true
       initialize_params:
-        disk_name: "bastion-disk"
+        disk_name: "{{ name_instance }}-bastion-disk"
         disk_size_gb: 25
         source_image: "{{ image_family }}"
     network_interfaces:
@@ -32,7 +32,6 @@
       access_configs:
       - name: 'External NAT'
         type: 'ONE_TO_ONE_NAT'
-#        nat_ip: "{{ address }}"
     zone: "{{ gcp_zone }}"
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_auth_kind }}"
