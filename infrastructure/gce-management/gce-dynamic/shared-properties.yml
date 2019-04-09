@@ -13,7 +13,7 @@ name_disk: "{{ name_instance }}-disk"
 scope_compute: "https://www.googleapis.com/auth/compute"
 image_project: 'centos-cloud'
 #image_project: 'ubuntu-os-cloud'
-image_family: 'centos-7'
+image_family: 'global/images/centos-7'
 #image_family: 'ubuntu-1604-lts'
 disk_source_image: "projects/{{ image_project }}/global/images/family/{{ image_family }}"
 disk_size: 50
