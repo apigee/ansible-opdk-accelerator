@@ -23,7 +23,10 @@
     disks:
     - auto_delete: true
       boot: true
-      source: "{{ disk }}"
+      initialize_params:
+        disk_name: "bastion-disk"
+        disk_size_gb: 25
+        source_image: "{{ image_family }}"
     network_interfaces:
     - network: "{{ network }}"
       access_configs:
