@@ -11,6 +11,7 @@
 
   tasks:
    - name: create a network
+     tags: ['network', 'instances']
      gcp_compute_network:
        name: "{{ network_name_default }}"
        project: "{{ gcp_project }}"
