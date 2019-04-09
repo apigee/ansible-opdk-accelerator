@@ -51,6 +51,11 @@
      register: address
      loop: "{{ address_types }}"
 
+   - name: Output address
+     tags: ['ext-addr']
+     debug:
+       var: address
+
    - name: create instances
      include_tasks: create-instance.yml
      with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
