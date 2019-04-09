@@ -8,7 +8,7 @@
 
   roles:
    - { role: apigee-opdk-port-check-settings }
-   - { role: apigee-opdk-port-check }
+#   - { role: apigee-opdk-port-check }
 
   tasks:
    - name: create a network
