@@ -8,7 +8,6 @@
 
   roles:
    - { role: apigee-opdk-port-check-settings }
-#   - { role: apigee-opdk-port-check }
 
   tasks:
    - name: create a network
@@ -24,7 +23,7 @@
 
    - name: create firewall rule
      gcp_compute_firewall:
-       name: "{{ name_firewall }}"
+       name: "{{ name_firewall }}-{{ item.port_type }}"
        project: "{{ gcp_project }}"
        auth_kind: "{{ gcp_auth_kind }}"
        service_account_file: "{{ gcp_service_account_file }}"
