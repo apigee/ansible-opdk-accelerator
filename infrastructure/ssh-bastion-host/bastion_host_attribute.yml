@@ -1,0 +1,8 @@
+---
+protected_target_hosts: 10.*.*.*
+protected_private_key: ~/.ssh/google_compute_engine
+bastion_host_private_key: ~/.ssh/google_compute_engine
+bastion_host_name: bastion-host.us-central1-c.sandbox-173316 
+bastion_host_ip: 104.197.55.189
+bastion_host_user: friasc
+
