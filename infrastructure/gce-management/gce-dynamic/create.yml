@@ -23,6 +23,7 @@
      register: network
 
    - name: create firewall rule
+     tags: ['firewall']
      gcp_compute_firewall:
        name: "{{ name_firewall }}-{{ item.port_type }}"
        project: "{{ gcp_project }}"
