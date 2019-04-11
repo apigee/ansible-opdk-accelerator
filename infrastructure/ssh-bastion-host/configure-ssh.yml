@@ -3,13 +3,8 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  vars:
-    protected_target_hosts: 10.*.*.*
-    protected_private_key: ~/.ssh/google_compute_engine
-    bastion_host_private_key: ~/.ssh/google_compute_engine
-    bastion_host_name: edge-ops-lab-jump-host
-    bastion_host_ip: 104.196.153.157
-    bastion_host_user: friasc
+  vars_files:
+    - bastion_host_attribute.yml
 
   tasks:
     - name: Update SSH Config with ProxyCommand to Bastion Configuration
