@@ -1,8 +1,8 @@
 ---
-- name: create a disk
+- name: create a bastion disk
   tags: ['instances', 'disks']
   gcp_compute_disk:
-    name: '{{ name_disk }}-{{ sequence }}'
+    name: '{{ name_instance }}-bastion-disk'
     size_gb: "{{ disk_size }}"
     source_image: '{{ disk_source_image }}'
     zone: "{{ gcp_zone }}"
@@ -12,24 +12,23 @@
     scopes:
     - "{{ scope_compute }}"
     state: present
-  register: disk
+  register: bastion_disk
 
-- name: create an instance
-  tags: ['instances']
+- name: create a bastion host
+  tags: ['instances', 'bastion']
   gcp_compute_instance:
-    name: "{{ name_instance }}-{{ sequence }}"
+    name: "bastion-host"
     state: present
     machine_type: "{{ machine_type }}"
     disks:
     - auto_delete: true
       boot: true
-      source: "{{ disk }}"
+      source: "{{ bastion_disk }}"
     network_interfaces:
     - network: "{{ network }}"
       access_configs:
       - name: 'External NAT'
         type: 'ONE_TO_ONE_NAT'
-#        nat_ip: "{{ address }}"
     zone: "{{ gcp_zone }}"
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_auth_kind }}"
@@ -41,6 +40,3 @@
        'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
     scopes:
     - "{{ scope_compute }}"
-  async: 45
-  poll: 0
-

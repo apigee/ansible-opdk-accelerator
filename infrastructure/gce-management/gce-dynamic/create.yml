@@ -53,6 +53,10 @@
      register: address
      loop: "{{ address_types }}"
 
+   - name: create bastion host
+     tags: ['instances','bastion']
+     include_tasks: create-bastion-host.yml
+
    - name: create instances
      tags: ['instances','bastion']
      include_tasks: create-instance.yml
