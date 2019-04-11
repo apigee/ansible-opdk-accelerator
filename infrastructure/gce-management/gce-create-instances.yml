@@ -14,7 +14,7 @@
   - gce-properties.yml
 
   tasks:
-  - name: Assert
+#  - name: Assert
 
   - name: Launch instances using image
     tags: ['launch']
