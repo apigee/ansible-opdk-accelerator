@@ -7,6 +7,15 @@
     - bastion_host_attribute.yml
 
   tasks:
+    - name: Assert ProxyCommand Attributes
+      tags: ['proxy-command']
+      assert:
+        that:
+        - target_host_range
+        - bastion_host_name
+        - protected_private_key
+        msg: Missing attributes required to set ProxyCommand
+
     - name: Update SSH Config with ProxyCommand to Bastion Configuration
       tags: ['proxy-command']
       blockinfile:
@@ -15,7 +24,7 @@
         backup: yes
         mode: 0400
         block: |
-          Host {{ protected_target_hosts }}
+          Host {{ target_host_range }}
             ProxyCommand ssh -W %h:%p {{ bastion_host_name }}
             IdentityFile {{ protected_private_key | default('~/.ssh/id_rsa') }}
 
@@ -34,3 +43,4 @@
             ControlMaster auto
             ControlPath ~/.ssh/ansible-%r@%h:%p
             ControlPersist 5m
+

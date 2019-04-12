@@ -1,9 +1,8 @@
 ---
-protected_target_hosts: 10.*.*.*
+target_host_range: 10.*.*.*
 protected_private_key: ~/.ssh/google_compute_engine
 bastion_host_name: jump.us-east1-b.edge-ops-lab
 
 bastion_host_private_key: ~/.ssh/google_compute_engine
-bastion_host_ip: 104.197.55.189
+bastion_host_ip: 104.196.153.157
 bastion_host_user: friasc
-
