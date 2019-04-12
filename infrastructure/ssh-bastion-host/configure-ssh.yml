@@ -11,9 +11,9 @@
       tags: ['proxy-command']
       assert:
         that:
-        - target_host_range
-        - bastion_host_name
-        - protected_private_key
+          - target_host_range is defined
+          - bastion_host_name is defined
+          - protected_private_key is defined
         msg: Missing attributes required to set ProxyCommand
 
     - name: Update SSH Config with ProxyCommand to Bastion Configuration
