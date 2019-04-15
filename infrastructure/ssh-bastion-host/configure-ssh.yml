@@ -8,5 +8,5 @@
 
   roles:
     - { role: bastion-host-proxycommand, tags: ['proxy-command'] }
-    - { role: bastion-ssh-config, tags: ['bastion-config'] }
+    - { role: bastion-ssh-config-target-host, tags: ['bastion-config'] }
 
