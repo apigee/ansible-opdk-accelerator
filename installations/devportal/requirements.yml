@@ -124,3 +124,5 @@
 - src: https://github.com/carlosfrias/apigee-opdk-settings-postgres.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-settings-region.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-settings-private-address.git
