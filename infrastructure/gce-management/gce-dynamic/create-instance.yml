@@ -10,21 +10,21 @@
      - "{{ scope_compute }}"
    state: present
   register: network
-#
-#- name: create an address
-#  tags: ['ext-addr']
-#  gcp_compute_address:
-#   name: '{{ name_address }}-{{ item }}-lb'
-#   region: "{{ gcp_region }}"
-#   project: "{{ gcp_project }}"
-#   auth_kind: "{{ gcp_auth_kind }}"
-#   service_account_file: "{{ gcp_service_account_file }}"
-#   address_type: EXTERNAL
-#   scopes:
-#   - "{{ scope_compute }}"
-#   state: present
-#  register: address
-#  loop: "{{ address_types }}"
+
+- name: create an address
+  tags: ['ext-addr']
+  gcp_compute_address:
+   name: '{{ name_address }}-{{ item }}-lb'
+   region: "{{ gcp_region }}"
+   project: "{{ gcp_project }}"
+   auth_kind: "{{ gcp_auth_kind }}"
+   service_account_file: "{{ gcp_service_account_file }}"
+   address_type: EXTERNAL
+   scopes:
+   - "{{ scope_compute }}"
+   state: present
+  register: address
+  loop: "{{ address_types }}"
 
 - name: create a disk
   tags: ['instances', 'disks']
@@ -56,17 +56,18 @@
       access_configs:
       - name: 'External NAT'
         type: 'ONE_TO_ONE_NAT'
-#        nat_ip: "{{ address }}"
+        nat_ip: "{{ address }}"
     zone: "{{ gcp_zone }}"
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_auth_kind }}"
     service_account_file: "{{ gcp_service_account_file }}"
     tags:
       items:
-      - "{{ name_instance_network_tag }}"
+      - delete-apigee-instance-firewall
     metadata:
        'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
     scopes:
     - "{{ scope_compute }}"
+  register: instance
 
 
