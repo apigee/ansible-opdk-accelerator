@@ -1,0 +1,16 @@
+---
+- name: This playbook collects diagnostic information for Zookeeper
+  hosts: ds
+  gather_facts: no
+
+  tasks:
+  - name: Collect Zookeeper zk-tree.sh
+    command: "zk-tree.sh"
+    args:
+      chdir: "{{ apigee_home }}/apigee-zookeeper/contrib"
+    register: zk_tree
+
+  - name: Download Zookeeper Tree
+    copy:
+      content: "{{ zk_tree }}"
+      dest: "{{ target_logs_folder }}"

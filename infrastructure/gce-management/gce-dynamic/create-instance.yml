@@ -68,6 +68,5 @@
        'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
     scopes:
     - "{{ scope_compute }}"
-  async: 45
-  poll: 0
+
 
