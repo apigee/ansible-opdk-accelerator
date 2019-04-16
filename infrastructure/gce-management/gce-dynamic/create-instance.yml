@@ -1,4 +1,31 @@
 ---
+- name: create a network
+  tags: ['network', 'instances','bastion']
+  gcp_compute_network:
+   name: "{{ network_name_default }}"
+   project: "{{ gcp_project }}"
+   auth_kind: "{{ gcp_auth_kind }}"
+   service_account_file: "{{ gcp_service_account_file }}"
+   scopes:
+     - "{{ scope_compute }}"
+   state: present
+  register: network
+#
+#- name: create an address
+#  tags: ['ext-addr']
+#  gcp_compute_address:
+#   name: '{{ name_address }}-{{ item }}-lb'
+#   region: "{{ gcp_region }}"
+#   project: "{{ gcp_project }}"
+#   auth_kind: "{{ gcp_auth_kind }}"
+#   service_account_file: "{{ gcp_service_account_file }}"
+#   address_type: EXTERNAL
+#   scopes:
+#   - "{{ scope_compute }}"
+#   state: present
+#  register: address
+#  loop: "{{ address_types }}"
+
 - name: create a disk
   tags: ['instances', 'disks']
   gcp_compute_disk:
