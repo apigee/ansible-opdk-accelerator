@@ -9,6 +9,6 @@ host_prefix: 'cf'
 #labels:
 #  carlos: ''
 #firewall_tag: 'dev-test'
-#default_firewall_tags:
-#- 'default-zkrxups2f6ccnycpl3bokiut'
+default_firewall_tags:
+- 'default-zkrxups2f6ccnycpl3bokiut'
 #- "{{ firewall_tag }}"
