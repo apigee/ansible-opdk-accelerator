@@ -24,6 +24,9 @@
     allowed:
       - ip_protocol: tcp
         ports: 22
+    scopes:
+      - https://www.googleapis.com/auth/compute
+
 
 - name: create a disk
   gcp_compute_disk:
@@ -35,7 +38,7 @@
     auth_kind: serviceaccount
     service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
     scopes:
-    - https://www.googleapis.com/auth/compute
+      - https://www.googleapis.com/auth/compute
     state: present
   register: disk
 
