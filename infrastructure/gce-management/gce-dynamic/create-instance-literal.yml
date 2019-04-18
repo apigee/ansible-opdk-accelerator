@@ -13,7 +13,7 @@
 
  - name: create firewall rule
    gcp_compute_firewall:
-     name: "allow-ssh"
+     name: allowssh
      project: sandbox-173316
      auth_kind: serviceaccount
      service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
