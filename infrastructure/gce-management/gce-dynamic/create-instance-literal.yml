@@ -35,8 +35,7 @@
       boot: true
       source: "{{ disk }}"
     network_interfaces:
-    - network: "{{ network }}"
-      name: nic0
+    - name: nic0
       network: default
 #      access_configs:
 #      - name: external_nat
