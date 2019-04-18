@@ -44,7 +44,6 @@
 #     include_tasks: create-bastion-host.yml
 
    - name: create instances
-     tags: ['instances','bastion']
      include_tasks: create-instance-literal.yml
      with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
      loop_control:
