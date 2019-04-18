@@ -36,10 +36,10 @@
       source: "{{ disk }}"
     network_interfaces:
     - network: "{{ network }}"
-#      access_configs:
-#      - name: 'External NAT'
-#        type: 'ONE_TO_ONE_NAT'
-#        nat_ip: "{{ address }}"
+      access_configs:
+      - name: external_nat
+        type: 'ONE_TO_ONE_NAT'
+        nat_ip: "{{ address }}"
     zone: us-central1-c
     project: sandbox-173316
     auth_kind: serviceaccount
