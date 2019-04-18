@@ -3,8 +3,8 @@
   hosts: localhost
   gather_facts: no
   connection: local
-#  vars_files:
-#  - shared-properties.yml
+  vars_files:
+  - shared-properties.yml
 
   roles:
    - { role: apigee-opdk-port-check-settings }
