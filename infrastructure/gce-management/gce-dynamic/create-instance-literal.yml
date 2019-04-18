@@ -36,7 +36,7 @@
       source: "{{ disk }}"
     network_interfaces:
     - name: nic0
-      network: default
+      network: "{{ network }}"
 #      access_configs:
 #      - name: external_nat
 #        type: 'ONE_TO_ONE_NAT'
