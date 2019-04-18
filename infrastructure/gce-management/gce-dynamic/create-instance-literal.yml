@@ -27,7 +27,6 @@
     scopes:
       - https://www.googleapis.com/auth/compute
 
-
 - name: create a disk
   gcp_compute_disk:
     name: cf-disk

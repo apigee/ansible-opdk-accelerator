@@ -10,41 +10,42 @@
    - { role: apigee-opdk-port-check-settings }
 
   tasks:
-#   - name: create a network
-#     tags: ['network', 'instances','bastion']
-#     gcp_compute_network:
-#       name: "{{ network_name_default }}"
-#       project: "{{ gcp_project }}"
-#       auth_kind: "{{ gcp_auth_kind }}"
-#       service_account_file: "{{ gcp_service_account_file }}"
-#       scopes:
-#         - "{{ scope_compute }}"
-#       state: present
-#     register: network
+   - name: create a network
+     tags: ['network', 'instances','bastion']
+     gcp_compute_network:
+       name: "{{ network_name_default }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       scopes:
+         - "{{ scope_compute }}"
+       state: present
+       auto_create_subnetworks: yes
+     register: network
 
-#   - name: create firewall rule
-#     tags: ['firewall']
-#     gcp_compute_firewall:
-#       name: "{{ name_firewall }}-{{ item.port_type }}"
-#       project: "{{ gcp_project }}"
-#       auth_kind: "{{ gcp_auth_kind }}"
-#       service_account_file: "{{ gcp_service_account_file }}"
-#       state: present
-#       target_tags: ['{{ name_instance }}-{{ item.port_type }}-firewall-tag']
-#       network: "global/networks/{{ network.name }}"
-#       scopes:
-#         - "{{ scope_compute }}"
-#       allowed:
-#       - ip_protocol: tcp
-#         ports: "{{ item.ports }}"
-#     loop: "{{ firewall_ports }}"
+   - name: create firewall rule
+     tags: ['firewall']
+     gcp_compute_firewall:
+       name: "{{ name_firewall }}-{{ item.port_type }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_auth_kind }}"
+       service_account_file: "{{ gcp_service_account_file }}"
+       state: present
+       target_tags: ["{{ name_instance_network_tag }}"]
+       network: "{{ network.selfLink }}"
+       scopes:
+         - "{{ scope_compute }}"
+       allowed:
+       - ip_protocol: tcp
+         ports: "{{ item.ports }}"
+     loop: "{{ firewall_ports }}"
 
 #   - name: create bastion host
 #     tags: ['instances','bastion']
 #     include_tasks: create-bastion-host.yml
 
    - name: create instances
-     include_tasks: create-instance-literal.yml
+     include_tasks: create-instance.yml
      with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
      loop_control:
        loop_var: sequence 

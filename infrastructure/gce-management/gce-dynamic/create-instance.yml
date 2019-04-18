@@ -1,31 +1,4 @@
 ---
-- name: create a network
-  tags: ['network', 'instances','bastion']
-  gcp_compute_network:
-   name: "{{ network_name_default }}"
-   project: "{{ gcp_project }}"
-   auth_kind: "{{ gcp_auth_kind }}"
-   service_account_file: "{{ gcp_service_account_file }}"
-   scopes:
-     - "{{ scope_compute }}"
-   state: present
-  register: network
-
-#- name: create an address
-#  tags: ['ext-addr']
-#  gcp_compute_address:
-#   name: '{{ name_address }}-{{ item }}-lb'
-#   region: "{{ gcp_region }}"
-#   project: "{{ gcp_project }}"
-#   auth_kind: "{{ gcp_auth_kind }}"
-#   service_account_file: "{{ gcp_service_account_file }}"
-#   address_type: EXTERNAL
-#   scopes:
-#   - "{{ scope_compute }}"
-#   state: present
-#  register: address
-#  loop: "{{ address_types }}"
-
 - name: create a disk
   tags: ['instances', 'disks']
   gcp_compute_disk:
@@ -54,16 +27,15 @@
     network_interfaces:
     - network: "{{ network }}"
       access_configs:
-#      - name: 'External NAT'
-#        type: 'ONE_TO_ONE_NAT'
-#        nat_ip: "{{ address }}"
+      - name: 'External NAT'
+        type: 'ONE_TO_ONE_NAT'
     zone: "{{ gcp_zone }}"
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_auth_kind }}"
     service_account_file: "{{ gcp_service_account_file }}"
     tags:
       items:
-      - delete-apigee-instance-firewall
+      - "{{ name_instance_network_tag }}"
     metadata:
        'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
     scopes:
