@@ -1,19 +1,6 @@
 ---
 - name: Validate Routers & Message Processors
-  hosts: rmp
-  tags: ['validate']
-  serial: 1
-  vars:
-    property_folders:
-      - "~/.apigee-secure"
-      - "~/.apigee"
-  roles:
-    - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'r-config'] }
-    - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
-    - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
-
-- name: Validate Routers
-  hosts: r
+  hosts: rmp,r
   tags: ['validate']
   serial: 1
   vars:

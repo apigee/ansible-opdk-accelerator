@@ -31,7 +31,6 @@
        auth_kind: "{{ gcp_auth_kind }}"
        service_account_file: "{{ gcp_service_account_file }}"
        state: present
-       target_tags: ["{{ name_instance_network_tag }}"]
        network: "{{ network.selfLink }}"
        scopes:
          - "{{ scope_compute }}"
