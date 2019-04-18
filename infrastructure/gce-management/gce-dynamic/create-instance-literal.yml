@@ -1,7 +1,7 @@
 ---
 - name: create a network
   gcp_compute_network:
-   name: default
+   name: apigee-network
    project: sandbox-173316
    auth_kind: serviceaccount
    service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
@@ -9,6 +9,8 @@
      - https://www.googleapis.com/auth/compute
    state: present
    auto_create_subnetworks: yes
+   gateway_ipv4: 192.168.0.1
+   ipv4_range: 192.168.0.0/24
   register: network
 
 - name: create a disk
