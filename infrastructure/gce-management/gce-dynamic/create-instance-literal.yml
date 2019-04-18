@@ -9,7 +9,6 @@
      - https://www.googleapis.com/auth/compute
    state: present
    auto_create_subnetworks: yes
-   gateway_ipv4: 192.168.0.1
   register: network
 
 - name: create a disk
