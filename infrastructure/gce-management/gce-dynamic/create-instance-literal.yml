@@ -35,8 +35,8 @@
       boot: true
       source: "{{ disk }}"
     network_interfaces:
-    - network: "{{ network }}"
-      access_configs:
+    - network: default
+#      access_configs:
 #      - name: 'External NAT'
 #        type: 'ONE_TO_ONE_NAT'
 #        nat_ip: "{{ address }}"
