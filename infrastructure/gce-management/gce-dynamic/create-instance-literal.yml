@@ -10,7 +10,6 @@
    state: present
    auto_create_subnetworks: yes
    gateway_ipv4: 192.168.0.1
-   ipv4_range: 192.168.0.0/24
   register: network
 
 - name: create a disk
