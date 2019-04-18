@@ -21,8 +21,6 @@
     target_tags:
       - 'allow-ssh'
     network: "apigeenetwork"
-    scopes:
-      - "https://www.googleapis.com/auth/compute"
     allowed:
       - ip_protocol: tcp
         ports: 22
