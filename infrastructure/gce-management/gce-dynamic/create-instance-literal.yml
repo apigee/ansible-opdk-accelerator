@@ -1,0 +1,54 @@
+---
+- name: create a network
+  gcp_compute_network:
+   name: default
+   project: sandbox-173316
+   auth_kind: serviceaccount
+   service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
+   scopes:
+     - https://www.googleapis.com/auth/compute
+   state: present
+  register: network
+
+- name: create a disk
+  gcp_compute_disk:
+    name: cf-disk
+    size_gb: 50
+    source_image: projects/{{ image_project }}/global/images/family/{{ image_family }}
+    zone: us-central1-c
+    project: sandbox-173316
+    auth_kind: serviceaccount
+    service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
+    scopes:
+    - https://www.googleapis.com/auth/compute
+    state: present
+  register: disk
+
+- name: create an instance
+  tags: ['instances']
+  gcp_compute_instance:
+    name: cf-1
+    state: present
+    machine_type: n1-standard-1
+    disks:
+    - auto_delete: true
+      boot: true
+      source: "{{ disk }}"
+    network_interfaces:
+    - network: "{{ network }}"
+      access_configs:
+#      - name: 'External NAT'
+#        type: 'ONE_TO_ONE_NAT'
+#        nat_ip: "{{ address }}"
+    zone: us-central1-c
+    project: sandbox-173316
+    auth_kind: serviceaccount
+    service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
+    tags:
+      items:
+      - delete-apigee-instance-firewall
+    metadata:
+       'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
+    scopes:
+    - https://www.googleapis.com/auth/compute
+  register: instance
