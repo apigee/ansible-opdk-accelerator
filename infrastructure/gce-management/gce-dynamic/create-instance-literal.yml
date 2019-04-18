@@ -8,6 +8,7 @@
    scopes:
      - https://www.googleapis.com/auth/compute
    state: present
+   auto_create_subnetworks: yes
   register: network
 
 - name: create a disk
