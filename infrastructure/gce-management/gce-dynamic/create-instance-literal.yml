@@ -20,7 +20,7 @@
     state: "present"
     target_tags:
       - 'allow-ssh'
-    network: "{{ network }}"
+    network: "apigeenetwork"
     scopes:
       - "https://www.googleapis.com/auth/compute"
     allowed:
