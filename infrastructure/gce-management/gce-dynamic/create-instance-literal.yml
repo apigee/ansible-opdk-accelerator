@@ -20,7 +20,7 @@
     state: "present"
     target_tags:
       - 'allow-ssh'
-    network: "apigeenetwork"
+    network: "{{ network }}"
     allowed:
       - ip_protocol: tcp
         ports: 22
