@@ -35,11 +35,10 @@
       boot: true
       source: "{{ disk }}"
     network_interfaces:
-    - name: nic0
-      network: "{{ network }}"
-#      access_configs:
-#      - name: external_nat
-#        type: 'ONE_TO_ONE_NAT'
+    - network: "{{ network }}"
+      access_configs:
+      - name: external_nat
+        type: 'ONE_TO_ONE_NAT'
 #        nat_ip: "{{ address }}"
     zone: us-central1-c
     project: sandbox-173316
