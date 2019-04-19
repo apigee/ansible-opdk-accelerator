@@ -24,17 +24,6 @@ We describe the uses cases that are supported as follows:
 | Planet Maintenance | These playbooks are constructed by composing functionality into Ansible modules called roles to achieve specific use cases. This approach has enabled this framework to re-use the roles that are combined in new ways to provide automation support to the maintenance activities that the Apigee platform requires.  |
 | Planet Upgrade | The playbooks included in this repository will perform Apigee platform upgrades. |
 
-## Assumptions 
-* This repository assumes that no [Apigee Operating System requirements](https://docs.apigee.com/release/supported-software#apigeeedgeforprivatecloudsupportedversions) 
-have been fulfilled except to select the basic operating system that is supported. 
-* A [control server](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-machine-requirements) 
-is available from which [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) 
-scripts and modules can be downloaded starting from the [Apigee Github](https://github.com/apigee) repository.
-* We assume that you have an introductory understanding of [Ansible](https://docs.ansible.com/) and 
-[Ansible Galaxy](https://galaxy.ansible.com/docs/).
-* Availability of administrative privilege escalation on the control server and the target nodes.
-* Ansible version 2.7.x or greater. 
-
 ## Quick Start: Usage Overview
 The use of this framework is composed of the following steps:
 
@@ -45,6 +34,17 @@ The use of this framework is composed of the following steps:
 1. Update common installation attributes like `opdk_version` that is stored in 
 `~/.apigee/custom-properties.yml`.
 1. Use `ansible-playbook` to carry out an activity from either the [installations](installations), [infrastructure](infrastructure) or [post-installation](post-installation) folders.
+
+## Assumptions 
+* This repository assumes that no [Apigee Operating System requirements](https://docs.apigee.com/release/supported-software#apigeeedgeforprivatecloudsupportedversions) 
+have been fulfilled except to select the basic operating system that is supported. 
+* A [control server](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-machine-requirements) 
+is available from which [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) 
+scripts and modules can be downloaded starting from the [Apigee Github](https://github.com/apigee) repository.
+* We assume that you have an introductory understanding of [Ansible](https://docs.ansible.com/) and 
+[Ansible Galaxy](https://galaxy.ansible.com/docs/).
+* Availability of administrative privilege escalation on the control server and the target nodes.
+* Ansible version 2.7.x or greater. 
 <!-- BEGIN Google How To Contribute -->
 # How to Contribute
 
