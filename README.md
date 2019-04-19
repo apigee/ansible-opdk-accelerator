@@ -20,8 +20,9 @@ We describe the uses cases that are supported as follows:
 | --- | --- |
 | Planet Installation | A Private Cloud installation of a Planet containing any number of nodes that follow our recommended HA topologies. |
 | Planet Expansion | A Private Cloud Planet can be expanded to either increase the size of the Cassandra Ring, increase transaction capacity with additional Routers and Message Processors or expand the Planet with up to 9 additional regions. |
-| Disaster Recovery | These playbooks enabled automated disaster recovery scenarios. These playbooks currently operate on Apigee components to remove, re-install, re-configured, scale up or scale down a Planet thereby providing the necessary functionality to drastically reduce the time to recover from a disaster. |
+| Disaster Recovery | These playbooks enable automated disaster recovery scenarios. These playbooks currently operate on Apigee components to remove, re-install, re-configured, scale up or scale down a Planet thereby providing the necessary functionality to drastically reduce the time to recover from a disaster. |
 | Planet Maintenance | These playbooks are constructed by composing functionality into Ansible modules called roles to achieve specific use cases. This approach has enabled this framework to re-use the roles that are combined in new ways to provide automation support to the maintenance activities that the Apigee platform requires.  |
+| Planet Upgrade | The playbooks included in this repository will perform Apigee platform upgrades. |
 
 ## Assumptions 
 * This repository assumes that no [Apigee Operating System requirements](https://docs.apigee.com/release/supported-software#apigeeedgeforprivatecloudsupportedversions) 
