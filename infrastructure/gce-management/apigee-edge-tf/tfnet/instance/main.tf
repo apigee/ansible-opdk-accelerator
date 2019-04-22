@@ -1,6 +1,8 @@
 variable "instance_name" {}
 variable "instance_zone" {}
-
+variable "instance_image" {
+  default = "centos-7"
+}
 variable "instance_type" {
   default = "n1-standard-1"
 }
@@ -14,7 +16,7 @@ resource "google_compute_instance" "vm_instance" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "${var.instance_image}"
     }
   }
 
