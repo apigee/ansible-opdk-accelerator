@@ -1,0 +1,17 @@
+---
+- name: Create infrastructure
+  hosts: localhost
+  vars:
+    terraform_download_link: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+
+  tasks:
+    - name: Download Terraform binary
+      get_url:
+        url: "{{ terraform_download_link }}"
+        dest: "./{{ terraform_download_link | basename }}"
+
+    - name: Unarchive terraform binary
+      unarchive:
+        src: "{{ terraform_download_link | basename }}"
+        dest: ./
+        remote_src: yes

@@ -1,3 +1,7 @@
 generated
 files
 *.iml
+.terraform
+terraform
+*.tfstate*
+

@@ -117,4 +117,6 @@ apigee
 apigee-secure
 setup/roles
 infrastructure/setup-ansible-offline/apigee-opdk-accelerator/*
-
+.terraform
+terraform
+.apigee/.idea
