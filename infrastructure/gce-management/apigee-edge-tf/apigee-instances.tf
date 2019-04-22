@@ -6,15 +6,15 @@ resource "google_compute_network" "apigeenet" {
 
 # Create managementsubnet-us subnetwork
 resource "google_compute_subnetwork" "apigeenetsubnet-us" {
-  name          = "managementsubnet-us"
+  name          = "apigeesubnet-us"
   region        = "us-central1"
   network       = "${google_compute_network.apigeenet.self_link}"
   ip_cidr_range = "10.130.0.0/20"
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on managementnet
-resource "google_compute_firewall" "mangementnet-allow-http-ssh-rdp-icmp" {
-  name    = "managementnet-allow-http-ssh-rdp-icmp"
+resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
+  name    = "apigeenet-allow-http-ssh-rdp-icmp"
   network = "${google_compute_network.apigeenet.self_link}"
 
   allow {
