@@ -13,14 +13,18 @@ resource "google_compute_network" "apigeenet" {
 //}
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
-resource "google_compute_firewall" "apigeenet-allow-icmp" {
-  name    = "apigeenet-allow-icmp"
+resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
+  name    = "apigeenet-allow-icmp-tcp"
   network = "${google_compute_network.apigeenet.self_link}"
   source_ranges = [
     "10.0.0.0/8"
     ]
   allow {
     protocol = "icmp"
+  }
+  allow {
+    protocol = "tcp"
+    ports = ["0-65535"]
   }
 }
 
@@ -52,7 +56,7 @@ module "apigee-vm-0" {
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
+    "apigeenet-allow-icmp-tcp",
     "apigeenet-allow-mgmt-ui",
   ]
 }
@@ -65,7 +69,7 @@ module "apigee-vm-1" {
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
+    "apigeenet-allow-icmp-tcp",
   ]
 }
 
@@ -77,7 +81,7 @@ module "apigee-vm-2" {
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
+    "apigeenet-allow-icmp-tcp",
   ]
 }
 
@@ -89,7 +93,7 @@ module "apigee-vm-3" {
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
+    "apigeenet-allow-icmp-tcp",
   ]
 }
 
@@ -101,6 +105,6 @@ module "apigee-vm-4" {
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
+    "apigeenet-allow-icmp-tcp",
   ]
 }
