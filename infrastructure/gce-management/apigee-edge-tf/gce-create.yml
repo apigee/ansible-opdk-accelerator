@@ -15,3 +15,9 @@
         src: "{{ terraform_download_link | basename }}"
         dest: ./
         remote_src: yes
+
+    - name: Create infrastructure
+      terraform:
+        force_init: yes
+        project_path: .
+        state: present
