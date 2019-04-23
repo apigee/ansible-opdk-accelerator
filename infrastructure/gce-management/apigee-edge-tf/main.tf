@@ -28,7 +28,7 @@ resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
 # Add an apigee-vm instance
 module "apigee-vm-0" {
   source              = "./tfnet/instance"
-  instance_name       = "apigee-ds-000"
+  instance_name       = "apigee-ds-ms-ui-ldap"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
@@ -36,7 +36,7 @@ module "apigee-vm-0" {
 # Add an apigee-vm instance
 module "apigee-vm-1" {
   source              = "./tfnet/instance"
-  instance_name       = "apigee-ds-002"
+  instance_name       = "apigee-ds-rmp-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
@@ -44,7 +44,7 @@ module "apigee-vm-1" {
 # Add an apigee-vm instance
 module "apigee-vm-2" {
   source              = "./tfnet/instance"
-  instance_name       = "apigee-ds-003"
+  instance_name       = "apigee-ds-rmp-2"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
@@ -52,7 +52,7 @@ module "apigee-vm-2" {
 # Add an apigee-vm instance
 module "apigee-vm-3" {
   source              = "./tfnet/instance"
-  instance_name       = "apigee-pg-001"
+  instance_name       = "apigee-pg-qpid-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
@@ -60,7 +60,7 @@ module "apigee-vm-3" {
 # Add an apigee-vm instance
 module "apigee-vm-4" {
   source              = "./tfnet/instance"
-  instance_name       = "apigee-pg-002"
+  instance_name       = "apigee-pg-qpid-2"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
