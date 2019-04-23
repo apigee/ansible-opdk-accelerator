@@ -72,7 +72,7 @@ module "apigee-vm-2" {
 # Add an apigee-vm instance
 module "apigee-vm-3" {
   source              = "./tfnet/instance"
-  instance_name       = "apigee-pg-qpid-1"
+  instance_name       = "apigee-pg-pgmaster-qpid-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
@@ -83,7 +83,7 @@ module "apigee-vm-3" {
 # Add an apigee-vm instance
 module "apigee-vm-4" {
   source              = "./tfnet/instance"
-  instance_name       = "apigee-pg-qpid-2"
+  instance_name       = "apigee-pg-pgstandby-qpid-2"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
