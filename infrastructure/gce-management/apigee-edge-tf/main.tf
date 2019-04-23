@@ -13,15 +13,22 @@ resource "google_compute_network" "apigeenet" {
 //}
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
-resource "google_compute_firewall" "apigeenet-allow-ssh-icmp" {
-  name    = "apigeenet-allow-ssh-icmp"
+resource "google_compute_firewall" "apigeenet-allow-icmp" {
+  name    = "apigeenet-allow-icmp"
+  network = "${google_compute_network.apigeenet.self_link}"
+  ip_cidr_range = "10.0.0.0/8"
+  allow {
+    protocol = "icmp"
+  }
+}
+
+# Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
+resource "google_compute_firewall" "apigeenet-allow-ssh" {
+  name    = "apigeenet-allow-ssh"
   network = "${google_compute_network.apigeenet.self_link}"
   allow {
     protocol = "tcp"
     ports    = ["22"]
-  }
-  allow {
-    protocol = "icmp"
   }
 }
 
@@ -42,7 +49,8 @@ module "apigee-vm-0" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-ssh-icmp",
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
     "apigeenet-allow-mgmt-ui",
   ]
 }
@@ -54,7 +62,8 @@ module "apigee-vm-1" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-ssh-icmp",
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
   ]
 }
 
@@ -65,7 +74,8 @@ module "apigee-vm-2" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-ssh-icmp",
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
   ]
 }
 
@@ -76,7 +86,8 @@ module "apigee-vm-3" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-ssh-icmp",
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
   ]
 }
 
@@ -87,6 +98,7 @@ module "apigee-vm-4" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-ssh-icmp",
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
   ]
 }
