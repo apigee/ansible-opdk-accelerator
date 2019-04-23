@@ -18,6 +18,7 @@
 
     - name: Create infrastructure
       terraform:
+        binary_path: .
         force_init: yes
         project_path: .
         state: present
