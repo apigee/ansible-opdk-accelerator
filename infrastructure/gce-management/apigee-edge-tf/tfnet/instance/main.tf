@@ -7,11 +7,7 @@ variable "instance_type" {
   default = "n1-standard-1"
 }
 variable "instance_subnetwork" {}
-variable "instance_tags" {
-  default = [
-    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
-  ]
-}
+variable "instance_tags" {}
 
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
