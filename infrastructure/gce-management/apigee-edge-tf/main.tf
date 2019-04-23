@@ -16,12 +16,10 @@ resource "google_compute_subnetwork" "apigeenetsubnet-us" {
 resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
   name    = "apigeenet-allow-http-ssh-rdp-icmp"
   network = "${google_compute_network.apigeenet.self_link}"
-
   allow {
     protocol = "tcp"
     ports    = ["22", "80", "3389"]
   }
-
   allow {
     protocol = "icmp"
   }
@@ -30,7 +28,7 @@ resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
 # Add an apigee-vm instance
 module "apigee-vm-0" {
   source              = "./tfnet/instance"
-  instance_name       = "cf-000"
+  instance_name       = "apigee-ds"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
@@ -38,7 +36,7 @@ module "apigee-vm-0" {
 # Add an apigee-vm instance
 module "apigee-vm-1" {
   source              = "./tfnet/instance"
-  instance_name       = "cf-001"
+  instance_name       = "apigee-ds"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
@@ -63,14 +61,6 @@ module "apigee-vm-3" {
 module "apigee-vm-4" {
   source              = "./tfnet/instance"
   instance_name       = "cf-004"
-  instance_zone       = "us-central1-a"
-  instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
-}
-
-# Add an apigee-vm instance
-module "apigee-vm-5" {
-  source              = "./tfnet/instance"
-  instance_name       = "cf-005"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
 }
