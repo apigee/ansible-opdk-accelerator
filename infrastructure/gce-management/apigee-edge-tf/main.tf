@@ -1,18 +1,18 @@
 # Create the apigeenet network
 resource "google_compute_network" "apigeenet" {
   name                    = "apigeenet"
-  auto_create_subnetworks = "false"
+  auto_create_subnetworks = "true"
 }
 
 # Create managementsubnet-us subnetwork
-resource "google_compute_subnetwork" "apigeenetsubnet-us" {
-  name          = "apigeesubnet-us"
-  region        = "us-central1"
-  network       = "${google_compute_network.apigeenet.self_link}"
-  ip_cidr_range = "10.130.0.0/20"
-}
+//resource "google_compute_subnetwork" "apigeenetsubnet-us" {
+//  name          = "apigeesubnet-us"
+//  region        = "us-central1"
+//  network       = "${google_compute_network.apigeenet.self_link}"
+//  ip_cidr_range = "10.130.0.0/20"
+//}
 
-# Add a firewall rule to allow HTTP, SSH, and RDP traffic on managementnet
+# Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
 resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
   name    = "apigeenet-allow-http-ssh-rdp-icmp"
   network = "${google_compute_network.apigeenet.self_link}"
@@ -25,7 +25,7 @@ resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
   }
 }
 
-# Add a firewall rule to allow HTTP, SSH, and RDP traffic on managementnet
+# Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
 resource "google_compute_firewall" "apigeenet-allow-mgmt-ui" {
   name    = "apigeenet-allow-mgmt-ui"
   network = "${google_compute_network.apigeenet.self_link}"
@@ -40,7 +40,7 @@ module "apigee-vm-0" {
   source              = "./tfnet/instance"
   instance_name       = "apigee-ds-ms-ui-ldap"
   instance_zone       = "us-central1-a"
-  instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
     "google_compute_firewall.apigeenet-allow-mgmt-ui",
@@ -52,7 +52,7 @@ module "apigee-vm-1" {
   source              = "./tfnet/instance"
   instance_name       = "apigee-ds-rmp-1"
   instance_zone       = "us-central1-a"
-  instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
   ]
@@ -63,7 +63,7 @@ module "apigee-vm-2" {
   source              = "./tfnet/instance"
   instance_name       = "apigee-ds-rmp-2"
   instance_zone       = "us-central1-a"
-  instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
   ]
@@ -74,7 +74,7 @@ module "apigee-vm-3" {
   source              = "./tfnet/instance"
   instance_name       = "apigee-pg-qpid-1"
   instance_zone       = "us-central1-a"
-  instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
   ]
@@ -85,7 +85,7 @@ module "apigee-vm-4" {
   source              = "./tfnet/instance"
   instance_name       = "apigee-pg-qpid-2"
   instance_zone       = "us-central1-a"
-  instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
   ]
