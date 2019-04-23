@@ -7,7 +7,7 @@ variable "instance_type" {
   default = "n1-standard-1"
 }
 variable "instance_subnetwork" {}
-variable "instance_tags" {}
+variable "instance_tags" []
 
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
