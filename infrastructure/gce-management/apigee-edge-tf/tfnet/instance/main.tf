@@ -8,7 +8,7 @@ variable "instance_type" {
 }
 variable "instance_subnetwork" {}
 variable "instance_tags" {
-  name = list()
+  default = list()
 }
 
 resource "google_compute_instance" "vm_instance" {
