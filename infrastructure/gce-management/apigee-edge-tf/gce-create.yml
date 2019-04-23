@@ -18,7 +18,7 @@
 
     - name: Create infrastructure
       terraform:
-        binary_path: .
+        binary_path: "{{ playbook_dir }}"
         force_init: yes
         project_path: .
         state: present
