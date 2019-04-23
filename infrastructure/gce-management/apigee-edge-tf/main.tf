@@ -38,7 +38,7 @@ resource "google_compute_firewall" "apigeenet-allow-mgmt-ui" {
 # Add an apigee-vm instance
 module "apigee-vm-0" {
   source              = "./tfnet/instance"
-  instance_name       = "planet-edge-dc-1-ms-dc-1-ds-1"
+  instance_name       = "planet-edge-dc-1-ms-dc-1-ldap-dc-1-ds-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
@@ -50,7 +50,7 @@ module "apigee-vm-0" {
 # Add an apigee-vm instance
 module "apigee-vm-1" {
   source              = "./tfnet/instance"
-  instance_name       = "planet-edge-dc-1-ms-dc-1-ds-dc-1-rmp-1"
+  instance_name       = "planet-edge-dc-1-ds-dc-1-rmp-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
