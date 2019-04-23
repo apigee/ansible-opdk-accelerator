@@ -20,5 +20,5 @@
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
         force_init: yes
-        project_path: "{{ playbook_dir }}"
+        project_path: "{{ playbook_dir }}/apigee-instances.tf"
         state: present
