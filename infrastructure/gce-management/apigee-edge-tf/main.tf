@@ -42,8 +42,8 @@ module "apigee-vm-0" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
-    "google_compute_firewall.apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-mgmt-ui",
   ]
 }
 
@@ -54,7 +54,7 @@ module "apigee-vm-1" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-http-ssh-rdp-icmp",
   ]
 }
 
@@ -65,7 +65,7 @@ module "apigee-vm-2" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-http-ssh-rdp-icmp",
   ]
 }
 
@@ -76,7 +76,7 @@ module "apigee-vm-3" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-http-ssh-rdp-icmp",
   ]
 }
 
@@ -87,6 +87,6 @@ module "apigee-vm-4" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-http-ssh-rdp-icmp",
   ]
 }
