@@ -8,7 +8,9 @@ variable "instance_type" {
 }
 variable "instance_subnetwork" {}
 variable "instance_tags" {
-  default = list("google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp")
+  default = [
+    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+  ]
 }
 
 resource "google_compute_instance" "vm_instance" {
