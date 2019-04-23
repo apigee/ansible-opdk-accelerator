@@ -33,5 +33,5 @@ module "apigee-vm" {
   instance_name       = "apigee-edge-vm"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
-  instance_count      = 5
+  count      = 5
 }

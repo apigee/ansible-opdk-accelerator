@@ -6,10 +6,6 @@ variable "instance_image" {
 variable "instance_type" {
   default = "n1-standard-1"
 }
-variable "instance_count" {
-  default = 5
-}
-
 variable "instance_subnetwork" {}
 
 resource "google_compute_instance" "vm_instance" {
