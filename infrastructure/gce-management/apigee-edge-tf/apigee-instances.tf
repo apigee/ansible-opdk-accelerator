@@ -1,7 +1,7 @@
 # Create the apigeenet network
 resource "google_compute_network" "apigeenet" {
-  name                    = "apigee-net"
-  auto_create_subnetworks = "false"
+  name                    = "apigeenet"
+  auto_create_subnetworks = "true"
 }
 
 # Create managementsubnet-us subnetwork
@@ -9,7 +9,7 @@ resource "google_compute_subnetwork" "apigeenetsubnet-us" {
   name          = "apigeesubnet-us"
   region        = "us-central1"
   network       = "${google_compute_network.apigeenet.self_link}"
-  ip_cidr_range = "10.130.0.0/20"
+//  ip_cidr_range = "10.130.0.0/20"
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on managementnet
