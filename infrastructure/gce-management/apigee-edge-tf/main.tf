@@ -1,7 +1,7 @@
 # Create the apigeenet network
 resource "google_compute_network" "apigeenet" {
   name                    = "apigeenet"
-  auto_create_subnetworks = "true"
+  auto_create_subnetworks = "false"
 }
 
 # Create managementsubnet-us subnetwork
