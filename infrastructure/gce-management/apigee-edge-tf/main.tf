@@ -18,10 +18,20 @@ resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
   network = "${google_compute_network.apigeenet.self_link}"
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "3389"]
+    ports    = ["22", "80"]
   }
   allow {
     protocol = "icmp"
+  }
+}
+
+# Add a firewall rule to allow HTTP, SSH, and RDP traffic on managementnet
+resource "google_compute_firewall" "apigeenet-allow-mgmt-ui" {
+  name    = "apigeenet-allow-mgmt-ui"
+  network = "${google_compute_network.apigeenet.self_link}"
+  allow {
+    protocol = "tcp"
+    ports    = ["9000"]
   }
 }
 
@@ -31,6 +41,7 @@ module "apigee-vm-0" {
   instance_name       = "apigee-ds-ms-ui-ldap"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp", "google_compute_firewall.apigeenet-allow-mgmt-ui"]
 }
 
 # Add an apigee-vm instance
@@ -39,6 +50,7 @@ module "apigee-vm-1" {
   instance_name       = "apigee-ds-rmp-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
 }
 
 # Add an apigee-vm instance
@@ -47,6 +59,7 @@ module "apigee-vm-2" {
   instance_name       = "apigee-ds-rmp-2"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
 }
 
 # Add an apigee-vm instance
@@ -55,6 +68,7 @@ module "apigee-vm-3" {
   instance_name       = "apigee-pg-qpid-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
 }
 
 # Add an apigee-vm instance
@@ -63,4 +77,5 @@ module "apigee-vm-4" {
   instance_name       = "apigee-pg-qpid-2"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
+  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
 }
