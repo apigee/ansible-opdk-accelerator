@@ -13,12 +13,12 @@ resource "google_compute_network" "apigeenet" {
 //}
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
-resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
-  name    = "apigeenet-allow-http-ssh-rdp-icmp"
+resource "google_compute_firewall" "apigeenet-allow-ssh-icmp" {
+  name    = "apigeenet-allow-ssh-icmp"
   network = "${google_compute_network.apigeenet.self_link}"
   allow {
     protocol = "tcp"
-    ports    = ["22", "80"]
+    ports    = ["22"]
   }
   allow {
     protocol = "icmp"
@@ -42,7 +42,7 @@ module "apigee-vm-0" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-ssh-icmp",
     "apigeenet-allow-mgmt-ui",
   ]
 }
@@ -54,7 +54,7 @@ module "apigee-vm-1" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-ssh-icmp",
   ]
 }
 
@@ -65,7 +65,7 @@ module "apigee-vm-2" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-ssh-icmp",
   ]
 }
 
@@ -76,7 +76,7 @@ module "apigee-vm-3" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-ssh-icmp",
   ]
 }
 
@@ -87,6 +87,6 @@ module "apigee-vm-4" {
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
-    "apigeenet-allow-http-ssh-rdp-icmp",
+    "apigeenet-allow-ssh-icmp",
   ]
 }
