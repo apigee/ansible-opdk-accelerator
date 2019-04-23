@@ -6,26 +6,22 @@ variable "instance_image" {
 variable "instance_type" {
   default = "n1-standard-1"
 }
-variable "instance_subnetwork" {}
+variable "instance_network" {}
 variable "instance_tags" {
   default =  []
 }
-
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
   tags         = "${var.instance_tags}"
-
   boot_disk {
     initialize_params {
       image = "${var.instance_image}"
     }
   }
-
   network_interface {
-    network = "${var.instance_subnetwork}"
-
+    network = "${var.instance_network}"
     access_config {
       # Allocate a one-to-one NAT IP to the instance
     }
