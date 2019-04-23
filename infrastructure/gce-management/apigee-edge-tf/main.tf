@@ -41,7 +41,10 @@ module "apigee-vm-0" {
   instance_name       = "apigee-ds-ms-ui-ldap"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
-  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp", "google_compute_firewall.apigeenet-allow-mgmt-ui"]
+  instance_tags       = [
+    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+    "google_compute_firewall.apigeenet-allow-mgmt-ui",
+  ]
 }
 
 # Add an apigee-vm instance
@@ -50,7 +53,9 @@ module "apigee-vm-1" {
   instance_name       = "apigee-ds-rmp-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
-  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
+  instance_tags       = [
+    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+  ]
 }
 
 # Add an apigee-vm instance
@@ -59,7 +64,9 @@ module "apigee-vm-2" {
   instance_name       = "apigee-ds-rmp-2"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
-  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
+  instance_tags       = [
+    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+  ]
 }
 
 # Add an apigee-vm instance
@@ -68,7 +75,9 @@ module "apigee-vm-3" {
   instance_name       = "apigee-pg-qpid-1"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
-  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
+  instance_tags       = [
+    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+  ]
 }
 
 # Add an apigee-vm instance
@@ -77,5 +86,7 @@ module "apigee-vm-4" {
   instance_name       = "apigee-pg-qpid-2"
   instance_zone       = "us-central1-a"
   instance_subnetwork = "${google_compute_subnetwork.apigeenetsubnet-us.self_link}"
-  instance_tags       = ["google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp"]
+  instance_tags       = [
+    "google_compute_firewall.apigeenet-allow-http-ssh-rdp-icmp",
+  ]
 }
