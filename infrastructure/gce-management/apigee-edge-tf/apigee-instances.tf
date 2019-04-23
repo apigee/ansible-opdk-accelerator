@@ -28,7 +28,7 @@ resource "google_compute_firewall" "apigeenet-allow-http-ssh-rdp-icmp" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm" {
+module "apigee-vm-0" {
   source              = "./tfnet/instance"
   instance_name       = "cf-000"
   instance_zone       = "us-central1-a"
@@ -36,7 +36,7 @@ module "apigee-vm" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm" {
+module "apigee-vm-1" {
   source              = "./tfnet/instance"
   instance_name       = "cf-001"
   instance_zone       = "us-central1-a"
@@ -44,7 +44,7 @@ module "apigee-vm" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm" {
+module "apigee-vm-2" {
   source              = "./tfnet/instance"
   instance_name       = "cf-002"
   instance_zone       = "us-central1-a"
@@ -52,7 +52,7 @@ module "apigee-vm" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm" {
+module "apigee-vm-3" {
   source              = "./tfnet/instance"
   instance_name       = "cf-003"
   instance_zone       = "us-central1-a"
@@ -60,7 +60,7 @@ module "apigee-vm" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm" {
+module "apigee-vm-4" {
   source              = "./tfnet/instance"
   instance_name       = "cf-004"
   instance_zone       = "us-central1-a"
@@ -68,7 +68,7 @@ module "apigee-vm" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm" {
+module "apigee-vm-5" {
   source              = "./tfnet/instance"
   instance_name       = "cf-005"
   instance_zone       = "us-central1-a"
