@@ -6,6 +6,9 @@ variable "instance_image" {
 variable "instance_type" {
   default = "n1-standard-1"
 }
+variable "instance_count" {
+  default = 5
+}
 
 variable "instance_subnetwork" {}
 
@@ -13,6 +16,7 @@ resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
+  count =  "${var.instance_count}"
 
   boot_disk {
     initialize_params {
