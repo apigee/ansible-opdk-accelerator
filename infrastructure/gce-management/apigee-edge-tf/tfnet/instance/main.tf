@@ -10,11 +10,15 @@ variable "instance_network" {}
 variable "instance_tags" {
   default =  []
 }
+variable "instance_external_ip" {
+  default =  false
+}
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
   tags         = "${var.instance_tags}"
+  external_ip = "${var.instance_external_ip}"
   boot_disk {
     initialize_params {
       image = "${var.instance_image}"
