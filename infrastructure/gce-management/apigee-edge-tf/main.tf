@@ -65,7 +65,7 @@ module "apigee-bastion-vm" {
 
 # Add an apigee-vm instance
 module "apigee-vm-1" {
-  source              = "./external-instance"
+  source              = "./internal-instance"
   instance_name       = "planet-edge-dc-1-ms-dc-1-ldap-dc-1-ds-1"
   instance_zone       = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
