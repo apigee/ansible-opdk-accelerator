@@ -62,6 +62,7 @@
       regexp: "{{ item.regexp }}"
       line: "{{ item.line}}"
       backrefs: yes
+      create: yes
     with_items:
       - {regexp: '(^#)(PermitRootLogin yes)', line: '\2' }
       - {regexp: '(PermitRootLogin) no', line: '\1 yes' }
