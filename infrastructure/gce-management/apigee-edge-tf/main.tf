@@ -58,7 +58,7 @@ module "apigee-vm-0" {
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp-tcp",
   ]
-  instance_external_ip = "Ephemeral"
+  instance_assigned_nat_ip = "Ephemeral"
 }
 
 # Add an apigee-vm instance
