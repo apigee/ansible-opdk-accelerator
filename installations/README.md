@@ -48,15 +48,15 @@ not listed here will function.
 | --- | --- |
 | minimum | Installs without performing any validation on the operating system and minimally verifying that components actually installed. This is the fastest installation available with this framework. |
 | cache | Updates the local Ansible cache with OPDK variables that are used for the generation of configuration files. |
-| os | Prepares the operating system for the installation of OPDK as covered in the [Edge Installation Overview](https://docs.apigee.com/private-cloud/v4.18.01/installation-overview) and [Install the Edge Apigee Setup Utility](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-apigee-setup-utility). This covers operating system packages, updates to system configuration files and adapts to operating systems. |
-| bootstrap | Install the Apigee bootstrap. This adapts to either [online](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-apigee-setup-utility#installedgeapigeesetuputilityonanodewithanexternalinternetconnection) or [offline](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-apigee-setup-utility#installedgeapigeesetuputilityonanodewithnoexternalinternetconnection) |
-| common | Install [common](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-apigee-setup-utility) Apigee components used on all nodes. This does not include operating system packages |
-| config | Generate the [Edge Configuration File](https://docs.apigee.com/private-cloud/v4.18.01/edge-configuration-file-reference) |
-| ds | Install the [ds](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
-| ms | Install the [ms](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
-| rmp | Install the [rmp](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
-| r | Install the [r](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
-| mp | Install the [mp](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
-| qpid | Install the [qs](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
-| pg | Install the [ps](https://docs.apigee.com/private-cloud/v4.18.01/install-edge-components-node#specifyingthecomponentstoinstall) profile |
-| org | [Onboard an organization](https://docs.apigee.com/private-cloud/v4.18.01/onboard-organization) |
+| os | Prepares the operating system for the installation of OPDK as covered in the [Edge Installation Overview](https://docs.apigee.com/private-cloud/latest/installation-overview) and [Install the Edge Apigee Setup Utility](https://docs.apigee.com/private-cloud/latest/install-edge-apigee-setup-utility). This covers operating system packages, updates to system configuration files and adapts to operating systems. |
+| bootstrap | Install the Apigee bootstrap. This adapts to either [online](https://docs.apigee.com/private-cloud/latest/install-edge-apigee-setup-utility#installedgeapigeesetuputilityonanodewithanexternalinternetconnection) or [offline](https://docs.apigee.com/private-cloud/latest/install-edge-apigee-setup-utility#installedgeapigeesetuputilityonanodewithnoexternalinternetconnection) |
+| common | Install [common](https://docs.apigee.com/private-cloud/latest/install-edge-apigee-setup-utility) Apigee components used on all nodes. This does not include operating system packages |
+| config | Generate the [Edge Configuration File](https://docs.apigee.com/private-cloud/latest/edge-configuration-file-reference) |
+| ds | Install the [ds](https://docs.apigee.com/private-cloud/latest/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
+| ms | Install the [ms](https://docs.apigee.com/private-cloud/latest/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
+| rmp | Install the [rmp](https://docs.apigee.com/private-cloud/latest/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
+| r | Install the [r](https://docs.apigee.com/private-cloud/latest/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
+| mp | Install the [mp](https://docs.apigee.com/private-cloud/latest/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
+| qpid | Install the [qs](https://docs.apigee.com/private-cloud/latest/install-edge-components-node#specifyingthecomponentstoinstall) profile | 
+| pg | Install the [ps](https://docs.apigee.com/private-cloud/latest/install-edge-components-node#specifyingthecomponentstoinstall) profile |
+| org | [Onboard an organization](https://docs.apigee.com/private-cloud/latest/onboard-organization) |
