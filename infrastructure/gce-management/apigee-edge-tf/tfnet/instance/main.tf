@@ -11,7 +11,7 @@ variable "instance_tags" {
   default =  []
 }
 variable "instance_external_ip" {
-  default =  "None"
+  default =  ""
 }
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
@@ -26,7 +26,7 @@ resource "google_compute_instance" "vm_instance" {
   }
   network_interface {
     network = "${var.instance_network}"
-    %{ if var.instance_external_ip == "Ephemeral" }
+    %{ if var.instance_external_ip != "" }
     access_config {
     }
     %{ endif }
