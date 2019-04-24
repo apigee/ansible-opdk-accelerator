@@ -71,6 +71,7 @@
 
   - name: Determine if sudoers config exists
     tags: ['sudo']
+    become: true
     stat:
       path: "{{ sudoers }}"
     register: sudoers_state
