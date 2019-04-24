@@ -10,7 +10,7 @@ variable "instance_network" {}
 variable "instance_tags" {
   default =  []
 }
-variable "instance_assigned_nat_ip" {
+variable "instance_external_ip" {
   default =  "None"
 }
 resource "google_compute_instance" "vm_instance" {
@@ -27,7 +27,7 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network = "${var.instance_network}"
     access_config {
-      assigned_nat_ip = "${var.instance_assigned_nat_ip}"
+      nat_ip = "${var.instance_external_ip}"
     }
   }
 }
