@@ -84,7 +84,7 @@ module "apigee-bastion-vm" {
 # Add an apigee-vm instance
 module "apigee-vm-1" {
   source              = "./internal-instance"
-  instance_name       = "planet_edge_dc-1-ms_dc-1-ldap_dc-1-ds_ms_1"
+  instance_name       = "planet-edge-dc-1-ms-dc-1-ldap-dc-1-ds-ms-1"
   instance_zone       = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
@@ -97,7 +97,7 @@ module "apigee-vm-1" {
 # Add an apigee-vm instance
 module "apigee-vm-2" {
   source              = "./internal-instance"
-  instance_name       = "planet_edge_dc-1-ds_dc-1-rmp_1"
+  instance_name       = "planet-edge-dc-1-ds-dc-1-rmp-1"
   instance_zone       = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
@@ -110,7 +110,7 @@ module "apigee-vm-2" {
 module "apigee-vm-3" {
   source              = "./internal-instance"
   instance_zone       = "us-central1-a"
-  instance_name       = "planet_edge_dc-1-ds_dc-1-rmp_2"
+  instance_name       = "planet-edge-dc-1-ds-dc-1-rmp-2"
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
     "apigeenet-allow-ssh",
@@ -121,7 +121,7 @@ module "apigee-vm-3" {
 # Add an apigee-vm instance
 module "apigee-vm-4" {
   source              = "./internal-instance"
-  instance_name       = "planet_edge_dc-1-pg_dc-1-pgmaster_dc-1-qpid_1"
+  instance_name       = "planet-edge-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
   instance_zone       = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
@@ -133,7 +133,7 @@ module "apigee-vm-4" {
 # Add an apigee-vm instance
 module "apigee-vm-5" {
   source              = "./internal-instance"
-  instance_name       = "planet_edge_dc-1-pg_dc-1-pgstandby_dc-1-qpid_2"
+  instance_name       = "planet-edge-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
   instance_zone       = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
