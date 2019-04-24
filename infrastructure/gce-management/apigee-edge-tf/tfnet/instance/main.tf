@@ -11,14 +11,14 @@ variable "instance_tags" {
   default =  []
 }
 variable "instance_external_ip" {
-  default =  false
+  default =  "None"
 }
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
   tags         = "${var.instance_tags}"
-  external_ip = "${var.instance_external_ip}"
+
   boot_disk {
     initialize_params {
       image = "${var.instance_image}"
@@ -27,7 +27,7 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network = "${var.instance_network}"
     access_config {
-      # Allocate a one-to-one NAT IP to the instance
+      nat_ip = "${var.instance_external_ip}"
     }
   }
 }
