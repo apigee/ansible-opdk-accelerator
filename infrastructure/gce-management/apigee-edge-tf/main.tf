@@ -51,7 +51,7 @@ resource "google_compute_firewall" "apigeenet-allow-mgmt-ui" {
 # Add an apigee-vm instance
 module "apigee-vm-0" {
   source              = "./external-instance"
-  instance_name       = "planet-jump"
+  instance_name       = "planet-bastion"
   instance_zone       = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
   instance_tags       = [
