@@ -27,7 +27,7 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network = "${var.instance_network}"
     access_config {
-      nat_ip = "${var.instance_external_ip}"
+//      nat_ip = "${var.instance_external_ip}"
     }
   }
 }
