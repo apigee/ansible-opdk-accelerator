@@ -4,13 +4,31 @@ resource "google_compute_network" "apigeenet" {
   auto_create_subnetworks = "true"
 }
 
-# Create managementsubnet-us subnetwork
-//resource "google_compute_subnetwork" "apigeenetsubnet-us" {
-//  name          = "apigeesubnet-us"
+# Create apigeenet-subnet subnetwork
+//resource "google_compute_subnetwork" "apigeenet-subnet" {
+//  name          = "apigee-subnet"
 //  region        = "us-central1"
 //  network       = "${google_compute_network.apigeenet.self_link}"
-//  ip_cidr_range = "10.130.0.0/20"
+//  ip_cidr_range = "10.0.0.0/8"
 //}
+
+# Create apigeenet-subnet-router
+resource "google_compute_router" "apigee-subnet-router" {
+  name    = "apigee-subnet-router"
+  region  = "us-central1"
+  network = "${google_compute_network.apigeenet.self_link}"
+  bgp {
+    asn = 64514
+  }
+}
+
+resource "google_compute_router_nat" "apigeenet-subnet-gateway-nat" {
+  name            = "apigeenet-subnet-gateway-nat"
+  router = "${google_compute_router.apigee-subnet-router.name}"
+  region  = "us-central1"
+  nat_ip_allocate_option = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+}
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
 resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
