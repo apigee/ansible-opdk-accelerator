@@ -22,12 +22,80 @@ resource "google_compute_router" "apigee-subnet-router" {
   }
 }
 
+# Create the gateway nat for the apigee-subnet-router
 resource "google_compute_router_nat" "apigeenet-subnet-gateway-nat" {
   name            = "apigeenet-subnet-gateway-nat"
   router = "${google_compute_router.apigee-subnet-router.name}"
   region  = "us-central1"
   nat_ip_allocate_option = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+}
+
+# Reserve an external address
+resource "google_compute_global_address" "apigeenet-ms" {
+  name = "apigeenet-ms"
+}
+
+# Create the global forwarding rule for Apigee MS
+resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  ip_address = "${google_compute_global_address.apigeenet-ms}"
+  port_range = "80"
+  target = "${google_compute_target_http_proxy.apigeenet-ms.self_link}"
+}
+
+resource "google_compute_target_http_proxy" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  url_map = "${google_compute_url_map.apigeenet-ms.self_link}"
+}
+
+resource "google_compute_url_map" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  default_service = "${google_compute_backend_service.apigeenet-ms.self_link}"
+}
+
+resource "google_compute_backend_service" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  protocol = "HTTP"
+  port_name = "apigeenet-allow-mgmt-ui"
+  timeout_sec = 10
+  session_affinity = "NONE"
+  backend {
+    group = "${google_compute_region_instance_group_manager.apigeenet-ms}"
+  }
+  health_checks = ["${modul}"]
+}
+
+resource "google_compute_http_health_check" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  request_path = "/"
+  timeout_sec = 1
+  check_interval_sec = 1
+}
+
+resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  base_instance_name = "centos-7"
+  region = "us-central1"
+  instance_template = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
+  version {
+    name = "v1"
+    instance_template = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
+  }
+  named_port {
+    name = "apigeenet-ms"
+    port = 9001
+  }
+  auto_healing_policies {
+    health_check = "${google_compute_http_health_check.apigeenet-ms.self_link}"
+    initial_delay_sec = 30
+  }
+  rolling_update_policy {
+    type = "PROACTIVE"
+    minimal_action = "REPLACE"
+    max_surge_fixed = 10
+    min_ready_sec = 60
+  }
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
