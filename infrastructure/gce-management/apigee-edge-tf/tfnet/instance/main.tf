@@ -26,9 +26,9 @@ resource "google_compute_instance" "vm_instance" {
   }
   network_interface {
     network = "${var.instance_network}"
-    %{ if var.instance_external_ip != "" }
+//    %{ if var.instance_external_ip != "" }
     access_config {
     }
-    %{ endif }
+//    %{ endif }
   }
 }
