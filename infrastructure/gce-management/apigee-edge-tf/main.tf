@@ -49,7 +49,7 @@ resource "google_compute_firewall" "apigeenet-allow-mgmt-ui" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm-0" {
+module "apigee-bastion-vm" {
   source              = "./external-instance"
   instance_name       = "planet-bastion"
   instance_zone       = "us-central1-a"
@@ -59,6 +59,8 @@ module "apigee-vm-0" {
     "apigeenet-allow-icmp-tcp",
   ]
   instance_external_ip = "Ephemeral"
+  instance_scopes = ["compute-rw", "storage-ro"]
+  service_account_email = "736255665193-compute@developer.gserviceaccount.com"
 }
 
 # Add an apigee-vm instance

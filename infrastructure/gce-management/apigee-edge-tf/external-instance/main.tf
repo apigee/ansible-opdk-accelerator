@@ -13,6 +13,12 @@ variable "instance_tags" {
 variable "instance_external_ip" {
   default =  ""
 }
+variable "instance_scopes" {
+  default = []
+}
+variable "service_account_email" {
+  default = ""
+}
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
@@ -28,5 +34,9 @@ resource "google_compute_instance" "vm_instance" {
     network = "${var.instance_network}"
     access_config {
     }
+  }
+  service_account {
+    email = "${var.service_account_email}"
+    scopes = "${var.instance_scopes}"
   }
 }
