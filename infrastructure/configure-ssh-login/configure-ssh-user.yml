@@ -69,6 +69,12 @@
     notify:
     - Restart SSH service
 
+  - name: Determine if sudoers config exists
+    tags: ['sudo']
+    stat:
+      path: "{{ sudoers }}"
+    register: sudoers_state
+
   - name: Enable Root with no Password Prompt
     tags: ['sudo']
     become: true
@@ -83,6 +89,7 @@
     with_items:
       - { regexp: '(^#)(Defaults.*requiretty)', line: "Defaults !requiretty" }
       - { regexp: '^root.*ALL=.*$', line: "root ALL=NOPASSWD: ALL" }
+    when: sudoers_state.stat.exists
 
   handlers:
   - name: Restart SSH service
