@@ -26,7 +26,7 @@ resource "google_compute_instance" "vm_instance" {
   }
   network_interface {
     network = "${var.instance_network}"
-    %{ if var.instance_external_ip != "Ephemeral"}
+    %{ if var.instance_external_ip == "Ephemeral" }
     access_config {
     }
     %{ endif }
