@@ -78,9 +78,8 @@ resource "google_compute_http_health_check" "apigeenet-ms" {
 resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
   name               = "apigeenet-ms"
   base_instance_name = "centos-7"
-  region             = "us-central1"
-  instance_template  = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
-
+  region = "us-central1"
+  instance_template = "${google_compute_instance_template.apigeenet-ms.self_link}"
   version {
     name              = "v1"
     instance_template = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
@@ -104,9 +103,9 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
   }
 }
 
-resource "google_compute_instance_template" "apigee-ms" {
-  name           = "apigee-ms"
-  machine_type   = "n1-standard-1"
+resource "google_compute_instance_template" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  machine_type = "n1-standard-1"
   can_ip_forward = false
 
   network_interface {
@@ -115,20 +114,20 @@ resource "google_compute_instance_template" "apigee-ms" {
 
   disk {
     auto_delete = true
-    boot        = true
-    source      = "${google_compute_disk.apigee-ms.name}"
+    boot = true
+    source = "${google_compute_disk.apigeenet-ms.name}"
   }
 }
 
-resource "google_compute_disk" "apigee-ms" {
-  name  = "apigee-ms"
-  image = "${data.google_compute_image.apigee-ms.self_link}"
-  size  = 60
-  type  = "pd-ssd"
-  zone  = "us-central1-a"
+resource "google_compute_disk" "apigeenet-ms" {
+  name = "apigeenet-ms"
+  image = "${data.google_compute_image.apigeenet-ms.self_link}"
+  size = 60
+  type = "pd-ssd"
+  zone = "us-central1-a"
 }
 
-data "google_compute_image" "apigee-ms" {
+data "google_compute_image" "apigeenet-ms" {
   family = "centos-7"
 }
 
