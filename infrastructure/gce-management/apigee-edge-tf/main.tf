@@ -109,14 +109,14 @@ resource "google_compute_instance_template" "apigeenet-ms" {
 
 resource "google_compute_disk" "apigeenet-ms" {
   name  = "apigeenet-ms"
-  image = "${data.google_compute_image.apigeenet-ms.self_link}"
+  image = "${data.google_compute_image.apigeenet-ms.source_image_id}"
   size  = 60
   type  = "pd-ssd"
   zone  = "us-central1-a"
 }
 
 data "google_compute_image" "apigeenet-ms" {
-  family  = "centos-7"
+  family  = "centos-7-v20190423"
   project = "centos-cloud"
 }
 
