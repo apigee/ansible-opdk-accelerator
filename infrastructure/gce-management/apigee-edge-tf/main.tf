@@ -39,7 +39,6 @@ resource "google_compute_global_address" "apigeenet-ms" {
 # Create the global forwarding rule for Apigee MS
 resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   name = "apigeenet-ms"
-  ip_address = "${google_compute_global_address.apigeenet-ms}"
   port_range = "80"
   target = "${google_compute_target_http_proxy.apigeenet-ms.self_link}"
 }
