@@ -34,6 +34,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-gateway-nat" {
 # Reserve an external address
 resource "google_compute_global_address" "apigeenet-ms" {
   name = "apigeenet-ms"
+  address_type = "EXTERNAL"
 }
 
 # Create the global forwarding rule for Apigee MS
