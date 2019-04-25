@@ -90,7 +90,6 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
     health_check      = "${google_compute_http_health_check.apigeenet-ms.self_link}"
     initial_delay_sec = 30
   }
-
 }
 
 resource "google_compute_instance_template" "apigeenet-ms" {
