@@ -91,12 +91,6 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
     initial_delay_sec = 30
   }
 
-  rolling_update_policy {
-    type            = "PROACTIVE"
-    minimal_action  = "REPLACE"
-    max_surge_fixed = 10
-    min_ready_sec   = 60
-  }
 }
 
 resource "google_compute_instance_template" "apigeenet-ms" {
