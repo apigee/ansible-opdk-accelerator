@@ -97,6 +97,32 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
   }
 }
 
+resource "google_compute_instance_template" "apigee-ms" {
+  name = "apigee-ms"
+  machine_type = "n1-standard-1"
+  can_ip_forward = false
+  network_interface {
+    network = "${google_compute_network.apigeenet.name}"
+  }
+  disk {
+    auto_delete = true
+    boot = true
+    source = "${google_compute_disk.apigee-ms.name}"
+  }
+}
+
+resource "google_compute_disk" "apigee-ms" {
+  name = "apigee-ms"
+  image = "${data.google_compute_image.apigee-ms.self_link}"
+  size = 60
+  type = "pd-ssd"
+  zone = "us-central1-a"
+}
+
+data "google_compute_image" "apigee-ms" {
+  family = "centos-7"
+}
+
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
 resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
   name    = "apigeenet-allow-icmp-tcp"
