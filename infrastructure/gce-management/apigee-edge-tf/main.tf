@@ -98,6 +98,7 @@ resource "google_compute_instance_template" "apigeenet-ms" {
   network_interface {
     network = "${google_compute_network.apigeenet.name}"
   }
+
   disk {
     auto_delete = true
     boot        = true
