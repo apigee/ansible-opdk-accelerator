@@ -64,10 +64,10 @@ resource "google_compute_backend_service" "apigeenet-ms" {
 //  backend {
 //    group = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
 //  }
-//
-//  health_checks = [
-//    "${google_compute_http_health_check.apigeenet-ms.self_link}",
-//  ]
+
+  health_checks = [
+    "${google_compute_http_health_check.apigeenet-ms.self_link}",
+  ]
 }
 
 resource "google_compute_http_health_check" "apigeenet-ms" {
