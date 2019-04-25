@@ -83,7 +83,7 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
 
   version {
     name              = "v1"
-    instance_template = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
+    instance_template = "${google_compute_instance_template.apigeenet-ms.self_link}"
   }
 
   named_port {
