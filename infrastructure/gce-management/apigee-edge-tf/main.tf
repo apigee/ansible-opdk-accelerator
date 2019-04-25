@@ -116,8 +116,8 @@ resource "google_compute_disk" "apigeenet-ms" {
 }
 
 data "google_compute_image" "apigeenet-ms" {
-  family  = "centos-7-drawfork-v20181102"
-  project = "eip-images"
+  family  = "centos-7"
+  project = "centos-cloud"
 
   //  source_image_id = "projects/eip-images/global/images/centos-7-drawfork-v20181102"
 }
