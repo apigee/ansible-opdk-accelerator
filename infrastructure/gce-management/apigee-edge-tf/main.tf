@@ -103,7 +103,7 @@ resource "google_compute_instance_template" "apigeenet-ms" {
     auto_delete = true
     boot        = true
 //    type        = "PERSISTENT"
-    source      = "${google_compute_disk.apigeenet-ms.self_link}"
+//    source      = "${google_compute_disk.apigeenet-ms.self_link}"
   }
 }
 
