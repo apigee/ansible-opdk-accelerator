@@ -116,7 +116,7 @@ resource "google_compute_disk" "apigeenet-ms" {
 }
 
 data "google_compute_image" "apigeenet-ms" {
-  family  = "centos-7-v20190423"
+  image_id  = "centos-7-v20190423"
   project = "centos-cloud"
 }
 

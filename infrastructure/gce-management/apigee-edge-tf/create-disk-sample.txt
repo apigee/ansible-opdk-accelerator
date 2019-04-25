@@ -1,0 +1,9 @@
+POST https://www.googleapis.com/compute/beta/projects/sandbox-173316/zones/us-central1-a/disks
+{
+  "name": "disk-1",
+  "physicalBlockSizeBytes": "4096",
+  "sizeGb": "60",
+  "sourceImage": "projects/centos-cloud/global/images/centos-7-v20190423",
+  "type": "projects/sandbox-173316/zones/us-central1-a/diskTypes/pd-ssd",
+  "zone": "projects/sandbox-173316/zones/us-central1-a"
+}
