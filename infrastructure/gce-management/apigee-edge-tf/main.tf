@@ -113,7 +113,7 @@ resource "google_compute_disk" "apigeenet-ms" {
 
 data "google_compute_image" "apigeenet-ms" {
   family  = "centos-7"
-  project = " gce-uefi-images"
+  project = "gce-uefi-images"
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
