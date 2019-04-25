@@ -105,7 +105,7 @@ resource "google_compute_instance_template" "apigeenet-ms" {
 
 resource "google_compute_disk" "apigeenet-ms" {
   name  = "apigeenet-ms"
-  image = "${data.google_compute_image.apigeenet-ms.source_image_id}"
+  image = "${data.google_compute_image.apigeenet-ms}"
   size  = 60
   type  = "pd-ssd"
   zone  = "us-central1-a"
