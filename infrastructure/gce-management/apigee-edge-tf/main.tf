@@ -98,13 +98,9 @@ resource "google_compute_instance_template" "apigeenet-ms" {
   network_interface {
     network = "${google_compute_network.apigeenet.name}"
   }
-
   disk {
     auto_delete = true
     boot        = true
-
-    //    type        = "PERSISTENT"
-    //    source      = "${google_compute_disk.apigeenet-ms.self_link}"
   }
 }
 
@@ -119,8 +115,6 @@ resource "google_compute_disk" "apigeenet-ms" {
 data "google_compute_image" "apigeenet-ms" {
   family  = "centos-7"
   project = "centos-cloud"
-
-  //  source_image_id = "projects/eip-images/global/images/centos-7-drawfork-v20181102"
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
