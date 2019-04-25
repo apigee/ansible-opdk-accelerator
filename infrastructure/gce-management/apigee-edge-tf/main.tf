@@ -81,8 +81,8 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
   name               = "apigeenet-ms"
   base_instance_name = "centos-7"
 
-  region             = "us-central1"
-  instance_template  = "${google_compute_instance_template.apigeenet-ms.self_link}"
+  region            = "us-central1"
+  instance_template = "${google_compute_instance_template.apigeenet-ms.self_link}"
 
   named_port {
     name = "apigeenet-ms"
@@ -119,7 +119,8 @@ resource "google_compute_disk" "apigeenet-ms" {
 data "google_compute_image" "apigeenet-ms" {
   family  = "centos-7-drawfork-v20181102"
   project = "eip-images"
-//  source_image_id = "projects/eip-images/global/images/centos-7-drawfork-v20181102"
+
+  //  source_image_id = "projects/eip-images/global/images/centos-7-drawfork-v20181102"
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
