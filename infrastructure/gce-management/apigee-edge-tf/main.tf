@@ -112,7 +112,7 @@ resource "google_compute_disk" "apigeenet-ms" {
 }
 
 data "google_compute_image" "apigeenet-ms" {
-  family = "centos-7"
+  family  = "centos-7"
   project = " gce-uefi-images"
 }
 
