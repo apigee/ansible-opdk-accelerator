@@ -102,21 +102,20 @@ resource "google_compute_instance_template" "apigeenet-ms" {
   disk {
     auto_delete  = true
     boot         = true
-    source       = "${data.google_compute_image.apigeenet-ms.source_image_id}"
-    disk_size_gb = 60
+    source       = "${google_compute_disk.apigeenet-ms.name}"
   }
 }
 
 resource "google_compute_disk" "apigeenet-ms" {
   name  = "apigeenet-ms"
-  image = "${data.google_compute_image.apigeenet-ms.source_image_id}"
+  image = "${data.google_compute_image.apigeenet-ms.self_link}"
   size  = 60
   type  = "pd-ssd"
   zone  = "us-central1-a"
 }
 
 data "google_compute_image" "apigeenet-ms" {
-  source_image_id = "centos-7-v20190423"
+  name            = "centos-7-v20190423"
   project         = "centos-cloud"
 }
 
