@@ -66,7 +66,7 @@ resource "google_compute_backend_service" "apigeenet-ms" {
   }
 
   health_checks = [
-    "${google_compute_http_health_check.apigeenet-ms.self_link}"
+    "${google_compute_http_health_check.apigeenet-ms.self_link}",
   ]
 }
 
