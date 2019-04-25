@@ -102,7 +102,7 @@ resource "google_compute_instance_template" "apigeenet-ms" {
   disk {
     auto_delete  = true
     boot         = true
-    source = "centos-cloud/centos-7"
+    source       = "centos-cloud/centos-7"
     disk_size_gb = 60
   }
 }
