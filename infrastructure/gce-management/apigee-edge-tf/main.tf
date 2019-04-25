@@ -116,8 +116,8 @@ resource "google_compute_disk" "apigeenet-ms" {
 }
 
 data "google_compute_image" "apigeenet-ms" {
-  image_id  = "centos-7-v20190423"
-  project = "centos-cloud"
+  image_id = "centos-7-v20190423"
+  project  = "centos-cloud"
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
