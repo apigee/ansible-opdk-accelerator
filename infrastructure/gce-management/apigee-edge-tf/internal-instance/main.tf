@@ -36,6 +36,3 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
-output "private_address" {
-  value = "${google_compute_instance.vm_instance.private_ip}"
-}
