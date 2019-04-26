@@ -50,6 +50,6 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
-output "network_ip" {
-  value = "${google_compute_instance.vm_instance.network_interface.network_ip}"
+output "network_interface" {
+  value = "${google_compute_instance.vm_instance.network_interface}"
 }
