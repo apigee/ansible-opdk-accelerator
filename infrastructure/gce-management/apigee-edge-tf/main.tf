@@ -44,6 +44,7 @@ resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   ip_address = "${google_compute_global_address.apigeenet-ms.address}"
   target     = "${module.apigee-bastion-vm.network_interface}"
 }
+
 output "apigee-bastion-vm-network-ip" {
   value = "${module.apigee-bastion-vm.network_interface}"
 }
@@ -244,3 +245,4 @@ module "apigee-bastion-vm" {
 //    "apigeenet-allow-icmp-tcp",
 //  ]
 //}
+
