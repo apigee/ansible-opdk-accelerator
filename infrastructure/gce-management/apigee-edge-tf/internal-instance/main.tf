@@ -35,3 +35,7 @@ resource "google_compute_instance" "vm_instance" {
     network = "${var.instance_network}"
   }
 }
+
+output "private_address" {
+  value = "${google_compute_instance.vm_instance.network_interface.address}"
+}
