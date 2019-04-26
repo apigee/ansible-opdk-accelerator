@@ -61,9 +61,11 @@ resource "google_compute_backend_service" "apigeenet-ms" {
   port_name        = "apigeenet-allow-mgmt-ui"
   timeout_sec      = 10
   session_affinity = "NONE"
+
   backend {
     group = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
   }
+
   health_checks = [
     "${google_compute_http_health_check.apigeenet-ms.self_link}",
   ]
@@ -93,9 +95,11 @@ resource "google_compute_instance_template" "apigeenet-ms" {
   name           = "apigeenet-ms"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
+
   network_interface {
     network = "${google_compute_network.apigeenet.name}"
   }
+
   disk {
     auto_delete = true
     boot        = true
@@ -239,4 +243,3 @@ module "apigee-vm-5" {
     "apigeenet-allow-icmp-tcp",
   ]
 }
-
