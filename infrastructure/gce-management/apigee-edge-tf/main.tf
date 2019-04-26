@@ -180,25 +180,28 @@ resource "google_compute_instance" "apigee-bastion-vm" {
   name         = "planet-bastion"
   zone         = "us-central1-a"
   machine_type = "n1-standard-1"
-  tags         = [
+
+  tags = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp-tcp",
   ]
+
   boot_disk {
     initialize_params {
       image = "centos-7"
     }
   }
+
   network_interface {
     network       = "${google_compute_network.apigeenet.self_link}"
     access_config = {}
   }
+
   service_account {
     email  = "736255665193-compute@developer.gserviceaccount.com"
     scopes = ["compute-rw", "storage-ro"]
   }
 }
-
 
 //# Add an apigee-vm instance
 //module "apigee-vm-1" {
