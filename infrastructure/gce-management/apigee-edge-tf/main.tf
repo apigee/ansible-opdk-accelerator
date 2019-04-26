@@ -42,7 +42,7 @@ resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   name       = "apigeenet-ms"
   port_range = "80"
   ip_address = "${google_compute_global_address.apigeenet-ms.address}"
-  target     = "${google_compute_instance.apigee-bastion-vm.network_interface.network_ip}"
+  target     = "${google_compute_instance.apigee-bastion-vm.self_link}"
 }
 
 //resource "google_compute_target_http_proxy" "apigeenet-ms" {
