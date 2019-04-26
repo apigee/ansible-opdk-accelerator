@@ -4,14 +4,6 @@ resource "google_compute_network" "apigeenet" {
   auto_create_subnetworks = "true"
 }
 
-//# Create apigeenet-subnet subnetwork
-//resource "google_compute_subnetwork" "apigeenet-subnet" {
-//  name          = "apigee-subnet"
-//  region        = "us-central1"
-//  network       = "${google_compute_network.apigeenet.self_link}"
-//  ip_cidr_range = "10.0.0.0/8"
-//}
-
 # Create apigeenet-subnet-router
 resource "google_compute_router" "apigee-subnet-router" {
   name    = "apigee-subnet-router"
