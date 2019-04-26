@@ -42,7 +42,10 @@ resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   name       = "apigeenet-ms"
   port_range = "80"
   ip_address = "${google_compute_global_address.apigeenet-ms.address}"
-  target     = "${module.apigee-bastion-vm.network_ip}"
+  target     = "${module.apigee-bastion-vm.network_interface}"
+}
+output "apigee-bastion-vm-network-ip" {
+  value = "${module.apigee-bastion-vm.network_interface}"
 }
 
 //resource "google_compute_target_http_proxy" "apigeenet-ms" {
@@ -176,68 +179,68 @@ module "apigee-bastion-vm" {
   service_account_email = "736255665193-compute@developer.gserviceaccount.com"
 }
 
-# Add an apigee-vm instance
-module "apigee-vm-1" {
-  source           = "./internal-instance"
-  instance_name    = "planet-edge-dc-1-ms-dc-1-ldap-dc-1-ds-ms-1"
-  instance_zone    = "us-central1-a"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
-    "apigeenet-allow-mgmt-ui",
-  ]
-}
-
-# Add an apigee-vm instance
-module "apigee-vm-2" {
-  source           = "./internal-instance"
-  instance_name    = "planet-edge-dc-1-ds-dc-1-rmp-1"
-  instance_zone    = "us-central1-a"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
-  ]
-}
-
-# Add an apigee-vm instance
-module "apigee-vm-3" {
-  source           = "./internal-instance"
-  instance_zone    = "us-central1-a"
-  instance_name    = "planet-edge-dc-1-ds-dc-1-rmp-2"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
-  ]
-}
-
-# Add an apigee-vm instance
-module "apigee-vm-4" {
-  source           = "./internal-instance"
-  instance_name    = "planet-edge-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
-  instance_zone    = "us-central1-a"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
-  ]
-}
-
-# Add an apigee-vm instance
-module "apigee-vm-5" {
-  source           = "./internal-instance"
-  instance_name    = "planet-edge-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
-  instance_zone    = "us-central1-a"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
-  ]
-}
+//# Add an apigee-vm instance
+//module "apigee-vm-1" {
+//  source           = "./internal-instance"
+//  instance_name    = "planet-edge-dc-1-ms-dc-1-ldap-dc-1-ds-ms-1"
+//  instance_zone    = "us-central1-a"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp-tcp",
+//    "apigeenet-allow-mgmt-ui",
+//  ]
+//}
+//
+//# Add an apigee-vm instance
+//module "apigee-vm-2" {
+//  source           = "./internal-instance"
+//  instance_name    = "planet-edge-dc-1-ds-dc-1-rmp-1"
+//  instance_zone    = "us-central1-a"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp-tcp",
+//  ]
+//}
+//
+//# Add an apigee-vm instance
+//module "apigee-vm-3" {
+//  source           = "./internal-instance"
+//  instance_zone    = "us-central1-a"
+//  instance_name    = "planet-edge-dc-1-ds-dc-1-rmp-2"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp-tcp",
+//  ]
+//}
+//
+//# Add an apigee-vm instance
+//module "apigee-vm-4" {
+//  source           = "./internal-instance"
+//  instance_name    = "planet-edge-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
+//  instance_zone    = "us-central1-a"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp-tcp",
+//  ]
+//}
+//
+//# Add an apigee-vm instance
+//module "apigee-vm-5" {
+//  source           = "./internal-instance"
+//  instance_name    = "planet-edge-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
+//  instance_zone    = "us-central1-a"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp-tcp",
+//  ]
+//}
