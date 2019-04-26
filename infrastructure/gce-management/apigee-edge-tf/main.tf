@@ -46,7 +46,7 @@ resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
 }
 
 output "apigee-bastion-vm-network-ip" {
-  value = "${module.apigee-bastion-vm.network_interface}"
+  value = "${google_compute_instance.apigee-bastion-vm.network_interface.network_ip}"
 }
 
 //resource "google_compute_target_http_proxy" "apigeenet-ms" {
@@ -163,22 +163,46 @@ resource "google_compute_firewall" "apigeenet-allow-mgmt-ui" {
   }
 }
 
-# Add an apigee-vm instance
-module "apigee-bastion-vm" {
-  source           = "./external-instance"
-  instance_name    = "planet-bastion"
-  instance_zone    = "us-central1-a"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
+//# Add an apigee-vm instance
+//module "apigee-bastion-vm" {
+//  source           = "./external-instance"
+//  instance_name    = "planet-bastion"
+//  instance_zone    = "us-central1-a"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp-tcp",
+//  ]
+//
+//  instance_external_ip  = "Ephemeral"
+//  instance_scopes       = ["compute-rw", "storage-ro"]
+//  service_account_email = "736255665193-compute@developer.gserviceaccount.com"
+//}
 
-  instance_tags = [
+resource "google_compute_instance" "apigee-bastion-vm" {
+  name         = "planet-bastion"
+  zone         = "us-central1-a"
+  machine_type = "n1-standard-1"
+  tags         = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp-tcp",
   ]
-
-  instance_external_ip  = "Ephemeral"
-  instance_scopes       = ["compute-rw", "storage-ro"]
-  service_account_email = "736255665193-compute@developer.gserviceaccount.com"
+  boot_disk {
+    initialize_params {
+      image = "centos-7"
+    }
+  }
+  network_interface {
+    network       = "${google_compute_network.apigeenet.self_link}"
+    access_config = {}
+  }
+  service_account {
+    email  = "736255665193-compute@developer.gserviceaccount.com"
+    scopes = ["compute-rw", "storage-ro"]
+  }
 }
+
 
 //# Add an apigee-vm instance
 //module "apigee-vm-1" {
