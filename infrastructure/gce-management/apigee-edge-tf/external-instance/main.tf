@@ -49,3 +49,7 @@ resource "google_compute_instance" "vm_instance" {
     scopes = "${var.instance_scopes}"
   }
 }
+
+output "network_ip" {
+  value = "${google_compute_instance.vm_instance.network_interface.network_ip}"
+}

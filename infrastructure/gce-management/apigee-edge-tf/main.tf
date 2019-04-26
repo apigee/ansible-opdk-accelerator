@@ -42,7 +42,7 @@ resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   name       = "apigeenet-ms"
   port_range = "80"
   ip_address = "${google_compute_global_address.apigeenet-ms.address}"
-  target     = "${module.apigee-vm-1}"
+  target     = "${module.}"
 }
 
 //resource "google_compute_target_http_proxy" "apigeenet-ms" {
