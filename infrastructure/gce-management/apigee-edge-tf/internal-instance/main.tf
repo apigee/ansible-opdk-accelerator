@@ -35,4 +35,3 @@ resource "google_compute_instance" "vm_instance" {
     network = "${var.instance_network}"
   }
 }
-
