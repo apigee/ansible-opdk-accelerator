@@ -41,83 +41,82 @@ resource "google_compute_global_address" "apigeenet-ms" {
 resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   name       = "apigeenet-ms"
   port_range = "80"
-  target     = "${google_compute_target_http_proxy.apigeenet-ms.self_link}"
+  ip_address = "${google_compute_global_address.apigeenet-ms.address}"
+  target     = "${google_compute_instance.apigee-vm-1.self_link}"
 }
 
-resource "google_compute_target_http_proxy" "apigeenet-ms" {
-  name    = "apigeenet-ms"
-  url_map = "${google_compute_url_map.apigeenet-ms.self_link}"
-}
+//resource "google_compute_target_http_proxy" "apigeenet-ms" {
+//  name    = "apigeenet-ms"
+//  url_map = "${google_compute_url_map.apigeenet-ms.self_link}"
+//}
 
-resource "google_compute_url_map" "apigeenet-ms" {
-  name            = "apigeenet-ms"
-  default_service = "${google_compute_backend_service.apigeenet-ms.self_link}"
-}
+//resource "google_compute_url_map" "apigeenet-ms" {
+//  name            = "apigeenet-ms"
+//  default_service = "${google_compute_backend_service.apigeenet-ms.self_link}"
+//}
 
-resource "google_compute_backend_service" "apigeenet-ms" {
-  name             = "apigeenet-ms"
-  protocol         = "HTTP"
-  port_name        = "apigeenet-allow-mgmt-ui"
-  timeout_sec      = 10
-  session_affinity = "NONE"
+//resource "google_compute_backend_service" "apigeenet-ms" {
+//  name             = "apigeenet-ms"
+//  protocol         = "HTTP"
+//  port_name        = "apigeenet-allow-mgmt-ui"
+//  timeout_sec      = 10
+//  session_affinity = "NONE"
+//
+//  backend {
+//    group = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
+//  }
+//
+//  health_checks = [
+//    "${google_compute_http_health_check.apigeenet-ms.self_link}",
+//  ]
+//}
 
-  backend {
-    group = "${google_compute_region_instance_group_manager.apigeenet-ms.self_link}"
-  }
+//resource "google_compute_http_health_check" "apigeenet-ms" {
+//  name               = "apigeenet-ms"
+//  request_path       = "/"
+//  timeout_sec        = 1
+//  check_interval_sec = 1
+//}
 
-  health_checks = [
-    "${google_compute_http_health_check.apigeenet-ms.self_link}",
-  ]
-}
+//resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
+//  name                      = "apigeenet-ms"
+//  base_instance_name        = "apigeenet-ms"
+//  region                    = "us-central1"
+//  instance_template         = "${google_compute_instance_template.apigeenet-ms.self_link}"
+//  distribution_policy_zones = ["us-central1-a"]
+//
+//  named_port {
+//    name = "apigeenet-ms"
+//    port = 9001
+//  }
+//}
 
-resource "google_compute_http_health_check" "apigeenet-ms" {
-  name               = "apigeenet-ms"
-  request_path       = "/"
-  timeout_sec        = 1
-  check_interval_sec = 1
-}
+//resource "google_compute_instance_template" "apigeenet-ms" {
+//  name           = "apigeenet-ms"
+//  machine_type   = "n1-standard-1"
+//  can_ip_forward = false
+//  network_interface {
+//    network = "${google_compute_network.apigeenet.name}"
+//  }
+//  disk {
+//    auto_delete = true
+//    boot        = true
+//    source      = "${google_compute_disk.apigeenet-ms.name}"
+//  }
+//}
 
-resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
-  name                      = "apigeenet-ms"
-  base_instance_name        = "apigeenet-ms"
-  region                    = "us-central1"
-  instance_template         = "${google_compute_instance_template.apigeenet-ms.self_link}"
-  distribution_policy_zones = ["us-central1-a"]
+//resource "google_compute_disk" "apigeenet-ms" {
+//  name  = "apigeenet-ms"
+//  image = "${data.google_compute_image.apigeenet-ms.self_link}"
+//  size  = 60
+//  type  = "pd-ssd"
+//  zone  = "us-central1-a"
+//}
 
-  named_port {
-    name = "apigeenet-ms"
-    port = 9001
-  }
-}
-
-resource "google_compute_instance_template" "apigeenet-ms" {
-  name           = "apigeenet-ms"
-  machine_type   = "n1-standard-1"
-  can_ip_forward = false
-
-  network_interface {
-    network = "${google_compute_network.apigeenet.name}"
-  }
-
-  disk {
-    auto_delete = true
-    boot        = true
-    source      = "${google_compute_disk.apigeenet-ms.name}"
-  }
-}
-
-resource "google_compute_disk" "apigeenet-ms" {
-  name  = "apigeenet-ms"
-  image = "${data.google_compute_image.apigeenet-ms.self_link}"
-  size  = 60
-  type  = "pd-ssd"
-  zone  = "us-central1-a"
-}
-
-data "google_compute_image" "apigeenet-ms" {
-  name    = "centos-7-v20190423"
-  project = "centos-cloud"
-}
+//data "google_compute_image" "apigeenet-ms" {
+//  name    = "centos-7-v20190423"
+//  project = "centos-cloud"
+//}
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
 resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
