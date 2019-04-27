@@ -75,7 +75,7 @@ resource "google_compute_http_health_check" "apigeenet-ms" {
 }
 
 resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
-  name                      = "apigeenet-ms"
+  name                      = "apigee-group-dc-1-ms"
   base_instance_name        = "apigeenet-ms"
   region                    = "us-central1"
   instance_template         = "${google_compute_instance_template.apigeenet-ms.self_link}"
