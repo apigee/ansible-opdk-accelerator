@@ -90,12 +90,13 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
 }
 
 resource "google_compute_instance_template" "apigeenet-ms" {
-  name           = "apigeenet-ms"
+  name           = "apigee-dc-1-ms"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
 
   network_interface {
     network = "${google_compute_network.apigeenet.name}"
+    access_config = {}
   }
 
   disk {
