@@ -29,6 +29,10 @@ resource "google_compute_global_address" "apigeenet-ms" {
   name = "apigeenet-ms"
 }
 
+output "global_address" {
+  value = "${google_compute_global_address.apigeenet-ms.address}"
+}
+
 # Create the global forwarding rule for Apigee MS
 resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   name       = "apigeenet-ms"
