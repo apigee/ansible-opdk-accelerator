@@ -172,6 +172,10 @@ module "apigee-bastion-vm" {
   service_account_email = "736255665193-compute@developer.gserviceaccount.com"
 }
 
+output "bastion_network-id" {
+  value = "${module.apigee-bastion-vm.network_interface.0.network_id}"
+}
+
 # Add an apigee-vm instance
 module "apigee-vm-1" {
   source           = "./internal-instance"
