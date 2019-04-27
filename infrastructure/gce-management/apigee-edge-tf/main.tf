@@ -95,7 +95,7 @@ resource "google_compute_instance_template" "apigeenet-ms" {
   can_ip_forward = false
 
   network_interface {
-    network = "${google_compute_network.apigeenet.name}"
+    network       = "${google_compute_network.apigeenet.name}"
     access_config = {}
   }
 
