@@ -55,7 +55,7 @@ resource "google_compute_backend_service" "apigeenet-ms" {
   session_affinity = "NONE"
 
   backend {
-    group = "${google_compute_region_instance_group_manager.apigeenet-ms.name}"
+    group = "${google_compute_region_instance_group_manager.apigeenet-ms.instance_group}"
   }
 
   health_checks = [
