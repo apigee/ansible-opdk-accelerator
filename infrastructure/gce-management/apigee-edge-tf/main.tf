@@ -104,6 +104,8 @@ resource "google_compute_instance_template" "apigeenet-ms" {
 
     //    source      = "${google_compute_disk.apigeenet-ms.name}"
     source_image = "${data.google_compute_image.apigeenet-ms.self_link}"
+    disk_size_gb = 60
+    disk_type = "pd-ssd"
   }
 }
 
