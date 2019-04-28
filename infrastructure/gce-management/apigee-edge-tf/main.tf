@@ -75,8 +75,8 @@ resource "google_compute_http_health_check" "apigeenet-ms" {
 }
 
 resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
-  name                      = "planet-group-dc-1-ms-dc-1-ldap"
-  base_instance_name        = "planet-group-dc-1-ms-dc-1-ldap"
+  name                      = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
+  base_instance_name        = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
   region                    = "us-central1"
   instance_template         = "${google_compute_instance_template.apigeenet-ms.self_link}"
   distribution_policy_zones = ["us-central1-a"]
@@ -88,7 +88,7 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
 }
 
 resource "google_compute_instance_template" "apigeenet-ms" {
-  name           = "planet-dc-1-ms-dc-1-ldap"
+  name           = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
 
@@ -105,7 +105,7 @@ resource "google_compute_instance_template" "apigeenet-ms" {
 }
 
 resource "google_compute_disk" "apigeenet-ms" {
-  name  = "planet-dc-1-ms-dc-1-ldap"
+  name  = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
   image = "${data.google_compute_image.apigeenet-ms.self_link}"
   size  = 60
   type  = "pd-ssd"
