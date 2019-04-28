@@ -89,7 +89,7 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
 }
 
 resource "google_compute_instance_template" "apigeenet-ms" {
-  name           = "planet-dc-1-ms"
+  name           = "planet-dc-1-ms-dc-1-ms-dc-1-ldap"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
 
