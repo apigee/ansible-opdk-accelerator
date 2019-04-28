@@ -101,7 +101,8 @@ resource "google_compute_instance_template" "apigeenet-ms" {
   disk {
     auto_delete = true
     boot        = true
-    source      = "${google_compute_disk.apigeenet-ms.name}"
+//    source      = "${google_compute_disk.apigeenet-ms.name}"
+    source_image      = "${data.google_compute_image.apigeenet-ms.self_link}"
   }
 }
 
