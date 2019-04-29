@@ -1,0 +1,11 @@
+---
+- name: Set Bastion Host in SSH Config
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - bastion_host_attribute.yml
+
+  roles:
+    - { role: bastion-ssh-config-target-host, tags: ['bastion-config'] }
+

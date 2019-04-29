@@ -1,5 +1,5 @@
 ---
-- name: Configure Local Control Server to Use Bastion Host
+- name: Configure ProxyCommand to Use Bastion Host
   hosts: localhost
   connection: local
   gather_facts: false
@@ -8,5 +8,4 @@
 
   roles:
     - { role: bastion-host-proxycommand, tags: ['proxy-command'] }
-#    - { role: bastion-ssh-config-target-host, tags: ['bastion-config'] }
 
