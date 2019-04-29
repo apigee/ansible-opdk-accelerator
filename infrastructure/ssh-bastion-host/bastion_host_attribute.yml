@@ -1,5 +1,5 @@
 ---
-target_host_range: 10.142.*.*
+target_host_range: 10.*.*.*
 protected_private_key: ~/.ssh/google_compute_engine
 bastion_host_name: jump.us-east1-b.edge-ops-lab
 
