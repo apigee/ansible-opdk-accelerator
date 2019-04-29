@@ -182,7 +182,7 @@ module "apigee-bastion-vm" {
 
 # Add an apigee-vm instance
 module "apigee-vm-1" {
-  source           = "./external-instance"
+  source           = "./internal-instance"
   instance_name    = "planet-dc-1-ds-1"
   instance_zone    = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
@@ -196,7 +196,7 @@ module "apigee-vm-1" {
 
 # Add an apigee-vm instance
 module "apigee-vm-2" {
-  source           = "./external-instance"
+  source           = "./internal-instance"
   instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
   instance_zone    = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
@@ -209,7 +209,7 @@ module "apigee-vm-2" {
 
 # Add an apigee-vm instance
 module "apigee-vm-3" {
-  source           = "./external-instance"
+  source           = "./internal-instance"
   instance_zone    = "us-central1-a"
   instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
   instance_network = "${google_compute_network.apigeenet.self_link}"
@@ -222,7 +222,7 @@ module "apigee-vm-3" {
 
 # Add an apigee-vm instance
 module "apigee-vm-4" {
-  source           = "./external-instance"
+  source           = "./internal-instance"
   instance_name    = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
   instance_zone    = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
@@ -235,7 +235,7 @@ module "apigee-vm-4" {
 
 # Add an apigee-vm instance
 module "apigee-vm-5" {
-  source           = "./external-instance"
+  source           = "./internal-instance"
   instance_name    = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
   instance_zone    = "us-central1-a"
   instance_network = "${google_compute_network.apigeenet.self_link}"
