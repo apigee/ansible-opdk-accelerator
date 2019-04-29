@@ -57,7 +57,7 @@
     tags: ['copy-keys']
     copy:
       src: "{{ item }}"
-      dest: "{{ item }}"
+      dest: "~/.ssh/{{ item | basename }}"
     with_items:
       - "{{ pvtkey }}"
       - "{{ pubkey }}"
