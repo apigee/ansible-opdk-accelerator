@@ -45,13 +45,22 @@
       path: "{{ pubkey }}"
     register: pubkey_state
 
-  - name: Copy local public keys to server for user {{ user }}
-    tags: ['copy-keys']
+  - name: Set public keys as authorized keys on server
+    tags: ['authorized-keys']
     authorized_key:
       user: '{{ remote_user }}'
       state: present
       key: "{{ lookup('file', '{{ pubkey }}') }}"
     when: pubkey_state.stat.exists is defined
+
+  - name: Copy keys to server
+    tags: ['copy-keys']
+    copy:
+      src: "{{ item }}"
+      dest: "~/.ssh/{{ item }} | basename"
+    with_items:
+      - "{{ pvtkey }}"
+      - "{{ pubkey }}"
 
   - name: Enable root login over SSH
     tags: ['ssh']
