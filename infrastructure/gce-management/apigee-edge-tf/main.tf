@@ -5,8 +5,8 @@ resource "google_compute_network" "apigeenet" {
 }
 
 # Create apigeenet-subnet-router
-resource "google_compute_router" "apigee-subnet-router" {
-  name    = "apigee-subnet-router"
+resource "google_compute_router" "apigeenet-subnet-router" {
+  name    = "apigeenet-subnet-router"
   region  = "us-central1"
   network = "${google_compute_network.apigeenet.self_link}"
 
@@ -15,80 +15,81 @@ resource "google_compute_router" "apigee-subnet-router" {
   }
 }
 
-# Create the gateway nat for the apigee-subnet-router
-resource "google_compute_router_nat" "apigeenet-subnet-gateway-nat" {
-  name                               = "apigeenet-subnet-gateway-nat"
-  router                             = "${google_compute_router.apigee-subnet-router.name}"
+# Create the gateway nat for the apigeenet-subnet-router
+resource "google_compute_router_nat" "apigeenet-subnet-nat" {
+  name                               = "apigeenet-subnet-nat"
+  router                             = "${google_compute_router.apigeenet-subnet-router.name}"
   region                             = "us-central1"
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
 # Reserve an external address
-resource "google_compute_global_address" "apigeenet-ms" {
+resource "google_compute_global_address" "apigeenet-ms-global-address" {
   name = "apigeenet-ms"
 }
 
-output "global_address" {
-  value = "${google_compute_global_address.apigeenet-ms.address}"
+output "ms_global_address" {
+  value = "${google_compute_global_address.apigeenet-ms-global-address.address}"
 }
 
 # Create the global forwarding rule for Apigee MS
 resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
   name       = "apigeenet-ms"
   port_range = "80"
-  ip_address = "${google_compute_global_address.apigeenet-ms.address}"
-  target     = "${google_compute_target_http_proxy.apigeenet-ms.self_link}"
+  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
+  target     = "${google_compute_target_http_proxy.apigeenet-ms-http-proxy.self_link}"
 }
 
-resource "google_compute_target_http_proxy" "apigeenet-ms" {
-  name    = "apigeenet-ms"
-  url_map = "${google_compute_url_map.apigeenet-ms.self_link}"
+resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
+  name    = "apigeenet-ms-http-proxy"
+  url_map = "${google_compute_url_map.apigeenet-ms-url-map.self_link}"
 }
 
-resource "google_compute_url_map" "apigeenet-ms" {
-  name            = "apigeenet-ms"
-  default_service = "${google_compute_backend_service.apigeenet-ms.self_link}"
+resource "google_compute_url_map" "apigeenet-ms-url-map" {
+  name            = "apigeenet-ms-url-map"
+  default_service = "${google_compute_backend_service.apigeenet-ms-backend-service.self_link}"
+
 }
 
-resource "google_compute_backend_service" "apigeenet-ms" {
-  name             = "apigeenet-ms"
+resource "google_compute_backend_service" "apigeenet-ms-backend-service" {
+  name             = "apigeenet-ms-backend-service"
   protocol         = "HTTP"
   port_name        = "apigeenet-allow-mgmt-ui"
   timeout_sec      = 10
   session_affinity = "NONE"
 
   backend {
-    group = "${google_compute_region_instance_group_manager.apigeenet-ms.instance_group}"
+    group = "${google_compute_region_instance_group_manager.apigeenet-ms-group-instance.instance_group}"
   }
 
   health_checks = [
-    "${google_compute_http_health_check.apigeenet-ms.self_link}",
+    "${google_compute_http_health_check.apigeenet-ms-http-health-check.self_link}",
   ]
 }
 
-resource "google_compute_http_health_check" "apigeenet-ms" {
-  name               = "apigeenet-ms"
-  request_path       = "/"
+resource "google_compute_http_health_check" "apigeenet-ms-http-health-check" {
+  name               = "apigeenet-ms-http-health-check"
+  request_path       = "/v1/servers/self/up"
   timeout_sec        = 1
   check_interval_sec = 1
 }
 
-resource "google_compute_region_instance_group_manager" "apigeenet-ms" {
+resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
   name                      = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
   base_instance_name        = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
   region                    = "us-central1"
-  instance_template         = "${google_compute_instance_template.apigeenet-ms.self_link}"
+  instance_template         = "${google_compute_instance_template.apigeenet-ms-instance-template.self_link}"
   distribution_policy_zones = ["us-central1-a"]
   target_size               = 1
 
   named_port {
     name = "apigeenet-ms"
-    port = 9001
+    port = 9000
   }
 }
 
-resource "google_compute_instance_template" "apigeenet-ms" {
+resource "google_compute_instance_template" "apigeenet-ms-instance-template" {
   name           = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
@@ -102,22 +103,13 @@ resource "google_compute_instance_template" "apigeenet-ms" {
     auto_delete = true
     boot        = true
 
-    //    source      = "${google_compute_disk.apigeenet-ms.name}"
-    source_image = "${data.google_compute_image.apigeenet-ms.self_link}"
+    source_image = "${data.google_compute_image.apigeenet-ms-compute-image.self_link}"
     disk_size_gb = 60
     disk_type    = "pd-ssd"
   }
 }
 
-resource "google_compute_disk" "apigeenet-ms" {
-  name  = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
-  image = "${data.google_compute_image.apigeenet-ms.self_link}"
-  size  = 60
-  type  = "pd-ssd"
-  zone  = "us-central1-a"
-}
-
-data "google_compute_image" "apigeenet-ms" {
+data "google_compute_image" "apigeenet-ms-compute-image" {
   name    = "centos-7-v20190423"
   project = "centos-cloud"
 }
