@@ -26,7 +26,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 
 # Reserve an external address
 resource "google_compute_global_address" "apigeenet-ms-global-address" {
-  name = "apigeenet-ms"
+  name = "apigeenet-ms-global-address"
 }
 
 output "ms_global_address" {
@@ -34,8 +34,8 @@ output "ms_global_address" {
 }
 
 # Create the global forwarding rule for Apigee MS
-resource "google_compute_global_forwarding_rule" "apigeenet-ms" {
-  name       = "apigeenet-ms"
+resource "google_compute_global_forwarding_rule" "apigeenet-ms-forwarding-rule" {
+  name       = "apigeenet-ms-forwarding-rule"
   port_range = "80"
   ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
   target     = "${google_compute_target_http_proxy.apigeenet-ms-http-proxy.self_link}"
@@ -54,7 +54,7 @@ resource "google_compute_url_map" "apigeenet-ms-url-map" {
 resource "google_compute_backend_service" "apigeenet-ms-backend-service" {
   name             = "apigeenet-ms-backend-service"
   protocol         = "HTTP"
-  port_name        = "apigeenet-allow-mgmt-ui"
+  port_name        = "apigeenet-ms-ui-port"
   timeout_sec      = 10
   session_affinity = "NONE"
 
@@ -83,7 +83,7 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-inst
   target_size               = 1
 
   named_port {
-    name = "apigeenet-ms"
+    name = "apigeenet-ms-ui-port"
     port = 9000
   }
 }
