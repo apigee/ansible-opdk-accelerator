@@ -49,7 +49,6 @@ resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
 resource "google_compute_url_map" "apigeenet-ms-url-map" {
   name            = "apigeenet-ms-url-map"
   default_service = "${google_compute_backend_service.apigeenet-ms-backend-service.self_link}"
-
 }
 
 resource "google_compute_backend_service" "apigeenet-ms-backend-service" {
