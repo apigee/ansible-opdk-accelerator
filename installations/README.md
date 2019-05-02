@@ -18,7 +18,7 @@ contained README. This folder contains Ansible playbooks that will install the f
 
 ## Basic Usage
 We have created an `ansible-galaxy` requirements file `requirements.yml` that will download and install the roles 
-used by this playbook. You can download and install the required roles as follows: 
+used by this playbook. `ansible-galaxy` expects a path to the `requirements.yml` file. Assuming you `cd` into the folder containing your target `requirements.yml` then you can download and install the required roles as follows: 
 
     ansible-galaxy install -r requirements.yml -f
     
