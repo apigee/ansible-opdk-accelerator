@@ -7,12 +7,11 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
-  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','os-openldap'] }
   - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
   - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
   - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
   - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
-  - { role: apigee-opdk-setup-os-openldap, tags: ['os-openldap'] }
   - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
   - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
   - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
@@ -70,7 +69,8 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
-  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ms-config'] }
+  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ms-config', 'os-openldap'] }
+  - { role: apigee-opdk-setup-os-openldap, tags: ['os-openldap'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-provision', tags: ['provision', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ms-config']  }
