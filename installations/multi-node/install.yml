@@ -12,6 +12,7 @@
   - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
   - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
   - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
+  - { role: apigee-opdk-setup-os-openldap, tags: ['os-openldap'] }
   - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
   - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
   - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
