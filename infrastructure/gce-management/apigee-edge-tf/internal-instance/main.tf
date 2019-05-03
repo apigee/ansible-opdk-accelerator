@@ -28,24 +28,24 @@ resource "google_compute_instance" "vm_instance" {
   boot_disk {
     initialize_params {
       image = "${var.instance_image}"
-//      size = 60
+
+      //      size = 60
     }
   }
 
-//  disk {
-//    auto_delete = true
-//    boot        = true
-//
-//    source_image = "${data.google_compute_image.apigeenet-ms-compute-image.self_link}"
-//    disk_size_gb = 60
-//    disk_type    = "pd-ssd"
-//  }
+  //  disk {
+  //    auto_delete = true
+  //    boot        = true
+  //
+  //    source_image = "${data.google_compute_image.apigeenet-ms-compute-image.self_link}"
+  //    disk_size_gb = 60
+  //    disk_type    = "pd-ssd"
+  //  }
 
   network_interface {
     network = "${var.instance_network}"
   }
 }
-
 
 data "google_compute_image" "apigeenet-ms-compute-image" {
   name    = "centos-7-v20190423"
