@@ -22,6 +22,9 @@ variable "instance_distribution_policy_zones" {
 
 variable "group_manager_port" {}
 variable "group_manager_port_name" {}
+variable "instance_tags" {
+  default = []
+}
 
 resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
   name                      = "${var.group_manager_name}"
@@ -35,12 +38,14 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-inst
     name = "${var.group_manager_port_name}"
     port = "${var.group_manager_port}"
   }
+
 }
 
 resource "google_compute_instance_template" "apigeenet-base-instance-template" {
   name           = "${var.instance_name}"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
+  tags = "${var.instance_tags}"
 
   network_interface {
     network       = "${var.instance_network}"
