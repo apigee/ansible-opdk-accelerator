@@ -76,7 +76,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 
 module "configure_apigeenet_firewalls_icmp" {
   source                 = "./apigeenet-firewalls"
-  firewall_name          = "apigeenet-allow-icmp-tcp"
+  firewall_name          = "apigeenet-allow-icmp"
   firewall_network       = "${google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "icmp"
   firewall_source_ranges = ["10.0.0.0/8"]
