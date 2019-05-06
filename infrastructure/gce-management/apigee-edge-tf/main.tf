@@ -115,7 +115,7 @@ module "create-ms-ldap-ui-instance-template" {
   instance_network        = "${google_compute_network.apigeenet.name}"
   instance_count          = "1"
   instance_size           = "60"
-  instance_tags           = ["apigeenet-allow-ssh","apigeenet-allow-mgmt-ui"]
+  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
   group_manager_name      = "ms-ldap-ui-region-instance-group-manager"
   group_manager_port      = "9000"
   group_manager_port_name = "apigee-ms-ui-port"
@@ -127,7 +127,7 @@ module "create-rmp-instance-template" {
   instance_network        = "${google_compute_network.apigeenet.name}"
   instance_count          = "2"
   instance_size           = "60"
-  instance_tags           = ["apigeenet-allow-ssh","apigeenet-allow-rmp"]
+  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-rmp"]
   group_manager_name      = "planet-dc-1-ds-dc-1-rmp-1"
   group_manager_port      = "9001"
   group_manager_port_name = "apigee-rmp-vh-port"
