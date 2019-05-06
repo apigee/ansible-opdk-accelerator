@@ -41,7 +41,9 @@ resource "google_compute_instance" "vm_instance" {
 
   network_interface {
     network       = "${var.instance_network}"
-    access_config = {}
+    access_config = {
+      // Ephermeral IP
+    }
   }
 
   service_account {
