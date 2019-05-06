@@ -89,7 +89,7 @@ module "configure_apigeenet_firewalls_icmp" {
 //  firewall_protocol = "tcp"
 //  firewall_ports = ["22"]
 //  firewall_source_ranges = ["10.0.0.0/8"]
-}
+//}
 
 //module "configure_apigeenet_firewalls_mgmt_ui" {
 //  source = "./apigeenet-firewalls"
