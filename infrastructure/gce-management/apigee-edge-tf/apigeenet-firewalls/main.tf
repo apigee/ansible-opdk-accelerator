@@ -7,7 +7,7 @@ variable "firewall_ports" {
 }
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
-resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
+resource "google_compute_firewall" "apigeenet-allow-firewall-${var.firewall_name}" {
   count = "${length(var.firewall_ports)}"
   name    = "${var.firewall_name}"
   network = "${var.firewall_network}"
@@ -19,7 +19,7 @@ resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
   }
 }
 
-resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
+resource "google_compute_firewall" "apigeenet-allow-firewall-${var.firewall_name}" {
   count = "${length(var.firewall_ports) > 0 ? 1 : 0}"
   name    = "${var.firewall_name}"
   network = "${var.firewall_network}"
