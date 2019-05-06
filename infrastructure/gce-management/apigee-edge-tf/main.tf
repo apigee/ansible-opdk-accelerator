@@ -82,14 +82,14 @@ module "configure_apigeenet_firewalls_icmp" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-//module "configure_apigeenet_firewalls_ssh" {
-//  source = "./apigeenet-firewalls"
-//  firewall_name = "apigeenet-allow-ssh"
-//  firewall_network = "${google_compute_network.apigeenet.self_link}"
-//  firewall_protocol = "tcp"
-//  firewall_ports = ["22"]
-//  firewall_source_ranges = ["10.0.0.0/8"]
-//}
+module "configure_apigeenet_firewalls_ssh" {
+  source = "./apigeenet-firewalls"
+  firewall_name = "apigeenet-allow-ssh"
+  firewall_network = "${google_compute_network.apigeenet.self_link}"
+  firewall_protocol = "tcp"
+  firewall_ports = ["22"]
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
 
 //module "configure_apigeenet_firewalls_mgmt_ui" {
 //  source = "./apigeenet-firewalls"
