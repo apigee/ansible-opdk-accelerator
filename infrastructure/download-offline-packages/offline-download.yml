@@ -17,6 +17,7 @@
         state: directory
 
     - name: Update with Yum utilities
+      become: true
       yum:
         name: "yum-utils"
         state: present
