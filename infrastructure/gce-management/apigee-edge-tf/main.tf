@@ -174,7 +174,7 @@ module "apigee-vm-1" {
 
   instance_tags = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
+    "apigeenet-allow-icmp",
     "apigeenet-allow-mgmt-ui",
   ]
 }
@@ -188,7 +188,8 @@ module "apigee-vm-2" {
 
   instance_tags = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-rmp",
   ]
 }
 
@@ -201,7 +202,8 @@ module "apigee-vm-3" {
 
   instance_tags = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-rmp",
   ]
 }
 
@@ -214,7 +216,7 @@ module "apigee-vm-4" {
 
   instance_tags = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
+    "apigeenet-allow-icmp",
   ]
 }
 
@@ -227,6 +229,6 @@ module "apigee-vm-5" {
 
   instance_tags = [
     "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp-tcp",
+    "apigeenet-allow-icmp",
   ]
 }
