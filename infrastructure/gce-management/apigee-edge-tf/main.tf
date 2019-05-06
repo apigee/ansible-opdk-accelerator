@@ -74,9 +74,44 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 //  check_interval_sec = 1
 //}
 
+module "configure_apigeenet_firewalls_icmp" {
+  source = "./apigeenet-firewalls"
+  firewall_name = "apigeenet-allow-icmp-tcp"
+  firewall_network = "${google_compute_network.apigeenet.self_link}"
+  firewall_protocol = "icmp"
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
+
+module "configure_apigeenet_firewalls_ssh" {
+  source = "./apigeenet-firewalls"
+  firewall_name = "apigeenet-allow-ssh"
+  firewall_network = "${google_compute_network.apigeenet.self_link}"
+  firewall_protocol = "tcp"
+  firewall_ports = ["22"]
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
+
+//module "configure_apigeenet_firewalls_mgmt_ui" {
+//  source = "./apigeenet-firewalls"
+//  firewall_name = "apigeenet-allow-mgmt-ui"
+//  firewall_network = "${google_compute_network.apigeenet.self_link}"
+//  firewall_protocol = "tcp"
+//  firewall_ports = ["9000"]
+//  firewall_source_ranges = ["10.0.0.0/8"]
+//}
+
+//module "configure_apigeenet_firewalls_rmp" {
+//  source = "./apigeenet-firewalls"
+//  firewall_name = "apigeenet-allow-mgmt-ui"
+//  firewall_network = "${google_compute_network.apigeenet.self_link}"
+//  firewall_protocol = "tcp"
+//  firewall_ports = ["9001"]
+//  firewall_source_ranges = ["10.0.0.0/8"]
+//}
+
 resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
   name                      = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
-  base_instance_name        = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
+  base_instance_name        = "${google_compute_instance_template.apigeenet-ms-instance-template.name}"
   region                    = "us-central1"
   instance_template         = "${google_compute_instance_template.apigeenet-ms-instance-template.self_link}"
   distribution_policy_zones = ["us-central1-a"]
@@ -89,7 +124,7 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-inst
 }
 
 resource "google_compute_instance_template" "apigeenet-ms-instance-template" {
-  name           = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
+  name           = "ms-ldap-ui-base-instance"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
 
@@ -102,56 +137,15 @@ resource "google_compute_instance_template" "apigeenet-ms-instance-template" {
     auto_delete = true
     boot        = true
 
-    source_image = "${data.google_compute_image.apigeenet-ms-compute-image.self_link}"
+    source_image = "${data.google_compute_image.apigeenet-base-system-image.self_link}"
     disk_size_gb = 60
     disk_type    = "pd-ssd"
   }
 }
 
-data "google_compute_image" "apigeenet-ms-compute-image" {
+data "google_compute_image" "apigeenet-base-system-image" {
   name    = "centos-7-v20190423"
   project = "centos-cloud"
-}
-
-# Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
-resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
-  name    = "apigeenet-allow-icmp-tcp"
-  network = "${google_compute_network.apigeenet.self_link}"
-
-  source_ranges = [
-    "10.0.0.0/8",
-  ]
-
-  allow {
-    protocol = "icmp"
-  }
-
-  allow {
-    protocol = "tcp"
-    ports    = ["0-65535"]
-  }
-}
-
-# Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
-resource "google_compute_firewall" "apigeenet-allow-ssh" {
-  name    = "apigeenet-allow-ssh"
-  network = "${google_compute_network.apigeenet.self_link}"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-}
-
-# Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
-resource "google_compute_firewall" "apigeenet-allow-mgmt-ui" {
-  name    = "apigeenet-allow-mgmt-ui"
-  network = "${google_compute_network.apigeenet.self_link}"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["9000"]
-  }
 }
 
 //# Add an apigee-vm instance
