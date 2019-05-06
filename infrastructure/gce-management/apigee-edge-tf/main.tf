@@ -109,7 +109,7 @@ module "configure_apigeenet_firewalls_rmp" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-module "create-instance-template" {
+module "create-ms-ldap-ui-instance-template" {
   source ="./apigeenet-instance-template"
   instance_name = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
   instance_network = "${google_compute_network.apigeenet.name}"
@@ -120,7 +120,7 @@ module "create-instance-template" {
   group_manager_port_name = "apigee-ms-ui-port"
 }
 
-module "create-instance-template" {
+module "create-rmp-instance-template" {
   source ="./apigeenet-instance-template"
   instance_name = "planet-dc-1-ds-dc-1-rmp"
   instance_network = "${google_compute_network.apigeenet.name}"
