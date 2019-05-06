@@ -83,7 +83,7 @@ module "configure_apigeenet_firewalls_icmp" {
 }
 
 module "configure_apigeenet_firewalls_ssh" {
-  source                 = "apigeenet-firewalls-with-ports"
+  source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-ssh"
   firewall_network       = "${google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
