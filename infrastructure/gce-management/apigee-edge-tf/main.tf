@@ -75,7 +75,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 //}
 
 module "configure_apigeenet_firewalls_icmp" {
-  source                 = "./apigeenet-firewalls"
+  source                 = "apigeenet-firewalls-protocol-only"
   firewall_name          = "apigeenet-allow-icmp"
   firewall_network       = "${google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "icmp"
@@ -83,7 +83,7 @@ module "configure_apigeenet_firewalls_icmp" {
 }
 
 module "configure_apigeenet_firewalls_ssh" {
-  source                 = "./apigeenet-firewalls"
+  source                 = "apigeenet-firewalls-with-ports"
   firewall_name          = "apigeenet-allow-ssh"
   firewall_network       = "${google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
