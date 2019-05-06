@@ -20,7 +20,7 @@ resource "google_compute_firewall" "apigeenet-allow-firewall" {
 }
 
 resource "google_compute_firewall" "apigeenet-allow-firewall" {
-  count = "${length(var.firewall_ports) > 0 ? 1 : 0}"
+  count = "${tonumber(length(var.firewall_ports) > 0 ? 1 : 0)}"
   name    = "${var.firewall_name}"
   network = "${var.firewall_network}"
 
