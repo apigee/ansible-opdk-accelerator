@@ -24,7 +24,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
-//# Reserve an external address
+# Reserve an external address
 //resource "google_compute_global_address" "apigeenet-ms-global-address" {
 //  name = "apigeenet-ms-global-address"
 //}
@@ -33,7 +33,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 //  value = "${google_compute_global_address.apigeenet-ms-global-address.address}"
 //}
 
-//# Create the global forwarding rule for Apigee MS
+# Create the global forwarding rule for Apigee MS
 //resource "google_compute_global_forwarding_rule" "apigeenet-ms-forwarding-rule" {
 //  name       = "apigeenet-ms-forwarding-rule"
 //  port_range = "80"
@@ -109,44 +109,68 @@ module "configure_apigeenet_firewalls_rmp" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
-  name                      = "ms-ldap-ui-region-instance-group-manager"
-  base_instance_name        = "${google_compute_instance_template.apigeenet-ms-instance-template.name}"
-  region                    = "us-central1"
-  instance_template         = "${google_compute_instance_template.apigeenet-ms-instance-template.self_link}"
-  distribution_policy_zones = ["us-central1-a"]
-  target_size               = 1
-
-  named_port {
-    name = "apigeenet-ms-ui-port"
-    port = 9000
-  }
+module "create-instance-template" {
+  source ="./apigeenet-instance-template"
+  instance_name = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
+  instance_network = "${google_compute_network.apigeenet.name}"
+  instance_count = "1"
+  instance_size = "60"
+  group_manager_name = "ms-ldap-ui-region-instance-group-manager"
+  group_manager_port = "9000"
+  group_manager_port_name = "apigee-ms-ui-port"
 }
 
-resource "google_compute_instance_template" "apigeenet-ms-instance-template" {
-  name           = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
-  machine_type   = "n1-standard-1"
-  can_ip_forward = false
-
-  network_interface {
-    network       = "${google_compute_network.apigeenet.name}"
-    access_config = {}
-  }
-
-  disk {
-    auto_delete = true
-    boot        = true
-
-    source_image = "${data.google_compute_image.apigeenet-base-system-image.self_link}"
-    disk_size_gb = 60
-    disk_type    = "pd-ssd"
-  }
+module "create-instance-template" {
+  source ="./apigeenet-instance-template"
+  instance_name = "planet-dc-1-ds-dc-1-rmp"
+  instance_network = "${google_compute_network.apigeenet.name}"
+  instance_count = "2"
+  instance_size = "60"
+  group_manager_name = "planet-dc-1-ds-dc-1-rmp-1"
+  group_manager_port = "9001"
+  group_manager_port_name = "apigee-rmp-vh-port"
 }
 
-data "google_compute_image" "apigeenet-base-system-image" {
-  name    = "centos-7-v20190423"
-  project = "centos-cloud"
-}
+
+//resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
+//  name                      = "ms-ldap-ui-region-instance-group-manager"
+//  base_instance_name        = "${google_compute_instance_template.apigeenet-ms-instance-template.name}"
+//  region                    = "us-central1"
+//  instance_template         = "${google_compute_instance_template.apigeenet-ms-instance-template.self_link}"
+//  distribution_policy_zones = ["us-central1-a"]
+//  target_size               = 1
+//
+//  named_port {
+//    name = "apigeenet-ms-ui-port"
+//    port = 9000
+//  }
+//}
+
+
+//resource "google_compute_instance_template" "apigeenet-ms-instance-template" {
+//  name           = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
+//  machine_type   = "n1-standard-1"
+//  can_ip_forward = false
+//
+//  network_interface {
+//    network       = "${google_compute_network.apigeenet.name}"
+//    access_config = {}
+//  }
+//
+//  disk {
+//    auto_delete = true
+//    boot        = true
+//
+//    source_image = "${data.google_compute_image.apigeenet-base-system-image.self_link}"
+//    disk_size_gb = 60
+//    disk_type    = "pd-ssd"
+//  }
+//}
+//
+//data "google_compute_image" "apigeenet-base-system-image" {
+//  name    = "centos-7-v20190423"
+//  project = "centos-cloud"
+//}
 
 //# Add an apigee-vm instance
 module "apigee-bastion-vm" {
@@ -180,32 +204,32 @@ module "apigee-vm-1" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm-2" {
-  source           = "./internal-instance"
-  instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
-  instance_zone    = "us-central1-a"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
+//module "apigee-vm-2" {
+//  source           = "./internal-instance"
+//  instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
+//  instance_zone    = "us-central1-a"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp",
+//    "apigeenet-allow-rmp",
+//  ]
+//}
 
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
-    "apigeenet-allow-rmp",
-  ]
-}
-
-# Add an apigee-vm instance
-module "apigee-vm-3" {
-  source           = "./internal-instance"
-  instance_zone    = "us-central1-a"
-  instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
-    "apigeenet-allow-rmp",
-  ]
-}
+//# Add an apigee-vm instance
+//module "apigee-vm-3" {
+//  source           = "./internal-instance"
+//  instance_zone    = "us-central1-a"
+//  instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
+//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp",
+//    "apigeenet-allow-rmp",
+//  ]
+//}
 
 # Add an apigee-vm instance
 module "apigee-vm-4" {
