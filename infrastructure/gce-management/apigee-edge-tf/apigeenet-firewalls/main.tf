@@ -28,10 +28,7 @@ resource "google_compute_firewall" "apigeenet-allow-tcp-icmp" {
 
   allow {
     protocol = "${var.firewall_protocol}"
-
-    %{ if ${var.firewall_ports} != [] ~}
     ports    = "${var.firewall_ports}"
-    %{ endif ~}
   }
 }
 
