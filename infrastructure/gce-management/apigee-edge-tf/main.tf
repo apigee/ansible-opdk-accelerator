@@ -93,19 +93,19 @@ module "configure_apigeenet_firewalls_ssh" {
 
 module "configure_apigeenet_firewalls_mgmt_ui" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
-  firewall_name = "apigeenet-allow-mgmt-ui"
-  firewall_network = "${google_compute_network.apigeenet.self_link}"
-  firewall_protocol = "tcp"
-  firewall_ports = ["9000"]
+  firewall_name          = "apigeenet-allow-mgmt-ui"
+  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["9000"]
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
 module "configure_apigeenet_firewalls_rmp" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
-  firewall_name = "apigeenet-allow-rmp"
-  firewall_network = "${google_compute_network.apigeenet.self_link}"
-  firewall_protocol = "tcp"
-  firewall_ports = ["9001"]
+  firewall_name          = "apigeenet-allow-rmp"
+  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["9001"]
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
