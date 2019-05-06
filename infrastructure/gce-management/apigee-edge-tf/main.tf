@@ -110,7 +110,7 @@ module "configure_apigeenet_firewalls_ssh" {
 //}
 
 resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
-  name                      = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
+  name                      = "ms-ldap-ui-region-instance-group-manager"
   base_instance_name        = "${google_compute_instance_template.apigeenet-ms-instance-template.name}"
   region                    = "us-central1"
   instance_template         = "${google_compute_instance_template.apigeenet-ms-instance-template.self_link}"
@@ -124,7 +124,7 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-inst
 }
 
 resource "google_compute_instance_template" "apigeenet-ms-instance-template" {
-  name           = "ms-ldap-ui-base-instance"
+  name           = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
   machine_type   = "n1-standard-1"
   can_ip_forward = false
 
