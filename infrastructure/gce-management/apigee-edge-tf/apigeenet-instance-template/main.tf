@@ -2,7 +2,7 @@ variable "instance_name" {}
 
 variable "group_manager_name" {}
 
-variable "instance_network"  {}
+variable "instance_network" {}
 
 variable "instance_size" {
   default = 60

@@ -110,27 +110,26 @@ module "configure_apigeenet_firewalls_rmp" {
 }
 
 module "create-ms-ldap-ui-instance-template" {
-  source ="./apigeenet-instance-template"
-  instance_name = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
-  instance_network = "${google_compute_network.apigeenet.name}"
-  instance_count = "1"
-  instance_size = "60"
-  group_manager_name = "ms-ldap-ui-region-instance-group-manager"
-  group_manager_port = "9000"
+  source                  = "./apigeenet-instance-template"
+  instance_name           = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
+  instance_network        = "${google_compute_network.apigeenet.name}"
+  instance_count          = "1"
+  instance_size           = "60"
+  group_manager_name      = "ms-ldap-ui-region-instance-group-manager"
+  group_manager_port      = "9000"
   group_manager_port_name = "apigee-ms-ui-port"
 }
 
 module "create-rmp-instance-template" {
-  source ="./apigeenet-instance-template"
-  instance_name = "planet-dc-1-ds-dc-1-rmp"
-  instance_network = "${google_compute_network.apigeenet.name}"
-  instance_count = "2"
-  instance_size = "60"
-  group_manager_name = "planet-dc-1-ds-dc-1-rmp-1"
-  group_manager_port = "9001"
+  source                  = "./apigeenet-instance-template"
+  instance_name           = "planet-dc-1-ds-dc-1-rmp"
+  instance_network        = "${google_compute_network.apigeenet.name}"
+  instance_count          = "2"
+  instance_size           = "60"
+  group_manager_name      = "planet-dc-1-ds-dc-1-rmp-1"
+  group_manager_port      = "9001"
   group_manager_port_name = "apigee-rmp-vh-port"
 }
-
 
 //resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
 //  name                      = "ms-ldap-ui-region-instance-group-manager"
@@ -145,7 +144,6 @@ module "create-rmp-instance-template" {
 //    port = 9000
 //  }
 //}
-
 
 //resource "google_compute_instance_template" "apigeenet-ms-instance-template" {
 //  name           = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
