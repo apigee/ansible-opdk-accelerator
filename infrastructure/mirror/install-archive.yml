@@ -12,9 +12,9 @@
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules }
-    - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
+#    - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
     - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
-    - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
+#    - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
     - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
     - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
     - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
