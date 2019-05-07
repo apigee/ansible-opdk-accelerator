@@ -15,3 +15,5 @@
   roles:
   - { role: apigee-opdk-modules }
   - { role: apigee-opdk-setup-bootstrap-upload-archive, tags: ['upload'] }
+  - { role: apigee-opdk-setup-apigee-user, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user', 'bootstrap'] }
