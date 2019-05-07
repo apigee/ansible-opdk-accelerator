@@ -12,7 +12,7 @@
   tasks:
     - name: Ensure download folder exists
       file:
-        path: "{{ opdk_resource_path }}"
+        path: "{{ opdk_resources_path }}"
         state: directory
 
     - name: Update with Yum utilities
@@ -26,13 +26,13 @@
       become: true
       shell: "{{ item }}"
       with_items:
-      - "/usr/bin/yum reinstall --downloadonly --downloaddir={{ opdk_resource_path }} {{ archive_extra_packages | join(' ') }}"
-      - "/usr/bin/yumdownloader --dest={{ opdk_resource_path }} {{ archive_extra_packages | join(' ') }}"
-      - "/usr/bin/yumdownloader --dest={{ opdk_resource_path }} --resolve {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yum reinstall --downloadonly --downloaddir={{ opdk_resources_path }} {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yumdownloader --dest={{ opdk_resources_path }} {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yumdownloader --dest={{ opdk_resources_path }} --resolve {{ archive_extra_packages | join(' ') }}"
 
     - name: Create list of actual RPM
       find:
-        path: "{{ opdk_resource_path }}"
+        path: "{{ opdk_resources_path }}"
         pattern: "*.rpm"
         file_type: file
       register: package_names
