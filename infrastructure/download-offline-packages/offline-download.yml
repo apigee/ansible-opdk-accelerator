@@ -4,7 +4,6 @@
   gather_facts: no
   tags: ['download']
   vars:
-    package_folder: "/tmp/edge"
     local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}"
     property_folders:
       - "~/.apigee"
@@ -13,7 +12,7 @@
   tasks:
     - name: Ensure download folder exists
       file:
-        path: "{{ package_folder }}"
+        path: "{{ opdk_resource_path }}"
         state: directory
 
     - name: Update with Yum utilities
@@ -26,13 +25,13 @@
       become: true
       shell: "{{ item }}"
       with_items:
-      - "/usr/bin/yum reinstall --downloadonly --downloaddir={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
-      - "/usr/bin/yumdownloader --dest={{ package_folder }} {{ archive_extra_packages | join(' ') }}"
-      - "/usr/bin/yumdownloader --dest={{ package_folder }} --resolve {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yum reinstall --downloadonly --downloaddir={{ opdk_resource_path }} {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yumdownloader --dest={{ opdk_resource_path }} {{ archive_extra_packages | join(' ') }}"
+      - "/usr/bin/yumdownloader --dest={{ opdk_resource_path }} --resolve {{ archive_extra_packages | join(' ') }}"
 
     - name: Create list of actual RPM
       find:
-        path: "{{ package_folder }}"
+        path: "{{ opdk_resource_path }}"
         pattern: "*.rpm"
         file_type: file
       register: package_names
@@ -49,7 +48,6 @@
   gather_facts: no
   tags: ['upload']
   vars:
-    package_folder: "/tmp/edge"
     local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}"
     property_folders:
       - "~/.apigee"
