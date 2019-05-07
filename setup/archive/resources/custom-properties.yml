@@ -11,7 +11,7 @@ assign_mgmt_ip: True
 # apigeereleasever: 4.18.01
  apigee_repo_url: "http://software.apigee.com"
  opdk_license_source_file_name: ~/.apigee-secure/license.txt
- opdk_license_target_file_path: /tmp/edge/license.conf
+ opdk_license_target_file_path: "{{ opdk_resources_path }}/license.conf"
 
 # pip_index_url: "https://private.repository.com/api/pypi/Pypi-remote/simple"
 # pip_conf_dir: "~/.pip"

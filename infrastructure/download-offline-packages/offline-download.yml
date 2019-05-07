@@ -4,7 +4,7 @@
   gather_facts: no
   tags: ['download']
   vars:
-    local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}"
+    local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}/resources/rpms"
     property_folders:
       - "~/.apigee"
   roles:
@@ -49,7 +49,7 @@
   gather_facts: no
   tags: ['upload']
   vars:
-    local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}"
+    local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}/resources/rpms"
     property_folders:
       - "~/.apigee"
   roles:
