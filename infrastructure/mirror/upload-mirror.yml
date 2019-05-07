@@ -9,7 +9,6 @@
   vars:
     apigee_home: "/opt/apigee"
     local_apigee_path: "~/.apigee"
-    opdk_resources_path: "/tmp/edge"
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
