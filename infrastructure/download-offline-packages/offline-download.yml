@@ -53,7 +53,7 @@
     property_folders:
       - "~/.apigee"
   roles:
-    - { role: apigee-
+    - { role: apigee-opdk-modules, tags: ['cache'] }
   tasks:
     - name: Ensure target folder exists
       become: true
