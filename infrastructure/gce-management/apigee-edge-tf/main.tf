@@ -15,6 +15,10 @@ resource "google_compute_router" "apigeenet-subnet-router" {
   }
 }
 
+output "apigeenet_self_link" {
+  value = "${google_compute_network.apigeenet.self_link}
+}
+
 # Create the gateway nat for the apigeenet-subnet-router
 resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   name                               = "apigeenet-subnet-nat"
