@@ -86,5 +86,6 @@
       yum:
         name: "{{ apigee_home | default('/opt/apigee') }}/data/apigee-mirror/repos/thirdparty/7/{{ item.path | basename }}"
         state: present
+        disable_gpg_check: yes
       with_items: "{{ package_names.files }}"
 
