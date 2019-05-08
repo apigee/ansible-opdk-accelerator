@@ -186,7 +186,7 @@ module "apigee-bastion-vm" {
 
   instance_external_ip  = "Ephemeral"
   instance_scopes       = ["compute-rw", "storage-ro"]
-  service_account_email = "313223894095-compute@developer.gserviceaccount.com"
+//  service_account_email = "313223894095-compute@developer.gserviceaccount.com"
 }
 
 # Add an apigee-vm instance
