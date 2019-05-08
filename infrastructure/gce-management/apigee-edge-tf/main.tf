@@ -14,7 +14,7 @@ resource "google_compute_router" "apigeenet-subnet-router" {
   region = "us-east1"
 
   //  network = "${google_compute_network.apigeenet.self_link}"
-  network = "default"
+  network = "${data.google_compute_network.defaultnet.self_link}"
 
   bgp {
     asn = 64514
