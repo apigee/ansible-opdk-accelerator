@@ -188,8 +188,8 @@ module "apigee-bastion-vm" {
     "apigeenet-allow-icmp",
   ]
 
-  instance_external_ip  = "Ephemeral"
-  instance_scopes       = ["compute-rw", "storage-ro"]
+  instance_external_ip = "Ephemeral"
+  instance_scopes      = ["compute-rw", "storage-ro"]
 }
 
 # Add an apigee-vm instance
