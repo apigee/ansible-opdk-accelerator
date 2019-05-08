@@ -7,7 +7,7 @@ resource "google_compute_network" "apigeenet" {
 # Create apigeenet-subnet-router
 resource "google_compute_router" "apigeenet-subnet-router" {
   name    = "apigeenet-subnet-router"
-  region  = "us-central1"
+  region  = "us-east1"
   network = "${google_compute_network.apigeenet.self_link}"
 
   bgp {
@@ -19,7 +19,7 @@ resource "google_compute_router" "apigeenet-subnet-router" {
 resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   name                               = "apigeenet-subnet-nat"
   router                             = "${google_compute_router.apigeenet-subnet-router.name}"
-  region                             = "us-central1"
+  region                             = "us-east1"
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
@@ -136,9 +136,9 @@ module "create-rmp-instance-template" {
 //resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
 //  name                      = "ms-ldap-ui-region-instance-group-manager"
 //  base_instance_name        = "${google_compute_instance_template.apigeenet-ms-instance-template.name}"
-//  region                    = "us-central1"
+//  region                    = "us-east1"
 //  instance_template         = "${google_compute_instance_template.apigeenet-ms-instance-template.self_link}"
-//  distribution_policy_zones = ["us-central1-a"]
+//  distribution_policy_zones = ["us-east1-d"]
 //  target_size               = 1
 //
 //  named_port {
@@ -176,7 +176,7 @@ module "create-rmp-instance-template" {
 module "apigee-bastion-vm" {
   source           = "./external-instance"
   instance_name    = "apigee-bastion"
-  instance_zone    = "us-central1-a"
+  instance_zone    = "us-east1-d"
   instance_network = "${google_compute_network.apigeenet.self_link}"
 
   instance_tags = [
@@ -193,7 +193,7 @@ module "apigee-bastion-vm" {
 module "apigee-vm-1" {
   source           = "./internal-instance"
   instance_name    = "planet-dc-1-ds-1"
-  instance_zone    = "us-central1-a"
+  instance_zone    = "us-east1-d"
   instance_network = "${google_compute_network.apigeenet.self_link}"
 
   instance_tags = [
@@ -207,7 +207,7 @@ module "apigee-vm-1" {
 //module "apigee-vm-2" {
 //  source           = "./internal-instance"
 //  instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
-//  instance_zone    = "us-central1-a"
+//  instance_zone    = "us-east1-d"
 //  instance_network = "${google_compute_network.apigeenet.self_link}"
 //
 //  instance_tags = [
@@ -220,7 +220,7 @@ module "apigee-vm-1" {
 //# Add an apigee-vm instance
 //module "apigee-vm-3" {
 //  source           = "./internal-instance"
-//  instance_zone    = "us-central1-a"
+//  instance_zone    = "us-east1-d"
 //  instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
 //  instance_network = "${google_compute_network.apigeenet.self_link}"
 //
@@ -235,7 +235,7 @@ module "apigee-vm-1" {
 module "apigee-vm-4" {
   source           = "./internal-instance"
   instance_name    = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
-  instance_zone    = "us-central1-a"
+  instance_zone    = "us-east1-d"
   instance_network = "${google_compute_network.apigeenet.self_link}"
 
   instance_tags = [
@@ -248,7 +248,7 @@ module "apigee-vm-4" {
 module "apigee-vm-5" {
   source           = "./internal-instance"
   instance_name    = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
-  instance_zone    = "us-central1-a"
+  instance_zone    = "us-east1-d"
   instance_network = "${google_compute_network.apigeenet.self_link}"
 
   instance_tags = [
