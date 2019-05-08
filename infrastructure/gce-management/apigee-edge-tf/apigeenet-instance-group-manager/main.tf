@@ -13,11 +13,11 @@ variable "instance_count" {
 }
 
 variable "instance_region" {
-  default = "us-central1"
+  default = "us-east1"
 }
 
 variable "instance_distribution_policy_zones" {
-  default = ["us-central1-a"]
+  default = ["us-east1-d"]
 }
 
 variable "group_manager_port" {}
