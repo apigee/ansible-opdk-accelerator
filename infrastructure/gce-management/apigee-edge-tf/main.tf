@@ -86,7 +86,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 module "configure_apigeenet_firewalls_icmp" {
   source                 = "apigeenet-firewalls-protocol-only"
   firewall_name          = "apigeenet-allow-icmp"
-  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
   firewall_protocol      = "icmp"
   firewall_source_ranges = ["10.0.0.0/8"]
 }
@@ -94,7 +94,7 @@ module "configure_apigeenet_firewalls_icmp" {
 module "configure_apigeenet_firewalls_ssh" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-ssh"
-  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
   firewall_protocol      = "tcp"
   firewall_ports         = ["22"]
   firewall_source_ranges = ["10.0.0.0/8"]
@@ -103,7 +103,7 @@ module "configure_apigeenet_firewalls_ssh" {
 module "configure_apigeenet_firewalls_mgmt_ui" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-mgmt-ui"
-  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
   firewall_protocol      = "tcp"
   firewall_ports         = ["9000"]
   firewall_source_ranges = ["10.0.0.0/8"]
@@ -112,7 +112,7 @@ module "configure_apigeenet_firewalls_mgmt_ui" {
 module "configure_apigeenet_firewalls_rmp" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-rmp"
-  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
   firewall_protocol      = "tcp"
   firewall_ports         = ["9001"]
   firewall_source_ranges = ["10.0.0.0/8"]
@@ -121,7 +121,7 @@ module "configure_apigeenet_firewalls_rmp" {
 module "create-ms-ldap-ui-instance-template" {
   source                  = "apigeenet-instance-group-manager"
   instance_name           = "planet-group-dc-1-ms-dc-1-ldap-dc-1-ui"
-  instance_network        = "${google_compute_network.apigeenet.name}"
+  instance_network        = "${data.google_compute_network.defaultnet.name}"
   instance_count          = "1"
   instance_size           = "60"
   instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
@@ -133,7 +133,7 @@ module "create-ms-ldap-ui-instance-template" {
 module "create-rmp-instance-template" {
   source                  = "apigeenet-instance-group-manager"
   instance_name           = "planet-dc-1-ds-dc-1-rmp"
-  instance_network        = "${google_compute_network.apigeenet.name}"
+  instance_network        = "${data.google_compute_network.defaultnet.name}"
   instance_count          = "2"
   instance_size           = "60"
   instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-rmp"]
@@ -162,7 +162,7 @@ module "create-rmp-instance-template" {
 //  can_ip_forward = false
 //
 //  network_interface {
-//    network       = "${google_compute_network.apigeenet.name}"
+//    network       = "${data.google_compute_network.defaultnet.name}"
 //    access_config = {}
 //  }
 //
@@ -186,7 +186,7 @@ module "apigee-bastion-vm" {
   source           = "./external-instance"
   instance_name    = "apigee-bastion"
   instance_zone    = "us-east1-d"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
+  instance_network = "${data.google_compute_network.defaultnet.self_link}"
 
   instance_tags = [
     "apigeenet-allow-ssh",
@@ -202,7 +202,7 @@ module "apigee-vm-1" {
   source           = "./internal-instance"
   instance_name    = "planet-dc-1-ds-1"
   instance_zone    = "us-east1-d"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
+  instance_network = "${data.google_compute_network.defaultnet.self_link}"
 
   instance_tags = [
     "apigeenet-allow-ssh",
@@ -216,7 +216,7 @@ module "apigee-vm-1" {
 //  source           = "./internal-instance"
 //  instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
 //  instance_zone    = "us-east1-d"
-//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//  instance_network = "${data.google_compute_network.defaultnet.self_link}"
 //
 //  instance_tags = [
 //    "apigeenet-allow-ssh",
@@ -230,7 +230,7 @@ module "apigee-vm-1" {
 //  source           = "./internal-instance"
 //  instance_zone    = "us-east1-d"
 //  instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
-//  instance_network = "${google_compute_network.apigeenet.self_link}"
+//  instance_network = "${data.google_compute_network.defaultnet.self_link}"
 //
 //  instance_tags = [
 //    "apigeenet-allow-ssh",
@@ -244,7 +244,7 @@ module "apigee-vm-4" {
   source           = "./internal-instance"
   instance_name    = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
   instance_zone    = "us-east1-d"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
+  instance_network = "${data.google_compute_network.defaultnet.self_link}"
 
   instance_tags = [
     "apigeenet-allow-ssh",
@@ -257,7 +257,7 @@ module "apigee-vm-5" {
   source           = "./internal-instance"
   instance_name    = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
   instance_zone    = "us-east1-d"
-  instance_network = "${google_compute_network.apigeenet.self_link}"
+  instance_network = "${data.google_compute_network.defaultnet.self_link}"
 
   instance_tags = [
     "apigeenet-allow-ssh",
