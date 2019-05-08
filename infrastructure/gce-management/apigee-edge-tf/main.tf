@@ -10,9 +10,10 @@ data "google_compute_network" "defaultnet" {
 
 # Create apigeenet-subnet-router
 resource "google_compute_router" "apigeenet-subnet-router" {
-  name    = "apigeenet-subnet-router"
-  region  = "us-east1"
-//  network = "${google_compute_network.apigeenet.self_link}"
+  name   = "apigeenet-subnet-router"
+  region = "us-east1"
+
+  //  network = "${google_compute_network.apigeenet.self_link}"
   network = "default"
 
   bgp {
