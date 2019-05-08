@@ -1,14 +1,19 @@
 # Create the apigeenet network
-resource "google_compute_network" "apigeenet" {
-  name                    = "apigeenet"
-  auto_create_subnetworks = "true"
+//resource "google_compute_network" "apigeenet" {
+//  name                    = "apigeenet"
+//  auto_create_subnetworks = "true"
+//}
+
+data "google_compute_network" "defaultnet" {
+  name = "default"
 }
 
 # Create apigeenet-subnet-router
 resource "google_compute_router" "apigeenet-subnet-router" {
   name    = "apigeenet-subnet-router"
   region  = "us-east1"
-  network = "${google_compute_network.apigeenet.self_link}"
+//  network = "${google_compute_network.apigeenet.self_link}"
+  network = "default"
 
   bgp {
     asn = 64514
@@ -16,7 +21,7 @@ resource "google_compute_router" "apigeenet-subnet-router" {
 }
 
 output "apigeenet_self_link" {
-  value = "${google_compute_network.apigeenet.self_link}"
+  value = "${data.google_compute_network.defaultnet.self_link}"
 }
 
 # Create the gateway nat for the apigeenet-subnet-router
