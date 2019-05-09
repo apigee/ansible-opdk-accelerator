@@ -84,7 +84,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 //  check_interval_sec = 1
 //}
 
-module "configure_apigeenet_firewalls_icmp" {
+module "configure_firewall_apigeenet_allow_icmp" {
   source                 = "apigeenet-firewalls-protocol-only"
   firewall_name          = "apigeenet-allow-icmp"
   firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
@@ -92,7 +92,7 @@ module "configure_apigeenet_firewalls_icmp" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-module "configure_apigeenet_firewalls_ssh" {
+module "configure_firewall_apigeenet_allow_ssh" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-ssh"
   firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
@@ -101,7 +101,7 @@ module "configure_apigeenet_firewalls_ssh" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-module "configure_apigeenet_firewalls_mgmt_ui" {
+module "configure_firewall_apigeenet_allow_mgmt_ui" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-mgmt-ui"
   firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
@@ -110,7 +110,7 @@ module "configure_apigeenet_firewalls_mgmt_ui" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-module "configure_apigeenet_firewalls_rmp" {
+module "configure_firewall_apigeenet_allow_rmp" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-rmp"
   firewall_network       = "${data.google_compute_network.defaultnet.self_link}"
@@ -119,40 +119,40 @@ module "configure_apigeenet_firewalls_rmp" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-module "configure_firewall_default_allow_icmp" {
-  source = "apigeenet-firewalls-protocol-only"
-  firewall_name = "default-allow-icmp"
-  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
-  firewall_protocol = "icmp"
-  firewall_source_ranges = "['0.0.0.0/0']"
-}
+//module "configure_firewall_default_allow_icmp" {
+//  source = "apigeenet-firewalls-protocol-only"
+//  firewall_name = "default-allow-icmp"
+//  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
+//  firewall_protocol = "icmp"
+//  firewall_source_ranges = "['0.0.0.0/0']"
+//}
 
-module "configure_firewall_default_allow_internal" {
-  source = "apigeenet-firewalls-protocol-with-ports"
-  firewall_name = "default-allow-internal"
-  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
-  firewall_protocol = "tcp"
-  firewall_source_ranges = "['10.128.0.0/9']"
-  firewall_ports = ["tcp:0-65535","udp:0-65535","icmp"]
-}
+//module "configure_firewall_default_allow_internal" {
+//  source = "apigeenet-firewalls-protocol-with-ports"
+//  firewall_name = "default-allow-internal"
+//  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
+//  firewall_protocol = "tcp"
+//  firewall_source_ranges = "['10.128.0.0/9']"
+//  firewall_ports = ["tcp:0-65535","udp:0-65535","icmp"]
+//}
 
-module "configure_firewall_default_allow_rdp" {
-  source = "apigeenet-firewalls-protocol-with-ports"
-  firewall_name = "default-allow-rdp"
-  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
-  firewall_protocol = "tcp"
-  firewall_source_ranges = "['0.0.0.0/0']"
-  firewall_ports = ["3389"]
-}
+//module "configure_firewall_default_allow_rdp" {
+//  source = "apigeenet-firewalls-protocol-with-ports"
+//  firewall_name = "default-allow-rdp"
+//  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
+//  firewall_protocol = "tcp"
+//  firewall_source_ranges = "['0.0.0.0/0']"
+//  firewall_ports = ["3389"]
+//}
 
-module "configure_firewall_default_allow_ssh" {
-  source = "apigeenet-firewalls-protocol-with-ports"
-  firewall_name = "default-allow-ssh"
-  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
-  firewall_protocol = "tcp"
-  firewall_source_ranges = "['0.0.0.0/0']"
-  firewall_ports = ["22"]
-}
+//module "configure_firewall_default_allow_ssh" {
+//  source = "apigeenet-firewalls-protocol-with-ports"
+//  firewall_name = "default-allow-ssh"
+//  firewall_network = "${data.google_compute_network.defaultnet.self_link}"
+//  firewall_protocol = "tcp"
+//  firewall_source_ranges = "['0.0.0.0/0']"
+//  firewall_ports = ["22"]
+//}
 
 module "create-ms-ldap-ui-instance-template" {
   source                  = "apigeenet-instance-group-manager"
