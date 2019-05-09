@@ -11,7 +11,7 @@
     - apigee-opdk-modules
   tasks:
   - name: LDAP TLS check
-    shell: "ldapsearch -x -d 1  -p {{ ldap_data_port }} -h {{ ansible_ssh_host }} -LLL"
+    shell: "ldapsearch -x -d 1  -p {{ ldap_data_port }} -h {{ ansible_ssh_host }} -w {{ opdk_ldap_pass }} -LLL"
 
 - name: View LDAP system user
   hosts: ms
