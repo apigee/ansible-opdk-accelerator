@@ -2,10 +2,17 @@
 - name: Create infrastructure
   hosts: localhost
   vars:
-    terraform_download_link: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+    terraform_download_links:
+      Debian: "https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip"
+      MacOSX: "https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_darwin_amd64.zip"
+
 #    terraform_download_link: https://releases.hashicorp.com/terraform/0.12.0-beta2/terraform_0.12.0-beta2_linux_amd64.zip
 
   tasks:
+    - name: Set terraform link
+      set_fact:
+        terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"
+
     - name: Download Terraform binary
       get_url:
         url: "{{ terraform_download_link }}"
@@ -21,4 +28,5 @@
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
         project_path: "{{ playbook_dir }}"
+        force_init: true
         state: present
