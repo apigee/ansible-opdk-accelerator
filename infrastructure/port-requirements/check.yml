@@ -1,7 +1,7 @@
 ---
 - name: Update cache
   hosts: planet
-  tags: ['cache','ms','ldap','ds','router','mp','qpid','pg']
+  tags: ['cache','ms','ldap','ds', 'zk', 'router','mp','qpid','pg']
   strategy: free
   roles:
   - { role: apigee-opdk-settings-private-address }
@@ -36,6 +36,17 @@
   roles:
     - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
 
+
+- name: Validate that Zookeeper port requirements are met
+  hosts: ds
+  tags: ['zk']
+  strategy: free
+  vars:
+    ports:
+    - "{{ zk_ports }}"
+  roles:
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ds'] }}" }
+    - { role: apigee-opdk-port-check, host_list: "{{ groups['ms'] }}" }
 
 - name: Validate that Cassandra  port requirements are met
   hosts: ds
