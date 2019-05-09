@@ -11,7 +11,7 @@
     - apigee-opdk-modules
   tasks:
   - name: LDAP TLS check
-    shell: "ldapsearch -x -d 1 -LLL"
+    shell: "ldapsearch -x -d 1  -p {{ ldap_data_port }} -LLL"
 
 - name: View LDAP system user
   hosts: ms
