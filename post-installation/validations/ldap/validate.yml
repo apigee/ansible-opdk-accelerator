@@ -1,4 +1,18 @@
 ---
+- name: LDAP TLS check
+  hosts: ms
+  gather_facts: no
+  tags: ['tls']
+  vars:
+    ldap_data_port: 10389
+    property_folders:
+      - "~/.apigee-secure"
+  roles:
+    - apigee-opdk-modules
+  tasks:
+  - name: LDAP TLS check
+    shell: "ldapsearch -x -d 1 -LLL"
+
 - name: View LDAP system user
   hosts: ms
   gather_facts: no
