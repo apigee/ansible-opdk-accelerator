@@ -26,15 +26,15 @@ output "apigeenet_self_link" {
 }
 
 # Create the gateway nat for the apigeenet-subnet-router
-//resource "google_compute_router_nat" "apigeenet-subnet-nat" {
-//  name = "apigeenet-subnet-nat"
-//
-//  //  router                             = "${google_compute_router.apigeenet-subnet-router.name}"
-//  router                             = "apigeenet-subnet-router"
-//  region                             = "us-east1"
-//  nat_ip_allocate_option             = "AUTO_ONLY"
-//  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-//}
+resource "google_compute_router_nat" "apigeenet-subnet-nat" {
+  name = "apigeenet-subnet-nat"
+
+  //  router                             = "${google_compute_router.apigeenet-subnet-router.name}"
+  router                             = "apigeenet-subnet-router"
+  region                             = "us-east1"
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+}
 
 # Reserve an external address
 //resource "google_compute_global_address" "apigeenet-ms-global-address" {
@@ -239,7 +239,7 @@ module "apigee-bastion-vm" {
 # Add an apigee-vm instance
 module "apigee-vm-1" {
   source           = "./internal-instance"
-  instance_name    = "planet-dc-1-ds-1"
+  instance_name    = "planet-dc-1-ds-dc-1-ms-dc-1-ldap-dc-1-ui-1"
   instance_zone    = "us-east1-d"
   instance_network = "${google_compute_network.apigeenet.self_link}"
 

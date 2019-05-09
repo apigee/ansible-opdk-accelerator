@@ -18,7 +18,10 @@
   gather_facts: no
   tags: ['ldap']
   vars:
-    ldap_data_port: 10389
+    ldap_data_port: 1
+
+
+    0389
     property_folders:
       - "~/.apigee-secure"
   roles:
