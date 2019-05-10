@@ -66,16 +66,18 @@ resource "google_compute_backend_service" "apigeenet-ms-backend-service" {
   name             = "apigeenet-ms-backend-service"
   protocol         = "HTTP"
   port_name        = "apigeenet-ms-ui-port"
+
   timeout_sec      = 10
   session_affinity = "NONE"
 
   backend {
     //    group = "${google_compute_region_instance_group_manager.apigeenet-ms-group-instance.instance_group}"
     group = "${module.create-ms-ldap-ui-instance-template.instance_group}"
+
   }
 
   health_checks = [
-    "${google_compute_http_health_check.apigeenet-ms-http-health-check.self_link}",
+    "${google_compute_http_health_check.apigeenet-ms-http-health-check.self_link}"
   ]
 }
 
@@ -84,6 +86,7 @@ resource "google_compute_http_health_check" "apigeenet-ms-http-health-check" {
   request_path       = "/v1/servers/self/up"
   timeout_sec        = 1
   check_interval_sec = 1
+  port = 8080
 }
 
 module "configure_firewall_apigeenet_allow_icmp" {
@@ -165,7 +168,7 @@ module "create-ms-ldap-ui-instance-template" {
   instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
   group_manager_name      = "ms-ldap-ui-region-instance-group-manager"
   group_manager_port      = "9000"
-  group_manager_port_name = "apigee-ms-ui-port"
+  group_manager_port_name = "apigeenet-ms-ui-port"
 }
 
 //module "create-rmp-instance-template" {
