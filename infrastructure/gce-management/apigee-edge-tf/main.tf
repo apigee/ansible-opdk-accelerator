@@ -59,13 +59,12 @@ resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
 resource "google_compute_url_map" "apigeenet-ms-url-map" {
   name            = "apigeenet-ms-url-map"
   default_service = "${google_compute_backend_service.apigeenet-ms-backend-service.self_link}"
-
 }
 
 resource "google_compute_backend_service" "apigeenet-ms-backend-service" {
-  name             = "apigeenet-ms-backend-service"
-  protocol         = "HTTP"
-  port_name        = "apigeenet-ms-ui-port"
+  name      = "apigeenet-ms-backend-service"
+  protocol  = "HTTP"
+  port_name = "apigeenet-ms-ui-port"
 
   timeout_sec      = 10
   session_affinity = "NONE"
@@ -73,11 +72,10 @@ resource "google_compute_backend_service" "apigeenet-ms-backend-service" {
   backend {
     //    group = "${google_compute_region_instance_group_manager.apigeenet-ms-group-instance.instance_group}"
     group = "${module.create-ms-ldap-ui-instance-template.instance_group}"
-
   }
 
   health_checks = [
-    "${google_compute_http_health_check.apigeenet-ms-http-health-check.self_link}"
+    "${google_compute_http_health_check.apigeenet-ms-http-health-check.self_link}",
   ]
 }
 
@@ -86,7 +84,7 @@ resource "google_compute_http_health_check" "apigeenet-ms-http-health-check" {
   request_path       = "/v1/servers/self/up"
   timeout_sec        = 1
   check_interval_sec = 1
-  port = 8080
+  port               = 8080
 }
 
 module "configure_firewall_apigeenet_allow_icmp" {
@@ -111,7 +109,7 @@ module "configure_firewall_apigeenet_allow_mgmt_ui" {
   firewall_name          = "apigeenet-allow-mgmt-ui"
   firewall_network       = "${google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
-  firewall_ports         = ["9000"]
+  firewall_ports         = ["9000", "80", "8080"]
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
