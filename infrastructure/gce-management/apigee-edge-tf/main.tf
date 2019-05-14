@@ -1,40 +1,11 @@
 # Create the apigeenet network
 //resource "google_compute_network" "apigeenet" {
-//  name = "apigeenet"
-//
-//  //  auto_create_subnetworks = "true"
+//  name                    = "apigeenet"
+//  auto_create_subnetworks = "true"
 //}
 
 data "google_compute_network" "apigeenet" {
   name = "default"
-}
-
-variable "router_name" {
-  default = "apigeenet-subnet-router"
-}
-
-variable "region" {
-  default = "us-east1"
-}
-
-variable "zone" {
-  default = "us-east1-d"
-}
-
-# Create apigeenet-subnet-router
-//resource "google_compute_router" "apigeenet-subnet-router" {
-//  name   = "apigeenet-subnet-router"
-//  region = "${var.region}"
-//
-//  network = "${data.google_compute_network.apigeenet.self_link}"
-//
-//  bgp {
-//    asn = 64514
-//  }
-//}
-
-output "apigeenet_self_link" {
-  value = "${data.google_compute_network.apigeenet.self_link}"
 }
 
 # Create the gateway nat for the apigeenet-subnet-router
@@ -52,10 +23,6 @@ resource "google_compute_global_address" "apigeenet-ms-global-address" {
   name = "apigeenet-ms-global-address"
 }
 
-output "ms_global_address" {
-  value = "${google_compute_global_address.apigeenet-ms-global-address.address}"
-}
-
 # Create the global forwarding rule for Apigee MS
 resource "google_compute_global_forwarding_rule" "apigeenet-ms-forwarding-rule" {
   name       = "apigeenet-ms-forwarding-rule"
@@ -71,33 +38,66 @@ resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
 
 resource "google_compute_url_map" "apigeenet-ms-url-map" {
   name            = "apigeenet-ms-url-map"
-  default_service = "${google_compute_backend_service.apigeenet-ms-backend-service.self_link}"
+  default_service = "${google_compute_backend_service.apigeenet-ms-ui-backend-service.self_link}"
 }
 
-resource "google_compute_backend_service" "apigeenet-ms-backend-service" {
-  name      = "apigeenet-ms-backend-service"
-  protocol  = "HTTP"
-  port_name = "apigeenet-ms-ui-port"
+resource "google_compute_backend_service" "apigeenet-ms-ui-backend-service" {
+  name     = "apigeenet-ms-ui-backend-service"
+  protocol = "HTTP"
+
+  port_name = "${var.apigee_ms_ui_port_name}"
 
   timeout_sec      = 10
   session_affinity = "NONE"
 
   backend {
-    group = "${module.create-aio-instance-template.instance_group}"
+    group = "${module.create-aio-ui-instance-group-manager.instance_group}"
   }
 
   health_checks = [
-    "${google_compute_http_health_check.apigeenet-ms-http-health-check.self_link}",
+    "${google_compute_health_check.apigeenet-ms-ui-health-check.self_link}",
   ]
 }
 
-resource "google_compute_http_health_check" "apigeenet-ms-http-health-check" {
-  name               = "apigeenet-ms-http-health-check"
-  request_path       = "/v1/servers/self/up"
-  timeout_sec        = 1
-  check_interval_sec = 1
-  port               = 8080
+resource "google_compute_health_check" "apigeenet-ms-ui-health-check" {
+  name               = "apigeenet-ms-ui-health-check"
+  timeout_sec        = 5
+  check_interval_sec = 21
+
+  http_health_check {
+    port         = "${var.apigee_ms_ui_port}"
+    request_path = "/login"
+  }
 }
+
+//
+//resource "google_compute_backend_service" "apigeenet-ms-api-backend-service" {
+//  name     = "apigeenet-ms-api-backend-service"
+//  protocol = "HTTP"
+//
+//  //  port_name = "${var.apigee_ms_api_port_name}"
+//
+//  timeout_sec      = 10
+//  session_affinity = "NONE"
+//  backend {
+//    group = "${module.create-aio-ui-instance-group-manager.instance_group}"
+//  }
+//  health_checks = [
+//    "${google_compute_health_check.apigeenet-ms-api-health-check.self_link}",
+//  ]
+//}
+//
+//resource "google_compute_health_check" "apigeenet-ms-api-health-check" {
+//  name               = "apigeenet-ms-api-health-check"
+//  timeout_sec        = 5
+//  check_interval_sec = 21
+//
+//  http_health_check {
+//    port     = "${var.apigee_ms_api_port}"
+//    request_path  = "/v1/servers/self/up"
+//    response = ""
+//  }
+//}
 
 //module "configure_firewall_apigeenet_allow_icmp" {
 //  source                 = "apigeenet-firewalls-protocol-only"
@@ -169,7 +169,7 @@ resource "google_compute_http_health_check" "apigeenet-ms-http-health-check" {
 //  firewall_ports = ["22"]
 //}
 
-module "create-aio-instance-template" {
+module "create-aio-ui-instance-group-manager" {
   source           = "apigeenet-instance-group-manager"
   instance_name    = "planet-aio"
   instance_network = "${data.google_compute_network.apigeenet.name}"
@@ -177,32 +177,49 @@ module "create-aio-instance-template" {
   instance_size    = "60"
 
   //  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
-  instance_tags           = ["http-server"]
+  instance_tags           = ["http-server", "g-on-g-notify-ignore"]
   group_manager_name      = "aio-region-instance-group-manager"
-  group_manager_port      = "9000"
-  group_manager_port_name = "apigeenet-ms-ui-port"
+  group_manager_port      = "${var.apigee_ms_ui_port}"
+  group_manager_port_name = "${var.apigee_ms_ui_port_name}"
   machine_type            = "n1-standard-4"
 
-  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
+  //  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
 }
+
+//module "create-aio-api-instance-group-manager" {
+//  source           = "apigeenet-instance-group-manager"
+//  instance_name    = "planet-aio"
+//  instance_network = "${data.google_compute_network.apigeenet.name}"
+//  instance_count   = "1"
+//  instance_size    = "60"
+//
+//  //  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
+//  instance_tags           = ["http-server", "g-on-g-notify-ignore"]
+//  group_manager_name      = "api-region-instance-group-manager"
+//  group_manager_port      = "${var.apigee_ms_api_port}"
+//  group_manager_port_name = "${var.apigee_ms_api_port_name}"
+//  machine_type            = "n1-standard-4"
+//
+//  //  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
+//}
 
 //
 //module "create-ms-ldap-ui-instance-template" {
 //  source                  = "apigeenet-instance-group-manager"
 //  instance_name           = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
-//  instance_network        = "${google_compute_network.apigeenet.name}"
+//  instance_network        = "${data.google_compute_network.apigeenet.name}"
 //  instance_count          = "1"
 //  instance_size           = "60"
 //  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
 //  group_manager_name      = "ms-ldap-ui-region-instance-group-manager"
 //  group_manager_port      = "9000"
-//  group_manager_port_name = "apigeenet-ms-ui-port"
+//  group_manager_port_name = "${var.apigee_ms_ui_port_name}"
 //}
 
 //module "create-rmp-instance-template" {
 //  source                  = "apigeenet-instance-group-manager"
 //  instance_name           = "planet-dc-1-ds-dc-1-rmp"
-//  instance_network        = "${google_compute_network.apigeenet.name}"
+//  instance_network        = "${data.google_compute_network.apigeenet.name}"
 //  instance_count          = "2"
 //  instance_size           = "60"
 //  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-rmp"]
@@ -220,7 +237,7 @@ module "create-aio-instance-template" {
 //  target_size               = 1
 //
 //  named_port {
-//    name = "apigeenet-ms-ui-port"
+//    name = "${var.apigee_ms_ui_port_name}"
 //    port = 9000
 //  }
 //}
@@ -231,7 +248,7 @@ module "create-aio-instance-template" {
 //  can_ip_forward = false
 //
 //  network_interface {
-//    network       = "${google_compute_network.apigeenet.name}"
+//    network       = "${data.google_compute_network.apigeenet.name}"
 //    access_config = {}
 //  }
 //
@@ -258,7 +275,7 @@ module "apigee-bastion-vm" {
   instance_network = "${data.google_compute_network.apigeenet.self_link}"
 
   //  instance_tags = ["apigeenet-allow-ssh", "apigeenet-allow-icmp"]
-  instance_tags = ["http-server"]
+  instance_tags = ["http-server", "g-on-g-notify-ignore"]
 
   instance_external_ip = "Ephemeral"
   instance_scopes      = ["compute-rw", "storage-ro"]

@@ -31,7 +31,7 @@ variable "machine_type" {
   default = "n1-standard-1"
 }
 
-variable "ip_address" {}
+//variable "ip_address" {}
 
 resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-instance" {
   name                      = "${var.group_manager_name}"
@@ -60,9 +60,7 @@ resource "google_compute_instance_template" "apigeenet-base-instance-template" {
   network_interface {
     network = "${var.instance_network}"
 
-    access_config = {
-      nat_ip = "${var.ip_address}"
-    }
+    access_config = {}
   }
 
   disk {
