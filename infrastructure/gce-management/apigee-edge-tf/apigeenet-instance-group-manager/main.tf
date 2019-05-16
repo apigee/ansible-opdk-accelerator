@@ -63,6 +63,10 @@ resource "google_compute_instance_template" "apigeenet-base-instance-template" {
     access_config = {}
   }
 
+  labels {
+    g-on-g-notify-ignore = ""
+  }
+
   disk {
     auto_delete = true
     boot        = true
