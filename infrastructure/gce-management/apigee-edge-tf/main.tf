@@ -115,24 +115,24 @@ resource "google_compute_health_check" "apigeenet-ms-ui-health-check" {
 //  firewall_ports         = ["22"]
 //  firewall_source_ranges = ["10.0.0.0/8"]
 //}
-//
-//module "configure_firewall_apigeenet_allow_mgmt_ui" {
-//  source                 = "apigeenet-firewalls-protocol-with-ports"
-//  firewall_name          = "apigeenet-allow-mgmt-ui"
-//  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
-//  firewall_protocol      = "tcp"
-//  firewall_ports         = ["9000", "80", "8080"]
-//  firewall_source_ranges = ["10.0.0.0/8"]
-//}
-//
-//module "configure_firewall_apigeenet_allow_rmp" {
-//  source                 = "apigeenet-firewalls-protocol-with-ports"
-//  firewall_name          = "apigeenet-allow-rmp"
-//  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
-//  firewall_protocol      = "tcp"
-//  firewall_ports         = ["9001"]
-//  firewall_source_ranges = ["10.0.0.0/8"]
-//}
+
+module "configure_firewall_apigeenet_allow_mgmt_ui" {
+  source                 = "apigeenet-firewalls-protocol-with-ports"
+  firewall_name          = "apigeenet-allow-mgmt-ui"
+  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["9000", "80", "8080"]
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
+
+module "configure_firewall_apigeenet_allow_rmp" {
+  source                 = "apigeenet-firewalls-protocol-with-ports"
+  firewall_name          = "apigeenet-allow-rmp"
+  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["9001"]
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
 
 //module "configure_firewall_default_allow_icmp" {
 //  source = "apigeenet-firewalls-protocol-only"
@@ -177,7 +177,11 @@ module "create-aio-ui-instance-group-manager" {
   instance_size    = "60"
 
   //  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
-  instance_tags           = ["http-server", "g-on-g-notify-ignore"]
+  instance_tags = [
+    "http-server",
+    "apigeenet-allow-mgmt-ui",
+  ]
+
   group_manager_name      = "aio-region-instance-group-manager"
   group_manager_port      = "${var.apigee_ms_ui_port}"
   group_manager_port_name = "${var.apigee_ms_ui_port_name}"
