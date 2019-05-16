@@ -11,4 +11,4 @@
     - { key: 'conf/http.properties+HTTPClient.proxy.user', value: '{{ yum_proxy_username }}', file_name: 'message-processor' }
     - { key: 'conf/http.properties+HTTPClient.proxy.password', value: '{{ yum_proxy_password }}', file_name: 'message-processor' }
   roles:
-  - { roles: apigee-opdk-cwc-update }
+  - { role: apigee-opdk-cwc-update }
