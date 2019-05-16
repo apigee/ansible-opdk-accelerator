@@ -10,5 +10,9 @@
     - { key: 'conf/http.properties+HTTPClient.proxy.port', value: '{{ yum_proxy_port }}', file_name: 'message-processor' }
     - { key: 'conf/http.properties+HTTPClient.proxy.user', value: '{{ yum_proxy_username }}', file_name: 'message-processor' }
     - { key: 'conf/http.properties+HTTPClient.proxy.password', value: '{{ yum_proxy_password }}', file_name: 'message-processor' }
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
   roles:
+  - { role: apigee-opdk-modules }
   - { role: apigee-opdk-cwc-update }
