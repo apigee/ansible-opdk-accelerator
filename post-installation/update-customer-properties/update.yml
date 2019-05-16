@@ -7,7 +7,7 @@
     - { key: 'conf_http_HTTPClient.use.tunneling', value: 'false', file_name: 'message-processor' }
     - { key: 'conf/http.properties+HTTPClient.proxy.type', value: 'HTTP', file_name: 'message-processor' }
     - { key: 'conf/http.properties+HTTPClient.proxy.host', value: '{{ yum_proxy }}', file_name: 'message-processor' }
-    - { key: 'conf/http.properties+HTTPClient.proxy.port', value: '3128', file_name: 'message-processor' }
+    - { key: 'conf/http.properties+HTTPClient.proxy.port', value: '{{ yum_proxy_port }}', file_name: 'message-processor' }
     - { key: 'conf/http.properties+HTTPClient.proxy.user', value: '{{ yum_proxy_username }}', file_name: 'message-processor' }
     - { key: 'conf/http.properties+HTTPClient.proxy.password', value: '{{ yum_proxy_password }}', file_name: 'message-processor' }
   roles:
