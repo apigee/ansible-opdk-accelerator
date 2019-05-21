@@ -48,16 +48,16 @@ We define an initial data center as:
     [dc-1]
     # Listing of all nodes in data center 1 (dc-1)
     # Nodes are listed using inventory file syntax for Ansible
-    dc-1-n0 ansible_host=10.x.x.x
-    dc-1-n1 ansible_host=10.x.x.x
-    dc-1-n2 ansible_host=10.x.x.x
-    dc-1-n3 ansible_host=10.x.x.x
-    dc-1-n4 ansible_host=10.x.x.x
-    dc-1-n5 ansible_host=10.x.x.x
-    dc-1-n6 ansible_host=10.x.x.x
-    dc-1-n7 ansible_host=10.x.x.x
-    dc-1-n8 ansible_host=10.x.x.x
-    dc-1-n9 ansible_host=10.x.x.x
+    dc-1-n0 ansible_ssh_host=10.x.x.x
+    dc-1-n1 ansible_ssh_host=10.x.x.x
+    dc-1-n2 ansible_ssh_host=10.x.x.x
+    dc-1-n3 ansible_ssh_host=10.x.x.x
+    dc-1-n4 ansible_ssh_host=10.x.x.x
+    dc-1-n5 ansible_ssh_host=10.x.x.x
+    dc-1-n6 ansible_ssh_host=10.x.x.x
+    dc-1-n7 ansible_ssh_host=10.x.x.x
+    dc-1-n8 ansible_ssh_host=10.x.x.x
+    dc-1-n9 ansible_ssh_host=10.x.x.x
 
 ### Define a planet
 We define a planet as a group of data centers:
