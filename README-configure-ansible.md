@@ -28,13 +28,13 @@ that Ansible will use for server access, the location of the inventory files, th
 name of the cache folder. This can be accomplished by updating the Ansible configuration template file with the following
 information:
 
-        | Attribute | Description |
-        | --- | --- |
-        | remote_user | This is the name of the remote SSH user that Ansible will use to connect to target nodes. Replace the template text `UPDATE_WITH_SSH_USER_NAME` with the actual SSH username. |
-        | inventory | This is the location of the folder that contains the definition of the Ansible inventory that is served by this configuration file. We recommend using the convention of naming the inventory folder the same name as the target Ansible configuration file without the file extension. Replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` with the environment name. |
-        | fact_caching_connection | This is the location of the folder that contains the internal Ansible cache. The cache survives playbook invocations and is used to perform calculation necessary to generate configuration files required by Apigee to complete installations or configuration operations. Replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` with the environment name. |
-        | log_path | This is the location of the Ansible logs and system output to the command line that occurs during the invocation of any playbook or ad-hoc Ansible command. Replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` with the environment name. |
-        | private_key_file | The SSH private key that Ansible will use for SSH connection. Please validate that this attribute is set to the full path of the correct private SSH key. |
+    | Attribute | Description |
+    | --- | --- |
+    | remote_user | This is the name of the remote SSH user that Ansible will use to connect to target nodes. Replace the template text `UPDATE_WITH_SSH_USER_NAME` with the actual SSH username. |
+    | inventory | This is the location of the folder that contains the definition of the Ansible inventory that is served by this configuration file. We recommend using the convention of naming the inventory folder the same name as the target Ansible configuration file without the file extension. Replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` with the environment name. |
+    | fact_caching_connection | This is the location of the folder that contains the internal Ansible cache. The cache survives playbook invocations and is used to perform calculation necessary to generate configuration files required by Apigee to complete installations or configuration operations. Replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` with the environment name. |
+    | log_path | This is the location of the Ansible logs and system output to the command line that occurs during the invocation of any playbook or ad-hoc Ansible command. Replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` with the environment name. |
+    | private_key_file | The SSH private key that Ansible will use for SSH connection. Please validate that this attribute is set to the full path of the correct private SSH key. |
 
 1. Activate the Ansible configuration file as indicated in the section [Activate an Ansible Configuration](README-activate-an-ansible-configuration.md).
     
