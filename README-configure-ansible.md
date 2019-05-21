@@ -1,4 +1,4 @@
-# Configure Ansible
+# Configure Ansible OPDK Accelerator Resources
 
 Ansible provides a rich command line syntax by which you can indicate a wide array of configuration attributes. This is 
 useful for short sessions that do not need to be persisted over time. The use of the command line syntax over a long 
