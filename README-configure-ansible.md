@@ -36,6 +36,7 @@ information:
     | log_path | This is the location of the Ansible logs and system output to the command line that occurs during the invocation of any playbook or ad-hoc Ansible command. Replace the template text `TARGET_ENVIRONMENT_NAME_CONVENTION` with the environment name. |
     | private_key_file | The SSH private key that Ansible will use for SSH connection. Please validate that this attribute is set to the full path of the correct private SSH key. |
 
+1. Activate the Ansible configuration file as indicated in the section [Activate an Ansible Configuration](README-activate-an-ansible-configuration.md).
     
 1. Select an inventory template that is close enough to your target environment from the folder `~/.ansible/inventory/templates`. 
 You would apply the same convention used to create the Ansible configuration file to the creation of the inventory folder 
@@ -45,8 +46,6 @@ the prior step then the step that would give you the correct result would be
 
 
     cp -r ~/.ansible/inventory/templates/edge-5/ ~/.ansible/inventory/prod/.
-
-1. Activate the Ansible configuration file as indicated in the section [Activate an Ansible Configuration](README-activate-an-ansible-configuration.md).
 
 ## Next Steps
 
