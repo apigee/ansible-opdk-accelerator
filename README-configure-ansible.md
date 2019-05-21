@@ -37,10 +37,10 @@ information:
     | private_key_file | The SSH private key that Ansible will use for SSH connection. Please validate that this attribute is set to the full path of the correct private SSH key. |
 
     
-1. Select an inventory template that is close enough to your target environment from the folder ~/.ansible/inventory/templates. 
+1. Select an inventory template that is close enough to your target environment from the folder `~/.ansible/inventory/templates`. 
 You would apply the same convention used to create the Ansible configuration file to the creation of the inventory folder 
 so that the result would conform to the pattern `~/.ansible/inventory/{{ name_of_configuration_file_without_the_extension }}`. 
-For example, suppose that you are creating a 5 node Planet inventory for the prod.cfg configuration file you created in 
+For example, suppose that you are creating a 5 node Planet inventory for the `prod.cfg` configuration file you created in 
 the prior step then the step that would give you the correct result would be 
 
 
