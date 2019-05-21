@@ -4,6 +4,7 @@ This playbook will complete the installation of an Apigee Edge planet. This inst
 installation of either a single region or multiple regions. The installation of multiple regions follows Apigee 
 recommendations.  
 
-## Assumptions
+## Basic Usage
 
-This playbook makes [these assumptions](../README.md#assumptions).
+The instructions for using this installer is found in the main installations folder [README](../README.md). Please follow
+those instructions and use this folder as your execution location for the installation playbook.
