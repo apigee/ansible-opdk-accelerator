@@ -1,8 +1,8 @@
 # Apigee Edge Installations
 
-The folders in this section perform primary installations of the Apigee platform. These folders except `mirror` contain the playbook 
-`install.yml` that will perform the installation of Apigee Edge component as indicated by the folder name and the 
-contained README. This folder contains Ansible playbooks that will install the following Apigee components:
+The folders in this section perform primary installations of the Apigee platform. These folders except mirror contain 
+the playbook `install.yml` that will perform the installation of Apigee Edge component as indicated by the folder name 
+and the contained README. This folder contains Ansible playbooks that will install the following Apigee components:
 
 | Component Name | Description | 
 |--- | --- |
@@ -14,12 +14,14 @@ contained README. This folder contains Ansible playbooks that will install the f
 ## Assumptions
 
 1. [Configuration](../README.md#usage-overview ) steps have been completed. 
-1. [Activate an Ansible Configuration](../README-activate-an-ansible-configuration.md) has been completed.
+1. [Activate an Ansible Configuration](../README-configure-ansible.md) has been completed.
 
 ## Basic Usage
 We have created an `ansible-galaxy` requirements file `requirements.yml` that will download and install the roles 
-used by this playbook. `ansible-galaxy` expects a path to the `requirements.yml` file. Assuming you `cd` into the folder containing your target `requirements.yml` then you can download and install the required roles as follows: 
+used by this playbook. You can use `ansible-galaxy` in the following way:
 
+
+    cd installations/{{ aio or devportal or multi-node }}
     ansible-galaxy install -r requirements.yml -f
     
 Once the roles are installed you can invoke the install process as follows:

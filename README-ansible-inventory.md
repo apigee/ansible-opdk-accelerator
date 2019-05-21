@@ -6,7 +6,14 @@ We use a standard Ansible inventory file with semantic conventions applied using
 The semantic model applied to the Ansible inventory file is described in the following sections.
 
 # Inventory Templates
-[Inventory templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples) are provided.
+[Inventory templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples) are provided to enable a 
+quick start. It is important to select the template that most closely matches your target topology. These templates 
+require that you provide the IP address of the nodes you are using in the group that is named after the role that the 
+node will fulfill. The following sections describe how a 10 node planet would be configured. 
+
+## AIO Inventory Template
+The AIO is the only configuration that describes a 1 node planet. Other than updating the IP address of the target node
+the template can be used as is. The following description is meaningful for topologies beyond an AIO single node planet.
  
 ## Inventory Semantic Model Description
 Apigee components must be installed on servers that fulfill a specific role in the topology of Apigee 
@@ -19,7 +26,7 @@ on cloud providers like AWS or GCP. Please refer to the Ansible document
 [Working with Inventory](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html)
 for details. We use groups of groups to enable the framework to manage planets of any size. 
 
-## Managing Dynamic Inventory Defintions
+## Managing Dynamic Inventory Definitions
 Ansible enables you to manage inventory definitions in three ways. First you are able to explicitly 
 define nodes and IP addresses directly in a single inventory file. Next, you are able to indicate 
 that a file system folder be viewed as containing inventory definitions. This second approach allows
@@ -43,7 +50,8 @@ Inventory template files are installed using the setup that reduce modifications
 to only indicating server IP addresses. 
 
 ### Define an initial data center
-We define an initial data center as:
+Assuming that we configured the inventory to use `~/.ansible/inventory/prod` as our an initial data center containing 10 
+nodes then we would find the configuration as follows: 
 
     [dc-1]
     # Listing of all nodes in data center 1 (dc-1)
