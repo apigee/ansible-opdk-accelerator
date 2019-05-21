@@ -27,7 +27,9 @@ Ansible configurations can be provided by convention or with settings contained 
 configurations provided by conventions are convenient for runtime configurations that are short lived or have a reduced 
 scope. Ansible configuration files is appropriate when runtime configurations have a larger scope or have a greater 
 impact due to the long term maintenance or support concerns that are addressed. This repository provides support for the 
-large scope of installation, configuration and maintenance of Apigee Planets. We will configure Ansible configuration files.
+large scope of installation, configuration and maintenance of Apigee Planets. Consequently, this framework configures 
+Ansible configuration files so that logs, caches, inventory and roles can be located and shared across the different 
+Apigee Planets that may be supported. 
 
 ## Configure Ansible OPDK Accelerator Runtime Attributes
 
