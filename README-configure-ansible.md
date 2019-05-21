@@ -51,6 +51,3 @@ the prior step then the step that would give you the correct result would be
 
     cp -r ~/.ansible/inventory/templates/edge-5/ ~/.ansible/inventory/prod/.
 
-## Next Steps
-
-Please continue with the [next steps](README.md#usage-overview) in the process.
