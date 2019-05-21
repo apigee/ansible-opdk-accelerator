@@ -13,7 +13,7 @@ resource efficiency.
 The use of Ansible Vault is encouraged as a mechanism by which you may encrypt sensitive attributes. However it should 
 be noted that the use of Ansible Vault is not sufficient without the context of additional conscientious practices that 
 complete the security profile of the Ansible configuration. This repository enables conscientious security practices by 
-moving sensitive folders and files into the more secure user home directory into hidden folders that are not a part of 
+moving sensitive folders and files into more secure hidden folders of the user home directory that are not a part of 
 folders placed under source configuration management. This results in processes that make it easy to follow practices 
 that enhance security. 
 
