@@ -21,7 +21,7 @@ assume you will configure a `prod` environment and would name your Ansible confi
 accomplished in the following way: 
 
 
-    cp ~/.ansible/multi-planet-configurations/apigee-opdk-configuration-template.cfg ~/.ansible/multi-planet-configurations/prod.cfg
+        cp ~/.ansible/multi-planet-configurations/apigee-opdk-configuration-template.cfg ~/.ansible/multi-planet-configurations/prod.cfg
          
 1. Update the new template file for customization. In particular it is necessary for you to indicate the SSH user 
 that Ansible will use for server access, the location of the inventory files, the location of the log files, and the 
@@ -40,7 +40,7 @@ information:
 Activate the Ansible configuration as follows: 
 
 
-    export ANSIBLE_CONFIG=~/.ansible/multi-planet-configurations/prod.cfg
+        export ANSIBLE_CONFIG=~/.ansible/multi-planet-configurations/prod.cfg
     
 1. Select an inventory template that is close enough to your target environment from the folder `~/.ansible/inventory/templates`. 
 You would apply the same convention used to create the Ansible configuration file to the creation of the inventory folder 
@@ -49,5 +49,5 @@ For example, suppose that you are creating a 5 node Planet inventory for the `pr
 the prior step then the step that would give you the correct result would be 
 
 
-    cp -r ~/.ansible/inventory/templates/edge-5/ ~/.ansible/inventory/prod/.
+        cp -r ~/.ansible/inventory/templates/edge-5/ ~/.ansible/inventory/prod/.
 
