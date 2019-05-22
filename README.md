@@ -38,16 +38,20 @@ scripts and modules can be downloaded.
 ## Quick Start: Usage Overview
 The use of this framework is composed of the following steps:
 
-1. `git clone` this repository to `~/apigee-opdk-accelerator`.
+1. Clone this repository to `~/apigee-opdk-accelerator`.
+
+
+    git clone git@github.com:apigee/ansible-opdk-accelerator.git ~/apigee-opdk-accelerator
+    
 1. [Setup](setup#usage-instructions) an Ansible control server and workspace.
 1. Configure [Ansible and the Ansible inventory](README-ansible-configuration.md).
-1. Please update the [credentials](README-configure-credentials.md). Obtain the username and password from Apigee that you use to access the Apigee repository and set the attributes
+1. Please update the [credentials](README-credentials.md). Obtain the username and password from Apigee that you use to access the Apigee repository and set the attributes
 `apigee_repo_user` and `apigee_repo_password` in `~/.apigee-secure/credentials.yml`. 
 1. Review and update the default credentials for the Edge Administrative User that are set the attributes `opdk_user_email`
  and `opdk_user_pass` in `~/.apigee-secure/credentials.yml`.
 1. Obtain the license material provided by Apigee and place it in `~/.apigee-secure/license.txt`.
-1. Update common installation attributes like `opdk_version` that is stored in 
-`~/.apigee/custom-properties.yml`.
+1. Please review and update the runtime [attributes](README-runtime-attributes.md) as needed. Update common installation 
+attributes like `opdk_version` that is stored in `~/.apigee/custom-properties.yml`.
 1. Use `ansible-playbook` to carry out an activity from either the [installations](installations), [infrastructure](infrastructure) or [post-installation](post-installation) folders.
 
 <!-- BEGIN Google How To Contribute -->

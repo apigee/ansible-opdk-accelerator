@@ -1,0 +1,9 @@
+# Configure Ansible OPDK Accelerator Runtime Attributes
+
+The OPDK Accelerator is heavily parameterized. This enables the playbook to isolate changes to the inventory definition
+and the runtime attributes file. The runtime attributes are found in the folder `~/.apigee/`. Please see the table below
+to learn where default settings are provided for your use.
+
+
+| Attribute Name | Attribute Description |
+| --- | ---|
