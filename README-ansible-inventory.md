@@ -11,10 +11,6 @@ quick start. It is important to select the template that most closely matches yo
 require that you provide the IP address of the nodes you are using in the group that is named after the role that the 
 node will fulfill. The following sections describe how a 10 node planet would be configured. 
 
-## AIO Inventory Template
-The AIO is the only configuration that describes a 1 node planet. Other than updating the IP address of the target node
-the template can be used as is. The following description is meaningful for topologies beyond an AIO single node planet.
- 
 ## Inventory Semantic Model Description
 Apigee components must be installed on servers that fulfill a specific role in the topology of Apigee 
 Edge Private Cloud. These roles align with the installation profiles described in 
@@ -56,16 +52,16 @@ nodes then we would find the configuration as follows:
     [dc-1]
     # Listing of all nodes in data center 1 (dc-1)
     # Nodes are listed using inventory file syntax for Ansible
-    dc-1-n0 ansible_ssh_host=10.x.x.x
-    dc-1-n1 ansible_ssh_host=10.x.x.x
-    dc-1-n2 ansible_ssh_host=10.x.x.x
-    dc-1-n3 ansible_ssh_host=10.x.x.x
-    dc-1-n4 ansible_ssh_host=10.x.x.x
-    dc-1-n5 ansible_ssh_host=10.x.x.x
-    dc-1-n6 ansible_ssh_host=10.x.x.x
-    dc-1-n7 ansible_ssh_host=10.x.x.x
-    dc-1-n8 ansible_ssh_host=10.x.x.x
-    dc-1-n9 ansible_ssh_host=10.x.x.x
+    dc-1-node0 ansible_ssh_host=10.x.x.x
+    dc-1-node1 ansible_ssh_host=10.x.x.x
+    dc-1-node2 ansible_ssh_host=10.x.x.x
+    dc-1-node3 ansible_ssh_host=10.x.x.x
+    dc-1-node4 ansible_ssh_host=10.x.x.x
+    dc-1-node5 ansible_ssh_host=10.x.x.x
+    dc-1-node6 ansible_ssh_host=10.x.x.x
+    dc-1-node7 ansible_ssh_host=10.x.x.x
+    dc-1-node8 ansible_ssh_host=10.x.x.x
+    dc-1-node9 ansible_ssh_host=10.x.x.x
 
 ### Define a planet
 We define a planet as a group of data centers:
@@ -78,13 +74,13 @@ We define a planet as a group of data centers:
 We define a group of nodes that contain Edge roles as:
 
     [edge]
-    dc-1-n[0:9]
+    dc-1-node[0:9]
 
 ### Define a management server groups
 We then define a managment server group in dc-1 as: 
     
     [dc-1-ms]
-    dc-1-n0
+    dc-1-node0
     
 We can add dc-1-ms group to the larger group of all managment servers as: 
 
@@ -95,7 +91,7 @@ We can add dc-1-ms group to the larger group of all managment servers as:
 We can define a Cassandra & Zookeeper group in dc-1 as:
   
     [dc-1-ds]
-    dc-1-n[1:3]
+    dc-1-node[1:3]
     
 We can add the dc-1-ds group to the larger group of all Cassandra & Zookeeper groups as: 
 
@@ -106,7 +102,7 @@ We can add the dc-1-ds group to the larger group of all Cassandra & Zookeeper gr
 We can define Router & Message processor group in dc-1 as: 
 
     [dc-1-rmp]
-    dc-1-n[4:5]
+    dc-1-node[4:5]
     
 We can add the dc-1-rmp group to the larger group of all Routers & Message Processors as: 
 
@@ -117,7 +113,7 @@ We can add the dc-1-rmp group to the larger group of all Routers & Message Proce
 We can define the Qpid components group in dc-1 as:
     
     [dc-1-qpid]
-    dc-1-n[6:7]
+    dc-1-node[6:7]
 
 We can add the dc-1-qpid group to the larger group of all Qpid components as: 
 
@@ -128,7 +124,7 @@ We can add the dc-1-qpid group to the larger group of all Qpid components as:
 We can define the Postgres components group in dc-1 as: 
     
     [dc-1-pg]
-    dc-1-n[8:9]
+    dc-1-node[8:9]
     
 We can add the dc-1-pg group to the larger group of all Qpid components as:
 
@@ -140,14 +136,14 @@ This is an optional group that is needed only if a Postgres Master and Postgres 
 We can define a Postgres Master group as:
 
     [dc-1-pgmaster]
-    dc-1-n8
+    dc-1-node8
     
 ### Define Postgres Standby group
 This is an optional group that is needed only if a Postgres Master and Postgres Standby will be used. 
 We can define a Postgres Standby group as:
 
     [dc-1-pgstandby]
-    dc-1-n9
+    dc-1-node9
    
 ## Zookeeper Observer Nodes
 This is an optional attribute if number of Zookeeper nodes is odd. Please consult Apigee documentation
@@ -158,9 +154,9 @@ indicate which Zookeeper nodes should be designated as observer nodes. This is a
 follows: 
   
     [dc-1-ds]
-    dc-1-n1
-    dc-1-n2
-    dc-1-n3 zk_observer=true
+    dc-1-node1
+    dc-1-node2
+    dc-1-node3 zk_observer=true
 
 ## Cassandra Rack Aware Configuration
 This is an optional attribute. This attribute must configured to indicate to Cassandra that it is 
@@ -173,33 +169,33 @@ that node in the following way:
 
   
     [dc-1-ds]
-    dc-1-n1 rack=1,1
-    dc-1-n2 rack=1,1
-    dc-1-n3 rack=1,1
+    dc-1-node1 rack=1,1
+    dc-1-node2 rack=1,1
+    dc-1-node3 rack=1,1
 
 # Full Sample Inventory Configuration
 [Inventory templates](https://github.com/carlosfrias/apigee-opdk-ansible-inventory-samples) are provided.
    
     [dc-1-edge]
-    dc-1-n[0:9]
+    dc-1-node[0:9]
     
     [dc-1-ds]
-    dc-1-n[1:3]
+    dc-1-node[1:3]
     
     [dc-1-ms]
-    dc-1-n0
+    dc-1-node0
     
     [dc-1-rmp]
-    dc-1-n[4:5]
+    dc-1-node[4:5]
     
     [dc-1-qpid]
-    dc-1-n[6:7]
+    dc-1-node[6:7]
     
     [dc-1-pgmaster]
-    dc-1-n8
+    dc-1-node8
     
     [dc-1-pgstandby]
-    dc-1-n9
+    dc-1-node9
         
     # Groups of groups that don't need to be modified if using PG Master / PG Standby
     [planet:children]
@@ -241,6 +237,60 @@ that node in the following way:
     [pgstandby:children]
     dc-1-pgstandby
 
-## Next Steps
 
-Please continue with the [next steps](README.md#usage-overview) in the process.
+## AIO Inventory Template
+The AIO is the only configuration that describes a 1 node planet. Other than updating the IP address of the target node
+the template can be used as is. 
+
+
+    [aio]
+    apigee-000 ansible_ssh_host=10.x.x.x
+    
+    # NO MODIFICATIONS BELOW THIS LINE ARE NECESSARY
+    [edge:children]
+    aio
+    
+    [planet:children]
+    dc-1
+    
+    [dc-1:children]
+    aio
+    
+    [ds:children]
+    dc-1-ds
+    
+    [dc-1-ds:children]
+    aio
+    
+    [ms:children]
+    aio
+    
+    [dc-1-ms:children]
+    aio
+    
+    [dc-1-ldap:children]
+    aio
+    
+    [ldap:children]
+    aio
+    
+    [ui:children]
+    aio
+    
+    [rmp:children]
+    aio
+    
+    [dc-1-rmp:children]
+    aio
+    
+    [qpid:children]
+    dc-1-qpid
+    
+    [dc-1-qpid:children]
+    aio
+    
+    [pg:children]
+    aio
+    
+    [dc-1-pg:children]
+    aio
