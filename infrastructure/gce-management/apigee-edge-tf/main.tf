@@ -8,67 +8,75 @@ data "google_compute_network" "apigeenet" {
   name = "default"
 }
 
+# Create the apigeenet router
+resource "google_compute_router" "apigeenet-router" {
+  name    = "apigeenet-router"
+  network = "${data.google_compute_network.apigeenet.self_link}"
+}
+
 # Create the gateway nat for the apigeenet-subnet-router
 resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   name = "apigeenet-subnet-nat"
 
-  router                             = "${var.router_name}"
+  //  router                             = "${var.router_name}"
+  router                             = "${google_compute_router.apigeenet-router.name}"
   region                             = "${var.region}"
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
-# Reserve an external address
-resource "google_compute_global_address" "apigeenet-ms-global-address" {
-  name = "apigeenet-ms-global-address"
-}
+//
+//# Reserve an external address
+//resource "google_compute_global_address" "apigeenet-ms-global-address" {
+//  name = "apigeenet-ms-global-address"
+//}
 
 # Create the global forwarding rule for Apigee MS
-resource "google_compute_global_forwarding_rule" "apigeenet-ms-forwarding-rule" {
-  name       = "apigeenet-ms-forwarding-rule"
-  port_range = "80"
-  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
-  target     = "${google_compute_target_http_proxy.apigeenet-ms-http-proxy.self_link}"
-}
+//resource "google_compute_global_forwarding_rule" "apigeenet-ms-forwarding-rule" {
+//  name       = "apigeenet-ms-forwarding-rule"
+//  port_range = "80"
+//  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
+//  target     = "${google_compute_target_http_proxy.apigeenet-ms-http-proxy.self_link}"
+//}
+//
+//resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
+//  name    = "apigeenet-ms-http-proxy"
+//  url_map = "${google_compute_url_map.apigeenet-ms-url-map.self_link}"
+//}
+//
+//resource "google_compute_url_map" "apigeenet-ms-url-map" {
+//  name            = "apigeenet-ms-url-map"
+//  default_service = "${google_compute_backend_service.apigeenet-ms-ui-backend-service.self_link}"
+//}
 
-resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
-  name    = "apigeenet-ms-http-proxy"
-  url_map = "${google_compute_url_map.apigeenet-ms-url-map.self_link}"
-}
+//resource "google_compute_backend_service" "apigeenet-ms-ui-backend-service" {
+//  name     = "apigeenet-ms-ui-backend-service"
+//  protocol = "HTTP"
+//
+//  port_name = "${var.apigee_ms_ui_port_name}"
+//
+//  timeout_sec      = 10
+//  session_affinity = "NONE"
+//
+//  backend {
+//    group = "${module.create-aio-ui-instance-group-manager.instance_group}"
+//  }
+//
+//  health_checks = [
+//    "${google_compute_health_check.apigeenet-ms-ui-health-check.self_link}",
+//  ]
+//}
 
-resource "google_compute_url_map" "apigeenet-ms-url-map" {
-  name            = "apigeenet-ms-url-map"
-  default_service = "${google_compute_backend_service.apigeenet-ms-ui-backend-service.self_link}"
-}
-
-resource "google_compute_backend_service" "apigeenet-ms-ui-backend-service" {
-  name     = "apigeenet-ms-ui-backend-service"
-  protocol = "HTTP"
-
-  port_name = "${var.apigee_ms_ui_port_name}"
-
-  timeout_sec      = 10
-  session_affinity = "NONE"
-
-  backend {
-    group = "${module.create-aio-ui-instance-group-manager.instance_group}"
-  }
-
-  health_checks = [
-    "${google_compute_health_check.apigeenet-ms-ui-health-check.self_link}",
-  ]
-}
-
-resource "google_compute_health_check" "apigeenet-ms-ui-health-check" {
-  name               = "apigeenet-ms-ui-health-check"
-  timeout_sec        = 5
-  check_interval_sec = 21
-
-  http_health_check {
-    port         = "${var.apigee_ms_ui_port}"
-    request_path = "/login"
-  }
-}
+//resource "google_compute_health_check" "apigeenet-ms-ui-health-check" {
+//  name               = "apigeenet-ms-ui-health-check"
+//  timeout_sec        = 5
+//  check_interval_sec = 21
+//
+//  http_health_check {
+//    port         = "${var.apigee_ms_ui_port}"
+//    request_path = "/login"
+//  }
+//}
 
 //
 //resource "google_compute_backend_service" "apigeenet-ms-api-backend-service" {
@@ -116,23 +124,23 @@ resource "google_compute_health_check" "apigeenet-ms-ui-health-check" {
 //  firewall_source_ranges = ["10.0.0.0/8"]
 //}
 
-module "configure_firewall_apigeenet_allow_mgmt_ui" {
-  source                 = "apigeenet-firewalls-protocol-with-ports"
-  firewall_name          = "apigeenet-allow-mgmt-ui"
-  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
-  firewall_protocol      = "tcp"
-  firewall_ports         = ["9000", "80", "8080"]
-  firewall_source_ranges = ["10.0.0.0/8"]
-}
-
-module "configure_firewall_apigeenet_allow_rmp" {
-  source                 = "apigeenet-firewalls-protocol-with-ports"
-  firewall_name          = "apigeenet-allow-rmp"
-  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
-  firewall_protocol      = "tcp"
-  firewall_ports         = ["9001"]
-  firewall_source_ranges = ["10.0.0.0/8"]
-}
+//module "configure_firewall_apigeenet_allow_mgmt_ui" {
+//  source                 = "apigeenet-firewalls-protocol-with-ports"
+//  firewall_name          = "apigeenet-allow-mgmt-ui"
+//  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
+//  firewall_protocol      = "tcp"
+//  firewall_ports         = ["9000", "80", "8080"]
+//  firewall_source_ranges = ["10.0.0.0/8"]
+//}
+//
+//module "configure_firewall_apigeenet_allow_rmp" {
+//  source                 = "apigeenet-firewalls-protocol-with-ports"
+//  firewall_name          = "apigeenet-allow-rmp"
+//  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
+//  firewall_protocol      = "tcp"
+//  firewall_ports         = ["9001"]
+//  firewall_source_ranges = ["10.0.0.0/8"]
+//}
 
 //module "configure_firewall_default_allow_icmp" {
 //  source = "apigeenet-firewalls-protocol-only"
@@ -169,26 +177,26 @@ module "configure_firewall_apigeenet_allow_rmp" {
 //  firewall_ports = ["22"]
 //}
 
-module "create-aio-ui-instance-group-manager" {
-  source           = "apigeenet-instance-group-manager"
-  instance_name    = "planet-aio"
-  instance_network = "${data.google_compute_network.apigeenet.name}"
-  instance_count   = "1"
-  instance_size    = "60"
-
-  //  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
-  instance_tags = [
-    "http-server",
-    "apigeenet-allow-mgmt-ui",
-  ]
-
-  group_manager_name      = "aio-region-instance-group-manager"
-  group_manager_port      = "${var.apigee_ms_ui_port}"
-  group_manager_port_name = "${var.apigee_ms_ui_port_name}"
-  machine_type            = "n1-standard-4"
-
-  //  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
-}
+//module "create-aio-ui-instance-group-manager" {
+//  source           = "apigeenet-instance-group-manager"
+//  instance_name    = "planet-aio"
+//  instance_network = "${data.google_compute_network.apigeenet.name}"
+//  instance_count   = "1"
+//  instance_size    = "60"
+//
+//  //  instance_tags           = ["apigeenet-allow-ssh", "apigeenet-allow-mgmt-ui"]
+//  instance_tags = [
+//    "http-server",
+//    "apigeenet-allow-mgmt-ui",
+//  ]
+//
+//  group_manager_name      = "aio-region-instance-group-manager"
+//  group_manager_port      = "${var.apigee_ms_ui_port}"
+//  group_manager_port_name = "${var.apigee_ms_ui_port_name}"
+//  machine_type            = "n1-standard-4"
+//
+//  //  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
+//}
 
 //module "create-aio-api-instance-group-manager" {
 //  source           = "apigeenet-instance-group-manager"
@@ -272,17 +280,31 @@ module "create-aio-ui-instance-group-manager" {
 //}
 
 //# Add an apigee-vm instance
-module "apigee-bastion-vm" {
-  source           = "./external-instance"
-  instance_name    = "apigee-bastion"
+//module "apigee-bastion-vm" {
+//  source           = "./external-instance"
+//  instance_name    = "apigee-bastion"
+//  instance_zone    = "${var.zone}"
+//  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+//
+//  //  instance_tags = ["apigeenet-allow-ssh", "apigeenet-allow-icmp"]
+//  instance_tags = ["http-server", "g-on-g-notify-ignore"]
+//
+//  instance_external_ip = "Ephemeral"
+//  instance_scopes      = ["compute-rw", "storage-ro"]
+//}
+
+# Add an apigee-vm instance
+module "apigee-vm-aio" {
+  source           = "./internal-instance"
+  instance_name    = "planet-aio"
   instance_zone    = "${var.zone}"
   instance_network = "${data.google_compute_network.apigeenet.self_link}"
 
-  //  instance_tags = ["apigeenet-allow-ssh", "apigeenet-allow-icmp"]
-  instance_tags = ["http-server", "g-on-g-notify-ignore"]
-
-  instance_external_ip = "Ephemeral"
-  instance_scopes      = ["compute-rw", "storage-ro"]
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+  ]
 }
 
 # Add an apigee-vm instance

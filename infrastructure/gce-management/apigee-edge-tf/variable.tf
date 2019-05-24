@@ -1,5 +1,6 @@
 variable "router_name" {
-  default = "apigeenet-subnet-router"
+  //  default = "apigeenet-subnet-router"
+  default = "default"
 }
 
 variable "region" {
