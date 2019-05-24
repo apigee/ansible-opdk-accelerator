@@ -299,6 +299,7 @@ module "apigee-vm-aio" {
   instance_name    = "planet-aio"
   instance_zone    = "${var.zone}"
   instance_network = "${data.google_compute_network.apigeenet.self_link}"
+  instance_type    = "n1-standard-4"
 
   instance_tags = [
     "apigeenet-allow-ssh",
