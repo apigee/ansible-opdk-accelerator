@@ -295,7 +295,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 
 # Add an apigee-vm instance
 module "apigee-vm-aio" {
-  source           = "./internal-instance"
+  source           = "internal-instance"
   instance_name    = "planet-aio"
   instance_zone    = "${var.zone}"
   instance_network = "${data.google_compute_network.apigeenet.self_link}"
@@ -305,6 +305,8 @@ module "apigee-vm-aio" {
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp",
     "apigeenet-allow-mgmt-ui",
+    "mgmtui",
+    "int-lb",
   ]
 }
 

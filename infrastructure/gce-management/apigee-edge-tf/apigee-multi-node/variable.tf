@@ -4,11 +4,13 @@ variable "router_name" {
 }
 
 variable "region" {
-  default = "us-east1"
+  //  default = "us-east1"
+  default = "us-central1"
 }
 
 variable "zone" {
-  default = "us-east1-d"
+  //  default = "us-east1-d"
+  default = "us-central1-c"
 }
 
 variable "apigee_ms_ui_port_name" {

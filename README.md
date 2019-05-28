@@ -1,4 +1,4 @@
-# Apigee Private Cloud Ansible Accelerator
+# Apigee Private Cloud Accelerator
 
 ## Introduction
 This repository contains a set of Ansible roles and playbooks to manage the installation, 
