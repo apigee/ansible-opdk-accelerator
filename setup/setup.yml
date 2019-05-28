@@ -3,6 +3,9 @@
   hosts: localhost
   connection: local
   vars:
+     property_folders:
+       - "~/.apigee-secure"
+       - "~/.apigee"
 #     This is the location in which Ansible files can be installed.
      ansible_workspace: "~/.ansible"
 

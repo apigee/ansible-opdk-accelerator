@@ -1,9 +1,4 @@
 # Create the apigeenet network
-//resource "google_compute_network" "apigeenet" {
-//  name                    = "apigeenet"
-//  auto_create_subnetworks = "true"
-//}
-
 data "google_compute_network" "apigeenet" {
   name = "default"
 }

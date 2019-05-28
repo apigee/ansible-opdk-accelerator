@@ -9,6 +9,12 @@
 #    terraform_download_link: https://releases.hashicorp.com/terraform/0.12.0/terraform_0.12.0_linux_amd64.zip
 
   tasks:
+    - name: Install archive managment packages
+      yum:
+        name: "unzip"
+        state: present
+      whe
+
     - name: Set terraform link
       set_fact:
         terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"

@@ -4,5 +4,5 @@ provider "google" {
 
   //  project     = "friasc-lab"
   project = "edge-ops-lab"
-  region  = "us-east1"
+  region  = "us-central1"
 }

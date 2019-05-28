@@ -13,7 +13,7 @@ resource "google_compute_router" "apigeenet-router" {
 resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   name = "apigeenet-subnet-nat"
 
-//    router                             = "${var.router_name}"
+  //    router                             = "${var.router_name}"
   router                             = "${google_compute_router.apigeenet-router.name}"
   region                             = "${var.region}"
   nat_ip_allocate_option             = "AUTO_ONLY"
@@ -35,6 +35,8 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   network_interface {
-    network       = "${data.google_compute_network.apigeenet.self_link}"
+    network = "${data.google_compute_network.apigeenet.self_link}"
+
+    //    access_config = {}
   }
 }

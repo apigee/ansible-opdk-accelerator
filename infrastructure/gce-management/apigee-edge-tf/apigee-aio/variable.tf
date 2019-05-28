@@ -28,9 +28,9 @@ variable "machine_type" {
 
 variable "instance_tags" {
   default = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
-    "apigeenet-allow-mgmt-ui",
+    //    "apigeenet-allow-ssh",
+    //    "apigeenet-allow-icmp",
+    //    "apigeenet-allow-mgmt-ui",
     "mgmtui",
     "int-lb",
   ]
