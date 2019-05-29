@@ -3,15 +3,11 @@ variable "router_name" {
 }
 
 variable "region" {
-  default = "us-central1"
+  default = "us-east1"
 }
 
 variable "zone" {
-  default = "us-central1-c"
-}
-
-variable "instance_name" {
-  default = "planet-aio"
+  default = "us-east1-b"
 }
 
 variable "image_name" {
@@ -26,12 +22,10 @@ variable "machine_type" {
   default = "n1-standard-4"
 }
 
-variable "instance_tags" {
-  default = [
-    //    "apigeenet-allow-ssh",
-    //    "apigeenet-allow-icmp",
-    //    "apigeenet-allow-mgmt-ui",
-    "mgmtui",
-    "int-lb",
-  ]
+variable "instance_scopes" {
+  default = ["compute-rw", "storage-ro"]
+}
+
+variable "service_account_email" {
+  default = "313223894095-compute@developer.gserviceaccount.com"
 }

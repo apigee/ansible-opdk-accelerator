@@ -20,7 +20,6 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
-//
 //# Reserve an external address
 //resource "google_compute_global_address" "apigeenet-ms-global-address" {
 //  name = "apigeenet-ms-global-address"
@@ -33,7 +32,7 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 //  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
 //  target     = "${google_compute_target_http_proxy.apigeenet-ms-http-proxy.self_link}"
 //}
-//
+
 //resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
 //  name    = "apigeenet-ms-http-proxy"
 //  url_map = "${google_compute_url_map.apigeenet-ms-url-map.self_link}"
@@ -268,108 +267,101 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 //    disk_type    = "pd-ssd"
 //  }
 //}
-//
+
 //data "google_compute_image" "apigeenet-base-system-image" {
 //  name    = "centos-7-v20190423"
 //  project = "centos-cloud"
 //}
 
 //# Add an apigee-vm instance
-//module "apigee-bastion-vm" {
-//  source           = "./external-instance"
-//  instance_name    = "apigee-bastion"
-//  instance_zone    = "${var.zone}"
-//  instance_network = "${data.google_compute_network.apigeenet.self_link}"
-//
-//  //  instance_tags = ["apigeenet-allow-ssh", "apigeenet-allow-icmp"]
-//  instance_tags = ["http-server", "g-on-g-notify-ignore"]
-//
-//  instance_external_ip = "Ephemeral"
-//  instance_scopes      = ["compute-rw", "storage-ro"]
-//}
-
-# Add an apigee-vm instance
-module "apigee-vm-aio" {
-  source           = "internal-instance"
-  instance_name    = "planet-aio"
+module "apigee-bastion-vm" {
+  source           = "./external-instance"
+  instance_name    = "apigee-bastion"
   instance_zone    = "${var.zone}"
   instance_network = "${data.google_compute_network.apigeenet.self_link}"
-  instance_type    = "n1-standard-4"
+
+  //  instance_tags = ["apigeenet-allow-ssh", "apigeenet-allow-icmp"]
+  instance_tags = ["http-server", "g-on-g-notify-ignore"]
+
+  instance_external_ip = "Ephemeral"
+  instance_scopes      = ["compute-rw", "storage-ro"]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-1" {
+  source           = "./internal-instance"
+  instance_name    = "planet-dc-1-ds-dc-1-ms-dc-1-ldap-dc-1-ui-1"
+  instance_zone    = "${var.zone}"
+  instance_network = "${data.google_compute_network.apigeenet.self_link}"
 
   instance_tags = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp",
     "apigeenet-allow-mgmt-ui",
-    "mgmtui",
-    "int-lb",
   ]
 }
 
 # Add an apigee-vm instance
-//module "apigee-vm-1" {
-//  source           = "./internal-instance"
-//  instance_name    = "planet-dc-1-ds-dc-1-ms-dc-1-ldap-dc-1-ui-1"
-//  instance_zone    = "${var.zone}"
-//  instance_network = "${data.google_compute_network.apigeenet.self_link}"
-//
-//  instance_tags = [
-//    "apigeenet-allow-ssh",
-//    "apigeenet-allow-icmp",
-//    "apigeenet-allow-mgmt-ui",
-//  ]
-//}
-//
-//# Add an apigee-vm instance
-//module "apigee-vm-2" {
-//  source           = "./internal-instance"
-//  instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
-//  instance_zone    = "${var.zone}"
-//  instance_network = "${data.google_compute_network.apigeenet.self_link}"
-//
-//  instance_tags = [
-//    "apigeenet-allow-ssh",
-//    "apigeenet-allow-icmp",
-//    "apigeenet-allow-rmp",
-//  ]
-//}
-//
-//# Add an apigee-vm instance
-//module "apigee-vm-3" {
-//  source           = "./internal-instance"
-//  instance_zone    = "${var.zone}"
-//  instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
-//  instance_network = "${data.google_compute_network.apigeenet.self_link}"
-//
-//  instance_tags = [
-//    "apigeenet-allow-ssh",
-//    "apigeenet-allow-icmp",
-//    "apigeenet-allow-rmp",
-//  ]
-//}
-//
-//# Add an apigee-vm instance
-//module "apigee-vm-4" {
-//  source           = "./internal-instance"
-//  instance_name    = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
-//  instance_zone    = "${var.zone}"
-//  instance_network = "${data.google_compute_network.apigeenet.self_link}"
-//
-//  instance_tags = [
-//    "apigeenet-allow-ssh",
-//    "apigeenet-allow-icmp",
-//  ]
-//}
-//
-//# Add an apigee-vm instance
-//module "apigee-vm-5" {
-//  source           = "./internal-instance"
-//  instance_name    = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
-//  instance_zone    = "${var.zone}"
-//  instance_network = "${data.google_compute_network.apigeenet.self_link}"
-//
-//  instance_tags = [
-//    "apigeenet-allow-ssh",
-//    "apigeenet-allow-icmp",
-//  ]
-//}
+module "apigee-vm-2" {
+  source           = "./internal-instance"
+  instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
+  instance_zone    = "${var.zone}"
+  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+
+  instance_tags = [
+    //    "apigeenet-allow-ssh",
+    //    "apigeenet-allow-icmp",
+    //    "apigeenet-allow-mgmt-ui",
+    "mgmtui",
+    "int-lb"
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-3" {
+  source           = "./internal-instance"
+  instance_zone    = "${var.zone}"
+  instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
+  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+
+  instance_tags = [
+    //    "apigeenet-allow-ssh",
+    //    "apigeenet-allow-icmp",
+    //    "apigeenet-allow-mgmt-ui",
+    "mgmtui",
+    "int-lb"
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-4" {
+  source           = "./internal-instance"
+  instance_name    = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
+  instance_zone    = "${var.zone}"
+  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+
+  instance_tags = [
+    //    "apigeenet-allow-ssh",
+    //    "apigeenet-allow-icmp",
+    //    "apigeenet-allow-mgmt-ui",
+    "mgmtui",
+    "int-lb"
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-5" {
+  source           = "./internal-instance"
+  instance_name    = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
+  instance_zone    = "${var.zone}"
+  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+
+  instance_tags = [
+    //    "apigeenet-allow-ssh",
+    //    "apigeenet-allow-icmp",
+    //    "apigeenet-allow-mgmt-ui",
+    "mgmtui",
+    "int-lb"
+  ]
+}
 

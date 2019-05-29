@@ -28,3 +28,15 @@ variable "apigee_ms_api_port_name" {
 variable "apigee_ms_api_port" {
   default = "8080"
 }
+
+variable "instance_tags" {
+  default = [
+    //    "apigeenet-allow-ssh",
+    //    "apigeenet-allow-icmp",
+    //    "apigeenet-allow-mgmt-ui",
+    "mgmtui",
+
+    "int-lb",
+    "http-server",
+  ]
+}
