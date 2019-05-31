@@ -27,10 +27,37 @@ module "configure_firewall_apigeenet_allow_mgmt_ui" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
+module "configure_firewall_apigeenet_allow_icmp" {
+  source                 = "apigeenet-firewalls-protocol-only"
+  firewall_name          = "apigeenet-allow-icmp"
+  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "icmp"
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
+
+module "configure_firewall_apigeenet_allow_ssh" {
+  source                 = "apigeenet-firewalls-protocol-with-ports"
+  firewall_name          = "apigeenet-allow-ssh"
+  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["22"]
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
+
+module "configure_firewall_apigeenet_allow_ssh_public" {
+  source                 = "apigeenet-firewalls-protocol-with-ports"
+  firewall_name          = "public-allow-ssh"
+  firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["22"]
+  firewall_source_ranges = ["0.0.0.0/0"]
+}
+
 resource "google_compute_instance" "bastion_instance" {
   name         = "apigee-bastion"
   zone         = "${var.zone}"
   machine_type = "${var.machine_type}"
+  tags         = ["apigeenet-allow-icmp", "public-allow-ssh"]
 
   boot_disk {
     initialize_params {
@@ -55,12 +82,12 @@ resource "google_compute_instance" "aio_instance" {
   name         = "planet-aio"
   zone         = "${var.zone}"
   machine_type = "${var.machine_type}"
-  tags         = ["mgmt-ui", "http-server"]
+  tags         = ["mgmt-ui", "http-server", "apigeenet-allow-icmp", "apigeenet-allow-ssh"]
 
   boot_disk {
     initialize_params {
       image = "${var.image_name}"
-      size  = 60
+      size  = 250
     }
   }
 

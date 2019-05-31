@@ -1,42 +1,31 @@
 variable "router_name" {
-  //  default = "apigeenet-subnet-router"
   default = "default"
 }
 
 variable "region" {
-  //  default = "us-east1"
-  default = "us-central1"
+  default = "us-east1"
 }
 
 variable "zone" {
-  //  default = "us-east1-d"
-  default = "us-central1-c"
+  default = "us-east1-b"
 }
 
-variable "apigee_ms_ui_port_name" {
-  default = "apigee-ms-ui-port"
+variable "image_name" {
+  default = "centos-7"
 }
 
-variable "apigee_ms_ui_port" {
-  default = "9000"
+variable "image_project" {
+  default = "centos-cloud"
 }
 
-variable "apigee_ms_api_port_name" {
-  default = "apigee-api-port"
+variable "machine_type" {
+  default = "n1-standard-4"
 }
 
-variable "apigee_ms_api_port" {
-  default = "8080"
+variable "instance_scopes" {
+  default = ["compute-rw", "storage-ro"]
 }
 
-variable "instance_tags" {
-  default = [
-    //    "apigeenet-allow-ssh",
-    //    "apigeenet-allow-icmp",
-    //    "apigeenet-allow-mgmt-ui",
-    "mgmtui",
-
-    "int-lb",
-    "http-server",
-  ]
+variable "service_account_email" {
+  default = "736255665193-compute@developer.gserviceaccount.com"
 }

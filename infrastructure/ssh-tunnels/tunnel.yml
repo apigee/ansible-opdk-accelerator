@@ -1,0 +1,17 @@
+---
+- name: Create SSH Tunnels
+  hosts: ms[0]
+
+  vars:
+    bastion_host_name: "apigee-bastion.us-east1-b.sandbox-173316"
+    target_hosts:
+    - { target_ip_address: "{{ hostvars[groups['ms'][0]]['private_address'] }}", target_port: "9000", port: "9000" }
+
+  tasks:
+  - name: Create SSH tunnels
+    shell: "ssh -f {{ bastion_host_name }} -L {{ item.port }}:{{ item.target_ip_address }}:{{ item.target_port }} -N"
+    with_items: "{{ target_hosts }}"
+    async: 5
+    poll: 0
+    delegate_to: 127.0.0.1
+

@@ -19,6 +19,10 @@ variable "instance_external_ip" {
   default = ""
 }
 
+variable "instance_disk_size" {
+  default = 100
+}
+
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
@@ -28,7 +32,7 @@ resource "google_compute_instance" "vm_instance" {
   boot_disk {
     initialize_params {
       image = "${var.instance_image}"
-      size  = 60
+      size  = "${var.instance_disk_size}"
     }
   }
 

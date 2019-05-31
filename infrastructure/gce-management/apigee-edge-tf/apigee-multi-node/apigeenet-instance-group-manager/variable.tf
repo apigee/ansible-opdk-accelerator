@@ -32,3 +32,4 @@ variable "machine_type" {
 }
 
 //variable "ip_address" {}
+

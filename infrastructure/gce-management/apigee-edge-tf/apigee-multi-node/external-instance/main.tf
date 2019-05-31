@@ -27,15 +27,22 @@ variable "service_account_email" {
   default = ""
 }
 
+variable "instance_disk_size" {
+  default = 100
+}
+
+
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
   tags         = "${var.instance_tags}"
+  labels       = {}
 
   boot_disk {
     initialize_params {
       image = "${var.instance_image}"
+      size  = "${var.instance_disk_size}"
     }
   }
 
