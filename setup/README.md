@@ -8,6 +8,7 @@ setup provides you with a common configuration convention that simplifies managi
 or several planets of any size.  
 
 ## Assumptions
+* Ansible version 2.7.7. 
 * Ansible is installed on the server set aside as an Ansible Controller. 
 * The `setup.yml` playbook uses the [Apigee OPDK Setup Ansible Controller](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) 
 role to configure an Ansible controller to use the framework. The `setup.yml` assumes that the you 

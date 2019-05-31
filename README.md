@@ -33,7 +33,7 @@ scripts and modules can be downloaded.
 * We assume that you have an introductory understanding of [Ansible](https://docs.ansible.com/) and 
 [Ansible Galaxy](https://galaxy.ansible.com/docs/).
 * Availability of administrative privilege escalation on the control server and the target nodes.
-* Ansible version 2.7.x or greater. 
+* Ansible version 2.7.7. 
 
 ## Quick Start: Usage Overview
 The use of this framework is composed of the following steps:
