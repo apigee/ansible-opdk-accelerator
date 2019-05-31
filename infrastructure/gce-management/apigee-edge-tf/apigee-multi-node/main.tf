@@ -301,7 +301,7 @@ module "configure_firewall_apigeenet_allow_ssh" {
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
-module "configure_firewall_apigeenet_allow_ssh_public" {
+module "configure_firewall_public_allow_ssh" {
   source                 = "apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "public-allow-ssh"
   firewall_source_tags   = ["public-allow-ssh"]
@@ -327,9 +327,8 @@ module "apigee-bastion-vm" {
   instance_name    = "apigee-bastion"
   instance_zone    = "${var.zone}"
   instance_network = "${data.google_compute_network.apigeenet.self_link}"
-  instance_type = "n1-standard-2"
+  instance_type    = "n1-standard-2"
 
-  //  instance_tags = ["apigeenet-allow-ssh", "apigeenet-allow-icmp"]
   instance_tags = [
     "apigeenet-allow-icmp",
     "public-allow-ssh",
@@ -343,12 +342,13 @@ module "apigee-bastion-vm" {
 
 # Add an apigee-vm instance
 module "apigee-vm-1" {
-  source           = "./internal-instance"
-  instance_name    = "planet-dc-1-ds-dc-1-ms-dc-1-ldap-dc-1-ui-1"
-  instance_zone    = "${var.zone}"
-  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+  source             = "./internal-instance"
+  instance_name      = "planet-dc-1-ds-dc-1-ms-dc-1-ldap-dc-1-ui-1"
+  instance_zone      = "${var.zone}"
+  instance_network   = "${data.google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
-  instance_type = "n1-standard-2"
+  instance_type      = "n1-standard-2"
+
   instance_tags = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp",
@@ -359,12 +359,13 @@ module "apigee-vm-1" {
 
 # Add an apigee-vm instance
 module "apigee-vm-2" {
-  source           = "./internal-instance"
-  instance_name    = "planet-dc-1-ds-dc-1-rmp-1"
-  instance_zone    = "${var.zone}"
-  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+  source             = "./internal-instance"
+  instance_name      = "planet-dc-1-ds-dc-1-rmp-1"
+  instance_zone      = "${var.zone}"
+  instance_network   = "${data.google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
-  instance_type = "n1-standard-2"
+  instance_type      = "n1-standard-2"
+
   instance_tags = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp",
@@ -375,12 +376,13 @@ module "apigee-vm-2" {
 
 # Add an apigee-vm instance
 module "apigee-vm-3" {
-  source           = "./internal-instance"
-  instance_zone    = "${var.zone}"
-  instance_name    = "planet-dc-1-ds-dc-1-rmp-2"
-  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+  source             = "./internal-instance"
+  instance_zone      = "${var.zone}"
+  instance_name      = "planet-dc-1-ds-dc-1-rmp-2"
+  instance_network   = "${data.google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
-  instance_type = "n1-standard-2"
+  instance_type      = "n1-standard-2"
+
   instance_tags = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp",
@@ -391,12 +393,13 @@ module "apigee-vm-3" {
 
 # Add an apigee-vm instance
 module "apigee-vm-4" {
-  source           = "./internal-instance"
-  instance_name    = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
-  instance_zone    = "${var.zone}"
-  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+  source             = "./internal-instance"
+  instance_name      = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
+  instance_zone      = "${var.zone}"
+  instance_network   = "${data.google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
-  instance_type = "n1-standard-2"
+  instance_type      = "n1-standard-2"
+
   instance_tags = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp",
@@ -407,12 +410,13 @@ module "apigee-vm-4" {
 
 # Add an apigee-vm instance
 module "apigee-vm-5" {
-  source           = "./internal-instance"
-  instance_name    = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
-  instance_zone    = "${var.zone}"
-  instance_network = "${data.google_compute_network.apigeenet.self_link}"
+  source             = "./internal-instance"
+  instance_name      = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
+  instance_zone      = "${var.zone}"
+  instance_network   = "${data.google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
-  instance_type = "n1-standard-2"
+  instance_type      = "n1-standard-2"
+
   instance_tags = [
     "apigeenet-allow-ssh",
     "apigeenet-allow-icmp",

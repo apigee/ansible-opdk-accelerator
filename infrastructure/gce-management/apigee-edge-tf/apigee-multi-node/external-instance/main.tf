@@ -31,7 +31,6 @@ variable "instance_disk_size" {
   default = 100
 }
 
-
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
