@@ -38,6 +38,12 @@ scripts and modules can be downloaded.
 ## Quick Start: Usage Overview
 The use of this framework is composed of the following steps:
 
+1. Install git, rsync, tree and pip. Assuming you are 
+
+
+    sudo yum install -y git, rsync, tree, python-pip
+    sudo pip install ansible google-auth
+
 1. Clone this repository to `~/apigee-opdk-accelerator`.
 
 
