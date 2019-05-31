@@ -31,6 +31,12 @@ variable "instance_disk_size" {
   default = 100
 }
 
+variable "instance_labels" {
+  default = {
+    g-on-g-notify-ignore = ""
+  }
+}
+
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
@@ -59,6 +65,10 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
-output "network_ip" {
+output "private_network_ip" {
   value = "${google_compute_instance.vm_instance.network_interface.0.network_ip}"
+}
+
+output "public_network_ip" {
+  value = "${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip}"
 }
