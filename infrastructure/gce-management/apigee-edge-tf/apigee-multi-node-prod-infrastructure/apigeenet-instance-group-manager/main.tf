@@ -12,10 +12,6 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-inst
   }
 }
 
-output "instance_group" {
-  value = "${google_compute_region_instance_group_manager.apigeenet-ms-group-instance.instance_group}"
-}
-
 resource "google_compute_instance_template" "apigeenet-base-instance-template" {
   name           = "${var.instance_name}"
   machine_type   = "${var.machine_type}"

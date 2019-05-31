@@ -1,11 +1,3 @@
-variable "firewall_name" {}
-variable "firewall_network" {}
-
-variable "firewall_source_ranges" {
-  type = "list"
-}
-
-variable "firewall_protocol" {}
 
 # Add a firewall rule to allow HTTP, SSH, and RDP traffic on apigeenet
 resource "google_compute_firewall" "apigeenet-allow-firewall-protocol-only" {

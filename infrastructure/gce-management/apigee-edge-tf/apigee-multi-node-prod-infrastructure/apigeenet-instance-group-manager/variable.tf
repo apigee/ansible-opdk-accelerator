@@ -17,7 +17,7 @@ variable "instance_region" {
 }
 
 variable "instance_distribution_policy_zones" {
-  default = ["us-east1-d"]
+  default = ["us-east1-b"]
 }
 
 variable "group_manager_port" {}

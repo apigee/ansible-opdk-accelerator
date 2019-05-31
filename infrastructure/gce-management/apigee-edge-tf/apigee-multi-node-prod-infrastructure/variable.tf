@@ -29,3 +29,19 @@ variable "instance_scopes" {
 variable "service_account_email" {
   default = "736255665193-compute@developer.gserviceaccount.com"
 }
+
+variable "apigee_ms_ui_port" {
+  default = "9000"
+}
+
+variable "apigee_ms_api_port" {
+  default = "8080"
+}
+
+variable "apigee_ms_api_port_name" {
+  default = "ui_port_name"
+}
+
+variable "apigee_ms_ui_port_name" {
+  default = "ui_port_name"
+}
