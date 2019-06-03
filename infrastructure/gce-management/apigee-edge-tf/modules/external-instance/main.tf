@@ -31,11 +31,11 @@ variable "instance_disk_size" {
   default = 100
 }
 
-variable "instance_labels" {
-  default = {
-    g-on-g-notify-ignore = ""
-  }
-}
+//variable "instance_labels" {
+//  default = {
+//    g-on-g-notify-ignore = ""
+//  }
+//}
 
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
