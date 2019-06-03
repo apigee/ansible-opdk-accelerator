@@ -19,8 +19,9 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 }
 
 module "configure_firewall_apigeenet_allow_mgmt_ui" {
-  source                 = "apigeenet-firewalls-protocol-with-ports"
+  source                 = "../modules/apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "mgmt-ui"
+  firewall_source_tags   = ["mgmt-ui"]
   firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
   firewall_ports         = ["9000", "80", "8080", "9001"]
@@ -28,7 +29,7 @@ module "configure_firewall_apigeenet_allow_mgmt_ui" {
 }
 
 module "configure_firewall_apigeenet_allow_icmp" {
-  source                 = "apigeenet-firewalls-protocol-only"
+  source                 = "../modules/apigeenet-firewalls-protocol-only"
   firewall_name          = "apigeenet-allow-icmp"
   firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "icmp"
@@ -36,8 +37,9 @@ module "configure_firewall_apigeenet_allow_icmp" {
 }
 
 module "configure_firewall_apigeenet_allow_ssh" {
-  source                 = "apigeenet-firewalls-protocol-with-ports"
+  source                 = "../modules/apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "apigeenet-allow-ssh"
+  firewall_source_tags   = ["apigeenet-allow-ssh"]
   firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
   firewall_ports         = ["22"]
@@ -45,8 +47,9 @@ module "configure_firewall_apigeenet_allow_ssh" {
 }
 
 module "configure_firewall_apigeenet_allow_ssh_public" {
-  source                 = "apigeenet-firewalls-protocol-with-ports"
+  source                 = "../modules/apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "public-allow-ssh"
+  firewall_source_tags   = ["public-allow-ssh"]
   firewall_network       = "${data.google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
   firewall_ports         = ["22"]
