@@ -6,4 +6,4 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-stop-components.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-restart.git
+- src: https://github.com/carlosfrias/apigee-server-restart.git
