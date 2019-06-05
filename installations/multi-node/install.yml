@@ -146,6 +146,7 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'qs-config'] }
+  - { role: apigee-opdk-update-component-qpidd }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'qs-config']  }
   - { role: apigee-opdk-setup-component, profile: 'qs', tags: ['minimum', 'qs-setup'] }
   - { role: apigee-opdk-start-components, tags: ['qs-start', 'start'] }
