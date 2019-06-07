@@ -6,6 +6,11 @@
     bastion_host_name: "apigee-bastion.us-east1-b.sandbox-173316"
     target_hosts:
     - { target_ip_address: "{{ hostvars[groups['ms'][0]]['private_address'] }}", target_port: "9000", port: "9000" }
+    - { target_ip_address: "{{ hostvars[groups['ms'][0]]['private_address'] }}", target_port: "8080", port: "8080" }
+    - { target_ip_address: "{{ hostvars[groups['rmp'][0]]['private_address'] }}", target_port: "9001", port: "9001" }
+    - { target_ip_address: "{{ hostvars[groups['rmp'][1]]['private_address'] }}", target_port: "9002", port: "9002" }
+    - { target_ip_address: "{{ hostvars[groups['rmp'][2]]['private_address'] }}", target_port: "9003", port: "9003" }
+    - { target_ip_address: "{{ hostvars[groups['rmp'][3]]['private_address'] }}", target_port: "9004", port: "9004" }
 
   tasks:
   - name: Create SSH tunnels

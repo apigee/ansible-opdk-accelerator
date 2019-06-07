@@ -174,3 +174,37 @@ module "apigee-vm-5" {
     "apigeenet-allow-local",
   ]
 }
+
+# Add an apigee-vm instance
+module "apigee-vm-6" {
+  source             = "../modules/internal-instance"
+  instance_zone      = "${var.zone}"
+  instance_name      = "planet-dc-1-rmp-3"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 250
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-7" {
+  source             = "../modules/internal-instance"
+  instance_zone      = "${var.zone}"
+  instance_name      = "planet-dc-1-rmp-4"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 250
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+  ]
+}
