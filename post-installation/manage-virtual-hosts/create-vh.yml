@@ -13,7 +13,7 @@
   gather_facts: no
   vars:
     # Use this virtual host with all MPs
-    use_all_mps: true
+    use_all_mps: f
 
     # Default for first_name in creating new user
     first_name: Carlos

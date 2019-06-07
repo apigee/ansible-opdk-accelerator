@@ -4,9 +4,13 @@
   gather_facts: no
 
   vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
     component_name: "edge-router"
 
   roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'config'] }
   - { role: apigee-opdk-server-self, server_types: ['router'] }
 
   tasks:

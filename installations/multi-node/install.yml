@@ -28,7 +28,7 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
-  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
   - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
   - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
   - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
@@ -219,7 +219,7 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['config', 'org-config'] }
-  - { role: apigee-opdk-setup-org, tags: ['org', 'org-setup'] }
+  - { role: apigee-opdk-setup-org, tags: ['org-setup'] }
 
 - name: Update for Regions with No Management Server
   hosts: ds
