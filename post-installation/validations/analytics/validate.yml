@@ -88,7 +88,7 @@
 
   vars:
     property_folders:
-      - "~/.apigee-secure"[]
+      - "~/.apigee-secure"
       - "~/.apigee"
   roles:
     - { role:  apigee-opdk-modules }
