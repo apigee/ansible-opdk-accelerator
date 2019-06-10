@@ -12,7 +12,7 @@
     - { org_name: "adventist", env_name: "prod" }
     - { org_name: "adventist", env_name: "dev" }
     - { org_name: "adventist", env_name: "test" }
-    - { org_name: "opdk", env_name: "test" }
+    - { org_name: "opdk", env_name: "noi" }
     - { org_name: "VALIDATE", env_name: "test" }
 
   roles:

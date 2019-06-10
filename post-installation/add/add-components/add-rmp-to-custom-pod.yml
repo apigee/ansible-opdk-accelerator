@@ -1,0 +1,138 @@
+---
+- name: Configure & Install Router & Message Processor
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  strategy: free
+  tags: ['edge']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+    use_all_mps: 'n'
+    org_name: 'opdk'
+    env_name: 'noisy'
+    opdk_mp_pod: 'noisy'
+    virtual_hosts_port: '9001'
+    virtual_host_name: 'noisy'
+    load_balancer: "{{ pod_load_balancer }}"
+  pre_tasks:
+  - name: Assert that required attributes are provided
+    assert:
+      that:
+        - use_all_mps is defined
+        - org_name is defined
+        - env_name is defined
+        - opdk_mp_pod is defined
+        - virtual_hosts_port is defined
+        - load_balancer is defined
+      msg: Please provide the missing attribute
+  roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config'] }
+  - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
+  - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
+  - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
+  - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
+  - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
+  - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
+  - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
+  - { role: apigee-server-restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+  - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
+  - { role: apigee-opdk-setup-openjdk-cache, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+  - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+
+- name: Install Edge
+  hosts: edge
+  tags: ['edge', 'edge-common']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
+  - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee-opdk-setup-apigee-user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+  - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
+  - { role: apigee-opdk-setup-bootstrap-cache, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee-opdk-setup-bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap', 'common'] }
+  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+
+
+- name: Configure & Install Router & Message Processor
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  strategy: free
+  tags: ['rmp']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+    use_all_mps: 'n'
+    org_name: 'opdk'
+    env_name: 'noisy'
+    opdk_mp_pod: 'noisy'
+    virtual_hosts_port: '9001'
+    virtual_host_name: 'noisy'
+    load_balancer: "{{ pod_load_balancer }}"
+  pre_tasks:
+  - name: Assert that required attributes are provided
+    assert:
+      that:
+        - use_all_mps is defined
+        - org_name is defined
+        - env_name is defined
+        - opdk_mp_pod is defined
+        - virtual_hosts_port is defined
+        - load_balancer is defined
+      msg: Please provide the missing attribute
+  roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'rmp-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'rmp', tags: ['minimum', 'rmp-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['minimum', 'rmp-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['rmp-status', 'status'] }
+  - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+  - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+
+- name: Configure Organization and Environments
+  hosts: ms[0]
+  gather_facts: no
+  tags: ['rmp']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+    use_all_mps: 'n'
+    org_name: 'opdk'
+    env_name: 'noisy'
+    opdk_mp_pod: 'noisy'
+    virtual_hosts_port: '9001'
+    virtual_host_name: 'noisy'
+    load_balancer: "{{ pod_load_balancer }}"
+    tenants:
+      - { org: "{{ org_name }}", env: "{{ env_name }}", new_user: 'n' }
+  pre_tasks:
+  - name: Assert that required attributes are provided
+    assert:
+      that:
+        - use_all_mps is defined
+        - org_name is defined
+        - env_name is defined
+        - opdk_mp_pod is defined
+        - virtual_hosts_port is defined
+        - load_balancer is defined
+      msg: Please provide the missing attribute
+  roles:
+  - { role: apigee-opdk-modules, tags: ['config', 'org-config'] }
+  - { role: apigee-opdk-setup-org, tags: ['org-setup'] }
+
+
