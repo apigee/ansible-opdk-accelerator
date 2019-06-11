@@ -1,19 +1,4 @@
 ---
-- name: LDAP TLS check
-  hosts: ms
-  gather_facts: no
-  tags: ['tls']
-  vars:
-    property_folders:
-      - "~/.apigee-secure"
-      - "~/.apigee"
-  roles:
-    - apigee-opdk-modules
-    - apigee-opdk-port-check-settings
-  tasks:
-  - name: LDAP TLS check
-    shell: "ldapsearch -x -d 1  -p {{ ldap_ports[0] }} -h {{ ansible_ssh_host }} -w {{ opdk_ldap_pass }}"
-
 - name: View LDAP system user
   hosts: ms
   gather_facts: no
@@ -48,3 +33,19 @@
       url: "http://127.0.0.1:{{ ms_ports[0] }}/v1/users"
       user: "{{ opdk_user_email }}"
       password: "{{ opdk_user_pass }}"
+
+#- name: LDAP TLS check
+#  hosts: ms
+#  gather_facts: no
+#  tags: ['tls']
+#  vars:
+#    property_folders:
+#      - "~/.apigee-secure"
+#      - "~/.apigee"
+#  roles:
+#    - apigee-opdk-modules
+#    - apigee-opdk-port-check-settings
+#  tasks:
+#  - name: LDAP TLS check
+#    shell: "ldapsearch -x -d 1  -p {{ ldap_ports[0] }} -h {{ ansible_ssh_host }} -w {{ opdk_ldap_pass }}"
+
