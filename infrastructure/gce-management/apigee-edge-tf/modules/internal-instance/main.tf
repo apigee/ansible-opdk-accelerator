@@ -1,33 +1,11 @@
-variable "instance_name" {}
-variable "instance_zone" {}
-
-variable "instance_image" {
-  default = "centos-7"
-}
-
-variable "instance_type" {
-  default = "n1-standard-1"
-}
-
-variable "instance_network" {}
-
-variable "instance_tags" {
-  default = []
-}
-
-variable "instance_external_ip" {
-  default = ""
-}
-
-variable "instance_disk_size" {
-  default = 100
-}
-
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}"
   zone         = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
   tags         = "${var.instance_tags}"
+  labels {
+    g-on-g-notify-ignore = true
+  }
 
   boot_disk {
     initialize_params {

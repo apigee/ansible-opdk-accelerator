@@ -3,7 +3,10 @@ resource "google_compute_instance" "vm_instance" {
   zone         = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
   tags         = "${var.instance_tags}"
-  labels       = {}
+  labels {
+    g-on-g-notify-ignore = true
+  }
+
 
   boot_disk {
     initialize_params {
