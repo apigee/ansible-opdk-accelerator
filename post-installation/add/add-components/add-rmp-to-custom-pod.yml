@@ -8,25 +8,6 @@
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
-#    use_all_mps: 'n'
-#    org_name: 'opdk'
-#    env_name: 'noisy'
-#    opdk_mp_pod: 'noisy'
-#    virtual_host_port: '9001'
-#    virtual_host_name: 'noisy'
-#    load_balancer: "{{ pod_load_balancer }}"
-  pre_tasks:
-  - name: Assert that required attributes are provided
-    assert:
-      that:
-        - use_all_mps is defined
-        - org_name is defined
-        - env_name is defined
-        - opdk_mp_pod is defined
-        - virtual_host_port is defined
-        - virtual_host_name is defined
-        - load_balancer is defined
-      msg: Please provide the missing attribute
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config'] }
   - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
@@ -48,18 +29,6 @@
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
-
-#  pre_tasks:
-#  - name: Clear attributes
-#    set_fact:
-#      cacheable: true
-##      org_name: ''
-##      env_name: ''
-##      opdk_mp_pod: ''
-##      load_balancer: ''
-##      virtual_host_port: ''
-##      virtual_host_name: ''
-
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
   - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
@@ -87,25 +56,6 @@
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
-#    use_all_mps: 'n'
-#    org_name: 'opdk'
-#    env_name: 'noisy'
-#    opdk_mp_pod: 'noisy'
-#    virtual_host_port: '9001'
-#    virtual_host_name: 'noisy'
-#    load_balancer: "{{ pod_load_balancer }}"
-#  pre_tasks:
-#  - name: Assert that required attributes are provided
-#    assert:
-#      that:
-#        - use_all_mps is defined
-#        - org_name is defined
-#        - env_name is defined
-#        - opdk_mp_pod is defined
-#        - virtual_host_port is defined
-#        - virtual_host_name is defined
-#        - load_balancer is defined
-#      msg: Please provide the missing attribute
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'rmp-config']  }
@@ -127,25 +77,6 @@
       - "~/.apigee"
     tenants:
       - { org: "{{ org_name }}", env: "{{ env_name }}", new_user: 'n' }
-#    use_all_mps: 'n'
-#    org_name: 'opdk'
-#    env_name: 'noisy'
-#    opdk_mp_pod: 'noisy'
-#    virtual_host_port: '9001'
-#    virtual_host_name: 'noisy'
-#    load_balancer: "{{ pod_load_balancer }}"
-#  pre_tasks:
-#  - name: Assert that required attributes are provided
-#    assert:
-#      that:
-#        - use_all_mps is defined
-#        - org_name is defined
-#        - env_name is defined
-#        - opdk_mp_pod is defined
-#        - virtual_host_port is defined
-#        - virtual_host_name is defined
-#        - load_balancer is defined
-#      msg: Please provide the missing attribute
   roles:
   - { role: apigee-opdk-modules, tags: ['org-config'] }
   - { role: apigee-opdk-setup-org, tags: ['org-setup'] }
