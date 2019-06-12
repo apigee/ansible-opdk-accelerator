@@ -1,4 +1,65 @@
 ---
+- name: Collect information from user
+  hosts: edge
+  tags: ['update', 'cache']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+#    - "~/.apigee"
+
+  vars_prompt:
+    - name: "prompt_opdk_version"
+      prompt: "OPDK version"
+      default: "{{ opdk_version | default('4.19.01') }}"
+      private: no
+
+    - name: "prompt_use_all_mps"
+      prompt: "Does we apply these routers and message processors to all environments?"
+      default: "{{ use_all_mps | default('y') }}"
+      private: no
+
+    - name: "prompt_org_name"
+      prompt: "Name of organization for these routers and message processors"
+      default: "{{ org_name | default('opdk') }}"
+      private: no
+
+    - name: "prompt_env_name"
+      prompt: "Name of the environment to which to apply these routers and message processors"
+      default: "{{ env_name | default('test') }}"
+      private: no
+
+    - name: "prompt_opdk_mp_pod"
+      prompt: "Pod name that should be used for these routers and message processors"
+      default: "{{ opdk_mp_pod | default('gateway') }}"
+      private: no
+
+    - name: "prompt_virtual_host_port"
+      prompt: "Virtual host port number"
+      default: "{{ virtual_host_port | default('9001') }}"
+      private: no
+
+    - name: "prompt_virtual_host_name"
+      prompt: "Virtual host port name"
+      default: "{{ virtual_host_name | default('default') }}"
+      private: no
+
+    - name: "prompt_load_balancer"
+      prompt: "Space delimited string of router IP addresses or the load balancer for this set of routers"
+      private: no
+
+  tasks:
+    - name: Update cache with provided values
+      set_fact:
+        cacheable: True
+        use_all_mps: "{{ prompt_use_all_mps }}"
+        org_name: "{{ prompt_org_name }}"
+        env_name: "{{ prompt_env_name }}"
+        opdk_mp_pod: "{{ prompt_opdk_mp_pod }}"
+        virtual_host_port: "{{ prompt_virtual_host_port }}"
+        virtual_host_name: "{{ prompt_virtual_host_name }}"
+        load_balancer: "{{ prompt_load_balancer }}"
+        opdk_version: "{{ prompt_opdk_version }}"
+
 - name: Configure & Install Router & Message Processor
   hosts: "{{ target_hosts }}"
   gather_facts: no
@@ -7,7 +68,7 @@
   vars:
     property_folders:
       - "~/.apigee-secure"
-      - "~/.apigee"
+#      - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config'] }
   - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
@@ -28,7 +89,8 @@
   vars:
     property_folders:
     - "~/.apigee-secure"
-    - "~/.apigee"
+#    - "~/.apigee"
+
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
   - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
@@ -55,7 +117,7 @@
   vars:
     property_folders:
       - "~/.apigee-secure"
-      - "~/.apigee"
+#      - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'rmp-config']  }
@@ -74,7 +136,7 @@
   vars:
     property_folders:
       - "~/.apigee-secure"
-      - "~/.apigee"
+#      - "~/.apigee"
     tenants:
       - { org: "{{ org_name }}", env: "{{ env_name }}", new_user: 'n' }
   roles:

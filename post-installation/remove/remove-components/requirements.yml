@@ -7,7 +7,7 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-bootstrap-rollback.git
 
-- src: https://github.com/carlosfrias/apigee-opdk-setup-postgresql-remove.git
+- src: https://github.com/carlosfrias/apigee-opdk-setup-postgres-remove.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-qpid-remove.git
 

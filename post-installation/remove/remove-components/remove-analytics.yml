@@ -22,7 +22,7 @@
     - { role: apigee-opdk-server-self, server_types: ['qs'], tags: ['self'] }
     - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
     - { role: apigee-opdk-setup-bootstrap-rollback, tags: ['rollback-only'] }
-    - { role: apigee-opdk-setup-postgresql-remove }
+    - { role: apigee-opdk-setup-postgres-remove }
     - { role: apigee-opdk-setup-qpid-remove }
     - { role: apigee-opdk-setup-scopes-remove }
     - { role: apigee-opdk-setup-axgroup-remove }
