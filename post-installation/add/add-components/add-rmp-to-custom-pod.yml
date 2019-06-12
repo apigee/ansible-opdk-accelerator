@@ -5,7 +5,7 @@
   vars:
     property_folders:
     - "~/.apigee-secure"
-#    - "~/.apigee"
+    - "~/.apigee"
 
   vars_prompt:
     - name: "prompt_opdk_version"
@@ -46,6 +46,9 @@
     - name: "prompt_load_balancer"
       prompt: "Space delimited string of router IP addresses or the load balancer for this set of routers"
       private: no
+
+  roles:
+  - { role: apigee-opdk-modules }
 
   tasks:
     - name: Update cache with provided values
