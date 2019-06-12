@@ -219,6 +219,7 @@
     - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['config', 'org-config'] }
+  - { role: apigee-opdk-setup-org-config, tags: ['org-setup'] }
   - { role: apigee-opdk-setup-org, tags: ['org-setup'] }
 
 - name: Update for Regions with No Management Server

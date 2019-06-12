@@ -1,11 +1,127 @@
 ---
-- name: Collect information from user
-  hosts: edge
-  tags: ['update', 'cache']
+#- name: Collect information from user
+#  hosts: edge
+#  tags: ['update', 'cache']
+#  vars:
+#    property_folders:
+#    - "~/.apigee-secure"
+#    - "~/.apigee"
+#
+#  vars_prompt:
+#    - name: "prompt_opdk_version"
+#      prompt: "OPDK version"
+#      default: "{{ opdk_version | default('4.19.01') }}"
+#      private: no
+#
+#    - name: "prompt_use_all_mps"
+#      prompt: "Does we apply these routers and message processors to all environments?"
+#      default: "{{ use_all_mps | default('y') }}"
+#      private: no
+#
+#    - name: "prompt_org_name"
+#      prompt: "Name of organization for these routers and message processors"
+#      default: "{{ org_name | default('opdk') }}"
+#      private: no
+#
+#    - name: "prompt_env_name"
+#      prompt: "Name of the environment to which to apply these routers and message processors"
+#      default: "{{ env_name | default('test') }}"
+#      private: no
+#
+#    - name: "prompt_opdk_mp_pod"
+#      prompt: "Pod name that should be used for these routers and message processors"
+#      default: "{{ opdk_mp_pod | default('gateway') }}"
+#      private: no
+#
+#    - name: "prompt_virtual_host_port"
+#      prompt: "Virtual host port number"
+#      default: "{{ virtual_host_port | default('9001') }}"
+#      private: no
+#
+#    - name: "prompt_virtual_host_name"
+#      prompt: "Virtual host port name"
+#      default: "{{ virtual_host_name | default('default') }}"
+#      private: no
+#
+#    - name: "prompt_load_balancer"
+#      prompt: "Space delimited string of router IP addresses or the load balancer for this set of routers"
+#      private: no
+#
+#  roles:
+#  - { role: apigee-opdk-modules }
+#
+#  tasks:
+#    - name: Update cache with provided values
+#      set_fact:
+#        cacheable: True
+#        use_all_mps: "{{ prompt_use_all_mps }}"
+#        org_name: "{{ prompt_org_name }}"
+#        env_name: "{{ prompt_env_name }}"
+#        opdk_mp_pod: "{{ prompt_opdk_mp_pod }}"
+#        virtual_host_port: "{{ prompt_virtual_host_port }}"
+#        virtual_host_name: "{{ prompt_virtual_host_name }}"
+#        load_balancer: "{{ prompt_load_balancer }}"
+#        opdk_version: "{{ prompt_opdk_version }}"
+#
+#- name: Configure & Install Router & Message Processor
+#  hosts: "{{ target_hosts }}"
+#  gather_facts: no
+#  strategy: free
+#  tags: ['os']
+#  vars:
+#    property_folders:
+#      - "~/.apigee-secure"
+##      - "~/.apigee"
+#  roles:
+#  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config'] }
+#  - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
+#  - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
+#  - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
+#  - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
+#  - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
+#  - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
+#  - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
+#  - { role: apigee-server-restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+#  - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
+#  - { role: apigee-opdk-setup-openjdk-cache, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+#  - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+#
+#- name: Install Edge
+#  hosts: edge
+#  tags: ['edge']
+#  vars:
+#    property_folders:
+#    - "~/.apigee-secure"
+##    - "~/.apigee"
+#
+#  roles:
+#  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
+#  - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+#  - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+#  - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+#  - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+#  - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+#  - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+#  - { role: apigee-opdk-setup-apigee-user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+#  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+#  - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
+#  - { role: apigee-opdk-setup-bootstrap-cache, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+#  - { role: apigee-opdk-setup-bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+#  - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap', 'common'] }
+#  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+#  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+
+
+- name: Configure & Install Router & Message Processor
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  strategy: free
+  tags: ['rmp']
+
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+      - "~/.apigee-secure"
+#      - "~/.apigee"
 
   vars_prompt:
     - name: "prompt_opdk_version"
@@ -48,80 +164,6 @@
       private: no
 
   roles:
-  - { role: apigee-opdk-modules }
-
-  tasks:
-    - name: Update cache with provided values
-      set_fact:
-        cacheable: True
-        use_all_mps: "{{ prompt_use_all_mps }}"
-        org_name: "{{ prompt_org_name }}"
-        env_name: "{{ prompt_env_name }}"
-        opdk_mp_pod: "{{ prompt_opdk_mp_pod }}"
-        virtual_host_port: "{{ prompt_virtual_host_port }}"
-        virtual_host_name: "{{ prompt_virtual_host_name }}"
-        load_balancer: "{{ prompt_load_balancer }}"
-        opdk_version: "{{ prompt_opdk_version }}"
-
-- name: Configure & Install Router & Message Processor
-  hosts: "{{ target_hosts }}"
-  gather_facts: no
-  strategy: free
-  tags: ['os']
-  vars:
-    property_folders:
-      - "~/.apigee-secure"
-#      - "~/.apigee"
-  roles:
-  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config'] }
-  - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
-  - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
-  - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
-  - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
-  - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
-  - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
-  - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
-  - { role: apigee-server-restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
-  - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
-  - { role: apigee-opdk-setup-openjdk-cache, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
-  - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
-
-- name: Install Edge
-  hosts: edge
-  tags: ['edge']
-  vars:
-    property_folders:
-    - "~/.apigee-secure"
-#    - "~/.apigee"
-
-  roles:
-  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
-  - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-setup-apigee-user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
-  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user', 'bootstrap'] }
-  - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
-  - { role: apigee-opdk-setup-bootstrap-cache, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
-  - { role: apigee-opdk-setup-bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
-  - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap', 'common'] }
-  - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
-  - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
-
-
-- name: Configure & Install Router & Message Processor
-  hosts: "{{ target_hosts }}"
-  gather_facts: no
-  strategy: free
-  tags: ['rmp']
-  vars:
-    property_folders:
-      - "~/.apigee-secure"
-#      - "~/.apigee"
-  roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'rmp-config']  }
   - { role: apigee-opdk-setup-component, profile: 'rmp', tags: ['minimum', 'rmp-setup'] }
@@ -132,18 +174,22 @@
   - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
   - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
 
+
 - name: Configure Organization and Environments
   hosts: ms[0]
   gather_facts: no
   tags: ['org']
+
   vars:
     property_folders:
       - "~/.apigee-secure"
 #      - "~/.apigee"
     tenants:
       - { org: "{{ org_name }}", env: "{{ env_name }}", new_user: 'n' }
+
   roles:
   - { role: apigee-opdk-modules, tags: ['org-config'] }
+  - { role: apigee-opdk-setup-org-config, tags: ['org-setup'] }
   - { role: apigee-opdk-setup-org, tags: ['org-setup'] }
 
 
