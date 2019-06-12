@@ -12,6 +12,9 @@
 #    - { target_ip_address: "{{ hostvars[groups['rmp'][2]]['private_address'] }}", target_port: "9003", port: "9003" }
 #    - { target_ip_address: "{{ hostvars[groups['rmp'][3]]['private_address'] }}", target_port: "9004", port: "9004" }
 
+  roles:
+  - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+
   tasks:
   - name: Create SSH tunnels
     shell: "ssh -f {{ bastion_host_name }} -L {{ item.port }}:{{ item.target_ip_address }}:{{ item.target_port }} -N"
