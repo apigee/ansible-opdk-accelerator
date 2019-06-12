@@ -11,7 +11,7 @@
   tasks:
     - name: Install archive managment packages
       become: true
-      yum:
+      package:
         name: "unzip"
         state: present
 
