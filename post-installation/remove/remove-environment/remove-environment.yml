@@ -1,0 +1,43 @@
+---
+- name: Update local cache
+  hosts: edge
+  gather_facts: no
+  tags: ['cache']
+  vars:
+    property_folders:
+      - "~/.apigee"
+
+  roles:
+    - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-setup-openjdk-cache, jdk_version: '1.8' }
+    - { role: apigee-opdk-settings-private-address  }
+    - { role: apigee-opdk-settings-management-server }
+    - { role: apigee-opdk-settings-ldap  }
+    - { role: apigee-opdk-settings-region }
+    - { role: apigee-opdk-settings-cassandra }
+    - { role: apigee-opdk-settings-postgres  }
+
+- name: Remove virtual hosts
+  hosts: ms[0]
+  gather_facts: no
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+
+  roles:
+  - { role: apigee-opdk-modules }
+
+  tasks:
+  - name: Assert the environment name
+    assert:
+      that:
+      - org_name is defined and org_name | trim | length > 0
+      - env_name is defined and env_name | trim | length > 0
+      msg: Please provide the environment name to remove from an organization.
+
+  - name: Delete environment
+    uri:
+      url: "http://{{ local_mgmt_ip }}:{{ ms_port }}/v1/o/{{ org_name }}/e/{{ env_name }}"
+      user: "{{ opdk_user_email }}"
+      password: "{{ opdk_user_pass }}"
+      method: DELETE
