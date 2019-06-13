@@ -17,13 +17,13 @@
   - name: Set attributes if available
     set_fact:
       uuid: "{{ edge_router_self.uUID }}"
-      pod: "{{ edge_router_self.pod }}"
+      pod_name: "{{ edge_router_self.pod }}"
 
   - name: Assert variables exist
     assert:
       that:
       - region is defined and region | trim | length > 0
-      - pod is defined and pod | trim | length > 0
+      - pod_name is defined and pod_name | trim | length > 0
       - uuid is defined and uuid | trim | length > 0
       - opdk_user_email is defined
       - opdk_user_pass is defined
@@ -39,7 +39,7 @@
       body:
         uuid: '{{ uuid }}'
         region: '{{ region }}'
-        pod: '{{ pod }}'
+        pod_name: '{{ pod }}'
         type: 'router'
         action: 'remove'
 

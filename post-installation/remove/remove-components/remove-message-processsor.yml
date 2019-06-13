@@ -1,5 +1,5 @@
 ---
-- name: Playbook to remove a cassandra
+- name: Playbook to remove a message processor
   hosts: "{{ target_hosts }}"
   gather_facts: no
 
@@ -9,29 +9,23 @@
     - '~/.apigee-secure'
     component_name: "edge-message-processor"
     orgs_envs:
-    - { org_name: "rbcapigee", env_name: "sb" }
-    - { org_name: "rbcapigee", env_name: "prod" }
-    - { org_name: "rbcapigee", env_name: "prodexternal" }
-    - { org_name: "adventist", env_name: "prod" }
-    - { org_name: "adventist", env_name: "dev" }
-    - { org_name: "adventist", env_name: "test" }
     - { org_name: "opdk", env_name: "test" }
-    - { org_name: "VALIDATE", env_name: "test" }
 
   roles:
+  - { role: apigee-opdk-modules }
   - { role: apigee-opdk-server-self, server_types: ['mp'] }
 
   tasks:
   - name: Set attributes if available
     set_fact:
       uuid: "{{ edge_mp_self.uUID }}"
-      pod: "{{ edge_mp_self.pod }}"
+      pod_name: "{{ edge_mp_self.pod }}"
 
   - name: Assert variables exist
     assert:
       that:
       - region is defined and region | trim | length > 0
-      - pod is defined and pod | trim | length > 0
+      - pod_name is defined and pod_name | trim | length > 0
       - uuid is defined and uuid | trim | length > 0
       - opdk_user_email is defined
       - opdk_user_pass is defined
@@ -47,7 +41,7 @@
       body:
         uuid: '{{ uuid }}'
         action: 'remove'
-        pod: "{{ pod }}"
+        pod: "{{ pod_name }}"
         region: "{{ region }}"
     with_items: "{{ orgs_envs }}"
 
@@ -61,7 +55,7 @@
       body:
         uuid: '{{ uuid }}'
         region: '{{ region }}'
-        pod: '{{ pod }}'
+        pod: '{{ pod_name }}'
         type: 'message-processor'
         action: 'remove'
 
