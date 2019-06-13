@@ -17,8 +17,8 @@
   - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
   - { role: apigee-server-restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
   - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
-  - { role: apigee-opdk-setup-openjdk-cache, tags: ['minimum', 'openjdk','cache'], jdk_version: '1.8' }
-  - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+  - { role: apigee-opdk-setup-openjdk-cache, tags: ['minimum', 'openjdk','cache','bootstrap'], jdk_version: '1.8' }
+  - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk','bootstrap'], jdk_version: '1.8' }
 
 - name: Install Edge
   hosts: edge

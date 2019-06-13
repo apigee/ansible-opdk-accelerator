@@ -77,7 +77,7 @@ module "apigee-bastion-vm" {
   instance_name    = "apigee-bastion"
   instance_zone    = "${var.zone}"
   instance_network = "${google_compute_network.apigeenet.self_link}"
-  instance_type    = "n1-standard-2"
+  instance_type    = "n1-standard-1"
 
   instance_tags = [
     "apigeenet-allow-icmp",
