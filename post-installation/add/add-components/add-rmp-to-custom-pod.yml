@@ -55,10 +55,10 @@
       default: "~/.apigee-secure"
       private: no
 
-    - name: "prompt_use_opdk_ldap_remote_host"
-      prompt: "Use OPDK LDAP remote host"
-      default: "n"
-      private: no
+#    - name: "prompt_use_opdk_ldap_remote_host"
+#      prompt: "Use OPDK LDAP remote host"
+#      default: "n"
+#      private: no
 
   roles:
   - { role: apigee-opdk-modules }
@@ -77,7 +77,7 @@
         load_balancer: "{{ prompt_load_balancer }}"
         opdk_resources_path: "{{ prompt_opdk_resources_path }}"
         local_apigee_secure_path: "{{ prompt_local_apigee_secure_path }}"
-        use_opdk_ldap_remote_host: "{{ prompt_use_opdk_ldap_remote_host }}"
+#        use_opdk_ldap_remote_host: "{{ prompt_use_opdk_ldap_remote_host }}"
 
 
 - name: Configure & Install Router & Message Processor
