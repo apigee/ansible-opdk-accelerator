@@ -36,7 +36,6 @@
       prompt: "Space delimited string of router IP addresses or the load balancer for this set of routers"
       private: no
 
-
   roles:
   - { role: apigee-opdk-modules }
 
@@ -50,6 +49,42 @@
         virtual_host_port: "{{ prompt_virtual_host_port }}"
         virtual_host_name: "{{ prompt_virtual_host_name }}"
         load_balancer: "{{ prompt_load_balancer }}"
+
+- name: Configure & Install Router
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  strategy: free
+  tags: ['router','edge', 'rmp']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'r-config'] }
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'r-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'r', tags: ['minimum', 'r-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['r-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['r-status', 'status'] }
+  - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+
+- name: Configure & Install Message Processor
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  strategy: free
+  tags: ['mp','edge','rmp']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'mp-config'] }
+  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'mp-config']  }
+  - { role: apigee-opdk-setup-component, profile: 'mp', tags: ['minimum', 'mp-setup'] }
+  - { role: apigee-opdk-start-components, tags: ['mp-start', 'start'] }
+  - { role: apigee-opdk-setup-status, tags: ['mp-status', 'status'] }
+  - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
 
 - name: Configure Organization and Environments
   hosts: ms[0]
@@ -67,6 +102,7 @@
   - { role: apigee-opdk-modules, tags: ['config'] }
   - { role: apigee-opdk-setup-org-config, tags: ['config'] }
   - { role: apigee-opdk-setup-org, tags: ['setup'] }
+
 
 - name: Configure Organization and Environments
   hosts: edge
