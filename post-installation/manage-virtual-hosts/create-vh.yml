@@ -12,9 +12,6 @@
   hosts: ms[0]
   gather_facts: no
   vars:
-    # Use this virtual host with all MPs
-    use_all_mps: f
-
     # Default for first_name in creating new user
     first_name: Carlos
 
@@ -42,10 +39,10 @@
 
     # Orgs and environments to define and associate with this virtual host
     tenants:
-    - { org: VALIDATE, env: dev, new_user: 'n' }
-#    - { org: opdk, env: test, new_user: 'n' }
+    - { org: opdk, env: test, new_user: 'n' }
 #    - { org: opdk, env: prod, new_user: 'n' }
 
   roles:
   - { role: apigee-opdk-modules }
+  - { role: apigee-opdk-setup-org-config}
   - { role: apigee-opdk-setup-org}

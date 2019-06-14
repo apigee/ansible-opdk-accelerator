@@ -51,6 +51,8 @@
       method: POST
       user: '{{ opdk_user_email }}'
       password: '{{ opdk_user_pass }}'
+      force: yes
+      status_code: ['200', '404']
       body_format: 'form-urlencoded'
       body:
         uuid: '{{ uuid }}'
@@ -60,11 +62,18 @@
         action: 'remove'
 
   - name: Delete the server
-    uri:
-      url: http://{{ local_mgmt_ip }}:8080/v1/servers/{{ uuid }}
-      method: DELETE
-      user: '{{ opdk_user_email }}'
-      password: '{{ opdk_user_pass }}'
+    shell: "curl -v -u {{ opdk_user_email }}:{{ opdk_user_pass }} -X DELETE http://{{ local_mgmt_ip }}:8080/v1/servers/{{ uuid }}"
+
+# This isn't working and the curl is necessary.
+#  - name: Delete the server
+#    uri:
+#      url: "http://{{ local_mgmt_ip }}:8080/v1/servers/{{ uuid }}"
+#      method: DELETE
+#      user: '{{ opdk_user_email }}'
+#      password: '{{ opdk_user_pass }}'
+#      body_format: 'form-urlencoded'
+#      force: yes
+#      force_basic_auth: yes
 
   - name: Remove message processor
     include_tasks: remove-component.yml
