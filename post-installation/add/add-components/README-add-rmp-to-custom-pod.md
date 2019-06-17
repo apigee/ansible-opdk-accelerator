@@ -56,11 +56,25 @@ This playbook will be invoked in an automation mode as follows:
 
     cd ~/apigee-opdk-accelerator/
     ansible-galaxy install -r post-installation/add/add-components/requirements.yml -f
-    ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml -e target_hosts=rmp[2:3] -e prompt_org_name=opdk -e prompt_env_name=noisy_env -e prompt_opdk_mp_pd=noisy_pod -e prompt_virtual_host_port=9001 -e prompt_virtual_host_name=noisy_vh -e prompt_load_balancer='10.142.0.3 10.142.0.4'
+    ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml \
+        -e target_hosts=rmp[2:3] \
+        -e prompt_org_name=opdk \
+        -e prompt_env_name=noisy_env \
+        -e prompt_opdk_mp_pd=noisy_pod \
+        -e prompt_virtual_host_port=9001 \
+        -e prompt_virtual_host_name=noisy_vh \
+        -e prompt_load_balancer='10.142.0.3 10.142.0.4'
     
     OR
     
-    ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml -e target_hosts=rmp[2:3] -e prompt_org_name=opdk -e prompt_env_name=noisy_env -e prompt_opdk_mp_pd=noisy_pod -e prompt_virtual_host_port=9001 -e prompt_virtual_host_name=noisy_vh -e prompt_load_balancer=http://noisy.loadbalancer.org_name.com
+    ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml \
+        -e target_hosts=rmp[2:3] \
+        -e prompt_org_name=opdk \
+        -e prompt_env_name=noisy_env \
+        -e prompt_opdk_mp_pd=noisy_pod \
+        -e prompt_virtual_host_port=9001 \
+        -e prompt_virtual_host_name=noisy_vh \
+        -e prompt_load_balancer=http://noisy.loadbalancer.org_name.com
 
 
 
