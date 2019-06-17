@@ -32,6 +32,5 @@ Assuming you have used this Ansible framework to install the planet then the pla
     ansible-galaxy install -r post-installation/add/add-components/requirements.yml -f
     ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml -e target_hosts=rmp[2:3]
     
-### Extended Usage
-If you are using the 
+
     
