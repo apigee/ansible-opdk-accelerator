@@ -40,6 +40,11 @@
   - { role: apigee-opdk-modules }
 
   tasks:
+    - name: Adding default values to cache
+      set_fact:
+        cacheable: True
+        opdk_version: "{{ opdk_version }}"
+
     - name: Update cache with provided values
       set_fact:
         cacheable: True
@@ -58,7 +63,7 @@
   vars:
     property_folders:
     - "~/.apigee-secure"
-    - "~/.apigee"
+#    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'r-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'r-config']  }
@@ -76,7 +81,7 @@
   vars:
     property_folders:
     - "~/.apigee-secure"
-    - "~/.apigee"
+#    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'mp-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'mp-config']  }
@@ -94,7 +99,7 @@
   vars:
     property_folders:
       - "~/.apigee-secure"
-      - "~/.apigee"
+#      - "~/.apigee"
     tenants:
       - { org: "{{ org_name }}", env: "{{ env_name }}", new_user: 'n' }
 

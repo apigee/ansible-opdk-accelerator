@@ -4,13 +4,13 @@
 //}
 
 resource "google_compute_network" "apigeenet" {
-  name                    = "apigeenet"
+  name                    = "apigeenet-2"
   auto_create_subnetworks = true
 }
 
 # Create the apigeenet router
 resource "google_compute_router" "apigeenet-router" {
-  name    = "apigeenet-router"
+  name    = "apigeenet-router-2"
   network = "${google_compute_network.apigeenet.self_link}"
 }
 

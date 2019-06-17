@@ -104,7 +104,7 @@
   hosts: router
   gather_facts: no
   strategy: free
-  tags: ['router','edge', 'rmp']
+  tags: ['router','edge', 'rmp', 'r']
   vars:
     property_folders:
     - "~/.apigee-secure"
