@@ -1,8 +1,8 @@
 # Adding a Router & Message Processor to a Custom Pod
 
 The playbook `add-rmp-to-custom-pod.yml` will create Apigee Routers and Apigee Message Processors
-that are assigned to a Custom Pod. Custom pods are useful because they give you the ability to 
-assign a set of specific Message Processors to an organization and environment and physically isolate traffic. 
+that are assigned to a Custom Pod. Custom pods are useful because they give you the ability to physically isolate traffic
+and assign that set of Routers and Message Processors to an organization and environment. 
 
 ## Usage Context
 The decision to add a Custom Pod signifies that many of our default assumptions will not hold. Consequently in addition 
