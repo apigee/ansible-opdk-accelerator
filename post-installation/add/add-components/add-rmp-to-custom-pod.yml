@@ -1,4 +1,37 @@
 ---
+- name: Update Planet Cache and Bootstrap
+  hosts: planet
+  tags: ['os']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'pgmaster-config'] }
+    - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
+    - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
+    - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
+    - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
+    - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
+    - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
+    - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
+    - { role: apigee-server-restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+    - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
+    - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-setup-apigee-user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+    - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+    - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+    - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
+    - { role: apigee-opdk-setup-bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+    - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap'] }
+    - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+    - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+
 - name: Collect information from user
   hosts: edge
   vars:
@@ -63,7 +96,6 @@
   vars:
     property_folders:
     - "~/.apigee-secure"
-#    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'r-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'r-config']  }
@@ -81,7 +113,6 @@
   vars:
     property_folders:
     - "~/.apigee-secure"
-#    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'mp-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'mp-config']  }
@@ -99,7 +130,6 @@
   vars:
     property_folders:
       - "~/.apigee-secure"
-#      - "~/.apigee"
     tenants:
       - { org: "{{ org_name }}", env: "{{ env_name }}", new_user: 'n' }
 
@@ -118,10 +148,11 @@
     - name: Update cache with provided values
       set_fact:
         cacheable: True
-        org_name: ""
-        env_name: ""
-        opdk_mp_pod: ""
-        virtual_host_port: ""
-        virtual_host_name: ""
-        load_balancer: ""
+        org_name: None
+        env_name: None
+        opdk_mp_pod: None
+        virtual_host_port: None
+        virtual_host_name: None
+        load_balancer: None
+        opdk_version: None
 

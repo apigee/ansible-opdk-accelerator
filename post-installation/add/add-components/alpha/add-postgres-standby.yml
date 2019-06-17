@@ -1,5 +1,5 @@
 ---
-- name: Update Planet Cache
+- name: Update Planet Cache and Bootstrap
   hosts: planet
   tags: ['os']
   vars:

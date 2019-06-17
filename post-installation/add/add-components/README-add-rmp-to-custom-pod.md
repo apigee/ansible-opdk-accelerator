@@ -6,7 +6,11 @@ assign a set of specific Message Processors to an organization and environment.
 
 ## Usage Context
 The decision to add a Custom Pod signifies that many of our default assumptions will not hold. Consequently in addition 
-to the default settings this playbook will prompt you for the information required. Please be prepared to provide the 
+to the default settings we currently use this playbook will prompt you for the required settings or accept them as parameters
+in the command line for automation. 
+
+### Interactive Mode
+If you are running the playbook interactively then please be prepared to provide the 
 following information: 
 
 |  Attribute | Description |
@@ -17,6 +21,20 @@ following information:
 | virtual_host_port | Create a virtual host for the custom pod |
 | virtual_host_name | Create a virtual host name for the custom pod |
 | load_balancer | Provide a space delimited list of Router IPs or FQDN of the load balancer that was externally configured for the Virtual Host. The expected list should look like this: `10.142.0.3 10.142.0.4 10.142.0.5` |
+
+### Automation Mode
+
+If you are running this playbook as part of your automation pipeline then please provide the following attributes so that
+you are not prompted interactively
+
+| Attribute | Description |
+| --- | --- |
+| prompt_org_name | Organization name |
+| prompt_env_name | Environment name |
+| prompt_opdk_mp_pod | Custom pod name |
+| prompt_virtual_host_port | Create a virtual host for the custom pod |
+| prompt_virtual_host_name | Create a virtual host name for the custom pod |
+| prompt_load_balancer | Provide a space delimited list of Router IPs or FQDN of the load balancer that was externally configured for the Virtual Host. The expected list should look like this: `10.142.0.3 10.142.0.4 10.142.0.5` |
 
 ### Assumption
 * This playbook assumes that the bootstrap components have been installed.
