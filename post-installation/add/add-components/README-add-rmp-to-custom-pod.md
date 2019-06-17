@@ -5,13 +5,14 @@ that are assigned to a Custom Pod. Custom pods are useful because they give you 
 and assign that set of Routers and Message Processors to an organization and environment. 
 
 ## Usage Context
-The decision to add a Custom Pod signifies that many of our default assumptions will not hold. Consequently in addition 
-to the default settings we currently use this playbook will prompt you for the required settings or accept them as parameters
-in the command line for automation. 
+The decision to add a Custom Pod signifies that many of our default assumptions will not hold. Therefore in addition 
+to the default settings this playbook will also prompt you for the required settings that should be explicitly set for 
+custom pod. These settings can be provided as command line parameters if you require integration with your automation 
+pipeline.  
 
 ### Interactive Mode
 If you are running the playbook interactively then please be prepared to provide the 
-following information: 
+following information at the command line prompt: 
 
 |  Attribute | Description |
 | --- | --- |
@@ -24,8 +25,8 @@ following information:
 
 ### Automation Mode
 
-If you are running this playbook as part of your automation pipeline then please provide the following attributes so that
-you are not prompted interactively
+If you are running this playbook as part of your automation pipeline then please provide the following attributes in the 
+command line so that you are not prompted interactively: 
 
 | Attribute | Description |
 | --- | --- |
@@ -43,11 +44,23 @@ you are not prompted interactively
 The playbook can be used as part of an Apigee installation or it can be used to expand an existing installation with 
 Routers and Message Processors deployed to Custom Pods. 
 
-## Usage
-Assuming you have used this Ansible framework to install the planet then the playbook `add-rmp-to-custom-pod.yml` is used as follows: 
+## Interactive Mode Usage
+This playbook will be invoked in an interactive mode as follows: 
 
     cd ~/apigee-opdk-accelerator/
     ansible-galaxy install -r post-installation/add/add-components/requirements.yml -f
     ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml -e target_hosts=rmp[2:3]
+
+## Automation Mode Usage
+This playbook will be invoked in an automation mode as follows: 
+
+    cd ~/apigee-opdk-accelerator/
+    ansible-galaxy install -r post-installation/add/add-components/requirements.yml -f
+    ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml -e target_hosts=rmp[2:3] -e prompt_org_name=opdk -e prompt_env_name=noisy_env -e prompt_opdk_mp_pd=noisy_pod -e prompt_virtual_host_port=9001 -e prompt_virtual_host_name=noisy_vh -e prompt_load_balancer='10.142.0.3 10.142.0.4'
+    
+    OR
+    
+    ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml -e target_hosts=rmp[2:3] -e prompt_org_name=opdk -e prompt_env_name=noisy_env -e prompt_opdk_mp_pd=noisy_pod -e prompt_virtual_host_port=9001 -e prompt_virtual_host_name=noisy_vh -e prompt_load_balancer=http://noisy.loadbalancer.org_name.com
+
 
 
