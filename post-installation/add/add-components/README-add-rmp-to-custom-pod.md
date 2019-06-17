@@ -2,7 +2,7 @@
 
 The playbook `add-rmp-to-custom-pod.yml` will create Apigee Routers and Apigee Message Processors
 that are assigned to a Custom Pod. Custom pods are useful because they give you the ability to 
-assign a set of specific Message Processors to an organization and environment. 
+assign a set of specific Message Processors to an organization and environment and physically isolate traffic. 
 
 ## Usage Context
 The decision to add a Custom Pod signifies that many of our default assumptions will not hold. Consequently in addition 
@@ -49,6 +49,5 @@ Assuming you have used this Ansible framework to install the planet then the pla
     cd ~/apigee-opdk-accelerator/
     ansible-galaxy install -r post-installation/add/add-components/requirements.yml -f
     ansible-playbook post-installation/add/add-components/add-rmp-to-custom-pod.yml -e target_hosts=rmp[2:3]
-    
 
-    
+
