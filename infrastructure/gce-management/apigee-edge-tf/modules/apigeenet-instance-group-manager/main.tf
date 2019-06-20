@@ -3,17 +3,13 @@ resource "google_compute_region_instance_group_manager" "apigeenet-ms-group-inst
   base_instance_name        = "${google_compute_instance_template.apigeenet-base-instance-template.name}"
   region                    = "${var.instance_region}"
   instance_template         = "${google_compute_instance_template.apigeenet-base-instance-template.self_link}"
-  distribution_policy_zones = ["${var.instance_distribution_policy_zones}"]
+  distribution_policy_zones = "${var.instance_distribution_policy_zones}"
   target_size               = "${var.instance_count}"
 
   named_port {
     name = "${var.group_manager_port_name}"
     port = "${var.group_manager_port}"
   }
-}
-
-output "instance_group" {
-  value = "${google_compute_region_instance_group_manager.apigeenet-ms-group-instance.name}"
 }
 
 resource "google_compute_instance_template" "apigeenet-base-instance-template" {
@@ -25,11 +21,6 @@ resource "google_compute_instance_template" "apigeenet-base-instance-template" {
   network_interface {
     network = "${var.instance_network}"
 
-    access_config = {}
-  }
-
-  labels {
-    g-on-g-notify-ignore = ""
   }
 
   disk {
