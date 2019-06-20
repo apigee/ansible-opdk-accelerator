@@ -61,7 +61,7 @@
   - { role: apigee-opdk-setup-status, tags: ['ds-status', 'status'] }
 
 - name: Configure & Install Management Server
-  hosts: ms,dc-1-ms,dc-2-ms,dc1ms,dc2ms
+  hosts: ms
   gather_facts: no
   tags: ['ms','edge']
   vars:
