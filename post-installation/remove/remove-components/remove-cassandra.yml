@@ -21,12 +21,22 @@
       that:
       - private_address is defined and private_address | trim | length > 0
       - nodetool is defined and nodetool | trim | length > 0
-      - nodetool_delegate is defined and nodetool_delegate | trim | length > 0
       msg: "Please provide the missing attribute"
 
+  - name: Assert nodetool_delegate has been indicated
+    assert:
+      that:
+      - nodetool_delegate is defined and nodetool_delegate | trim | length > 0
+      msg: "Please provide the IP address of the nodetool_delegate attribute"
+
+  - name: Cassandra target private address
+    set_fact:
+      target_cassandra_private_address: "{{ private_address }}"
+
   - name: Obtain Nodetool status
-    shell: "{{ nodetool }} status | grep {{ private_address }}"
+    shell: "{{ nodetool }} status | grep {{ target_cassandra_private_address }}"
     register: nodetool_status
+    delegate_to: "{{ nodetool_delegate }}"
 
   - name: Obtain node UUID
     set_fact:
