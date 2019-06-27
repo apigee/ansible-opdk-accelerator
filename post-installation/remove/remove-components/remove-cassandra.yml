@@ -46,9 +46,15 @@
   - name: Decommission cassandra node
     command: "{{ apigee_service }} apigee-cassandra decommission"
 
-  - name: Remove node that is not a part of the ring
-    command: "{{ nodetool }} removenode {{ cassandra_uuid }}"
-    delegate_to: "{{ nodetool_delegate }}"
+  - block:
+    - name: Remove node that is not a part of the ring
+      command: "{{ nodetool }} removenode {{ cassandra_uuid }}"
+      delegate_to: "{{ nodetool_delegate }}"
+
+    rescue:
+    - name: Remove node that is not a part of the ring
+      command: "{{ nodetool }} removenode force {{ cassandra_uuid }} "
+      delegate_to: "{{ nodetool_delegate }}"
 
   - name: Remove Cassandra
     include_tasks: remove-component.yml
