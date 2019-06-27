@@ -52,7 +52,7 @@
       delegate_to: "{{ nodetool_delegate }}"
 
     rescue:
-    - name: Remove node that is not a part of the ring
+    - name: Remove node that is not a part of the ring, using removenode force
       command: "{{ nodetool }} removenode force {{ cassandra_uuid }} "
       delegate_to: "{{ nodetool_delegate }}"
 
