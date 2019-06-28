@@ -102,7 +102,7 @@
 #  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
 
 - name: Configure & Install Router
-  hosts: router
+  hosts: router,rmp
   gather_facts: no
   strategy: free
   tags: ['router','edge', 'rmp', 'r']
@@ -120,7 +120,7 @@
   - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
 
 - name: Configure & Install Message Processor
-  hosts: mp
+  hosts: mp,rmp
   gather_facts: no
   strategy: free
   tags: ['mp','edge','rmp']
