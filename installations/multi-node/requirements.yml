@@ -16,6 +16,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-os-postgres.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-os-pip.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-setup-os-openldap.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-setup-openjdk.git
