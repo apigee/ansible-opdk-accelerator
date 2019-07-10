@@ -11,12 +11,9 @@
     - { role: apigee-opdk-modules }
   tasks:
     - name: Ensure download folder exists
-      become: true
       file:
         path: "{{ opdk_resources_path }}"
         state: directory
-        owner: apigee
-        group: apigee
 
     - name: Update with Yum utilities
       tags: ['yum']
