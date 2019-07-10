@@ -97,9 +97,9 @@
   - { role: apigee-opdk-start-components, tags: ['minimum', 'rmp-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['rmp-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
-  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
   - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
-  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
 
 - name: Configure & Install Router
   hosts: router,rmp
@@ -117,7 +117,7 @@
   - { role: apigee-opdk-start-components, tags: ['r-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['r-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
-  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
 
 - name: Configure & Install Message Processor
   hosts: mp,rmp
@@ -135,7 +135,7 @@
   - { role: apigee-opdk-start-components, tags: ['mp-start', 'start'] }
   - { role: apigee-opdk-setup-status, tags: ['mp-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
-  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}" }
+  - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
 
 - name: Configure & Install Qpid
   hosts: qpid
