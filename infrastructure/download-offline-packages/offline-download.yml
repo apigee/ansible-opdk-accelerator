@@ -18,7 +18,7 @@
     - name: Update with Yum utilities
       tags: ['yum']
       become: true
-      yum:
+      package:
         name: "yum-utils"
         state: present
 
