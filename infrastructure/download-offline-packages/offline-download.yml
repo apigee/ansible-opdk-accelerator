@@ -1,7 +1,7 @@
 ---
 - name: Download packages for manual installation
   hosts: "{{ target_hosts | default('localhost') }}"
-  gather_facts: no
+  gather_facts: yes
   tags: ['download']
   vars:
     local_apigee_path: "{{ temp_local_apigee_path | default('~/.apigee') }}/resources/rpms"
