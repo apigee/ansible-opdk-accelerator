@@ -22,3 +22,7 @@ variable "instance_external_ip" {
 variable "instance_disk_size" {
   default = 100
 }
+
+variable "instance_count" {
+  default = 1
+}

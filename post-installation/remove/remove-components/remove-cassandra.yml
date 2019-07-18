@@ -34,6 +34,7 @@
       target_cassandra_private_address: "{{ private_address }}"
 
   - name: Obtain Nodetool status
+    ignore_errors: true
     shell: "{{ nodetool }} status | grep {{ target_cassandra_private_address }}"
     register: nodetool_status
     delegate_to: "{{ nodetool_delegate }}"
@@ -42,6 +43,7 @@
     set_fact:
       cacheable: yes
       cassandra_uuid: "{{ nodetool_status.stdout.split(' ')[-3] }}"
+    when: nodetool_status is defined
 
   - name: Decommission cassandra node
     command: "{{ apigee_service }} apigee-cassandra decommission"
@@ -53,6 +55,7 @@
 
     rescue:
     - name: Remove node that is not a part of the ring, using removenode force
+      ignore_errors: true
       command: "{{ nodetool }} removenode force {{ cassandra_uuid }} "
       delegate_to: "{{ nodetool_delegate }}"
 

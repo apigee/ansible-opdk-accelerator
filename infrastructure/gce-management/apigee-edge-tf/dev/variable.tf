@@ -29,3 +29,7 @@ variable "instance_scopes" {
 variable "service_account_email" {
   default = "736255665193-compute@developer.gserviceaccount.com"
 }
+
+variable "dc_region" {
+  default = "1"
+}

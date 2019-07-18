@@ -1,8 +1,4 @@
 # Create the apigeenet network
-//data "google_compute_network" "apigeenet" {
-//  name = "default"
-//}
-
 resource "google_compute_network" "apigeenet" {
   name                    = "apigeenet"
   auto_create_subnetworks = true
@@ -14,11 +10,27 @@ resource "google_compute_router" "apigeenet-router" {
   network = "${google_compute_network.apigeenet.self_link}"
 }
 
+# Create the apigeenet router
+resource "google_compute_router" "apigeenet-central-router" {
+  name    = "apigeenet-router"
+  network = "${google_compute_network.apigeenet.self_link}"
+  region  = "us-central1"
+}
+
 # Create the gateway nat for the apigeenet-subnet-router
 resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   name                               = "apigeenet-subnet-nat"
   router                             = "${google_compute_router.apigeenet-router.name}"
   region                             = "${var.region}"
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+}
+# Create the gateway nat for the apigeenet-subnet-router
+resource "google_compute_router_nat" "apigeenet-subnet-nat-dc-2" {
+  name = "apigeenet-subnet-nat-dc-2"
+  //  router                             = "us-east1/apigeenet"
+  router                             = "${google_compute_router.apigeenet-central-router.name}"
+  region                             = "us-central1"
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
@@ -91,9 +103,10 @@ module "apigee-bastion-vm" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm-1" {
+module "apigee-vm-dc-1-ms" {
   source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-ds-dc-1-ms-dc-1-ldap-dc-1-ui-1"
+  instance_name      = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
+  instance_count     = "1"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -108,9 +121,64 @@ module "apigee-vm-1" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm-2" {
+module "apigee-vm-dc-2-ms" {
   source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-ds-dc-1-rmp-1"
+  instance_name      = "planet-dc-2-ms-dc-2-ldap-dc-2-ui"
+  instance_count     = "0"
+  instance_zone      = "us-central1-f"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 250
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-dc-1-ds" {
+  source             = "../modules/internal-instance"
+  instance_zone      = "${var.zone}"
+  instance_count     = 6
+  instance_name      = "planet-dc-1-ds"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 250
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-dc-2-ds" {
+  source             = "../modules/internal-instance"
+  instance_zone      = "us-central1-f"
+  instance_count     = 0
+  instance_name      = "planet-dc-2-ds"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 250
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-vm-dc-1-rmp" {
+  source             = "../modules/internal-instance"
+  instance_name      = "planet-dc-1-rmp"
+  instance_count     = "2"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -125,10 +193,47 @@ module "apigee-vm-2" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm-3" {
+module "apigee-vm-dc-2-rmp" {
+  source             = "../modules/internal-instance"
+  instance_name      = "planet-dc-2-rmp"
+  instance_count     = "0"
+  instance_zone      = "us-central1-f"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 250
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+  ]
+}
+
+//# Add an apigee-vm instance
+module "apigee-vm-dc-1-qpid" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_name      = "planet-dc-1-ds-dc-1-rmp-2"
+  instance_name      = "planet-dc-1-qpid"
+  instance_count     = "2"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 250
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+  ]
+}
+
+//# Add an apigee-vm instance
+module "apigee-vm-dc-2-qpid" {
+  source             = "../modules/internal-instance"
+  instance_zone      = "us-central1-f"
+  instance_name      = "planet-dc-2-qpid"
+  instance_count     = "0"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
@@ -142,9 +247,9 @@ module "apigee-vm-3" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm-4" {
+module "apigee-vm-dc-1-pgmaster" {
   source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-pg-dc-1-pgmaster-dc-1-qpid-1"
+  instance_name      = "planet-dc-1-pg-dc-1-pgmaster"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -159,9 +264,9 @@ module "apigee-vm-4" {
 }
 
 # Add an apigee-vm instance
-module "apigee-vm-5" {
+module "apigee-vm-dc-1-pgstandby" {
   source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-pg-dc-1-pgstandby-dc-1-qpid-2"
+  instance_name      = "planet-dc-1-pg-dc-1-pgstandby"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -174,12 +279,12 @@ module "apigee-vm-5" {
     "apigeenet-allow-local",
   ]
 }
-
 # Add an apigee-vm instance
-module "apigee-vm-6" {
+module "apigee-vm-dc-2-pgstandby" {
   source             = "../modules/internal-instance"
-  instance_zone      = "${var.zone}"
-  instance_name      = "planet-dc-1-rmp-3"
+  instance_name      = "planet-dc-2-pg-dc-2-pgstandby"
+  instance_count     = "0"
+  instance_zone      = "us-central1-f"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
@@ -192,19 +297,3 @@ module "apigee-vm-6" {
   ]
 }
 
-# Add an apigee-vm instance
-module "apigee-vm-7" {
-  source             = "../modules/internal-instance"
-  instance_zone      = "${var.zone}"
-  instance_name      = "planet-dc-1-rmp-4"
-  instance_network   = "${google_compute_network.apigeenet.self_link}"
-  instance_disk_size = 250
-  instance_type      = "n1-standard-2"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
-    "apigeenet-allow-mgmt-ui",
-    "apigeenet-allow-local",
-  ]
-}
