@@ -142,7 +142,7 @@ module "apigee-vm-dc-2-ms" {
 module "apigee-vm-dc-1-ds" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_count     = 6
+  instance_count     = 3
   instance_name      = "planet-dc-1-ds"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
