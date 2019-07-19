@@ -106,7 +106,7 @@ module "apigee-bastion-vm" {
 module "apigee-vm-dc-1-ms" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
-  instance_count     = "1"
+  instance_count     = "${var.dc_1_ms_count}"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -124,7 +124,7 @@ module "apigee-vm-dc-1-ms" {
 module "apigee-vm-dc-2-ms" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-2-ms-dc-2-ldap-dc-2-ui"
-  instance_count     = "0"
+  instance_count     = "${var.dc_2_ms_count}"
   instance_zone      = "us-central1-f"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -142,7 +142,7 @@ module "apigee-vm-dc-2-ms" {
 module "apigee-vm-dc-1-ds" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_count     = 3
+  instance_count     = "${var.dc_1_ds_count}"
   instance_name      = "planet-dc-1-ds"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -160,7 +160,7 @@ module "apigee-vm-dc-1-ds" {
 module "apigee-vm-dc-2-ds" {
   source             = "../modules/internal-instance"
   instance_zone      = "us-central1-f"
-  instance_count     = 0
+  instance_count     = "${var.dc_2_ds_count}"
   instance_name      = "planet-dc-2-ds"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -178,7 +178,7 @@ module "apigee-vm-dc-2-ds" {
 module "apigee-vm-dc-1-rmp" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-1-rmp"
-  instance_count     = "2"
+  instance_count     = "${var.dc_1_rmp_count}"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -196,7 +196,7 @@ module "apigee-vm-dc-1-rmp" {
 module "apigee-vm-dc-2-rmp" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-2-rmp"
-  instance_count     = "0"
+  instance_count     = "${var.dc_2_rmp_count}"
   instance_zone      = "us-central1-f"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -214,7 +214,7 @@ module "apigee-vm-dc-2-rmp" {
 module "apigee-vm-dc-1-qpid" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_name      = "planet-dc-1-qpid"
+  instance_name      = "${var.dc_1_qpid_count}"
   instance_count     = "2"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -233,7 +233,7 @@ module "apigee-vm-dc-2-qpid" {
   source             = "../modules/internal-instance"
   instance_zone      = "us-central1-f"
   instance_name      = "planet-dc-2-qpid"
-  instance_count     = "0"
+  instance_count     = "${var.dc_2_qpid_count}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
@@ -267,6 +267,7 @@ module "apigee-vm-dc-1-pgmaster" {
 module "apigee-vm-dc-1-pgstandby" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-1-pg-dc-1-pgstandby"
+  instance_count     = "${var.dc_1_pgstandby_count}"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -283,7 +284,7 @@ module "apigee-vm-dc-1-pgstandby" {
 module "apigee-vm-dc-2-pgstandby" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-2-pg-dc-2-pgstandby"
-  instance_count     = "0"
+  instance_count     = "${var.dc_2_pgstandby_count}"
   instance_zone      = "us-central1-f"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250

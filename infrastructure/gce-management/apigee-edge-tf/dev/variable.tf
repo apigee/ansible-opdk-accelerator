@@ -33,3 +33,43 @@ variable "service_account_email" {
 variable "dc_region" {
   default = "1"
 }
+
+variable "dc_1_ms_count" {
+  default = "1"
+}
+
+variable "dc_2_ms_count" {
+  default = "0"
+}
+
+variable "dc_1_ds_count" {
+  default = "3"
+}
+
+variable "dc_2_ds_count" {
+  default = "0"
+}
+
+variable "dc_1_rmp_count" {
+  default = "2"
+}
+
+variable "dc_2_rmp_count" {
+  default = "0"
+}
+
+variable "dc_1_qpid_count" {
+  default = "2"
+}
+
+variable "dc_2_qpid_count" {
+  default = "0"
+}
+
+variable "dc_1_pgstandby_count" {
+  default = "1"
+}
+
+variable "dc_2_pgstandby_count" {
+  default = "0"
+}
