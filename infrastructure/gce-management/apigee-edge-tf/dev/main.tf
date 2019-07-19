@@ -214,8 +214,8 @@ module "apigee-vm-dc-2-rmp" {
 module "apigee-vm-dc-1-qpid" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_name      = "${var.dc_1_qpid_count}"
-  instance_count     = "2"
+  instance_name      = "planet-dc-1-qpid"
+  instance_count     = "${var.dc_1_qpid_count}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
