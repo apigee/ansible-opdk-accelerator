@@ -7,8 +7,6 @@
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
       MacOSX: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64.zip"
-#      Debian: "https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip"
-#      MacOSX: "https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_darwin_amd64.zip"
 
   tasks:
     - name: Install archive managment packages
