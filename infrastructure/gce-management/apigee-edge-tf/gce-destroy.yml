@@ -29,7 +29,7 @@
         dest: ./
         remote_src: yes
 
-    - name: Create infrastructure
+    - name: Destroy infrastructure
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
         project_path: "{{ playbook_dir }}/{{ project_path }}"
