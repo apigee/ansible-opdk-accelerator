@@ -21,7 +21,7 @@ assume you will configure a `prod` environment and would name your Ansible confi
 accomplished in the following way: 
 
 
-        cp ~/.ansible/multi-planet-configurations/apigee-opdk-configuration-template.cfg ~/.ansible/multi-planet-configurations/prod.cfg
+        cp ~/.ansible/multi-planet-configurations/templates/apigee-opdk-configuration-template.cfg ~/.ansible/multi-planet-configurations/prod.cfg
          
 1. Update the new template file for customization. In particular it is necessary for you to indicate the SSH user 
 that Ansible will use for server access, the location of the inventory files, the location of the log files, and the 
