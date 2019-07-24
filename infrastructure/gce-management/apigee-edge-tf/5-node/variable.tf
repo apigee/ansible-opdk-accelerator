@@ -73,3 +73,11 @@ variable "dc_1_pgstandby_count" {
 variable "dc_2_pgstandby_count" {
   default = 0
 }
+
+variable "credentials_file" {
+  default = "~/.apigee-secure/sandbox-1f5fb288d552.json"
+}
+
+variable "gcp_project_name" {
+  default = "sandbox-173316"
+}
