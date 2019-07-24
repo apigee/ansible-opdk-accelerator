@@ -41,7 +41,27 @@ module "configure_firewall_apigeenet_allow_mgmt_ui" {
   firewall_source_tags   = ["mgmt-ui"]
   firewall_network       = "${google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
-  firewall_ports         = ["9000", "80", "8080", "9001", "59001"]
+  firewall_ports         = ["9000", "80", "8080", "9001"]
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
+
+module "configure_firewall_apigeenet_allow_validate_test" {
+  source                 = "../modules/apigeenet-firewalls-protocol-with-ports"
+  firewall_name          = "validate-rmp"
+  firewall_source_tags   = ["validate-rmp"]
+  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["59001"]
+  firewall_source_ranges = ["10.0.0.0/8"]
+}
+
+module "configure_firewall_apigeenet_allow_postgresql_testing" {
+  source                 = "../modules/apigeenet-firewalls-protocol-with-ports"
+  firewall_name          = "postgresql"
+  firewall_source_tags   = ["postgresql"]
+  firewall_network       = "${google_compute_network.apigeenet.self_link}"
+  firewall_protocol      = "tcp"
+  firewall_ports         = ["5432"]
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
@@ -134,6 +154,7 @@ module "apigee-dc-1-ds-rmp" {
     "apigeenet-allow-icmp",
     "apigeenet-allow-mgmt-ui",
     "apigeenet-allow-local",
+    "validate-rmp"
   ]
 }
 
@@ -151,6 +172,7 @@ module "apigee-dc-1-qpid-pg-pgmaster" {
     "apigeenet-allow-icmp",
     "apigeenet-allow-mgmt-ui",
     "apigeenet-allow-local",
+    "postgresql"
   ]
 }
 
@@ -187,6 +209,7 @@ module "apigee-dc-1-qpid-pg-pgstandby" {
     "apigeenet-allow-icmp",
     "apigeenet-allow-mgmt-ui",
     "apigeenet-allow-local",
+    "postgresql"
   ]
 }
 
