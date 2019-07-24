@@ -1,7 +1,7 @@
 ---
 - name: Create infrastructure
   hosts: localhost
-  var_prompts:
+  vars_prompt:
     - name: project_path
       prompt: "Which project do you want to build? ['5-node','aio','dev','prod']"
       default: "5-node"
