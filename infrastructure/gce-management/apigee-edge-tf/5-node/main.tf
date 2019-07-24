@@ -41,7 +41,7 @@ module "configure_firewall_apigeenet_allow_mgmt_ui" {
   firewall_source_tags   = ["mgmt-ui"]
   firewall_network       = "${google_compute_network.apigeenet.self_link}"
   firewall_protocol      = "tcp"
-  firewall_ports         = ["9000", "80", "8080", "9001"]
+  firewall_ports         = ["9000", "80", "8080", "9001", "59001"]
   firewall_source_ranges = ["10.0.0.0/8"]
 }
 
