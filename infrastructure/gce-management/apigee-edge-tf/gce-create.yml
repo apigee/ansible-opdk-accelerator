@@ -7,6 +7,26 @@
       default: "5-node"
       private: no
 
+    - name: default_region
+      prompt: "Default Region"
+      default: "us-east1"
+      private: no
+
+    - name: default_zone
+      prompt: "Default Zone"
+      default: "us-east1-b"
+      private: no
+
+    - name: gcp_credentials file
+      prompt: "Service Account Credentials File Path"
+      default: "~/.apigee-secure/sandbox-1f5fb288d552.json"
+      private: no
+
+    - name: gcp_project_name
+      prompt: "GCP Project Name"
+      default: "sandbox-173316"
+      private: no
+
   vars:
     terraform_version: "0.12.0"
     terraform_download_links:
@@ -41,3 +61,8 @@
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
         state: present
+        variables:
+          region: "{{ default_region }}"
+          zone: "{{ default_zone }}"
+          credentials_file: "{{ gcp_credentials_file }}"
+          gcp_project_name: "{{ gcp_project_name }}
