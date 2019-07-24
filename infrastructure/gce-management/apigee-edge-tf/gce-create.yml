@@ -65,4 +65,4 @@
           region: "{{ default_region }}"
           zone: "{{ default_zone }}"
           credentials_file: "{{ gcp_credentials_file }}"
-          gcp_project_name: "{{ gcp_project_name }}
+          gcp_project_name: "{{ gcp_project_name }}"
