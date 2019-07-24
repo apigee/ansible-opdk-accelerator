@@ -24,3 +24,6 @@
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
         state: absent
+        variables:
+          credentials_file: "{{ gcp_credentials_file }}"
+          gcp_project_name: "{{ gcp_project_name }}"
