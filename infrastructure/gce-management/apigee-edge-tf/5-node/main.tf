@@ -162,7 +162,7 @@ module "apigee-dc-1-ds-rmp" {
 module "apigee-dc-1-qpid-pg-pgmaster" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_name      = "planet-dc-1-qpid-dc-1-pg-dc-1-pgmaster"
+  instance_name      = "planet-dc-1-qpid-dc-1-pg"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
@@ -198,7 +198,7 @@ module "apigee-dc-1-qpid" {
 module "apigee-dc-1-qpid-pg-pgstandby" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-1-qpid-dc-1-pg-dc-1-pgstandby"
-  instance_count     = 1
+  instance_count     = "${var.dc_1_pgstandby_count}"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
