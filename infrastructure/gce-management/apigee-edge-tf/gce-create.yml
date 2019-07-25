@@ -33,8 +33,6 @@
       private: no
 
   vars:
-    terraform_workspace: "terraformworkspace"
-    terraform_plan: "terraform.tfstate"
     terraform_version: "0.12.0"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
@@ -69,39 +67,16 @@
         dest: ./
         remote_src: yes
 
-#    - name: Create terraform workspace folder
-#      file:
-#        path: "{{ terraform_workspace }}"
-#        state: directory
-#
-#    - name: Create infrastructure plan
-#      terraform:
-#        binary_path: "{{ playbook_dir }}/terraform"
-#        project_path: "{{ playbook_dir }}/{{ project_path }}"
-#        force_init: true
-#        state: planned
-##        workspace: "{{ terraform_workspace }}"
-#        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-##        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-#        variables:
-#          region: "{{ region }}"
-#          zone: "{{ zone }}"
-#          credentials_file: "{{ gcp_credentials_file }}"
-#          gcp_project_name: "{{ gcp_project_name }}"
-#          service_account_email: "{{ service_account_email }}"
-
     - name: Create infrastructure
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
         state: present
-#        workspace: "{{ terraform_workspace }}"
-#        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-#        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-#        variables:
-#          region: "{{ region }}"
-#          zone: "{{ zone }}"
-#          credentials_file: "{{ gcp_credentials_file }}"
-#          gcp_project_name: "{{ gcp_project_name }}"
-#          service_account_email: "{{ service_account_email }}"
+        variables:
+          region: "{{ region }}"
+          zone: "{{ zone }}"
+          credentials_file: "{{ gcp_credentials_file }}"
+          gcp_project_name: "{{ gcp_project_name }}"
+          service_account_email: "{{ service_account_email }}"
+
