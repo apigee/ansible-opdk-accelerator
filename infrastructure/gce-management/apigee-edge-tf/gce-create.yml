@@ -81,7 +81,7 @@
         force_init: true
         state: planned
 #        workspace: "{{ terraform_workspace }}"
-#        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
+        plan_file: "{{ terraform_plan }}"
 #        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
         variables:
           region: "{{ region }}"
