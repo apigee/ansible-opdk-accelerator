@@ -3,12 +3,10 @@ variable "router_name" {
 }
 
 variable "region" {
-//  default = ""
   default = "us-east1"
 }
 
 variable "zone" {
-//  default = ""
   default = "us-east1-b"
 }
 
@@ -74,15 +72,12 @@ variable "dc_2_pgstandby_count" {
 
 variable "credentials_file" {
   default = "~/.apigee-secure/sandbox-1f5fb288d552.json"
-//  default = ""
 }
 
 variable "gcp_project_name" {
   default = "sandbox-173316"
-//  default = ""
 }
 
 variable "service_account_email" {
   default = "736255665193-compute@developer.gserviceaccount.com"
-//  default = ""
 }
