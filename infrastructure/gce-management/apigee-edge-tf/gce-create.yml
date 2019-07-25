@@ -79,7 +79,7 @@
         binary_path: "{{ playbook_dir }}/terraform"
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
-        state: plan
+        state: planned
         plan_file: "{{ terraform_plan }}"
         workspace: "{{ terraform_workspace }}"
         state_file: "{{ playbook_dir }}/terraform.tfstate"
