@@ -188,7 +188,6 @@
   vars:
     property_folders:
     - "~/.apigee-secure"
-    - "~/.apigee"
   roles:
   - { role: apigee-opdk-modules, tags: ['config', 'org-config'] }
   - { role: apigee-opdk-setup-org, tags: ['org-setup'] }
