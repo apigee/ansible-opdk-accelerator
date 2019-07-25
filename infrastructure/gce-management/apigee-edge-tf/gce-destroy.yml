@@ -23,7 +23,10 @@
         binary_path: "{{ playbook_dir }}/terraform"
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
+        purge_workspace: yes
         state: absent
+        workspace: "{{ playbook_dir }}/.terraform"
+        state_file: "{{ playbook_dir }}/terraform.tfstate"
         variables:
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
