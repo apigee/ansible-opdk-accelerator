@@ -73,7 +73,7 @@
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
         state: present
-        workspace: "{{ playbook_dir }}/terraform_workspace"
+        workspace: "{{ playbook_dir }}/terraformworkspace"
         state_file: "{{ playbook_dir }}/terraform.tfstate"
         variables:
           region: "{{ region }}"
