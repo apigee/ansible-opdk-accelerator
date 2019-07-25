@@ -98,10 +98,10 @@
         state: present
 #        workspace: "{{ terraform_workspace }}"
 #        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-        variables:
-          region: "{{ region }}"
-          zone: "{{ zone }}"
-          credentials_file: "{{ gcp_credentials_file }}"
-          gcp_project_name: "{{ gcp_project_name }}"
-          service_account_email: "{{ service_account_email }}"
+#        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
+#        variables:
+#          region: "{{ region }}"
+#          zone: "{{ zone }}"
+#          credentials_file: "{{ gcp_credentials_file }}"
+#          gcp_project_name: "{{ gcp_project_name }}"
+#          service_account_email: "{{ service_account_email }}"
