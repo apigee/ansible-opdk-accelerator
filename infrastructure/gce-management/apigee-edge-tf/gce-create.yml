@@ -34,7 +34,7 @@
 
   vars:
     terraform_workspace: "terraformworkspace"
-    terraform_plan: "terrform_plan.tf"
+    terraform_plan: "terraform.tfstate"
     terraform_version: "0.12.5"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
@@ -82,7 +82,7 @@
         state: planned
         workspace: "{{ terraform_workspace }}"
         plan_file: "{{ terraform_plan }}/{{ terraform_plan }}"
-        state_file: "{{ playbook_dir }}/terraform.tfstate"
+        state_file: "{{ playbook_dir }}/{{ terraform_plan }}"
         variables:
           region: "{{ region }}"
           zone: "{{ zone }}"
@@ -98,7 +98,7 @@
         state: present
         workspace: "{{ terraform_workspace }}"
         plan_file: "{{ terraform_plan }}/{{ terraform_plan }}"
-        state_file: "{{ playbook_dir }}/terraform.tfstate"
+        state_file: "{{ playbook_dir }}/{{ terraform_plan }}"
         variables:
           region: "{{ region }}"
           zone: "{{ zone }}"
