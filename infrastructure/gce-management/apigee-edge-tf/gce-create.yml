@@ -33,7 +33,7 @@
       private: no
 
   vars:
-    terraform_workspace: "{{ playbook_dir }}/terraformworkspace"
+    terraform_workspace: "terraformworkspace"
     terraform_plan: "terraform.tfstate"
     terraform_version: "0.12.5"
     terraform_download_links:
