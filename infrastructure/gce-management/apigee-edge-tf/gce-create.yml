@@ -74,6 +74,22 @@
         path: "{{ terraform_workspace }}"
         state: directory
 
+    - name: Create infrastructure plan
+      terraform:
+        binary_path: "{{ playbook_dir }}/terraform"
+        project_path: "{{ playbook_dir }}/{{ project_path }}"
+        force_init: true
+        state: plan
+        plan_file: "{{ terraform_plan }}"
+        workspace: "{{ terraform_workspace }}"
+        state_file: "{{ playbook_dir }}/terraform.tfstate"
+        variables:
+          region: "{{ region }}"
+          zone: "{{ zone }}"
+          credentials_file: "{{ gcp_credentials_file }}"
+          gcp_project_name: "{{ gcp_project_name }}"
+          service_account_email: "{{ service_account_email }}"
+
     - name: Create infrastructure
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
