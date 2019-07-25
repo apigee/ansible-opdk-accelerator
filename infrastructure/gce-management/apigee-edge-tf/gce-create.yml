@@ -80,9 +80,9 @@
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
         state: planned
-        workspace: "{{ terraform_workspace }}"
-        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
+#        workspace: "{{ terraform_workspace }}"
+#        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
+#        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
         variables:
           region: "{{ region }}"
           zone: "{{ zone }}"
@@ -96,9 +96,9 @@
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
         state: present
-        workspace: "{{ terraform_workspace }}"
-        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
-        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
+#        workspace: "{{ terraform_workspace }}"
+#        plan_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
+#        state_file: "{{ terraform_workspace }}/{{ terraform_plan }}"
         variables:
           region: "{{ region }}"
           zone: "{{ zone }}"
