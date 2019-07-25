@@ -3,11 +3,13 @@ variable "router_name" {
 }
 
 variable "region" {
-  default = "us-east1"
+  default = ""
+  //  default = "us-east1"
 }
 
 variable "zone" {
-  default = "us-east1-b"
+  default = ""
+  //  default = "us-east1-b"
 }
 
 variable "image_name" {
@@ -24,10 +26,6 @@ variable "machine_type" {
 
 variable "instance_scopes" {
   default = ["compute-rw", "storage-ro"]
-}
-
-variable "service_account_email" {
-  default = "736255665193-compute@developer.gserviceaccount.com"
 }
 
 variable "dc_region" {
@@ -67,9 +65,24 @@ variable "dc_2_qpid_count" {
 }
 
 variable "dc_1_pgstandby_count" {
-  default = 1
+  default = 0
 }
 
 variable "dc_2_pgstandby_count" {
   default = 0
+}
+
+variable "credentials_file" {
+  //  default = "~/.apigee-secure/sandbox-1f5fb288d552.json"
+  default = ""
+}
+
+variable "gcp_project_name" {
+  //  default = "sandbox-173316"
+  default = ""
+}
+
+variable "service_account_email" {
+  //  default = "736255665193-compute@developer.gserviceaccount.com"
+  default = ""
 }

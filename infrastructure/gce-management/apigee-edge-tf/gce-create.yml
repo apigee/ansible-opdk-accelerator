@@ -27,6 +27,11 @@
       default: "sandbox-173316"
       private: no
 
+    - name: service_account_email
+      prompt: "Service Account Email"
+      default: "736255665193-compute@developer.gserviceaccount.com"
+      private: no
+
   vars:
     terraform_version: "0.12.0"
     terraform_download_links:
@@ -73,3 +78,4 @@
           zone: "{{ zone }}"
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
+          service_account_email: "{{ service_account_email }}"
