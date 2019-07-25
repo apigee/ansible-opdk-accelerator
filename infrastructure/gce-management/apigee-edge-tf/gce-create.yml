@@ -33,7 +33,7 @@
       private: no
 
   vars:
-    terraform_workspace: "{{ playbook_dir }}/terraform_workspace"
+    terraform_workspace: "{{ playbook_dir }}/terraformworkspace"
     terraform_version: "0.12.5"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
