@@ -33,7 +33,8 @@
       private: no
 
   vars:
-    terraform_workspace: "{{ playbook_dir }}/terraformworkspace"
+    terraform_workspace: "terraformworkspace"
+    terraform_plan: "terrformplan"
     terraform_version: "0.12.5"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
@@ -79,6 +80,7 @@
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         force_init: true
         state: present
+        plan_file: "{{ terraform_plan }}"
         workspace: "{{ terraform_workspace }}"
         state_file: "{{ playbook_dir }}/terraform.tfstate"
         variables:
