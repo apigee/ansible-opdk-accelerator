@@ -82,6 +82,11 @@
         force_init: 'yes'
         workspace: "{{ terraform_workspace }}"
         plan_file: "{{ terraform_state_file }}"
+        variables:
+          region: "{{ default_region }}"
+          zone: "{{ default_zone }}"
+          credentials_file: "{{ gcp_credentials_file }}"
+          gcp_project_name: "{{ gcp_project_name }}"
 
     - name: Create infrastructure
       terraform:
