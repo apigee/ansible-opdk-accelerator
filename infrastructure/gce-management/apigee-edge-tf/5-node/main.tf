@@ -8,6 +8,7 @@ resource "google_compute_network" "apigeenet" {
 resource "google_compute_router" "apigeenet-router" {
   name    = "apigeenet-router"
   network = "${google_compute_network.apigeenet.self_link}"
+  region  = "us-east1"
 }
 
 # Create the apigeenet router
@@ -27,8 +28,8 @@ resource "google_compute_router_nat" "apigeenet-subnet-nat" {
 }
 # Create the gateway nat for the apigeenet-subnet-router
 resource "google_compute_router_nat" "apigeenet-subnet-nat-dc-2" {
-  name = "apigeenet-subnet-nat-dc-2"
-  //  router                             = "us-east1/apigeenet"
+  name                               = "apigeenet-subnet-nat-dc-2"
+  count                              = "${var.nat_dc_2_count}"
   router                             = "${google_compute_router.apigeenet-central-router.name}"
   region                             = "us-central1"
   nat_ip_allocate_option             = "AUTO_ONLY"

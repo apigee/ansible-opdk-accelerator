@@ -23,7 +23,9 @@ variable "machine_type" {
 }
 
 variable "instance_scopes" {
-  default = ["compute-rw", "storage-ro"]
+  default = [
+    "compute-rw",
+  "storage-ro"]
 }
 
 variable "dc_region" {
@@ -80,4 +82,8 @@ variable "gcp_project_name" {
 
 variable "service_account_email" {
   default = "736255665193-compute@developer.gserviceaccount.com"
+}
+
+variable "nat_dc_2_count" {
+  default = "0"
 }

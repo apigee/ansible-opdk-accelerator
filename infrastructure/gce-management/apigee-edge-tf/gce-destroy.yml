@@ -17,6 +17,10 @@
       default: "sandbox-173316"
       private: no
 
+  vars:
+    terraform_state_file: "{{ playbook_dir }}/terrform.tfstate"
+    terraform_workspace: "{{ playbook_dir }}/.terraform"
+
   tasks:
     - name: Destroy infrastructure
       terraform:
@@ -25,6 +29,9 @@
         force_init: true
         purge_workspace: yes
         state: absent
+        state_file: "{{ terraform_state_file }}"
+        plan_file: "{{ terraform_state_file }}"
+#        workspace: "{{ playbook_dir }}"
         variables:
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
