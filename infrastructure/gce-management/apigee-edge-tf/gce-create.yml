@@ -63,6 +63,7 @@
       get_url:
         url: "{{ terraform_download_link }}"
         dest: "./{{ terraform_download_link | basename }}"
+        validate_certs: no
 
     - name: Unarchive terraform binary
       unarchive:
