@@ -19,7 +19,7 @@
 
   vars:
     terraform_state_file: "{{ playbook_dir }}/terraform.tfstate"
-    terraform_workspace: "{{ playbook_dir }}/.terraform"
+    terraform_workspace: "{{ playbook_dir }}/terraform"
 
   tasks:
     - name: Destroy infrastructure
