@@ -31,7 +31,7 @@
         state: absent
         state_file: "{{ terraform_state_file }}"
         plan_file: "{{ terraform_state_file }}"
-#        workspace: "{{ playbook_dir }}"
+        workspace: "{{ terraform_workspace }}"
         variables:
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
