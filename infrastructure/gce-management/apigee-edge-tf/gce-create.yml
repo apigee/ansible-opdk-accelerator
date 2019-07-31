@@ -33,7 +33,7 @@
       private: no
 
   vars:
-    terraform_state_file: "{{ playbook_dir }}/terrform.tfstate"
+    terraform_state_file: "{{ playbook_dir }}/terraform.tfstate"
     terraform_workspace: ".terraform"
 #    terraform_workspace: "{{ playbook_dir }}/.terraform"
     terraform_version: "0.12.0"
