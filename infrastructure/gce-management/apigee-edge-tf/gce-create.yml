@@ -35,7 +35,7 @@
   vars:
     terraform_state_file: "{{ playbook_dir }}/terraform.tfstate"
 #    terraform_workspace: ".terraform"
-    terraform_workspace: "{{ playbook_dir }}/terraform"
+    terraform_workspace: "{{ playbook_dir }}"
     terraform_version: "0.12.0"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
