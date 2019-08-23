@@ -1,0 +1,76 @@
+---
+- name: Download, Install and Configure Apigee Edge Microgateway
+  hosts: localhost
+
+  vars:
+    edgemicro_name: edgemicro
+    edgemicro_version: 2.5.7
+    nodejs_version: 8.15.1
+    nodejs_package_name: "node-v{{ nodejs_version }}.pkg"
+    nodejs_download_url: "https://nodejs.org/dist/v{{ nodejs_version }}/{{ nodejs_package_name }}"
+    nodejs_download_destination: "{{ '~/Downloads' | expanduser }}"
+
+  vars_prompt:
+    - name: org
+      prompt: "Apigee org name:"
+      private: no
+
+    - name: env
+      prompt: "Apigee env name:"
+      private: no
+
+    - name: email
+      prompt: "Apigee user email:"
+      private: no
+
+    - name: password
+      prompt: "Apigee user password?"
+      private: yes
+
+  tasks:
+    - name: Download NodeJS
+      get_url:
+        url: "{{ nodejs_download_url }}"
+        dest: "{{ nodejs_download_destination }}"
+
+    - name: Validate Node Installed
+      ignore_errors: true
+      shell: node -v
+      register: node_status
+
+    - debug:
+        var: node_status
+
+    - name: Install NodeJS
+      become: True
+      shell: "installer -pkg {{ nodejs_download_destination }}/{{ nodejs_package_name }} -target /"
+      when: "node_status.stderr | regex_search('.*node:.*command not found')"
+
+    - name: Install Apigee Microgateway
+      become: True
+      npm:
+        name: "{{ edgemicro_name }}"
+        version: "{{ edgemicro_version }}"
+        global: yes
+        state: latest
+
+    - name: Initialize Apigee Microgateway
+      shell: edgemicro init
+
+    - name: Configure Apigee Microgateway
+      shell: edgemicro configure -o {{ org }} -e {{ env }} -u {{ email }} -p {{ password }}
+      register: edgemicro_config
+
+    - name: Extract key_string & secret_string
+      set_fact:
+        edgemicro_key: "{{ edgemicro_config.stdout | regex_search('key:.*') }}"
+        edgemicro_secret: "{{ edgemicro_config.stdout | regex_search('secret:.*') }}"
+
+    - name: Parse key & secret
+      set_fact:
+        cacheable: true
+        edgemicro_key: "{{ edgemicro_key.split(':')[1] | trim }}"
+        edgemicro_secret: "{{ edgemicro_secret.split(':')[1] | trim }}"
+
+    - name: Verify Edge Microgateway
+      shell: edgemicro verify -o {{ org }} -e {{ env }} -k {{ edgemicro_key }} -s {{ edgemicro_secret }}
