@@ -17,6 +17,7 @@ image_family: 'centos-7'
 #image_family: 'ubuntu-1604-lts'
 disk_source_image: "projects/{{ image_project }}/global/images/family/{{ image_family }}"
 disk_size: 50
+bastion_isk_size: 20
 machine_type: n1-standard-1
 gce_image: 'centos-7'
 service_account_email: "friasc@sandbox-173316.iam.gserviceaccount.com"
