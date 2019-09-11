@@ -1,6 +1,6 @@
 ---
 - name: create a bastion disk
-  tags: ['instances', 'disks']
+  tags: ['instances', 'bastion', 'disks']
   gcp_compute_disk:
     name: '{{ name_instance }}-bastion-disk'
     size_gb: "{{ disk_size }}"

@@ -13,7 +13,7 @@
    - name: create a network
      tags: ['network', 'instances','bastion']
      gcp_compute_network:
-       name: "{{ network_name_default }}"
+       name: "{{ network_name }}"
        project: "{{ gcp_project }}"
        auth_kind: "{{ gcp_auth_kind }}"
        service_account_file: "{{ gcp_service_account_file }}"
@@ -39,9 +39,9 @@
          ports: "{{ item.ports }}"
      loop: "{{ firewall_ports }}"
 
-#   - name: create bastion host
-#     tags: ['instances','bastion']
-#     include_tasks: create-bastion-host.yml
+   - name: create bastion host
+     tags: ['instances','bastion']
+     include_tasks: create-bastion-host.yml
 
    - name: create instances
      include_tasks: create-instance.yml
