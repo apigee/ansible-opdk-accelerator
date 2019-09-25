@@ -1,5 +1,5 @@
 ---
-- name: Create infrastructure
+- name: Destroy infrastructure
   hosts: localhost
   vars_prompt:
     - name: project_path
