@@ -16,6 +16,15 @@
       prompt: "GCP Project Name"
       default: "sandbox-173316"
       private: no
+    - name: default_region
+      prompt: "Default Region"
+      default: "us-east1"
+      private: no
+
+    - name: default_zone
+      prompt: "Default Zone"
+      default: "us-east1-b"
+      private: no
 
   vars:
     terraform_state_file: "{{ playbook_dir }}/terraform.tfstate"
