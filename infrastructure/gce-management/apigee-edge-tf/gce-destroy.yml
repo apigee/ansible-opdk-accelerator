@@ -28,9 +28,6 @@
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         state: absent
         purge_workspace: yes
-#        state_file: "{{ terraform_state_file }}"
-#        plan_file: "{{ terraform_state_file }}"
-#        workspace: "{{ terraform_workspace }}"
         variables:
           region: "{{ default_region }}"
           zone: "{{ default_zone }}"
