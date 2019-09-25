@@ -34,7 +34,6 @@
       target_cassandra_private_address: "{{ private_address }}"
 
   - name: Obtain Nodetool status
-    ignore_errors: true
     shell: "{{ nodetool }} status | grep {{ target_cassandra_private_address }}"
     register: nodetool_status
     delegate_to: "{{ nodetool_delegate }}"
