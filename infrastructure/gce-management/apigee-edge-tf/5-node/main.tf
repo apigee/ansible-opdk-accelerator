@@ -124,9 +124,9 @@ module "apigee-bastion" {
 }
 
 # Add an apigee-vm instance
-module "apigee-dc-1-ms-ldap-ui-ds" {
+module "apigee-dc-1-ms-ldap-ui" {
   source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-ms-dc-1-ldap-dc-1-ui-dc-1-ds"
+  instance_name      = "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
@@ -141,11 +141,11 @@ module "apigee-dc-1-ms-ldap-ui-ds" {
 }
 
 # Add an apigee-vm instance
-module "apigee-dc-1-ds-rmp" {
+module "apigee-dc-1-rmp" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
   instance_count     = "2"
-  instance_name      = "planet-dc-1-ds-dc-1-rmp"
+  instance_name      = "planet-dc-1-rmp"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
@@ -197,22 +197,22 @@ module "apigee-dc-1-qpid-pg-pgmaster" {
 }
 
 # Add an apigee-vm instance
-module "apigee-dc-1-qpid" {
-  source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-qpid"
-  instance_count     = 1
-  instance_zone      = "${var.zone}"
-  instance_network   = "${google_compute_network.apigeenet.self_link}"
-  instance_disk_size = 250
-  instance_type      = "n1-standard-2"
-
-  instance_tags = [
-    "apigeenet-allow-ssh",
-    "apigeenet-allow-icmp",
-    "apigeenet-allow-mgmt-ui",
-    "apigeenet-allow-local",
-  ]
-}
+//module "apigee-dc-1-qpid" {
+//  source             = "../modules/internal-instance"
+//  instance_name      = "planet-dc-1-qpid"
+//  instance_count     = 1
+//  instance_zone      = "${var.zone}"
+//  instance_network   = "${google_compute_network.apigeenet.self_link}"
+//  instance_disk_size = 250
+//  instance_type      = "n1-standard-2"
+//
+//  instance_tags = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp",
+//    "apigeenet-allow-mgmt-ui",
+//    "apigeenet-allow-local",
+//  ]
+//}
 
 # Add an apigee-vm instance
 module "apigee-dc-1-qpid-pg-pgstandby" {
