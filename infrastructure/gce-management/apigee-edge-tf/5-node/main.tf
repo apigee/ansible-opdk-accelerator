@@ -163,7 +163,6 @@ module "apigee-dc-1-ms-ldap-ui" {
 module "apigee-dc-1-ds" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_count     = "2"
   instance_name      = "planet-dc-1-ds-dc-1-rmp"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
