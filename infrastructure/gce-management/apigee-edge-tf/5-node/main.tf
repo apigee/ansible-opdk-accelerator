@@ -198,7 +198,7 @@ module "apigee-dc-1-qpid-pg-pgmaster" {
 }
 
 # Add an apigee-vm instance
-module "apigee-dc-1-pg-qpid-pgstandby" {
+module "apigee-dc-1-qpid-pg-pgstandby" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-1-qpid-dc-1-pg-dc-1-pgstandby"
   instance_zone      = "${var.zone}"
