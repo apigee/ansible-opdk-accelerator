@@ -179,10 +179,30 @@ module "apigee-dc-1-ds" {
 }
 
 //# Add an apigee-vm instance
-module "apigee-dc-1-qpid-pg-pgmaster" {
+module "apigee-dc-1-qpid" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
-  instance_name      = "planet-dc-1-qpid-dc-1-pg"
+  instance_count     = "2"
+  instance_name      = "planet-dc-1-qpid"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 50
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+    "postgresql"
+  ]
+}
+
+# Add an apigee-vm instance
+module "apigee-dc-1-pg-pgmaster" {
+  source             = "../modules/internal-instance"
+  instance_name      = "planet-dc-1-pg-dc-1-pgmaster"
+  instance_count     = "${var.dc_1_pgmaster_count}"
+  instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
@@ -197,27 +217,9 @@ module "apigee-dc-1-qpid-pg-pgmaster" {
 }
 
 # Add an apigee-vm instance
-//module "apigee-dc-1-qpid" {
-//  source             = "../modules/internal-instance"
-//  instance_name      = "planet-dc-1-qpid"
-//  instance_count     = 1
-//  instance_zone      = "${var.zone}"
-//  instance_network   = "${google_compute_network.apigeenet.self_link}"
-//  instance_disk_size = 250
-//  instance_type      = "n1-standard-2"
-//
-//  instance_tags = [
-//    "apigeenet-allow-ssh",
-//    "apigeenet-allow-icmp",
-//    "apigeenet-allow-mgmt-ui",
-//    "apigeenet-allow-local",
-//  ]
-//}
-
-# Add an apigee-vm instance
-module "apigee-dc-1-qpid-pg-pgstandby" {
+module "apigee-dc-1-pg-pgstandby" {
   source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-qpid-dc-1-pg-dc-1-pgstandby"
+  instance_name      = "planet-dc-1-pg-dc-1-pgstandby"
   instance_count     = "${var.dc_1_pgstandby_count}"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"

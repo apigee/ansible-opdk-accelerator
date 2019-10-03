@@ -64,6 +64,10 @@ variable "dc_2_qpid_count" {
   default = 0
 }
 
+variable "dc_1_pgmaster_count" {
+  default = 1
+}
+
 variable "dc_1_pgstandby_count" {
   default = 0
 }
