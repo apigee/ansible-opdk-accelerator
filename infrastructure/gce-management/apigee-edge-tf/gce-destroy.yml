@@ -36,6 +36,7 @@
         binary_path: "{{ playbook_dir }}/terraform"
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         state: absent
+        force_init: yes
         purge_workspace: yes
         variables:
           region: "{{ default_region }}"
