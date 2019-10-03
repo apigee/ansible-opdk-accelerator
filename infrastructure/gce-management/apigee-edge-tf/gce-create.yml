@@ -79,3 +79,6 @@
           zone: "{{ default_zone }}"
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
+          dc_1_pg_only_count: 1
+          dc_1_pgmaster_count: 0
+          dc_1_pgstandby_count: 0
