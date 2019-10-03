@@ -73,6 +73,7 @@
         binary_path: "{{ playbook_dir }}/terraform"
         project_path: "{{ playbook_dir }}/{{ project_path }}"
         state: present
+        force_init: yes
         variables:
           region: "{{ default_region }}"
           zone: "{{ default_zone }}"
