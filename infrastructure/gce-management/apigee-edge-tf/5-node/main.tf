@@ -160,7 +160,7 @@ module "apigee-dc-1-ds" {
 }
 
 //# Add an apigee-vm instance
-module "apigee-dc-1-qpid" {
+module "apigee-dc-1-qpid-pg-pgmaster" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
   instance_name      = "planet-dc-1-qpid-dc-1-pg-dc-1-pgmaster"
@@ -178,9 +178,9 @@ module "apigee-dc-1-qpid" {
 }
 
 # Add an apigee-vm instance
-module "apigee-dc-1-pg-pgmaster" {
+module "apigee-dc-1-pg-qpid-pgstandby" {
   source             = "../modules/internal-instance"
-  instance_name      = "planet-dc-1-qpid-dc-1-pg-dc-1-pgmaster"
+  instance_name      = "planet-dc-1-qpid-dc-1-pg-dc-1-pgstandby"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
