@@ -160,6 +160,25 @@ module "apigee-dc-1-ds" {
 }
 
 //# Add an apigee-vm instance
+module "apigee-dc-1-qpid-pg" {
+  source             = "../modules/internal-instance"
+  instance_zone      = "${var.zone}"
+  instance_name      = "planet-dc-1-qpid-dc-1-pg"
+  instance_count     = "0"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
+  instance_disk_size = 50
+  instance_type      = "n1-standard-2"
+
+  instance_tags = [
+    "apigeenet-allow-ssh",
+    "apigeenet-allow-icmp",
+    "apigeenet-allow-mgmt-ui",
+    "apigeenet-allow-local",
+    "postgresql"
+  ]
+}
+
+//# Add an apigee-vm instance
 module "apigee-dc-1-qpid-pg-pgmaster" {
   source             = "../modules/internal-instance"
   instance_zone      = "${var.zone}"
