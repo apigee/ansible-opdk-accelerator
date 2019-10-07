@@ -42,6 +42,6 @@
     - { role: apigee-opdk-setup-bootstrap-cache, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
     - { role: apigee-opdk-setup-bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
     - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap', 'common'] }
-    - { role: apigee-opdk-setup-component-install, component: 'apigee-mtls', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+    - { role: apigee-opdk-setup-component-install, component: 'apigee-mtls', tags: ['minimum', 'mtls', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
     - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
 
