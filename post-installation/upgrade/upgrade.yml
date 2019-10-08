@@ -8,13 +8,13 @@
     - "~/.apigee"
   tags: ['common']
   roles:
-    - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
-    - { role: apigee-opdk-settings-private-address, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-settings-management-server, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-settings-ldap, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-settings-region, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-settings-cassandra, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-settings-postgres, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','common','expansion'] }
+    - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
     - { role: apigee-opdk-setup-apigee-user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
     - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user', 'bootstrap'] }
     - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
@@ -41,7 +41,6 @@
 - name: Upgrade Cassandra
   hosts: ds
   become: true
-  become_user: "apigee"
   serial: 1
   tags: ['ds']
   gather_facts: no
@@ -68,7 +67,6 @@
 - name: Upgrade Qpid
   hosts: qpid
   become: true
-  become_user: "apigee"
   serial: 1
   tags: ['qpid']
   gather_facts: no
@@ -100,7 +98,6 @@
 - name: Upgrade Ldap
   hosts: ldap
   become: true
-  become_user: "apigee"
   tags: ['ldap']
   serial: 1
   gather_facts: no
@@ -125,7 +122,6 @@
 - name: Upgrade PS component
   hosts: pgmaster
   become: yes
-  become_user: "{{ opdk_user_name }}"
   serial: 1
   gather_facts: no
   tags: ['pgmaster-update', 'pgmaster']
@@ -152,7 +148,6 @@
 
 - name: Upgrade Postgres standby
   hosts: pgstandby
-  become_user: "{{ opdk_user_name }}"
   serial: 1
   gather_facts: no
   tags: ['pgstandby-update', 'pgstandby']
@@ -182,7 +177,6 @@
 - name: Upgrade Qpid Edge Components
   hosts: qpid
   become: true
-  become_user: "apigee"
   serial: 1
   gather_facts: no
   tags: ['qpid-edge']
@@ -208,7 +202,6 @@
 - name: Upgrade Management Server Edge Components
   hosts: ms
   become: true
-  become_user: "apigee"
   serial: 1
   gather_facts: no
   tags: ['ms']
@@ -234,7 +227,6 @@
 - name: Upgrade Router & Message Processor
   hosts: rmp
   become: true
-  become_user: "apigee"
   serial: 1
   gather_facts: no
   tags: ['rmp']
@@ -286,7 +278,6 @@
 - name: Upgrade Router
   hosts: r
   become: true
-  become_user: "apigee"
   serial: 1
   gather_facts: no
   tags: ['r']
@@ -338,7 +329,6 @@
 - name: Upgrade Message Processor
   hosts: mp
   become: true
-  become_user: "apigee"
   serial: 1
   gather_facts: no
   tags: ['mp']
@@ -364,7 +354,6 @@
 - name: Upgrade UI
   hosts: ui
   become: true
-  become_user: "apigee"
   serial: 1
   gather_facts: no
   tags: ['ui']
