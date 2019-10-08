@@ -30,8 +30,8 @@
   gather_facts: no
   vars:
     property_folders:
-        - "~/.apigee-secure"
-        - "~/.apigee"
+    - "~/.apigee-secure"
+    - "~/.apigee"
   tags: ['common']
   roles:
   - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
