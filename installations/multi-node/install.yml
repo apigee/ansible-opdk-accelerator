@@ -41,7 +41,6 @@
   - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
   - { role: apigee-opdk-setup-bootstrap-cache, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
   - { role: apigee-opdk-setup-bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
-  - { role: apigee-opdk-setup-license, tags: ['minimum', 'license', 'bootstrap', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
 
@@ -58,8 +57,6 @@
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config']  }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ds-config'] }
   - { role: apigee-opdk-setup-component, profile: 'ds', tags: ['minimum', 'ds-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['ds-start', 'start'] }
-  - { role: apigee-opdk-setup-status, tags: ['ds-status', 'status'] }
 
 - name: Configure & Install Management Server
   hosts: ms
@@ -72,14 +69,13 @@
   roles:
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ms-config', 'os-openldap'] }
   - { role: apigee-opdk-setup-os-openldap, tags: ['os-openldap'] }
+  - { role: apigee-opdk-setup-license, tags: ['minimum', 'license'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-provision', tags: ['provision', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ms-config']  }
   - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num < 3 }
   - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num > 2, port_timeout: 300 }
   - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['minimum', 'ms-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['ms-start', 'start'] }
-  - { role: apigee-opdk-setup-status, tags: ['ms-status', 'status'] }
 
 - name: Configure & Install Router
   hosts: router,rmp
@@ -94,8 +90,6 @@
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'r-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'r-config']  }
   - { role: apigee-opdk-setup-component, profile: 'r', tags: ['minimum', 'r-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['r-start', 'start'] }
-  - { role: apigee-opdk-setup-status, tags: ['r-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
   - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
 
@@ -112,8 +106,6 @@
   - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'mp-config'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'mp-config']  }
   - { role: apigee-opdk-setup-component, profile: 'mp', tags: ['minimum', 'mp-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['mp-start', 'start'] }
-  - { role: apigee-opdk-setup-status, tags: ['mp-status', 'status'] }
   - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
   - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
 
@@ -130,9 +122,7 @@
   - { role: apigee-opdk-update-component-qpidd }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'qs-config']  }
   - { role: apigee-opdk-setup-component, profile: 'qs', tags: ['minimum', 'qs-setup'] }
-  - { role: apigee-opdk-start-components, tags: ['qs-start', 'start'] }
   - { role: apigee-opdk-server-self, server_types: ['qs'], tags: ['self'] }
-  - { role: apigee-opdk-setup-status, tags: ['qs-status', 'status'] }
 
 - name: Configure & Install Postgres
   hosts: pgmaster,pgstandby,pg[0]
@@ -148,9 +138,7 @@
     - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
     - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
     - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['minimum', 'pg-setup'] }
-    - { role: apigee-opdk-start-components, tags: ['pg-start', 'start'] }
     - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
-    - { role: apigee-opdk-setup-status, tags: ['pg-status', 'status'] }
 
 - name: Configure Postgres Master
   hosts: pgmaster
@@ -166,10 +154,7 @@
     - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'pg-config']  }
     - { role: apigee-opdk-setup-postgres-config, tags: ['minimum', 'config', 'pgmaster-config'] }
     - { role: apigee-opdk-setup-postgres-master, tags: ['minimum', 'pgmaster-setup']  }
-    - { role: apigee-opdk-stop-components, tags: ['pgmaster-stop', 'stop'] }
-    - { role: apigee-opdk-start-components, tags: ['pgmaster-start', 'start'] }
     - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
-    - { role: apigee-opdk-setup-status, tags: ['pgmaster-status', 'status']  }
 
 - name: Configure Postgres Standby
   hosts: pgstandby
@@ -186,9 +171,6 @@
   - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql', tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True, tags: ['minimum', 'pgstandby-config'] }
   - { role: apigee-opdk-setup-postgres-standby, tags: ['minimum', 'pgstandby-setup'] }
-  - { role: apigee-opdk-stop-components, tags: ['pgstandby-stop', 'stop'] }
-  - { role: apigee-opdk-start-components, tags: ['pgstandby-start', 'start'] }
-  - { role: apigee-opdk-setup-status, tags: ['pgstandby-status','status']  }
 
 - name: Configure Organization and Environments
   hosts: ms[0]
