@@ -25,7 +25,8 @@ variable "machine_type" {
 variable "instance_scopes" {
   default = [
     "compute-rw",
-  "storage-ro"]
+    "storage-ro"
+  ]
 }
 
 variable "dc_region" {
