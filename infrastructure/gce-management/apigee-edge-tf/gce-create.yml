@@ -54,16 +54,23 @@
   tasks:
     - name: Install archive management packages
       become: true
-      package:
+      apt_get:
         name: "unzip"
         state: present
-      when: ansible_distribution != "MacOSX"
+      when: ansible_distribution == "Debian"
 
     - name: Install archive management packages on Mac
       package:
         name: "unzip"
         state: present
       when: ansible_distribution == "MacOSX"
+
+    - name: Install archive management packages
+      become: true
+      package:
+        name: "unzip"
+        state: present
+      when: ansible_distribution != "MacOSX"
 
     - name: Set terraform link
       set_fact:

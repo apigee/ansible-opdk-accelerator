@@ -82,7 +82,7 @@ variable "dc_2_pgstandby_count" {
 }
 
 variable "credentials_file" {
-  default = "~/.apigee-secure/sandbox-1f5fb288d552.json"
+  default = "~/.apigee-secure/sandbox/sandbox-default-service-account.json"
 }
 
 variable "gcp_project_name" {
