@@ -73,8 +73,8 @@
   - { role: apigee-opdk-setup-component-install, component: 'apigee-adminapi', tags: ['adminapi', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-component-install, component: 'apigee-provision', tags: ['provision', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ms-config']  }
-  - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num < 3 }
-  - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num > 2, port_timeout: 300 }
+  - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num | int < 3 }
+  - { role: apigee-opdk-setup-component, profile: 'ms', tags: ['minimum', 'ms-setup'], when: region_num | int> 2, port_timeout: 300 }
   - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['minimum', 'ms-setup'] }
 
 - name: Configure & Install Router
