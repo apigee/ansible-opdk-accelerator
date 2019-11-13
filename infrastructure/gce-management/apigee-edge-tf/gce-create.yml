@@ -54,7 +54,7 @@
   tasks:
     - name: Install archive management packages
       become: true
-      apt_get:
+      apt:
         name: "unzip"
         state: present
       when: ansible_distribution == "Debian"
