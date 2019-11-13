@@ -25,7 +25,8 @@ variable "machine_type" {
 variable "instance_scopes" {
   default = [
     "compute-rw",
-    "storage-ro"]
+    "storage-ro"
+  ]
 }
 
 variable "dc_region" {
@@ -64,8 +65,12 @@ variable "dc_2_qpid_count" {
   default = 0
 }
 
-variable "dc_1_pgmaster_count" {
+variable "dc_1_pg_only_count" {
   default = 1
+}
+
+variable "dc_1_pgmaster_count" {
+  default = 0
 }
 
 variable "dc_1_pgstandby_count" {
@@ -77,7 +82,7 @@ variable "dc_2_pgstandby_count" {
 }
 
 variable "credentials_file" {
-  default = "~/.apigee-secure/sandbox-1f5fb288d552.json"
+  default = "~/.apigee-secure/sandbox/sandbox-default-service-account.json"
 }
 
 variable "gcp_project_name" {
