@@ -54,12 +54,14 @@
   tasks:
     - name: Install archive management packages
       become: true
+      tags: ['system']
       apt:
         name: "unzip"
         state: present
       when: ansible_distribution == "Debian"
 
     - name: Install archive management packages on Mac
+      tags: ['system']
       package:
         name: "unzip"
         state: present
@@ -67,6 +69,7 @@
 
     - name: Install archive management packages
       become: true
+      tags: ['system']
       package:
         name: "unzip"
         state: present
