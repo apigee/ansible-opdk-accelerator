@@ -177,6 +177,7 @@
 
 - name: Configure Organization and Environments
   hosts: ms[0]
+  serial: 1
   gather_facts: no
   tags: ['org']
   vars:
@@ -189,6 +190,7 @@
 
 - name: Update for Regions with No Management Server
   hosts: ds
+  serial: 1
   tags: ['expansion']
   vars:
     property_folders:
