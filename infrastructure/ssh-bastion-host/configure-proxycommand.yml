@@ -7,5 +7,5 @@
     - bastion_host_attribute.yml
 
   roles:
-    - { role: bastion-host-proxycommand, tags: ['proxy-command'] }
+    - { role: bastion-host-proxycommand, tags: ['proxy-command'], marker_begin: "BASTION_HOST_PROXYCOMMAND_CONFIG_BEGIN", marker_end: "BASTION_HOST_PROXYCOMMAND_CONFIG_END" }
 
