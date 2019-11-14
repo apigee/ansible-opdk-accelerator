@@ -4,7 +4,7 @@
   vars_prompt:
     - name: project_path
       prompt: "Which project do you want to build? ['5-node','aio','dev','prod']"
-      default: "5-node"
+      default: "dev"
       private: no
 
     - name: gcp_credentials_file
