@@ -143,6 +143,7 @@
 
 - name: Configure Postgres Master
   hosts: pgmaster
+  serial: 1
   gather_facts: no
   tags: ['pgmaster','edge', 'analytics']
   vars:
@@ -159,6 +160,7 @@
 
 - name: Configure Postgres Standby
   hosts: pgstandby
+  serial: 1
   gather_facts: no
   tags: ['pgstandby','edge', 'analytics']
   vars:
