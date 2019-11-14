@@ -30,7 +30,7 @@
     when: clean_scope is defined and clean_scope | trim == "roles"
 
   - name: Clean cache folder only
-    tags: ['roles']
+    tags: ['cache']
     ignore_errors: yes
     file:
       path: '{{ item }}'
