@@ -40,6 +40,7 @@
 
   - name: Recreate folders
     ignore_errors: yes
+    tags: ['clean','roles']
     file:
       path: '{{ item }}'
       state: directory
