@@ -48,7 +48,7 @@
   - name: Set public keys as authorized keys on server
     tags: ['authorized-keys']
     authorized_key:
-      user: '{{ remote_user }}'
+      user: '{{ ansible_user }}'
       state: present
       key: "{{ lookup('file', '{{ pubkey }}') }}"
     when: pubkey_state.stat.exists is defined
