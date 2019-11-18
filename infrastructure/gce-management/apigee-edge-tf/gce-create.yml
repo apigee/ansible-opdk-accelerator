@@ -104,7 +104,7 @@
           gcp_project_name: "{{ gcp_project_name }}"
           dc_1_ms_count: "{{ dc_1_ms_count }}"
           dc_2_ms_count: "{{ dc_2_ms_count }}"
-          dc_1_ds_count: "{{ dc_2_ds_count }}"
+          dc_1_ds_count: "{{ dc_1_ds_count }}"
           dc_2_ds_count: "{{ dc_2_ds_count }}"
           dc_1_rmp_count: "{{ dc_1_rmp_count }}"
           dc_2_rmp_count: "{{ dc_2_rmp_count }}"
