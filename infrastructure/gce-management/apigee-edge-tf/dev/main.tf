@@ -334,7 +334,7 @@ module "apigee-dc-2-pg-pgstandby" {
 module "apigee-dc-1-dp" {
   source             = "../modules/internal-instance"
   instance_name      = "planet-dc-1-dp-ui-dc-1-dp-db"
-  instance_count     = "${var.dc_2_pgstandby_count}"
+  instance_count     = "${var.dev_portal_count}"
   instance_zone      = "${var.zone}"
   instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250

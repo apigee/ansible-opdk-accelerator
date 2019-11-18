@@ -81,6 +81,10 @@ variable "dc_2_pgstandby_count" {
   default = 0
 }
 
+variable "dev_portal_count" {
+  default = 0
+}
+
 variable "credentials_file" {
   default = "~/.apigee-secure/sandbox/sandbox-default-service-account.json"
 }

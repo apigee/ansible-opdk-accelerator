@@ -49,7 +49,7 @@
     dc_1_pgmaster_count: 1
     dc_1_pgstandby_count: 0
     dc_2_pgstandby_count: 1
-
+    dev_portal_count: 0
 
   tasks:
     - name: Install archive management packages
@@ -114,4 +114,5 @@
           dc_1_pgmaster_count: "{{ dc_1_pgmaster_count }}"
           dc_1_pgstandby_count: "{{ dc_1_pgstandby_count }}"
           dc_2_pgstandby_count: "{{ dc_2_pgstandby_count }}"
+          dev_portal_count: "{{ dev_portal_count }}"
 
