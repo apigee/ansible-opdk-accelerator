@@ -7,14 +7,15 @@
     target_hosts:
     - { target_ip_address: "{{ hostvars[groups['ms'][0]]['private_address'] }}", target_port: "9000", port: "9000" }
     - { target_ip_address: "{{ hostvars[groups['ms'][0]]['private_address'] }}", target_port: "8080", port: "8080" }
-    - { target_ip_address: "{{ hostvars[groups['ms'][1]]['private_address'] }}", target_port: "9010", port: "9000" }
-    - { target_ip_address: "{{ hostvars[groups['ms'][1]]['private_address'] }}", target_port: "8090", port: "8080" }
+#    - { target_ip_address: "{{ hostvars[groups['ms'][1]]['private_address'] }}", target_port: "9010", port: "9000" }
+#    - { target_ip_address: "{{ hostvars[groups['ms'][1]]['private_address'] }}", target_port: "8090", port: "8080" }
     - { target_ip_address: "{{ hostvars[groups['rmp'][0]]['private_address'] }}", target_port: "9001", port: "9001" }
-    - { target_ip_address: "{{ hostvars[groups['rmp'][1]]['private_address'] }}", target_port: "9002", port: "9002" }
+#    - { target_ip_address: "{{ hostvars[groups['rmp'][1]]['private_address'] }}", target_port: "9002", port: "9002" }
     - { target_ip_address: "{{ hostvars[groups['rmp'][0]]['private_address'] }}", target_port: "59001", port: "59001" }
-    - { target_ip_address: "{{ hostvars[groups['rmp'][1]]['private_address'] }}", target_port: "59001", port: "59001" }
+#    - { target_ip_address: "{{ hostvars[groups['rmp'][1]]['private_address'] }}", target_port: "59001", port: "59001" }
 #    - { target_ip_address: "{{ hostvars[groups['pgmaster'][0]]['private_address'] }}", target_port: "5432", port: "5432" }
 #    - { target_ip_address: "{{ hostvars[groups['pgstandby'][1]]['private_address'] }}", target_port: "5433", port: "5433" }
+    - { target_ip_address: "{{ hostvars[groups['dp_ui'][0]]['private_address'] }}", target_port: "8079", port: "8079" }
 
   roles:
   - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
