@@ -66,8 +66,6 @@
   - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
   - { role: apigee-opdk-devportal-postgres-config, tags: ['config'] }
   - { role: apigee-opdk-setup-component, profile: 'pdb', tags: ['apigee-component'], target_response_file_path: "{{ opdk_portal_db_config_file }}"  }
-  - { role: apigee-opdk-start-components, tags: ['apigee-component'] }
-  - { role: apigee-opdk-setup-status, tags: ['status'] }
 
 - name: Configure DevPortal UI
   hosts: dp_ui
@@ -90,5 +88,3 @@
   - { role: apigee-opdk-setup-java-home, tags: ['minimum', 'java-home', 'bootstrap'] }
   - { role: apigee-opdk-devportal-config, tags: ['config'] }
   - { role: apigee-opdk-setup-component, profile: 'dp',tags: ['apigee-component'], target_response_file_path: "{{ opdk_portal_config_file }}" }
-  - { role: apigee-opdk-start-components, tags: ['apigee-component'] }
-  - { role: apigee-opdk-setup-status, tags: ['status'] }
