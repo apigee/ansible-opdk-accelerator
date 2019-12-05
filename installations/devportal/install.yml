@@ -1,6 +1,6 @@
 ---
 - name: Apigee Pre-Requisites for Planet
-  hosts: planet
+  hosts: dp,ms
   gather_facts: no
   vars:
     ansible_workspace: "~/.ansible"
