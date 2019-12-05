@@ -35,6 +35,17 @@
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
 
 - name: Install Apigee Devportal Database
+  hosts: dp
+  gather_facts: no
+  tags: ['cache']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+  - { role: apigee-opdk-modules, tags: ['cache'] }
+
+- name: Install Apigee Devportal Database
   hosts: dp_db
   gather_facts: no
   become: yes
@@ -60,7 +71,6 @@
       - "~/.apigee-secure"
       - "~/.apigee"
   roles:
-  - { role: apigee-opdk-modules, tags: ['cache'] }
   - { role: apigee-opdk-devportal-config, tags: ['config'] }
   - { role: apigee-opdk-setup-component, profile: 'dp',tags: ['apigee-component'], target_response_file_path: "{{ opdk_portal_config_file }}" }
   - { role: apigee-opdk-start-components, tags: ['apigee-component'] }
