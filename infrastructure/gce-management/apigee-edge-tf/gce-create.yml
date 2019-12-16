@@ -48,13 +48,6 @@
     dc_1_pg_only_count: 1
     dc_1_pgmaster_count: 0
     dc_1_pgstandby_count: 0
-<<<<<<< HEAD
-    dc_2_pgstandby_count: 1
-    dev_portal_count: 0
-=======
-    dc_2_pgstandby_count: 0
-
->>>>>>> 1649a9158f665bb53804059e58861d8dfabdd530
 
   tasks:
     - name: Install archive management packages
