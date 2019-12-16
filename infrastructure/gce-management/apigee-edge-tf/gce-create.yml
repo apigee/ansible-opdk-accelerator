@@ -38,18 +38,23 @@
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
       MacOSX: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64.zip"
     dc_1_ms_count: 1
-    dc_2_ms_count: 1
+    dc_2_ms_count: 0
     dc_1_ds_count: 3
-    dc_2_ds_count: 3
+    dc_2_ds_count: 0
     dc_1_rmp_count: 2
-    dc_2_rmp_count: 2
+    dc_2_rmp_count: 0
     dc_1_qpid_count: 2
-    dc_2_qpid_count: 2
-    dc_1_pg_only_count: 0
-    dc_1_pgmaster_count: 1
+    dc_2_qpid_count: 0
+    dc_1_pg_only_count: 1
+    dc_1_pgmaster_count: 0
     dc_1_pgstandby_count: 0
+<<<<<<< HEAD
     dc_2_pgstandby_count: 1
     dev_portal_count: 0
+=======
+    dc_2_pgstandby_count: 0
+
+>>>>>>> 1649a9158f665bb53804059e58861d8dfabdd530
 
   tasks:
     - name: Install archive management packages
