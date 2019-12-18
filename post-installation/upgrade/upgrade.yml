@@ -76,7 +76,6 @@
     - { role: apigee-opdk-modules, tags: ['config', 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
     - { role: apigee-opdk-setup-silent-installation-config, opdk_version: "{{ upgrade_from_opdk_version }}", tags: ['qpid-config']}
     - { role: apigee-opdk-start-components }
-    - { role: apigee-opdk-server-self, server_types: ['qs'], tags: ['self']  }
     - { role: apigee-opdk-settings-qpid, tags: ['config', 'cache', 'qpid']}
     - { role: apigee-opdk-iptables-port-block, destination_port: '{{ qpid_messaging_port }}', tags: ['qpid-port-block'] }
     - { role: apigee-opdk-update-component-qpidd, tags: ['qpid-upgrade'] }
@@ -218,6 +217,7 @@
     - { role: apigee-opdk-update-component, component: 'edge', tags: ['rmp-upgrade'] }
   tasks:
     - name: Remove router configuration directory
+      become: true
       tags: ['rmp-config-refresh']
       file:
         path: '/opt/nginx/config.d'
