@@ -1,4 +1,17 @@
 ---
+- name: Update Cache for validate config file generation
+  hosts: planet
+  tags: ['validate', 'validate-cleanup','validate-setup']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-settings-private-address  }
+    - { role: apigee-opdk-settings-management-server  }
+    - { role: apigee-opdk-settings-region }
+
 - name: Validate Routers & Message Processors
   hosts: rmp,r
   tags: ['validate']
@@ -9,7 +22,8 @@
       - "~/.apigee"
   roles:
     - { role: apigee-opdk-modules, tags: ['validate', 'validate-cleanup','validate-setup'] }
-    - { role: apigee-opdk-settings-private-address, tags: ['validate', 'validate-cleanup']  }
-    - { role: apigee-opdk-settings-region, tags: ['validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-settings-private-address, tags: ['validate', 'validate-cleanup','validate-setup']  }
+    - { role: apigee-opdk-settings-management-server, tags: ['validate', 'validate-cleanup','validate-setup']  }
+    - { role: apigee-opdk-settings-region, tags: ['validate', 'validate-cleanup','validate-setup']  }
     - { role: apigee-opdk-setup-validate, tags: ['validate-setup'] }
     - { role: apigee-opdk-setup-validate-cleanup, tags: ['validate-cleanup'] }
