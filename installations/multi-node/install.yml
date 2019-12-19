@@ -7,7 +7,7 @@
     - "~/.apigee-secure"
     - "~/.apigee"
   roles:
-  - { role: apigee-opdk-modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','os-openldap','bootstrap','common','pip','expansion'] }
+  - { role: apigee-opdk-modules, tags: ['yum-proxy-config','minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup','os-openldap','bootstrap','common','pip','expansion'] }
   - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
   - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
   - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
