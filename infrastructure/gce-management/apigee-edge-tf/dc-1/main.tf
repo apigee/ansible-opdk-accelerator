@@ -1,20 +1,20 @@
 # Create the apigeenet network
-data "google_compute_network" "apigeenet" {
-  source = "../modules/infrastructure"
-  depends_on = ["google_compute_network.apigeenet"]
+resource "google_compute_network" "apigeenet" {
   name                    = "apigeenet"
+  auto_create_subnetworks = true
 }
 
-data "google_compute_network" "apigeenet-router" {
-  source = "../modules/infrastructure"
-  depends_on = ["google_compute_router.apigeenet-router"]
-  name = "apigeenet-router"
+# Create the apigeenet router
+resource "google_compute_router" "apigeenet-router" {
+  name    = "apigeenet-router"
+  network = "${google_compute_network.apigeenet.self_link}"
+  region  = "us-east1"
 }
 
 # Create the gateway nat for the apigeenet-subnet-router
 resource "google_compute_router_nat" "apigeenet-subnet-nat" {
   name                               = "apigeenet-subnet-nat-${var.region}"
-  router                             = "${data.apigeenet-router.name}"
+  router                             = "${google_compute_network.apigeenet}"
   region                             = "${var.region}"
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
@@ -25,7 +25,7 @@ module "apigee-ms-ldap-ui" {
   instance_count = "${var.ms_count}"
   instance_name      = "${var.ms_name}"
   instance_zone      = "${var.zone}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "${var.machine_type}"
   instance_tags = [
@@ -42,7 +42,7 @@ module "apigee-rmp" {
   instance_zone      = "${var.zone}"
   instance_count     = "${var.rmp_count}"
   instance_name      = "${var.rmp_name}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
   instance_tags = [
@@ -60,7 +60,7 @@ module "apigee-ds" {
   instance_zone      = "${var.zone}"
   instance_count     = "${var.ds_count}"
   instance_name      = "${var.ds_name}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
   instance_tags = [
@@ -78,7 +78,7 @@ module "apigee-qpid" {
   instance_zone      = "${var.zone}"
   instance_count     = "${var.qpid_count}"
   instance_name      = "${var.qpid_name}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 50
   instance_type      = "n1-standard-2"
   instance_tags = [
@@ -96,7 +96,7 @@ module "apigee-pg-only" {
   instance_name      = "${var.pg_only_name}"
   instance_count     = "${var.pg_only_count}"
   instance_zone      = "${var.zone}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
   instance_tags = [
@@ -114,7 +114,7 @@ module "apigee-pg-pgmaster" {
   instance_name      = "${var.pgmaster_name}"
   instance_count     = "${var.pgmaster_count}"
   instance_zone      = "${var.zone}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
   instance_tags = [
@@ -133,7 +133,7 @@ module "apigee-pg-pgstandby" {
   instance_name      = "${var.pgstandby_name}"
   instance_count     = "${var.pgstandby_count}"
   instance_zone      = "${var.zone}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
   instance_tags = [
@@ -151,7 +151,7 @@ module "apigee-dp" {
   instance_name      = "${var.dev_portal_name}"
   instance_count     = "${var.dev_portal_count}"
   instance_zone      = "${var.zone}"
-  instance_network   = "${data.apigeenet.self_link}"
+  instance_network   = "${google_compute_network.apigeenet.self_link}"
   instance_disk_size = 250
   instance_type      = "n1-standard-2"
   instance_tags = [

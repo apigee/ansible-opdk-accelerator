@@ -41,25 +41,25 @@ variable "ms_count" {
 variable "ds_name" {}
 
 variable "ds_count" {
-  default = 0
+  default = 3
 }
 
 variable "rmp_name" {}
 
 variable "rmp_count" {
-  default = 0
+  default = 2
 }
 
 variable "qpid_name" {}
 
 variable "qpid_count" {
-  default = 0
+  default = 2
 }
 
 variable "pg_only_name" {}
 
 variable "pg_only_count" {
-  default = 0
+  default = 1
 }
 
 variable "pgmaster_name" {}
@@ -80,8 +80,21 @@ variable "dev_portal_count" {
   default = 0
 }
 
-variable "credentials_file" { }
+variable "credentials_file" {
+//  default = "~/.apigee-secure/sandbox/sandbox-default-service-account.json"
+//  default = "~/.apigee-secure/fedex-pilot/fedex-pilot-apigee-service-account.json"
+}
 
-variable "gcp_project_name" { }
+variable "gcp_project_name" {
+//  default = "sandbox-173316"
+//  default = "fedex-pilot"
+}
 
-variable "service_account_email" {}
+variable "service_account_email" {
+//  default = "736255665193-compute@developer.gserviceaccount.com"
+//  default = "apigee@fedex-pilot.iam.gserviceaccount.com"
+}
+
+variable "nat_dc_2_count" {
+  default = "0"
+}

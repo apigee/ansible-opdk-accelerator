@@ -1,55 +1,80 @@
 ---
 - name: Create infrastructure
   hosts: localhost
-  vars_prompt:
-    - name: project_path
-      prompt: "Which project do you want to build? ['5-node','aio','dev','prod']"
-      default: "dev"
-      private: no
-
-    - name: default_region
-      prompt: "Default Region"
-      default: "us-east1"
-      private: no
-
-    - name: default_zone
-      prompt: "Default Zone"
-      default: "us-east1-b"
-      private: no
-
-    - name: gcp_credentials_file
-      prompt: "Service Account Credentials File Path"
-      default: "{{ '~/.apigee-secure/sandbox/sandbox-default-service-account.json' | expanduser }}"
-      private: no
-
-    - name: gcp_project_name
-      prompt: "GCP Project Name"
-      default: "sandbox-173316"
-      private: no
-
-    - name: service_account_email
-      prompt: "Service Account Email"
-      default: "736255665193-compute@developer.gserviceaccount.com"
-      private: no
 
   vars:
+    project_path: 'dev'
+    gcp_credentials_file: "{{ '~/.apigee-secure/fedex-pilot/fedex-pilot-apigee-service-account.json' | expanduser }}"
+    service_account_email: "apigee@fedex-pilot.iam.gserviceaccount.com"
+    gcp_project_name: 'fedex-pilot'
     terraform_version: "0.12.0"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
       MacOSX: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64.zip"
-    dc_1_ms_count: 1
-    dc_2_ms_count: 0
-    dc_1_ds_count: 3
-    dc_2_ds_count: 0
-    dc_1_rmp_count: 2
-    dc_2_rmp_count: 0
-    dc_1_qpid_count: 2
-    dc_2_qpid_count: 0
-    dc_1_pg_only_count: 1
-    dc_1_pgmaster_count: 0
-    dc_1_pgstandby_count: 0
-    dc_2_pgstandby_count: 0
-    dev_portal_count: 1
+    regions:
+    - {
+        region: "us-east1",
+        apigee_region: "dc-1",
+        zone: "us-east1-b",
+        ms_name: "planet-dc-1-ms-dc-1-ldap-dc-1-ui",
+        ms_count: 1,
+        ds_name: "planet-dc-1-ds",
+        ds_count: 9,
+        rmp_name: "planet-dc-1-rmp",
+        rmp_count: 24,
+        qpid_name: "planet-dc-1-qpid",
+        qpid_count: 6,
+        pg_only_name: "planet-dc-1-pg",
+        pg_only_count: 0,
+        pgmaster_name: "planet-dc-1-pg-dc-1-pgmaster",
+        pgmaster_count: 1,
+        pgstandby_name: "planet-dc-2-pg-dc-2-pgstandby",
+        pgstandby_count: 0,
+        dev_portal_name: "planet-dc-1-dp-ui-dc-1-dp-db",
+        dev_portal_count: 0
+    }
+#    - {
+#        region: "us-east1",
+#        apigee_region: "dc-2",
+#        zone: "us-east1-c",
+#        ms_name: "planet-dc-2-ms-dc-2-ldap-dc-2-ui",
+#        ms_count: 1,
+#        ds_name: "planet-dc-2-ds",
+#        ds_count: 9,
+#        rmp_name: "planet-dc-2-rmp",
+#        rmp_count: 24,
+#        qpid_name: "planet-dc-2-qpid",
+#        qpid_count: 6,
+#        pg_only_name: "planet-dc-2-pg",
+#        pg_only_count: 0,
+#        pgmaster_name: "planet-dc-2-pg-dc-2-pgmaster",
+#        pgmaster_count: 0,
+#        pgstandby_name: "planet-dc-2-pg-dc-2-pgstandby",
+#        pgstandby_count: 1,
+#        dev_portal_name: "planet-dc-2-dp-ui-dc-2-dp-db",
+#        dev_portal_count: 0
+#    }
+#    - {
+#        region: "us-east1",
+#        apigee_region: "dc-3",
+#        zone: "us-east1-d",
+#        ms_name: "planet-dc-3-ms-dc-3-ldap-dc-3-ui",
+#        ms_count: 0,
+#        ds_name: "planet-dc-3-ds",
+#        ds_count: 9,
+#        rmp_name: "planet-dc-3-rmp",
+#        rmp_count: 24,
+#        qpid_name: "planet-dc-3-qpid",
+#        qpid_count: 6,
+#        pg_only_name: "planet-dc-3-pg",
+#        pg_only_count: 0,
+#        pgmaster_name: "planet-dc-3-pg-dc-3-pgmaster",
+#        pgmaster_count: 0,
+#        pgstandby_name: "planet-dc-3-pg-dc-3-pgstandby",
+#        pgstandby_count: 0,
+#        dev_portal_name: "planet-dc-3-dp-ui-dc-3-dp-db",
+#        dev_portal_count: 0
+#    }
 
   tasks:
     - name: Install archive management packages
@@ -94,25 +119,59 @@
     - name: Create infrastructure
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
-        project_path: "{{ playbook_dir }}/{{ project_path }}"
+        project_path: "{{ playbook_dir }}/modules/infrastructure"
         state: present
         force_init: yes
         variables:
-          region: "{{ default_region }}"
-          zone: "{{ default_zone }}"
+          region: "{{ item.region }}"
+          zone: "{{ item.zone }}"
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
-          dc_1_ms_count: "{{ dc_1_ms_count }}"
-          dc_2_ms_count: "{{ dc_2_ms_count }}"
-          dc_1_ds_count: "{{ dc_1_ds_count }}"
-          dc_2_ds_count: "{{ dc_2_ds_count }}"
-          dc_1_rmp_count: "{{ dc_1_rmp_count }}"
-          dc_2_rmp_count: "{{ dc_2_rmp_count }}"
-          dc_1_qpid_count: "{{ dc_1_qpid_count }}"
-          dc_2_qpid_count: "{{ dc_2_qpid_count }}"
-          dc_1_pg_only_count: "{{ dc_1_pg_only_count }}"
-          dc_1_pgmaster_count: "{{ dc_1_pgmaster_count }}"
-          dc_1_pgstandby_count: "{{ dc_1_pgstandby_count }}"
-          dc_2_pgstandby_count: "{{ dc_2_pgstandby_count }}"
-          dev_portal_count: "{{ dev_portal_count }}"
+          service_account_email: "{{ service_account_email }}"
+          ms_name: "{{ item.ms_name }}"
+          ms_count: "{{ item.ms_count }}"
+          ds_name: "{{ item.ds_name }}"
+          ds_count: "{{ item.ds_count }}"
+          rmp_name: "{{ item.rmp_name }}"
+          rmp_count: "{{ item.rmp_count }}"
+          qpid_name: "{{ item.qpid_name }}"
+          qpid_count: "{{ item.qpid_count }}"
+          pg_only_name: "{{ item.pg_only_name }}"
+          pg_only_count: "{{ item.pg_only_count }}"
+          pgmaster_name: "{{ item.pgmaster_name }}"
+          pgmaster_count: "{{ item.pgmaster_count }}"
+          pgstandby_name: "{{ item.pgstandby_name }}"
+          pgstandby_count: "{{ item.pgstandby_count }}"
+          dev_portal_name: "{{ item.dev_portal_name }}"
+          dev_portal_count: "{{ item.dev_portal_count }}"
+      with_items: "{{ regions }}"
 
+    - name: Create topology
+      terraform:
+        binary_path: "{{ playbook_dir }}/terraform"
+        project_path: "{{ playbook_dir }}/{{ item.apigee_region }}"
+        state: present
+        force_init: yes
+        variables:
+          region: "{{ item.region }}"
+          zone: "{{ item.zone }}"
+          credentials_file: "{{ gcp_credentials_file }}"
+          gcp_project_name: "{{ gcp_project_name }}"
+          service_account_email: "{{ service_account_email }}"
+          ms_name: "{{ item.ms_name }}"
+          ms_count: "{{ item.ms_count }}"
+          ds_name: "{{ item.ds_name }}"
+          ds_count: "{{ item.ds_count }}"
+          rmp_name: "{{ item.rmp_name }}"
+          rmp_count: "{{ item.rmp_count }}"
+          qpid_name: "{{ item.qpid_name }}"
+          qpid_count: "{{ item.qpid_count }}"
+          pg_only_name: "{{ item.pg_only_name }}"
+          pg_only_count: "{{ item.pg_only_count }}"
+          pgmaster_name: "{{ item.pgmaster_name }}"
+          pgmaster_count: "{{ item.pgmaster_count }}"
+          pgstandby_name: "{{ item.pgstandby_name }}"
+          pgstandby_count: "{{ item.pgstandby_count }}"
+          dev_portal_name: "{{ item.dev_portal_name }}"
+          dev_portal_count: "{{ item.dev_portal_count }}"
+      with_items: "{{ regions }}"

@@ -1,30 +1,31 @@
 ---
 - name: Destroy infrastructure
   hosts: localhost
-  vars_prompt:
-    - name: project_path
-      prompt: "Which project do you want to build? ['5-node','aio','dev','prod']"
-      default: "dev"
-      private: no
 
-    - name: gcp_credentials_file
-      prompt: "Service Account Credentials File Path"
-      default: "{{ '~/.apigee-secure/sandbox/sandbox-default-service-account.json' | expanduser }}"
-      private: no
-
-    - name: gcp_project_name
-      prompt: "GCP Project Name"
-      default: "sandbox-173316"
-      private: no
-    - name: default_region
-      prompt: "Default Region"
-      default: "us-east1"
-      private: no
-
-    - name: default_zone
-      prompt: "Default Zone"
-      default: "us-east1-b"
-      private: no
+#  vars_prompt:
+#    - name: project_path
+#      prompt: "Which project do you want to build? ['5-node','aio','dev','prod']"
+#      default: "dev"
+#      private: no
+#
+#    - name: gcp_credentials_file
+#      prompt: "Service Account Credentials File Path"
+#      default: "{{ '~/.apigee-secure/sandbox/sandbox-default-service-account.json' | expanduser }}"
+#      private: no
+#
+#    - name: gcp_project_name
+#      prompt: "GCP Project Name"
+#      default: "sandbox-173316"
+#      private: no
+#    - name: default_region
+#      prompt: "Default Region"
+#      default: "us-east1"
+#      private: no
+#
+#    - name: default_zone
+#      prompt: "Default Zone"
+#      default: "us-east1-b"
+#      private: no
 
   vars:
     terraform_state_file: "{{ playbook_dir }}/terraform.tfstate"
