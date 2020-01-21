@@ -3,36 +3,77 @@
   hosts: localhost
 
   vars:
-    project_path: 'dev'
+    project_path: 'fedex-pilot'
     gcp_credentials_file: "{{ '~/.apigee-secure/fedex-pilot/fedex-pilot-apigee-service-account.json' | expanduser }}"
     service_account_email: "apigee@fedex-pilot.iam.gserviceaccount.com"
-    gcp_project_name: 'fedex-pilot'
+    gcp_project_name: '{{ project_path }}'
     terraform_version: "0.12.0"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
       MacOSX: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64.zip"
-    regions:
-    - {
-        region: "us-east1",
-        apigee_region: "dc-1",
-        zone: "us-east1-b",
-        ms_name: "planet-dc-1-ms-dc-1-ldap-dc-1-ui",
-        ms_count: 1,
-        ds_name: "planet-dc-1-ds",
-        ds_count: 9,
-        rmp_name: "planet-dc-1-rmp",
-        rmp_count: 24,
-        qpid_name: "planet-dc-1-qpid",
-        qpid_count: 6,
-        pg_only_name: "planet-dc-1-pg",
-        pg_only_count: 0,
-        pgmaster_name: "planet-dc-1-pg-dc-1-pgmaster",
-        pgmaster_count: 1,
-        pgstandby_name: "planet-dc-2-pg-dc-2-pgstandby",
-        pgstandby_count: 0,
-        dev_portal_name: "planet-dc-1-dp-ui-dc-1-dp-db",
-        dev_portal_count: 0
-    }
+#    regions:
+#    - {
+    dc_1_gcp_region: "us-east1"
+    dc_1_zone: "us-east1-b"
+    dc_1_region: "dc-1"
+    dc_1_ms_name: "planet-dc-1-ms-dc-1-ldap-dc-1-ui"
+    dc_1_ms_count: 1
+    dc_1_ds_name: "planet-dc-1-ds"
+#    dc_1_ds_count: 9
+    dc_1_ds_count: 3
+    dc_1_rmp_name: "planet-dc-1-rmp"
+#    dc_1_rmp_count: 24
+    dc_1_rmp_count: 2
+    dc_1_qpid_name: "planet-dc-1-qpid"
+#    dc_1_qpid_count: 6
+    dc_1_qpid_count: 2
+    pg_only_name: "planet-dc-1-pg"
+#    pg_only_count: 0
+    pg_only_count: 1
+    dc_1_pgmaster_name: "planet-dc-1-pg-dc-1-pgmaster"
+#    dc_1_pgmaster_count: 1
+    dc_1_pgmaster_count: 0
+    dc_1_pgstandby_name: "planet-dc-2-pg-dc-2-pgstandby"
+    dc_1_pgstandby_count: 0
+    dc_1_dev_portal_name: "planet-dc-1-dp-ui-dc-1-dp-db"
+    dc_1_dev_portal_count: 0
+    dc_2_region: "dc-2"
+    dc_2_gcp_region: "us-east1"
+    dc_2_zone: "us-east1-c"
+    dc_2_ms_name: "planet-dc-2-ms-dc-2-ldap-dc-2-ui"
+#    dc_2_ms_count: 1
+    dc_2_ms_count: 0
+    dc_2_ds_name: "planet-dc-2-ds"
+#    dc_2_ds_count: 9
+    dc_2_ds_count: 0
+    dc_2_rmp_name: "planet-dc-2-rmp"
+#    dc_2_rmp_count: 24
+    dc_2_rmp_count: 0
+    dc_2_qpid_name: "planet-dc-2-qpid"
+#    dc_2_qpid_count: 6
+    dc_2_qpid_count: 0
+    dc_2_pgmaster_name: "planet-dc-2-pg-dc-2-pgmaster"
+#    dc_2_pgmaster_count: 1
+    dc_2_pgmaster_count: 0
+    dc_2_pgstandby_name: "planet-dc-2-pg-dc-2-pgstandby"
+    dc_2_pgstandby_count: 0
+    dc_2_dev_portal_name: "planet-dc-2-dp-ui-dc-2-dp-db"
+    dc_2_dev_portal_count: 0
+    dc_3_region: "dc-3"
+    dc_3_gcp_region: "us_east1"
+    dc_3_zone: "us-east1-d"
+    dc_3_ds_name: "planet-dc-3-ds"
+#    dc_3_ds_count: 9
+    dc_3_ds_count: 0
+    dc_3_rmp_name: "planet-dc-3-rmp"
+#    dc_3_rmp_count: 24
+    dc_3_rmp_count: 0
+    dc_3_qpid_name: "planet-dc-3-qpid"
+#    dc_3_qpid_count: 6
+    dc_3_qpid_count: 0
+    dev_portal_name: "planet-dc-1-dp-ui-dc-1-dp-db"
+    dev_portal_count: 0
+#    }
 #    - {
 #        region: "us-east1",
 #        apigee_region: "dc-2",
@@ -101,77 +142,104 @@
       when: ansible_distribution != "MacOSX"
 
     - name: Set terraform link
+      tags: ['terraform']
       set_fact:
         terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"
 
     - name: Download Terraform binary
+      tags: ['terraform']
       get_url:
         url: "{{ terraform_download_link }}"
         dest: "./{{ terraform_download_link | basename }}"
         validate_certs: no
 
     - name: Unarchive terraform binary
+      tags: ['terraform']
       unarchive:
         src: "{{ terraform_download_link | basename }}"
         dest: ./
         remote_src: yes
 
-    - name: Create infrastructure
-      terraform:
-        binary_path: "{{ playbook_dir }}/terraform"
-        project_path: "{{ playbook_dir }}/modules/infrastructure"
-        state: present
-        force_init: yes
-        variables:
-          region: "{{ item.region }}"
-          zone: "{{ item.zone }}"
-          credentials_file: "{{ gcp_credentials_file }}"
-          gcp_project_name: "{{ gcp_project_name }}"
-          service_account_email: "{{ service_account_email }}"
-          ms_name: "{{ item.ms_name }}"
-          ms_count: "{{ item.ms_count }}"
-          ds_name: "{{ item.ds_name }}"
-          ds_count: "{{ item.ds_count }}"
-          rmp_name: "{{ item.rmp_name }}"
-          rmp_count: "{{ item.rmp_count }}"
-          qpid_name: "{{ item.qpid_name }}"
-          qpid_count: "{{ item.qpid_count }}"
-          pg_only_name: "{{ item.pg_only_name }}"
-          pg_only_count: "{{ item.pg_only_count }}"
-          pgmaster_name: "{{ item.pgmaster_name }}"
-          pgmaster_count: "{{ item.pgmaster_count }}"
-          pgstandby_name: "{{ item.pgstandby_name }}"
-          pgstandby_count: "{{ item.pgstandby_count }}"
-          dev_portal_name: "{{ item.dev_portal_name }}"
-          dev_portal_count: "{{ item.dev_portal_count }}"
-      with_items: "{{ regions }}"
+#    - name: Create infrastructure
+#      terraform:
+#        binary_path: "{{ playbook_dir }}/terraform"
+#        project_path: "{{ playbook_dir }}/modules/infrastructure"
+#        state: present
+#        force_init: yes
+#        variables:
+#          region: "{{ item.region }}"
+#          zone: "{{ item.zone }}"
+#          credentials_file: "{{ gcp_credentials_file }}"
+#          gcp_project_name: "{{ gcp_project_name }}"
+#          service_account_email: "{{ service_account_email }}"
+#          ms_name: "{{ item.ms_name }}"
+#          ms_count: "{{ item.ms_count }}"
+#          ds_name: "{{ item.ds_name }}"
+#          ds_count: "{{ item.ds_count }}"
+#          rmp_name: "{{ item.rmp_name }}"
+#          rmp_count: "{{ item.rmp_count }}"
+#          qpid_name: "{{ item.qpid_name }}"
+#          qpid_count: "{{ item.qpid_count }}"
+#          pg_only_name: "{{ item.pg_only_name }}"
+#          pg_only_count: "{{ item.pg_only_count }}"
+#          pgmaster_name: "{{ item.pgmaster_name }}"
+#          pgmaster_count: "{{ item.pgmaster_count }}"
+#          pgstandby_name: "{{ item.pgstandby_name }}"
+#          pgstandby_count: "{{ item.pgstandby_count }}"
+#          dev_portal_name: "{{ item.dev_portal_name }}"
+#          dev_portal_count: "{{ item.dev_portal_count }}"
+#      with_items: "{{ regions }}"
 
     - name: Create topology
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
-        project_path: "{{ playbook_dir }}/{{ item.apigee_region }}"
+        project_path: "{{ playbook_dir }}/{{ project_path }}"
         state: present
         force_init: yes
         variables:
-          region: "{{ item.region }}"
-          zone: "{{ item.zone }}"
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
           service_account_email: "{{ service_account_email }}"
-          ms_name: "{{ item.ms_name }}"
-          ms_count: "{{ item.ms_count }}"
-          ds_name: "{{ item.ds_name }}"
-          ds_count: "{{ item.ds_count }}"
-          rmp_name: "{{ item.rmp_name }}"
-          rmp_count: "{{ item.rmp_count }}"
-          qpid_name: "{{ item.qpid_name }}"
-          qpid_count: "{{ item.qpid_count }}"
-          pg_only_name: "{{ item.pg_only_name }}"
-          pg_only_count: "{{ item.pg_only_count }}"
-          pgmaster_name: "{{ item.pgmaster_name }}"
-          pgmaster_count: "{{ item.pgmaster_count }}"
-          pgstandby_name: "{{ item.pgstandby_name }}"
-          pgstandby_count: "{{ item.pgstandby_count }}"
-          dev_portal_name: "{{ item.dev_portal_name }}"
-          dev_portal_count: "{{ item.dev_portal_count }}"
-      with_items: "{{ regions }}"
+          dev_portal_name: "{{ dev_portal_name }}"
+          dev_portal_count: "{{ dev_portal_count }}"
+          dc_1_gcp_region: "{{ dc_1_gcp_region }}"
+          dc_1_zone: "{{ dc_1_zone}}"
+          dc_1_region: "{{ dc_1_region }}"
+          dc_1_ms_name: "{{ dc_1_ms_name }}"
+          dc_1_ms_count: "{{ dc_1_ms_count }}"
+          dc_1_ds_name: "{{ dc_1_ds_name }}"
+          dc_1_ds_count: "{{ dc_1_ds_count }}"
+          dc_1_rmp_name: "{{ dc_1_rmp_name }}"
+          dc_1_rmp_count: "{{ dc_1_rmp_count }}"
+          dc_1_qpid_name: "{{ dc_1_qpid_name }}"
+          dc_1_qpid_count: "{{ dc_1_qpid_count }}"
+          pg_only_name: "{{ pg_only_name }}"
+          pg_only_count: "{{ pg_only_count }}"
+          dc_1_pgmaster_name: "{{ dc_1_pgmaster_name }}"
+          dc_1_pgmaster_count: "{{ dc_1_pgmaster_count }}"
+          dc_1_pgstandby_name: "{{ dc_1_pgstandby_name }}"
+          dc_1_pgstandby_count: "{{ dc_1_pgstandby_count}}"
+          dc_2_region: "{{ dc_2_region }}"
+          dc_2_gcp_region: "{{ dc_2_gcp_region }}"
+          dc_2_zone: "{{ dc_2_zone }}"
+          dc_2_ms_name: "{{ dc_2_ms_name }}"
+          dc_2_ms_count: "{{ dc_2_ms_count }}"
+          dc_2_ds_name: "{{ dc_2_ds_name }}"
+          dc_2_ds_count: "{{ dc_2_ds_count }}"
+          dc_2_rmp_name: "{{ dc_2_rmp_name }}"
+          dc_2_rmp_count: "{{ dc_2_rmp_count }}"
+          dc_2_qpid_name: "{{ dc_2_qpid_name }}"
+          dc_2_qpid_count: "{{ dc_2_qpid_count }}"
+          dc_2_pgmaster_name: "{{ dc_2_pgmaster_name }}"
+          dc_2_pgmaster_count: "{{ dc_2_pgmaster_count }}"
+          dc_2_pgstandby_name: "{{ dc_2_pgstandby_name }}"
+          dc_2_pgstandby_count: "{{ dc_2_pgstandby_count }}"
+          dc_3_region: "{{ dc_3_region }}"
+          dc_3_gcp_region: "{{ dc_3_gcp_region }}"
+          dc_3_zone: "{{ dc_3_zone }}"
+          dc_3_ds_name: "{{ dc_3_ds_name }}"
+          dc_3_ds_count: "{{ dc_3_ds_count }}"
+          dc_3_rmp_name: "{{ dc_3_rmp_name }}"
+          dc_3_rmp_count: "{{ dc_3_rmp_count }}"
+          dc_3_qpid_name: "{{ dc_3_qpid_name }}"
+          dc_3_qpid_count: "{{ dc_3_qpid_count }}"

@@ -1,8 +1,9 @@
 ---
 bastion_target_host_range: 10.*.*.*
 bastion_protected_private_key: ~/.ssh/google_compute_engine
-bastion_host_name: apigee-bastion.us-east1-b.sandbox-173316
-
+bastion_host_name: apigee-bastion.us-east1-b.fedex-pilot
+#bastion_host_name: nginx-backend-central-jnw0.us-central1-c.fedex-pilot
 bastion_host_private_key: ~/.ssh/google_compute_engine
-bastion_host_ip: 35.227.97.156
+bastion_host_ip: 35.237.195.103
+#bastion_host_ip: 35.202.241.245
 bastion_host_user: friasc

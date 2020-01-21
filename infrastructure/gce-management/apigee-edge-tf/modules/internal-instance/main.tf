@@ -12,6 +12,7 @@ resource "google_compute_instance" "vm_instance" {
     initialize_params {
       image = "${var.instance_image}"
       size  = "${var.instance_disk_size}"
+      type  = "${var.instance_disk_type}"
     }
   }
 
