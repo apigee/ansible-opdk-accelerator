@@ -7,7 +7,8 @@
     gcp_project_name: 'fedex-pilot'
     gcp_credentials_file: "{{ '~/.apigee-secure/fedex-pilot/fedex-pilot-apigee-service-account.json' | expanduser }}"
     service_account_email: "apigee@fedex-pilot.iam.gserviceaccount.com"
-    terraform_version: "0.12.0"
+#    terraform_version: "0.12.0"
+    terraform_version: "2.17.0"
     terraform_download_links:
       Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
       MacOSX: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64.zip"
