@@ -1,0 +1,17 @@
+---
+- name: Configure Bastion Host Proxy
+  hosts: bastion
+  gather_vars: false
+
+  vars:
+    os_packages:
+      - epel-release
+      - nginx
+      - certbot
+  tasks:
+    - name: Update OS
+      package:
+        name: "{{ os_packages }}"
+        state: present
+
+#    - name: Certbot configuration still needed

@@ -19,6 +19,7 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network = "${var.instance_network}"
   }
+  allow_stopping_for_update = true
 }
 
 data "google_compute_image" "apigeenet-ms-compute-image" {

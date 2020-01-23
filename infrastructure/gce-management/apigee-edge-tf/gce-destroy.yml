@@ -30,6 +30,11 @@
   vars:
     terraform_state_file: "{{ playbook_dir }}/terraform.tfstate"
     terraform_workspace: "{{ playbook_dir }}"
+    project_path: example-pilot
+    default_region: "us-east1"
+    default_zone: "us-east1-b"
+    gcp_project_name: 'fedex-pilot'
+    gcp_credentials_file: "{{ '~/.apigee-secure/fedex-pilot/fedex-pilot-apigee-service-account.json' | expanduser }}"
 
   tasks:
     - name: Destroy infrastructure
