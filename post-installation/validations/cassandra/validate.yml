@@ -19,8 +19,10 @@
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
+
   roles:
-    - { role:  apigee-opdk-modules }
+    - apigee-opdk-modules
+
   tasks:
   - name: Display Cassandra Ring
     shell: "{{ nodetool }} ring"

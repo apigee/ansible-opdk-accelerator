@@ -10,6 +10,10 @@
     - '~/.apigee-secure'
     component_name: "apigee-cassandra"
 
+  roles:
+    - apigee-opdk-cassandra-repair
+    - apigee-opdk-cassandra-rebuild
+
   tasks:
   - name: Backup component
     tags: ['backup']
@@ -26,7 +30,7 @@
   - name: Assert nodetool_delegate has been indicated
     assert:
       that:
-      - nodetool_delegate is defined and nodetool_delegate | trim | length > 0
+      - nodetool_delegate is defined and nodetool_delegate | ipaddr
       msg: "Please provide the IP address of the nodetool_delegate attribute"
 
   - name: Cassandra target private address

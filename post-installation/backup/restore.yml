@@ -1,0 +1,113 @@
+---
+- name: Update the planet cache
+  hosts: edge
+  tags: ['cache']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - { role: apigee-opdk-modules }
+    - { role: apigee-opdk-settings-private-address }
+    - { role: apigee-opdk-setup-openjdk, tags: ['openjdk'] }
+    - { role: apigee-opdk-setup-java-home }
+    - { role: apigee-opdk-setup-bootstrap }
+
+- name: Backup Zookeeper
+  serial: 1
+  hosts: ds
+  tags: ['zookeeper']
+  vars:
+    component_profile: 'apigee-zookeeper'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Cassandra
+  serial: 1
+  hosts: ds
+  tags: ['cassandra']
+  vars:
+    component_profile: 'apigee-cassandra'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Router
+  serial: 1
+  hosts: rmp,r
+  tags: ['router']
+  vars:
+    component_profile: 'edge-router'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Message Processor
+  serial: 1
+  hosts: rmp,mp
+  tags: ['mp']
+  vars:
+    component_profile: 'edge-message-processor'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Edge Postgres Server
+  serial: 1
+  hosts: pg
+  tags: ['ps']
+  vars:
+    component_profile: 'edge-postgres-server'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Postgresql Database
+  serial: 1
+  hosts: pgmaster,pg[0]
+  tags: ['pg']
+  vars:
+    component_profile: 'apigee-postgresql'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Qpid Server
+  serial: 1
+  hosts: qpid
+  tags: ['qs']
+  vars:
+    component_profile: 'edge-qpid-server'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Qpid Queue
+  serial: 1
+  hosts: qpid
+  tags: ['qpid']
+  vars:
+    component_profile: 'apigee-qpidd'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup LDAP
+  serial: 1
+  hosts: ldap
+  tags: ['ldap']
+  vars:
+    component_profile: 'apigee-openldap'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup Management Server
+  serial: 1
+  hosts: ms
+  tags: ['ms']
+  vars:
+    component_profile: 'edge-management-server'
+  roles:
+    - { role: apigee-opdk-restore }
+
+- name: Backup UI
+  serial: 1
+  hosts: ui
+  tags: ['ui']
+  vars:
+    component_profile: 'edge-ui'
+  roles:
+    - { role: apigee-opdk-restore }
