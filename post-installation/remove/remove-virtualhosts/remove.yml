@@ -3,8 +3,8 @@
   hosts: ms[0]
   gather_facts: no
   vars:
-    org: VALIDATE
-    env: dev
+    org: opdk
+    env: test
     property_folders:
     - "~/.apigee-secure"
   roles:
