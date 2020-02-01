@@ -17,22 +17,6 @@
   - apigee-opdk-settings-cassandra
   - apigee-opdk-settings-postgres
 
-#  tasks:
-#    - name: Construct the Edge response file name
-#      set_fact:
-#        cacheable: yes
-#        response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
-#
-#    - name: Construct the local Edge response file path
-#      set_fact:
-#        cacheable: yes
-#        local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
-#
-#    - name: Construct the Target Edge Response File Folder Path
-#      set_fact:
-#        cacheable: yes
-#        target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
-
 
 - name: Generate Configuration for Planet
   hosts: ms
@@ -95,8 +79,6 @@
         mode: "777"
         owner: '{{ opdk_user_name }}'
         group: '{{ opdk_group_name }}'
-
-
 
 - name: Complete OS Pre-requisites
   hosts: edge
