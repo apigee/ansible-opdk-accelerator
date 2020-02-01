@@ -1,21 +1,299 @@
 ---
-- name: Generate Configuration for Planet
+- name: Collect Configuration Information for Planet
   hosts: edge
-  gather_facts: no
-  tags: ['config']
-
+  strategy: free
+  tags: ['cache']
   vars:
     property_folders:
     - "~/.apigee-secure"
     - "~/.apigee"
-    -
   roles:
-  - { role: apigee-opdk-modules, tags: ['minimum', 'config', 'ds-config']  }
-  - { role: apigee-opdk-settings-private-address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-management-server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee-opdk-setup-silent-installation-config, tags: ['minimum', 'config', 'ds-config'] }
+  - apigee-opdk-modules
+  - apigee-opdk-settings-private-address
+  - apigee-opdk-settings-management-server
+  - apigee-opdk-settings-region
+  - apigee-opdk-settings-response-file
+  - apigee-opdk-settings-ldap
+  - apigee-opdk-settings-cassandra
+  - apigee-opdk-settings-postgres
+
+#  tasks:
+#    - name: Construct the Edge response file name
+#      set_fact:
+#        cacheable: yes
+#        response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
+#
+#    - name: Construct the local Edge response file path
+#      set_fact:
+#        cacheable: yes
+#        local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
+#
+#    - name: Construct the Target Edge Response File Folder Path
+#      set_fact:
+#        cacheable: yes
+#        target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
+
+
+- name: Generate Configuration for Planet
+  hosts: ms
+  gather_facts: no
+  strategy: free
+  tags: ['response-file']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - apigee-opdk-settings-private-address
+    - apigee-opdk-settings-management-server
+    - apigee-opdk-settings-region
+    - apigee-opdk-settings-ldap
+    - apigee-opdk-setup-apigee-user
+    - apigee-opdk-settings-cassandra
+    - apigee-opdk-settings-postgres
+    - apigee-opdk-setup-silent-installation-config
+
+- name: Distribute Configuration File to Planet
+  hosts: edge
+  gather_facts: no
+  strategy: free
+  tags: ['copy']
+  vars:
+    property_folders:
+    - "~/.apigee"
+    - "~/.apigee-secure"
+  roles:
+    - { role: apigee-opdk-modules, tags: ['license'] }
+    - apigee-opdk-setup-apigee-user
+    - { role: apigee-opdk-setup-license, tags: ['license'] }
+    - apigee-opdk-setup-apigee-user-ownership
+  tasks:
+    - name: Create Target Folder on Target Node
+      become: yes
+      file:
+        path: "{{ target_response_file_path | dirname }}"
+        state: directory
+        mode: 777
+        owner: '{{ opdk_user_name }}'
+        group: '{{ opdk_group_name }}'
+
+    - name: Distribute Configuration File
+      become: yes
+      copy:
+        src: '{{ local_response_file_path }}'
+        dest: "{{ target_response_file_path }}"
+        owner: '{{ opdk_user_name }}'
+        group: '{{ opdk_group_name }}'
+        mode: 777
+
+    - name: Assert Permissions are Correct
+      become: yes
+      file:
+        path: "{{ target_response_file_path | dirname }}"
+        recurse: yes
+        mode: "777"
+        owner: '{{ opdk_user_name }}'
+        group: '{{ opdk_group_name }}'
+
+
+
+- name: Complete OS Pre-requisites
+  hosts: edge
+  strategy: free
+  tags: ['os']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-os-epel, tags: ['epel'] }
+    - { role: apigee-opdk-shutdown-iptables, tags: ['minimum', 'iptables'] }
+    - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
+    - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
+    - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
+    - { role: apigee-opdk-setup-os-pip, tags: ['pip'] }
+    - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
+    - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
+    - { role: apigee-server-restart, tags: ['minimum','restart-server','selinux','sysctl'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+    - { role: apigee-opdk-setup-os-common, tags: ['os-common'] }
+    - { role: apigee-opdk-setup-openjdk-cache, tags: ['minimum', 'openjdk','bootstrap'], jdk_version: '1.8' }
+    - { role: apigee-opdk-setup-openjdk, tags: ['minimum', 'openjdk','bootstrap'], jdk_version: '1.8' }
+
+- name: Install Edge
+  hosts: edge
+  strategy: free
+  tags: ['bootstrap']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-java-home }
+    - { role: apigee-opdk-setup-bootstrap-cache }
+    - { role: apigee-opdk-setup-bootstrap }
+    - { role: apigee-opdk-setup-component-install, component: 'apigee-setup' }
+    - { role: apigee-opdk-setup-apigee-user-ownership }
+
+- name: Configure & Install Cassandra & Zookeeper
+  hosts: ds
+  gather_facts: no
+  serial: 1
+  tags: ['ds']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-component, profile: 'ds' }
+
+- name: Configure & Install Management Server
+  hosts: ms
+  gather_facts: no
+  serial: 1
+  tags: ['ms']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-component, profile: 'ms', when: region_num | int < 3 }
+    - { role: apigee-opdk-setup-component, profile: 'ms', when: region_num | int> 2, port_timeout: 300 }
+    - { role: apigee-opdk-setup-component, profile: 'ui', tags: ['ui'] }
+
+- name: Configure & Install Router and Message Processor
+  hosts: rmp
+  gather_facts: no
+  tags: ['edge','rmp']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-component, profile: 'rmp', tags: ['minimum', 'rmp'] }
+    - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
+    - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
+    - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
+
+- name: Configure & Install Router
+  hosts: router
+  gather_facts: no
+  tags: ['router','edge']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-component, profile: 'r', tags: ['minimum', 'router'] }
+    - { role: apigee-opdk-server-self, server_types: ['router'], tags: ['self'] }
+    - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
+
+- name: Configure & Install Message Processor
+  hosts: mp
+  gather_facts: no
+  tags: ['mp','edge']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-component, profile: 'mp', tags: ['minimum', 'mp'] }
+    - { role: apigee-opdk-server-self, server_types: ['mp'], tags: ['self'] }
+    - { role: apigee-opdk-server-registration-state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
+
+- name: Configure & Install Qpid
+  hosts: qpid
+  gather_facts: no
+  tags: ['qpid','edge','analytics']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-update-component-qpidd }
+    - { role: apigee-opdk-setup-component, profile: 'qs', tags: ['minimum', 'qs-setup'] }
+    - { role: apigee-opdk-server-self, server_types: ['qs'], tags: ['self'] }
+
+
+- name: Configure & Install Postgres
+  hosts: pgmaster,pgstandby,pg[0]
+  serial: 1
+  gather_facts: no
+  tags: ['pg','edge', 'analytics']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-setup-component, profile: 'ps', tags: ['minimum', 'pg-setup'] }
+    - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
+
+- name: Configure Postgres Master
+  hosts: pgmaster
+  serial: 1
+  gather_facts: no
+  tags: ['pgmaster','edge', 'analytics']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-setup-postgres-config, tags: ['minimum', 'config', 'pgmaster-config'] }
+    - { role: apigee-opdk-setup-postgres-master, tags: ['minimum', 'pgmaster-setup']  }
+    - { role: apigee-opdk-server-self, server_types: ['ps'], tags: ['self'] }
+
+- name: Configure Postgres Standby
+  hosts: pgstandby
+  serial: 1
+  gather_facts: no
+  tags: ['pgstandby','edge', 'analytics']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-settings-postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+    - { role: apigee-opdk-stop-components, component_name: 'apigee-postgresql', tags: ['minimum', 'pgstandby-config'] }
+    - { role: apigee-opdk-setup-postgres-config, clear_pgdata: True, tags: ['minimum', 'pgstandby-config'] }
+    - { role: apigee-opdk-setup-postgres-standby, tags: ['minimum', 'pgstandby-setup'] }
+
+- name: Configure Organization and Environments
+  hosts: ms[0]
+  serial: 1
+  gather_facts: no
+  tags: ['org']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-org }
+
+- name: Update for Regions with No Management Server
+  hosts: ds
+  serial: 1
+  tags: ['expansion']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+  roles:
+    - apigee-opdk-modules
+    - { role: apigee-opdk-setup-cassandra-registration, when: region_num > "2", tags: ['cassandra-registration'] }
+    - { role: apigee-opdk-cassandra-rebuild, when: region_num > "2", tags: ['cassandra-rebuild']  }
+
 

@@ -23,6 +23,7 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 data "google_compute_image" "apigeenet-ms-compute-image" {
-  name    = "centos-7-v20190423"
+//  name    = "centos-7-v20190423"
+  name    = "centos-7-v20191210"
   project = "centos-cloud"
 }

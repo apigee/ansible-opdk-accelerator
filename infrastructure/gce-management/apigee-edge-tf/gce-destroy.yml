@@ -2,39 +2,8 @@
 - name: Destroy infrastructure
   hosts: localhost
 
-#  vars_prompt:
-#    - name: project_path
-#      prompt: "Which project do you want to build? ['5-node','aio','dev','prod']"
-#      default: "dev"
-#      private: no
-#
-#    - name: gcp_credentials_file
-#      prompt: "Service Account Credentials File Path"
-#      default: "{{ '~/.apigee-secure/sandbox/sandbox-default-service-account.json' | expanduser }}"
-#      private: no
-#
-#    - name: gcp_project_name
-#      prompt: "GCP Project Name"
-#      default: "sandbox-173316"
-#      private: no
-#    - name: default_region
-#      prompt: "Default Region"
-#      default: "us-east1"
-#      private: no
-#
-#    - name: default_zone
-#      prompt: "Default Zone"
-#      default: "us-east1-b"
-#      private: no
-
-  vars:
-    terraform_state_file: "{{ playbook_dir }}/terraform.tfstate"
-    terraform_workspace: "{{ playbook_dir }}"
-    project_path: example-pilot
-    default_region: "us-east1"
-    default_zone: "us-east1-b"
-    gcp_project_name: 'fedex-pilot'
-    gcp_credentials_file: "{{ '~/.apigee-secure/fedex-pilot/fedex-pilot-apigee-service-account.json' | expanduser }}"
+#  vars_files:
+#    - gce-attributes.yml
 
   tasks:
     - name: Destroy infrastructure
@@ -45,7 +14,82 @@
         force_init: yes
         purge_workspace: yes
         variables:
-          region: "{{ default_region }}"
-          zone: "{{ default_zone }}"
           credentials_file: "{{ gcp_credentials_file }}"
           gcp_project_name: "{{ gcp_project_name }}"
+          service_account_email: "{{ service_account_email }}"
+          dev_portal_name: "{{ dev_portal_name }}"
+          dev_portal_count: "{{ dev_portal_count }}"
+          dev_portal_instance_type: "{{ dev_portal_instance_type }}"
+          dc_1_gcp_region: "{{ dc_1_gcp_region }}"
+          dc_1_zone: "{{ dc_1_zone}}"
+          dc_1_region: "{{ dc_1_region }}"
+          dc_1_ms_name: "{{ dc_1_ms_name }}"
+          dc_1_ms_count: "{{ dc_1_ms_count }}"
+          dc_1_ms_instance_type: "{{ dc_1_ms_instance_type }}"
+          dc_1_ms_disk_size: "{{ dc_1_ms_disk_size }}"
+          dc_1_ds_name: "{{ dc_1_ds_name }}"
+          dc_1_ds_count: "{{ dc_1_ds_count }}"
+          dc_1_ds_instance_type: "{{ dc_1_ds_instance_type }}"
+          dc_1_ds_disk_size: "{{ dc_1_ds_disk_size }}"
+          dc_1_rmp_name: "{{ dc_1_rmp_name }}"
+          dc_1_rmp_count: "{{ dc_1_rmp_count }}"
+          dc_1_rmp_instance_type: "{{ dc_1_rmp_instance_type }}"
+          dc_1_rmp_disk_size: "{{ dc_1_rmp_disk_size }}"
+          dc_1_qpid_name: "{{ dc_1_qpid_name }}"
+          dc_1_qpid_count: "{{ dc_1_qpid_count }}"
+          dc_1_qpid_instance_type: "{{ dc_1_qpid_instance_type }}"
+          dc_1_qpid_disk_size: "{{ dc_1_qpid_disk_size }}"
+          pg_only_name: "{{ pg_only_name }}"
+          pg_only_count: "{{ pg_only_count }}"
+          pg_only_instance_type: "{{ pg_only_instance_type }}"
+          pg_only_disk_size: "{{ pg_only_disk_size }}"
+          dc_1_pgmaster_name: "{{ dc_1_pgmaster_name }}"
+          dc_1_pgmaster_count: "{{ dc_1_pgmaster_count }}"
+          dc_1_pgmaster_instance_type: "{{ dc_1_pgmaster_instance_type }}"
+          dc_1_pgmaster_disk_size: "{{ dc_1_pgmaster_disk_size }}"
+          dc_1_pgstandby_name: "{{ dc_1_pgstandby_name }}"
+          dc_1_pgstandby_count: "{{ dc_1_pgstandby_count}}"
+          dc_1_pgstandby_instance_type: "{{ dc_1_pgstandby_instance_type }}"
+          dc_1_pgstandby_disk_size: "{{ dc_1_pgstandby_disk_size }}"
+          dc_2_region: "{{ dc_2_region }}"
+          dc_2_gcp_region: "{{ dc_2_gcp_region }}"
+          dc_2_zone: "{{ dc_2_zone }}"
+          dc_2_ms_name: "{{ dc_2_ms_name }}"
+          dc_2_ms_count: "{{ dc_2_ms_count }}"
+          dc_2_ms_instance_type: "{{ dc_2_ms_instance_type }}"
+          dc_2_ms_disk_size: "{{ dc_2_ms_disk_size }}"
+          dc_2_ds_name: "{{ dc_2_ds_name }}"
+          dc_2_ds_count: "{{ dc_2_ds_count }}"
+          dc_2_ds_instance_type: "{{ dc_2_ds_instance_type }}"
+          dc_2_ds_disk_size: "{{ dc_2_ds_disk_size }}"
+          dc_2_rmp_name: "{{ dc_2_rmp_name }}"
+          dc_2_rmp_count: "{{ dc_2_rmp_count }}"
+          dc_2_rmp_instance_type: "{{ dc_2_rmp_instance_type }}"
+          dc_2_rmp_disk_size: "{{ dc_2_rmp_disk_size }}"
+          dc_2_qpid_name: "{{ dc_2_qpid_name }}"
+          dc_2_qpid_count: "{{ dc_2_qpid_count }}"
+          dc_2_qpid_instance_type: "{{ dc_2_qpid_instance_type }}"
+          dc_2_qpid_disk_size: "{{ dc_2_qpid_disk_size }}"
+          dc_2_pgmaster_name: "{{ dc_2_pgmaster_name }}"
+          dc_2_pgmaster_count: "{{ dc_2_pgmaster_count }}"
+          dc_2_pgmaster_instance_type: "{{ dc_2_pgmaster_instance_type }}"
+          dc_2_pgmaster_disk_size: "{{ dc_2_pgmaster_disk_size }}"
+          dc_2_pgstandby_name: "{{ dc_2_pgstandby_name }}"
+          dc_2_pgstandby_count: "{{ dc_2_pgstandby_count }}"
+          dc_2_pgstandby_instance_type: "{{ dc_2_pgstandby_instance_type }}"
+          dc_2_pgstandby_disk_size: "{{ dc_2_pgstandby_disk_size }}"
+          dc_3_region: "{{ dc_3_region }}"
+          dc_3_gcp_region: "{{ dc_3_gcp_region }}"
+          dc_3_zone: "{{ dc_3_zone }}"
+          dc_3_ds_name: "{{ dc_3_ds_name }}"
+          dc_3_ds_count: "{{ dc_3_ds_count }}"
+          dc_3_ds_instance_type: "{{ dc_3_ds_instance_type }}"
+          dc_3_ds_disk_size: "{{ dc_3_ds_disk_size }}"
+          dc_3_rmp_name: "{{ dc_3_rmp_name }}"
+          dc_3_rmp_count: "{{ dc_3_rmp_count }}"
+          dc_3_rmp_instance_type: "{{ dc_3_rmp_instance_type }}"
+          dc_3_rmp_disk_size: "{{ dc_3_rmp_disk_size }}"
+          dc_3_qpid_name: "{{ dc_3_qpid_name }}"
+          dc_3_qpid_count: "{{ dc_3_qpid_count }}"
+          dc_3_qpid_instance_type: "{{ dc_3_qpid_instance_type }}"
+          dc_3_qpid_disk_size: "{{ dc_3_qpid_disk_size }}"
