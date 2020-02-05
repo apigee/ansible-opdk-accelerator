@@ -54,6 +54,16 @@
         dest: ./
         remote_src: yes
 
+#    - name: Initialize RMP Group Instance List
+#      set_fact:
+#        cacheable: yes
+#        dc_1_rmp_group_instances: []
+
+#    - name: RMP Group Instance List
+#      set_fact:
+#        dc_1_rmp_group_instances: "{{ dc_1_rmp_group_instances }} + [ '{{ hostvars[item]['ansible_hostname'] }}' ]"
+#      with_items: "{{ groups['rmp'] }}"
+
     - name: Create Topology
       terraform:
         binary_path: "{{ playbook_dir }}/terraform"
@@ -82,6 +92,7 @@
           dc_1_rmp_count: "{{ dc_1_rmp_count }}"
           dc_1_rmp_instance_type: "{{ dc_1_rmp_instance_type }}"
           dc_1_rmp_disk_size: "{{ dc_1_rmp_disk_size }}"
+#          dc_1_rmp_group_instances: "{{ dc_1_rmp_group_instances }}"
           dc_1_qpid_name: "{{ dc_1_qpid_name }}"
           dc_1_qpid_count: "{{ dc_1_qpid_count }}"
           dc_1_qpid_instance_type: "{{ dc_1_qpid_instance_type }}"

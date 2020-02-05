@@ -89,6 +89,11 @@ variable "dc_1_rmp_disk_size" {
   default = 100
 }
 
+//variable "dc_1_rmp_group_instances"{
+//  default = []
+//  type = set(string)
+//}
+
 variable "dc_1_qpid_name" {}
 
 variable "dc_1_qpid_count" {
@@ -272,4 +277,20 @@ variable "service_account_email" { }
 
 variable "nat_dc_2_count" {
   default = "0"
+}
+
+variable "apigee_ms_ui_port_name" {
+  default = "ui_port_name"
+}
+
+variable "apigee_ms_ui_port" {
+  default = "9000"
+}
+
+variable "disk_type_ssd" {
+  default = "pd-ssd"
+}
+
+variable "disk_type_standard" {
+  default = "pd-standard"
 }

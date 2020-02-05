@@ -11,6 +11,120 @@ resource "google_compute_router" "apigeenet-router-dc-1" {
   region  = var.dc_1_gcp_region
 }
 
+// Create Unmanaged Instance Group
+//resource "google_compute_instance_group" "rmp-1-group" {
+//  name        = "rmp-server-groups"
+//  description = "RMP unmanaged instance group"
+//  zone = "${var.dc_1_zone}"
+//
+//  instances = [
+//    google_compute_instance.dc-1-rmp-1.self_link,
+////    google_compute_instance.dc-1-rmp-2.self_link,
+////    google_compute_instance.dc-1-rmp-3.self_link
+//  ]
+//
+//  named_port {
+//    name = "http"
+//    port = "9001"
+//  }
+//
+//  named_port {
+//    name = "https"
+//    port = "9001"
+//  }
+//
+//  lifecycle {
+//    create_before_destroy = true
+//  }
+//}
+//
+//resource "google_compute_instance" "dc-1-rmp-1" {
+//  name         = "${var.dc_1_rmp_name}-1"
+//  zone         = "${var.dc_1_zone}"
+//  machine_type = "${var.dc_1_rmp_instance_type}"
+//  tags         = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp",
+//    "apigeenet-allow-mgmt-ui",
+//    "apigeenet-allow-local",
+//    "validate-rmp",
+//    "apigee-rmp"
+//    ]
+//  labels = {
+//    g-on-g-notify-ignore = true
+//  }
+//  boot_disk {
+//    initialize_params {
+//      image = var.image_name
+//      size  = var.dc_1_rmp_disk_size
+//      type  = var.disk_type_standard
+//    }
+//  }
+//  network_interface {
+//    network = google_compute_network.apigeenet.self_link
+//  }
+//  allow_stopping_for_update = true
+//}
+//
+//resource "google_compute_instance" "dc-1-rmp-2" {
+//  name         = "${var.dc_1_rmp_name}-2"
+//  zone         = "${var.dc_1_zone}"
+//  machine_type = "${var.dc_1_rmp_instance_type}"
+//  tags         = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp",
+//    "apigeenet-allow-mgmt-ui",
+//    "apigeenet-allow-local",
+//    "validate-rmp",
+//    "apigee-rmp"
+//    ]
+//  labels = {
+//    g-on-g-notify-ignore = true
+//  }
+//  boot_disk {
+//    initialize_params {
+//      image = var.image_name
+//      size  = var.dc_1_rmp_disk_size
+//      type  = var.disk_type_standard
+//    }
+//  }
+//  network_interface {
+//    network = google_compute_network.apigeenet.self_link
+//  }
+//  allow_stopping_for_update = true
+//}
+//
+//resource "google_compute_instance" "dc-1-rmp-3" {
+//  name         = "${var.dc_1_rmp_name}-3"
+//  zone         = "${var.dc_1_zone}"
+//  machine_type = "${var.dc_1_rmp_instance_type}"
+//  tags         = [
+//    "apigeenet-allow-ssh",
+//    "apigeenet-allow-icmp",
+//    "apigeenet-allow-mgmt-ui",
+//    "apigeenet-allow-local",
+//    "validate-rmp",
+//    "apigee-rmp"
+//    ]
+//  labels = {
+//    g-on-g-notify-ignore = true
+//  }
+//  boot_disk {
+//    initialize_params {
+//      image = var.image_name
+//      size  = var.dc_1_rmp_disk_size
+//      type  = var.disk_type_standard
+//    }
+//  }
+//  network_interface {
+//    network = google_compute_network.apigeenet.self_link
+//  }
+//  allow_stopping_for_update = true
+//}
+//
+
+
+
 module "configure_firewall_apigeenet_allow_mgmt_ui" {
   source                 = "../modules/apigeenet-firewalls-protocol-with-ports"
   firewall_name          = "mgmt-ui"
@@ -168,6 +282,7 @@ module "apigee-dc-1-rmp" {
     "apigee-rmp"
   ]
 }
+
 module "apigee-dc-2-rmp" {
   source             = "../modules/internal-instance"
   instance_zone      = var.dc_2_zone
@@ -185,6 +300,7 @@ module "apigee-dc-2-rmp" {
     "apigee-rmp"
   ]
 }
+
 module "apigee-dc-3-rmp" {
   source             = "../modules/internal-instance"
   instance_zone      = var.dc_3_zone
@@ -222,6 +338,7 @@ module "apigee-ds-dc-1" {
     "apigee-ds"
   ]
 }
+
 module "apigee-ds-dc-2" {
   source             = "../modules/internal-instance"
   instance_zone      = var.dc_2_zone
@@ -240,6 +357,7 @@ module "apigee-ds-dc-2" {
     "apigee-ds"
   ]
 }
+
 module "apigee-ds-dc-3" {
   source             = "../modules/internal-instance"
   instance_zone      = var.dc_3_zone
@@ -277,6 +395,7 @@ module "apigee-qpid-dc-1" {
     "apigee-qpid"
   ]
 }
+
 module "apigee-qpid-dc-2" {
   source             = "../modules/internal-instance"
   instance_zone      = var.dc_2_zone
@@ -294,6 +413,7 @@ module "apigee-qpid-dc-2" {
     "apigee-postgres"
   ]
 }
+
 module "apigee-qpid-dc-3" {
   source             = "../modules/internal-instance"
   instance_zone      = var.dc_3_zone
@@ -351,6 +471,7 @@ module "apigee-pg-pgmaster-dc-1" {
     "apigee-postgres"
   ]
 }
+
 module "apigee-pg-pgmaster-dc-2" {
   source             = "../modules/internal-instance"
   instance_name      = var.dc_2_pgmaster_name
@@ -369,7 +490,6 @@ module "apigee-pg-pgmaster-dc-2" {
     "apigee-postgres"
   ]
 }
-
 
 # Add an apigee-vm instance
 module "apigee-pg-pgstandby-dc-1" {
@@ -390,6 +510,7 @@ module "apigee-pg-pgstandby-dc-1" {
     "apigee-postgres"
   ]
 }
+
 module "apigee-pg-pgstandby-dc-2" {
   source             = "../modules/internal-instance"
   instance_name      = var.dc_2_pgstandby_name
@@ -428,3 +549,54 @@ module "apigee-dp" {
   ]
 }
 
+# Reserve an external address
+resource "google_compute_global_address" "apigeenet-ms-global-address" {
+  name = "apigeenet-ms-global-address"
+}
+
+# Create the global forwarding rule for Apigee MS
+//resource "google_compute_global_forwarding_rule" "apigeenet-ms-forwarding-rule" {
+//  name       = "apigeenet-ms-forwarding-rule"
+//  port_range = "80"
+//  ip_address = "${google_compute_global_address.apigeenet-ms-global-address.address}"
+//  target     = "${google_compute_target_http_proxy.apigeenet-ms-http-proxy.self_link}"
+//}
+
+//resource "google_compute_target_http_proxy" "apigeenet-ms-http-proxy" {
+//  name    = "apigeenet-ms-http-proxy"
+//  url_map = "${google_compute_url_map.apigeenet-ms-url-map.self_link}"
+//}
+
+//resource "google_compute_url_map" "apigeenet-ms-url-map" {
+//  name            = "apigeenet-ms-url-map"
+//  default_service = "${google_compute_backend_service.apigeenet-ms-ui-backend-service.self_link}"
+//}
+
+//resource "google_compute_backend_service" "apigeenet-ms-ui-backend-service" {
+//  name     = "apigeenet-ms-ui-backend-service"
+//  protocol = "HTTP"
+//
+//  port_name = "${var.apigee_ms_ui_port_name}"
+//
+//  timeout_sec      = 10
+//  session_affinity = "NONE"
+//
+////  backend {
+////    group = "${module.create-aio-ui-instance-group-manager.instance_group}"
+////  }
+//
+//  health_checks = [
+//    "${google_compute_health_check.apigeenet-ms-ui-health-check.self_link}"
+//  ]
+//}
+
+//resource "google_compute_health_check" "apigeenet-ms-ui-health-check" {
+//  name               = "apigeenet-ms-ui-health-check"
+//  timeout_sec        = 5
+//  check_interval_sec = 21
+//
+//  http_health_check {
+//    port         = "${var.apigee_ms_ui_port}"
+//    request_path = "/login"
+//  }
+//}
