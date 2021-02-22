@@ -48,9 +48,9 @@
     - "~/.apigee"
     - "~/.apigee-secure"
   roles:
-    - { role: apigee-opdk-modules, tags: ['license'] }
+    - apigee-opdk-modules
     - apigee-opdk-setup-apigee-user
-    - { role: apigee-opdk-setup-license, tags: ['license'] }
+    - apigee-opdk-setup-license
     - apigee-opdk-setup-apigee-user-ownership
   tasks:
     - name: Create Target Folder on Target Node
