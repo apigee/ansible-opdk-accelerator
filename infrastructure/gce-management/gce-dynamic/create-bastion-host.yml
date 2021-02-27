@@ -3,7 +3,7 @@
   tags: ['instances', 'bastion', 'disks']
   gcp_compute_disk:
     name: '{{ name_instance }}-bastion-disk'
-    size_gb: "{{ bastion_disk_size | default(disk_size)  }}"
+    size_gb: "{{ bastion_disk_size | default(20)  }}"
     source_image: '{{ disk_source_image }}'
     zone: "{{ gcp_zone }}"
     project: "{{ gcp_project }}"
