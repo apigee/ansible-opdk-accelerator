@@ -36,6 +36,7 @@
     tags:
       items:
       - "{{ name_instance_network_tag }}"
+      - public_ssh
     metadata:
        'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
     scopes:

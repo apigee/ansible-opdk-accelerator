@@ -1,0 +1,15 @@
+wheel
+ansible==2.7.7
+ansible-base
+ansible-lint
+molecule
+yamllint
+passlib
+apache-libcloud
+google-auth
+pyasn1_modules
+requests
+pycryptodome
+cryptography
+rsa
+google-api-python-client

@@ -1,6 +1,6 @@
 ---
 - name: Update Cache for validate config file generation
-  hosts: planet
+  hosts: planet,edge
   tags: ['setup', 'cleanup']
   vars:
     property_folders:

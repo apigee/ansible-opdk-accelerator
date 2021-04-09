@@ -5,7 +5,7 @@ gcp_service_account_file: ~/.apigee-secure/sandbox-1f5fb288d552.json
 gcp_zone: "us-central1-c"
 gcp_region: "us-central1"
 network_name: "apigeenetwork"
-name_instance: "cf"
+name_instance: "apigee"
 name_instance_network_tag: "{{ name_instance }}-network-tag"
 name_firewall: "{{ name_instance }}-firewall"
 name_address: "{{ name_instance }}-address"
@@ -17,7 +17,7 @@ image_family: 'centos-7'
 #image_family: 'ubuntu-1604-lts'
 disk_source_image: "projects/{{ image_project }}/global/images/family/{{ image_family }}"
 disk_size: 50
-bastion_isk_size: 20
+bastion_disk_size: 20
 machine_type: n1-standard-1
 gce_image: 'centos-7'
 service_account_email: "friasc@sandbox-173316.iam.gserviceaccount.com"

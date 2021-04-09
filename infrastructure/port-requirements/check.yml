@@ -1,6 +1,6 @@
 ---
 - name: Update cache
-  hosts: planet
+  hosts: edge
   tags: ['cache','ms','ldap','ds', 'zk', 'router','mp','qpid','pg']
   strategy: free
   roles:

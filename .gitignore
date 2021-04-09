@@ -120,3 +120,4 @@ infrastructure/setup-ansible-offline/apigee-opdk-accelerator/*
 .terraform
 terraform*
 .apigee/.idea
+*/multi-node/ansible.cfg

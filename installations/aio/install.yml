@@ -32,8 +32,8 @@
   - { role: apigee-opdk-setup-apigee-user-ownership, tags: ['apigee-user','common'] }
   - { role: apigee-opdk-settings-private-address, tags: ['config','cache']  }
   - { role: apigee-opdk-settings-management-server, tags: ['config', 'cache' ]  }
-  - { role: apigee-opdk-settings-ldap, tags: ['config', 'minimum', 'cache' ]  }
   - { role: apigee-opdk-settings-region, tags: ['config', 'minimum', 'cache' ]  }
+  - { role: apigee-opdk-settings-ldap, tags: ['config', 'minimum', 'cache' ]  }
   - { role: apigee-opdk-settings-cassandra, tags: ['config', 'minimum', 'cache' ]  }
   - { role: apigee-opdk-settings-postgres, tags: ['config', 'minimum', 'cache' ]  }
   - { role: apigee-opdk-setup-silent-installation-config, tags: ['config'] }

@@ -1,6 +1,7 @@
 altgraph
-ansible
+ansible==2.10.5
 apache-libcloud
+google-auth
 asn1crypto
 awscli
 backports.ssl-match-hostname
@@ -19,7 +20,6 @@ ecdsa
 enum34
 epdb
 futures
-get
 helper
 httplib2
 idna
@@ -36,7 +36,6 @@ ndg-httpsclient
 numpy
 paramiko
 pexpect
-post
 ptyprocess
 public
 passlib
@@ -59,7 +58,6 @@ shellescape
 simplejson
 six
 urllib3
-virtualenv
 websocket-client
 xattr
 zope.interface
