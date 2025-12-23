@@ -13,6 +13,7 @@
     - { role: apigee-opdk-yum-repository-proxy-config, tags: ['yum-proxy-config']}
     - { role: apigee-opdk-setup-os-minimum, tags: ['os-minimum'] }
     - { role: apigee-opdk-setup-os-limits, tags: ['limit'] }
+    - { role: apigee-opdk-setup-os-pip, tags: ['pip'] }
     - { role: apigee-opdk-setup-os-sysctl, tags: ['sysctl'] }
     - { role: apigee-opdk-setup-selinux-disable, tags: ['minimum', 'selinux'] }
     - { role: apigee-server-restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
